@@ -14,7 +14,7 @@ const AuthState = (props) => {
     token: null,
     statusConected: false,
     privateAccess: false,
-    tipoUsuario: null,
+    nomRol: null,
   });
 
   const checkAuth = () => {
@@ -35,7 +35,7 @@ const AuthState = (props) => {
           error: false,
           token: null,
           statusConected: false,
-          tipoUsuario: null,
+          nomRol: null,
         })
       );
     }
@@ -44,14 +44,15 @@ const AuthState = (props) => {
   const login = ({ username, password }) => {
     LoginService({ username, password })
       .then((response) => {
+        console.log(response[0]);
         window.localStorage.setItem("userData", JSON.stringify(response[0]));
         setAuth({
           isLogged: response[0].statusConected,
-          username: response[0].username,
+          username: response[0].usuario,
           isLoading: false,
           error: false,
           token: response[0].token,
-          tipoUsuario: response[0].tipoUsuario,
+          nomRol: response[0].nomRol,
         });
         if (response[0].error) setAuth({ error: true });
       })
@@ -84,10 +85,10 @@ const AuthState = (props) => {
     <AuthContext.Provider
       value={{
         isLogged: auth.isLogged,
-        username: auth.user,
+        username: auth.username,
         isLoading: auth.isLoading,
         hasError: auth.error,
-        tipoUsuario: auth.tipoUsuario,
+        nomRol: auth.nomRol,
         login: login,
         logout: logout,
         checkAuth: checkAuth,
