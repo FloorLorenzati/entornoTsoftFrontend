@@ -104,8 +104,8 @@ export default function SideBar(props) {
                     <Link
                       id="li_home"
                       to={
-                        userData.tipoUsuario === "administrador" ||
-                        userData.tipoUsuario === "capital_humano"
+                        userData.nomRol === "administrador" ||
+                        userData.nomRol === "capital_humano"
                           ? "/home"
                           : "/homeColaboradores"
                       }
@@ -118,7 +118,7 @@ export default function SideBar(props) {
                   </li>
                   <li
                     className={
-                      userData.tipoUsuario !== "colaborador" ? "private" : ""
+                      userData.nomRol !== "colaborador" ? "private" : ""
                     }
                   >
                     <Link to="/MisCursos">
@@ -130,7 +130,7 @@ export default function SideBar(props) {
                   </li>
                   <li
                     className={
-                      userData.tipoUsuario !== "colaborador" ? "private" : ""
+                      userData.nomRol !== "colaborador" ? "private" : ""
                     }
                   >
                     <Link to="/InscripcionCurso">
@@ -144,8 +144,8 @@ export default function SideBar(props) {
                     id="li_Academia"
                     onClick={handleChangeAdmin}
                     className={
-                      userData.tipoUsuario === "administrador" ||
-                      userData.tipoUsuario === "capital_humano"
+                      userData.nomRol === "administrador" ||
+                      userData.nomRol === "capital_humano"
                         ? ""
                         : "private"
                     }
@@ -244,8 +244,8 @@ export default function SideBar(props) {
                     id="li_Academia"
                     onClick={handleChangeTsoft}
                     className={
-                      userData.tipoUsuario === "administrador" ||
-                      userData.tipoUsuario === "capital_humano"
+                      userData.nomRol === "administrador" ||
+                      userData.nomRol === "capital_humano"
                         ? ""
                         : "private"
                     }
@@ -263,8 +263,8 @@ export default function SideBar(props) {
                     id="li_Academia"
                     onClick={handleChangeAcademia}
                     className={
-                      userData.tipoUsuario === "administrador" ||
-                      userData.tipoUsuario === "capital_humano"
+                      userData.nomRol === "administrador" ||
+                      userData.nomRol === "capital_humano"
                         ? ""
                         : "private"
                     }
@@ -367,8 +367,8 @@ export default function SideBar(props) {
                     id="li_Academia"
                     onClick={handleChangeEvaluaciones}
                     className={
-                      userData.tipoUsuario === "administrador" ||
-                      userData.tipoUsuario === "capital_humano"
+                      userData.nomRol === "administrador" ||
+                      userData.nomRol === "capital_humano"
                         ? ""
                         : "private"
                     }
@@ -400,8 +400,8 @@ export default function SideBar(props) {
                       <li
                         id="textLeftSelect"
                         className={
-                          userData.tipoUsuario === "administrador" ||
-                          userData.tipoUsuario === "capital_humano"
+                          userData.nomRol === "administrador" ||
+                          userData.nomRol === "capital_humano"
                             ? ""
                             : "private"
                         }
@@ -416,8 +416,8 @@ export default function SideBar(props) {
                       <li
                         id="textLeftSelect"
                         className={
-                          userData.tipoUsuario === "administrador" ||
-                          userData.tipoUsuario === "capital_humano"
+                          userData.nomRol === "administrador" ||
+                          userData.nomRol === "capital_humano"
                             ? ""
                             : "private"
                         }
@@ -444,7 +444,7 @@ export default function SideBar(props) {
                     id="li_Colaboradores"
                     onClick={handleChangeColaboradores}
                     className={
-                      userData.tipoUsuario !== "colaborador" ? "private" : ""
+                      userData.nomRol !== "colaborador" ? "private" : ""
                     }
                   >
                     <button id="buttonSidebar">

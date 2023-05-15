@@ -6,6 +6,9 @@ import { PrivateRoute } from "../src/hooks/PrivateRoute";
 import HomePage from "./pages/home/Homepage";
 import Login from "./pages/login/login";
 
+/*LISTADOS*/
+import ListadoEmpleados from "./pages/Listados/ListadoEmpleados/ListadoEmpleados";
+
 function App() {
   return (
     <AuthState>
@@ -14,11 +17,17 @@ function App() {
           <Route element={<Login />} path="/"></Route>
           <Route element={<Login />} path="/Login"></Route>
 
+
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<HomePage />}></Route>
-          </Route> 
-
+            <Route
+              element={<ListadoEmpleados />}
+              path="/listadoEmpleados"
+            ></Route>
+          </Route>
         </Routes>
+
+
       </BrowserRouter>
     </AuthState>
   );
