@@ -10,18 +10,18 @@ import Card from "react-bootstrap/Card";
 export default function HomePage() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cards, setCards] = useState([""]);
-  const url = "TASKS/Cards-General.php";
-  function obtenerDatos() {
-    getDataService(url).then((cards) => setCards(cards));
-  }
-  useEffect(function () {
-    obtenerDatos();
-  }, []);
+  // const url = "TASKS/Cards-General.php";
+  // function obtenerDatos() {
+  //   getDataService(url).then((cards) => setCards(cards));
+  // }
+  // useEffect(function () {
+  //   obtenerDatos();
+  // }, []);
   return userData.statusConected || userData !== null ? (
     <div>
       <Header></Header>
-
-      <div id="container_cards">
+<h1>HOME</h1>
+      {/* <div id="container_cards">
         {cards.map((singleCard) => (
           <>
             <Card id="coe_carta">
@@ -83,11 +83,11 @@ export default function HomePage() {
           </>
         ))}
       </div>
-      <div id="chartsContainer">
+      <div id="chartsContainer"> */}
         {/* <BarChart data={cards}></BarChart>  */}
         {/* <PieChart data={cards}></PieChart> */}
-      </div>
-    </div>
+      {/* </div>*/}
+    </div> 
   ) : (
     <Navigate to="/login"></Navigate>
   );

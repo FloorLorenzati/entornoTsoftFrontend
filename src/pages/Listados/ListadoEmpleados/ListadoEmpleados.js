@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
-import getDataService from "../../../services/GetDataService";
-import SendDataService from "../../../services/GetDataService";
+import GetDataService from "../../../services/GetDataService";
+import SendDataService from '../../../services/SendDataService'
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
@@ -11,7 +11,7 @@ import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
 import InsertarEmpleado from "../../../templates/forms/InsertarEmpleado";
 // import EditarEmpleados from "../templates/forms/EditarEmpleados";
-import ConfirmAlert from "../../../templates/alerts/TopAlerts";
+// import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
@@ -21,9 +21,7 @@ import "../../Listados/BtnInsertar.css";
 export default function ListadoEmpleados() {
   const [empleado, setEmpleado] = useState([""]);
 //   const [paginador, setPaginadorRelator] = useState([""]);
-  const url = "TASKS/coe-listEmpleados.php";
 //   const urlPaginador = "paginador/botones_Empleado.php";
-  const operationUrl = "pagina";
   const [isActiveInsertEmpleado, setIsActiveInsertEmpleado] = useState(false);
   const [isActiveEditEmpleado, setIsActiveEditEmpleado] = useState(false);
   const [IDEmpleado, setIDEmpleado] = useState(null);
@@ -57,22 +55,24 @@ export default function ListadoEmpleados() {
 //     );
 //   }
 
-  // useEffect(
-  //   function () {
-  //   //   obtenerDatosPaginador();
-  //     handleChangePaginador();
-  //   },
-  //   [num_boton]
-  // );
+  useEffect(
+    function () {
+    //   obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
 
   //PAGINADOR ---------------------
 
-  // function handleChangePaginador() {
-  //   var data = {
-  //     num_boton: num_boton,
-  //   };
-  //   SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
-  // }
+  function handleChangePaginador() {
+    var url = "pages/listados/listadoEmpleados.php";
+    var operationUrl = "listadoEmpleados";
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
+  }
 
   //PAGINADOR ---------------------
 
@@ -113,20 +113,20 @@ export default function ListadoEmpleados() {
                 <th>País</th>
                 <th>Área</th>
                 <th>Cargo</th>
-                <th>Usuario</th>
+                {/* <th>Usuario</th> */}
               </tr>
             </thead>
-            {/* <tbody>
+            <tbody>
               {empleado.map((empleado) => (
                 <tr key={empleado.ID}>
-                  <td>{empleado.ID}</td>
-                  <td>{empleado.nombreEmpleado}</td>
+                  <td>{empleado.idEmpleado}</td>
+                  <td>{empleado.nomEmpleado}</td>
                   <td>{empleado.correoEmpleado}</td>
                   <td>{empleado.telefonoEmpleado}</td>
-                  <td>{empleado.pais}</td>
-                  <td>{empleado.area}</td>
-                  <td>{empleado.cargo}</td>
-                  <td>{empleado.usuario}</td>
+                  <td>{empleado.nomPais}</td>
+                  <td>{empleado.nomArea}</td>
+                  <td>{empleado.nomCargo}</td>
+                  {/* <td>{empleado.usuario}</td> */}
                   <td>
                     <button
                       title="Editar cliente"
@@ -145,7 +145,7 @@ export default function ListadoEmpleados() {
                   </td>
                 </tr>
               ))}
-            </tbody> */}
+            </tbody>
           </Table>
          {/* <Paginador
             paginas={paginador}

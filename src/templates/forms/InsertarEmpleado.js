@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import "../forms/InsertarRamo.css";
-import SendDataService from "../../services/GetDataService";
+import "../../templates/forms/InsertarRamo.css";
+import SendDataService from "../../services/SendDataService";
+import getDataService from "../../services/GetDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -10,14 +11,16 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
   // ----------------------CONSTANTES----------------------------
   const [nombreEmpleado, setNombreEmpleado] = useState("");
   const [correo, setCorreo] = useState("");
-  const [pais, setPais] = useState("");
-  const [cargo, setCargo] = useState("");
-  const [area, setArea] = useState("");
+  const [nomPais, setnomPais] = useState("");
+  const [nomCargo, setnomCargo] = useState("");
+  const [nomArea, setnomArea] = useState("");
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [tipoUser, setTipoUser] = useState("");
-  const [rolUser, setRolUser] = useState("");
+  const [nomRol, setnomRol] = useState("");
   const [telefono, setTelefono] = useState("");
+
+  const [listDesplegables, setlistDesplegables] = useState([""]);
 
   const listEmpleado = empleado;
 
@@ -27,33 +30,46 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
 
   // ----------------------FUNCIONES----------------------------
 
+  function obtenerDesplegables() {
+    const url = "pages/listados/listadosAuxiliaresForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistDesplegables(response)
+    );
+  }
+
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-insertarEmpleados.php";
-    const operationUrl = "insertarEmpleado";
+    // const url = "TASKS/coe-insertarEmpleados.php";
+    // const operationUrl = "insertarEmpleado";
     var data = {
       nombreEmpleado: nombreEmpleado,
-        correo: correo,
-        pais:pais,
-        cargo: cargo,
-        area: area,
-        usuario: usuario,
-        password: password,
-        tipoUser: tipoUser,
-        rolUser: rolUser,
-        telefono: telefono,
+      correo: correo,
+      nomPais: nomPais,
+      nomCargo: nomCargo,
+      nomArea: nomArea,
+      usuario: usuario,
+      password: password,
+      tipoUser: tipoUser,
+      nomRol: nomRol,
+      telefono: telefono,
     };
+    console.log(data);
+    // SendDataService(url, operationUrl, data).then((response) => {
+    //   const { successCreated, ...empleado } = response[0];
+    //   TopAlerts(successCreated);
+    //   actualizarEmpleados(empleado);
 
-    SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...empleado } = response[0];
-      TopAlerts(successCreated);
-      actualizarEmpleados(empleado);
-    });
+    // });
   }
 
   function actualizarEmpleados(response) {
     listEmpleado.push(response);
   }
+
+  useEffect(function () {
+    obtenerDesplegables();
+  }, []);
 
   // ----------------------RENDER----------------------------
   return (
@@ -64,9 +80,10 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-
-          <div>
-              <label htmlFor="input_nombreDelEmpleado">Nombre del empleado:</label>
+            <div>
+              <label htmlFor="input_nombreDelEmpleado">
+                Nombre del empleado:
+              </label>
               <input
                 placeholder="Escriba nombre completo del empleado"
                 type="text"
@@ -78,9 +95,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
               />
             </div>
 
-
-            
-          <div>
+            <div>
               <label htmlFor="input_Correo">Correo:</label>
               <input
                 placeholder="Escriba el correo del empleado"
@@ -106,18 +121,14 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
               />
             </div>
 
-
-
-            
-
             <div>
-              <label htmlFor="input_contraceña">Contraceña:</label>
+              <label htmlFor="input_contraseña">Contraseña:</label>
               <input
-                placeholder="Escriba la contraceña"
+                placeholder="Escriba la contraseña"
                 type="text"
                 className="form-control"
-                name="input_contraceña"
-                id="input_contraceña"
+                name="input_contraseña"
+                id="input_contraseña"
                 onChange={({ target }) => setPassword(target.value)}
                 required
               />
@@ -125,10 +136,10 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
 
             <div>
               <label htmlFor="input_telefono">Teléfono (opcional): </label>
-              
+
               <input
                 placeholder="Escriba el teléfono"
-                type="password"
+                type="number"
                 className="form-control"
                 name="input_telefono"
                 id="input_telefono"
@@ -137,22 +148,23 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="input_pais">Pais: </label>
+              <label htmlFor="input_pais">País: </label>
               <select
                 required
                 className="form-control"
                 name="input_pais"
                 id="input_pais"
                 placeholder="Seleccione el pais"
-                onChange={({ target }) => setPais(target.value)}
+                onChange={({ target }) => setnomPais(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listDesplegables.map((valor) => (
+                  <option value={valor.idPais}>{valor.nomPais}</option>
+                ))}
               </select>
             </div>
-
-
 
             <div className="form-group">
               <label htmlFor="input_Cargo">Cargo: </label>
@@ -162,14 +174,16 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_Cargo"
                 id="input_Cargo"
                 placeholder="Seleccione el cargo"
-                onChange={({ target }) => setCargo(target.value)}
+                onChange={({ target }) => setnomCargo(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listDesplegables.map((valor) => (
+                  <option value={valor.idCargo}>{valor.nomCargo}</option>
+                ))}
               </select>
             </div>
-
 
             <div className="form-group">
               <label htmlFor="input_Area">Área: </label>
@@ -179,11 +193,14 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_Area"
                 id="input_Area"
                 placeholder="Seleccione el área"
-                onChange={({ target }) => setArea(target.value)}
+                onChange={({ target }) => setnomArea(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listDesplegables.map((valor) => (
+                  <option value={valor.idArea}>{valor.nomArea}</option>
+                ))}
               </select>
             </div>
 
@@ -197,12 +214,15 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 placeholder="Seleccione el tipo de usuario"
                 onChange={({ target }) => setTipoUser(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="empleado">Empleado</option>
+                <option value="alumno">Alumno</option>
+                <option value="people">People</option>
+                <option value="adminstrador">Adminstrador</option>
               </select>
             </div>
-
 
             <div className="form-group">
               <label htmlFor="input_RolUsuario">Rol de usuario: </label>
@@ -212,11 +232,15 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_RolUsuario"
                 id="input_RolUsuario"
                 placeholder="Seleccione el rol de usuario"
-                onChange={({ target }) => setRolUser(target.value)}
+                onChange={({ target }) => setnomRol(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listDesplegables.map((valor) => (
+                  <option value={valor.idRolUsuario}>{valor.nomRol}</option>
+                ))}
               </select>
             </div>
 
