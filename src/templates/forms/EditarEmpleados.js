@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../css/InsertarRamo.css";
-import SendDataService from "../../../services/SendDataService";
+import "../../templates/forms/InsertarRamo.css";
+import SendDataService from "../../services/SendDataService";
+import getDataService from "../../services/GetDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -9,13 +10,24 @@ import { useCallback } from "react";
 const EditarEmpleados = ({
   isActiveEditEmpleado,
   cambiarEstado,
-  IDEmpleado,
+  idEmpleado,
   empleado,
   setEmpleado,
 }) => {
   // ----------------------CONSTANTES----------------------------
-  const [nombreApellido, setNombreApellido] = useState("");
-  const [cargo, setCargo] = useState("");
+  const [nomEmpleado, setnomEmpleado] = useState("");
+  const [correoEmpleado, setcorreoEmpleado] = useState("");
+  const [telefonoEmpleado, setTelefonoEmpleado] = useState("");
+  const [idPais, setidPais] = useState("");
+  const [idArea, setidArea] = useState("");
+  const [idCargo, setidCargo] = useState("");
+
+  const [listPais, setlistPais] = useState([""]);
+  const [listCargo, setlistCargo] = useState([""]);
+  const [listArea, setlistArea] = useState([""]);
+
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
   const [responseID, setResponseID] = useState([""]);
   const listEmpleados = empleado;
 
@@ -23,32 +35,67 @@ const EditarEmpleados = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-    setNombreApellido(responseID[0].nombreApellido);
-    setCargo(responseID[0].cargo);
-  };
+    setnomEmpleado(responseID[0].nomEmpleado);
+    setcorreoEmpleado(responseID[0].correoEmpleado);
+    setTelefonoEmpleado(responseID[0].telefonoEmpleado);
+    setidPais(responseID[0].idPais);
+    setidArea(responseID[0].idArea);
+    setidCargo(responseID[0].idCargo);
 
+  };
   // ----------------------FUNCIONES----------------------------
+  function obtenerPais() {
+    const url = "pages/auxiliares/listadoPaisForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistPais(response)
+    );
+  }
+  function obtenerCargo() {
+    const url = "pages/auxiliares/listadoCargoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCargo(response)
+    );
+  }
+  function obtenerArea() {
+    const url = "pages/auxiliares/listadoAreaForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistArea(response)
+    );
+  }
 
   const getData = useCallback(() => {
-    const url = "TASKS/coe-selectEmpleados.php";
-    const operationUrl = "ID";
-    const data = { ID: IDEmpleado };
+    const url = "pages/seleccionar/selectDatosEmpleado.php";
+    const operationUrl = "selectDatosEmpleado";
+    const data = { idEmpleado: idEmpleado };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
-      setNombreApellido(response[0].nombreApellido);
-      setCargo(response[0].cargo);
+      setnomEmpleado(response[0].nomEmpleado);
+      setcorreoEmpleado(response[0].correoEmpleado);
+      setTelefonoEmpleado(response[0].telefonoEmpleado);
+      setidPais(response[0].nomPais);
+      setidArea(response[0].nomArea);
+      setidCargo(response[0].nomCargo);
     });
-  }, [IDEmpleado]);
+  }, [idEmpleado]);
 
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-editEmpleados.php";
+    const url = "pages/editar/editarEmpleado.php";
+    const operationUrl = "editarEmpleado";
 
-    const operationUrl = "editEmpleados";
     var data = {
-      ID: IDEmpleado,
-      nombreApellido:nombreApellido === "" ? responseID[0].nombreApellido : nombreApellido,
-      cargo:cargo === "" ? responseID[0].cargo : cargo,
+      usuarioModificacion: userData.usuario,
+      idEmpleado: idEmpleado,
+      nomEmpleado:nomEmpleado === "" ? responseID[0].nomEmpleado : nomEmpleado,
+      correoEmpleado:correoEmpleado === "" ? responseID[0].correoEmpleado : correoEmpleado,
+      telefonoEmpleado:telefonoEmpleado === "" ? responseID[0].telefonoEmpleado : telefonoEmpleado,
+      idPais:idPais === "" ? responseID[0].idPais : idPais,
+      idArea:idArea === "" ? responseID[0].idArea : idArea,
+      idCargo:idCargo === "" ? responseID[0].idCargo : idCargo,
+
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
@@ -59,7 +106,7 @@ const EditarEmpleados = ({
 
     function actualizarEmpleado(empleado) {
       const nuevosEmpleados = listEmpleados.map((c) =>
-        c.ID === empleado.ID ? empleado : c
+        c.idEmpleado === empleado.idEmpleado ? empleado : c
       );
       setEmpleado(nuevosEmpleados);
     }
@@ -67,11 +114,14 @@ const EditarEmpleados = ({
 
   useEffect(
     function () {
-      if (IDEmpleado !== null) {
+      if (idEmpleado !== null) {
         getData();
+        obtenerPais();
+        obtenerArea();
+        obtenerCargo();
       }
     },
-    [IDEmpleado, getData]
+    [idEmpleado]
   );
 
   // ----------------------RENDER----------------------------
@@ -84,29 +134,107 @@ const EditarEmpleados = ({
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
-              <label htmlFor="input_nombreApellido">Nombre del empleado:</label>
+
+            <label htmlFor="input_nombreDelEmpleado">
+                Nombre del empleado:
+              </label>
               <input
-                value={nombreApellido || ""}
+                placeholder="Escriba nombre completo del empleado"
+                value={nomEmpleado || ""}
                 type="text"
                 className="form-control"
-                name="input_nombreApellido"
-                id="input_nombreApellido"
-                onChange={({ target }) => setNombreApellido(target.value)}
+                name="input_nombreEmpleado"
+                id="input_nombreEmpleado"
+                onChange={({ target }) => setnomEmpleado(target.value)}
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="input_Cargo">Cargo</label>
+              <label htmlFor="input_Correo">Correo:</label>
               <input
-                value={cargo || ""}
+                placeholder="Escriba el correo del empleado"
+                value={correoEmpleado || ""}
                 type="text"
+                className="form-control"
+                name="input_correo"
+                id="input_correo"
+                onChange={({ target }) => setcorreoEmpleado(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_telefono">Teléfono (opcional): </label>
+
+              <input
+                placeholder="Escriba el teléfono"
+                value={telefonoEmpleado || ""}
+                type="tel"
+                className="form-control"
+                name="input_telefono"
+                id="input_telefono"
+                onChange={({ target }) => setTelefonoEmpleado(target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="input_pais">País: </label>
+              <select
+                value={idPais || ""}
+                required
+                className="form-control"
+                name="input_pais"
+                id="input_pais"
+                placeholder="Seleccione el pais"
+                onChange={({ target }) => setidPais(target.value)}
+              >
+                <option hidden value="">
+                  {idPais}
+                </option>
+                {listPais.map((valor) => (
+                  <option value={valor.idPais}>{valor.nomPais}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="input_Cargo">Cargo: </label>
+              <select
+                required
+                value={idCargo || ""}
                 className="form-control"
                 name="input_Cargo"
                 id="input_Cargo"
-                onChange={({ target }) => setCargo(target.value)}
+                placeholder="Seleccione el cargo"
+                onChange={({ target }) => setidCargo(target.value)}
+              >
+                <option hidden value="">
+                  {idCargo}
+                </option>
+                {listCargo.map((valor) => (
+                  <option value={valor.idCargo}>{valor.nomCargo}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="input_Area">Área: </label>
+              <select
                 required
-              />
+                value={idArea || ""}
+                className="form-control"
+                name="input_Area"
+                id="input_Area"
+                placeholder="Seleccione el área"
+                onChange={({ target }) => setidArea(target.value)}
+              >
+                <option hidden value={idArea}>
+                {idArea}
+                </option>
+                {listArea.map((valor) => (
+                  <option value={valor.idArea}>{valor.nomArea}</option>
+                ))}
+              </select>
             </div>
             <Button
               variant="secondary"

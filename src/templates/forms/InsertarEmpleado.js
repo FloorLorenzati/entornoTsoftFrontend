@@ -9,18 +9,23 @@ import Modal from "react-bootstrap/Modal";
 
 const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
   // ----------------------CONSTANTES----------------------------
-  const [nombreEmpleado, setNombreEmpleado] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [nomPais, setnomPais] = useState("");
-  const [nomCargo, setnomCargo] = useState("");
-  const [nomArea, setnomArea] = useState("");
+  const [nomEmpleado, setNomEmpleado] = useState("");
+  const [correoEmpleado, setcorreoEmpleado] = useState("");
+  const [idPais, setidPais] = useState("");
+  const [idCargo, setidCargo] = useState("");
+  const [idArea, setidArea] = useState("");
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  const [tipoUser, setTipoUser] = useState("");
+  const [tipoUsuario, settipoUsuario] = useState("");
   const [nomRol, setnomRol] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [telefonoEmpleado, settelefonoEmpleado] = useState("");
 
-  const [listDesplegables, setlistDesplegables] = useState([""]);
+  const [listPais, setlistPais] = useState([""]);
+  const [listCargo, setlistCargo] = useState([""]);
+  const [listArea, setlistArea] = useState([""]);
+  const [listNomRol, setlistNomRol] = useState([""]);
+
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const listEmpleado = empleado;
 
@@ -30,37 +35,59 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
 
   // ----------------------FUNCIONES----------------------------
 
-  function obtenerDesplegables() {
-    const url = "pages/listados/listadosAuxiliaresForms.php";
+  function obtenerPais() {
+    const url = "pages/auxiliares/listadoPaisForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-      setlistDesplegables(response)
+    setlistPais(response)
+    );
+  }
+  function obtenerCargo() {
+    const url = "pages/auxiliares/listadoCargoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCargo(response)
+    );
+  }
+  function obtenerArea() {
+    const url = "pages/auxiliares/listadoAreaForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistArea(response)
+    );
+  }
+  function obtenerNomRol() {
+    const url = "pages/auxiliares/listadoRolForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistNomRol(response)
     );
   }
 
   function SendData(e) {
     e.preventDefault();
-    // const url = "TASKS/coe-insertarEmpleados.php";
-    // const operationUrl = "insertarEmpleado";
+    const url = "pages/insertar/insertarEmpleado.php";
+    const operationUrl = "insertarEmpleado";
     var data = {
-      nombreEmpleado: nombreEmpleado,
-      correo: correo,
-      nomPais: nomPais,
-      nomCargo: nomCargo,
-      nomArea: nomArea,
+      usuarioAdmin: userData.usuario,
+      nomEmpleado: nomEmpleado,
+      correoEmpleado: correoEmpleado,
+      idPais: idPais,
+      idCargo: idCargo,
+      idArea: idArea,
       usuario: usuario,
       password: password,
-      tipoUser: tipoUser,
+      tipoUsuario: tipoUsuario,
       nomRol: nomRol,
-      telefono: telefono,
+      telefonoEmpleado: telefonoEmpleado,
     };
     console.log(data);
-    // SendDataService(url, operationUrl, data).then((response) => {
-    //   const { successCreated, ...empleado } = response[0];
-    //   TopAlerts(successCreated);
-    //   actualizarEmpleados(empleado);
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successCreated, ...empleado } = response[0];
+      TopAlerts(successCreated);
+      actualizarEmpleados(empleado);
 
-    // });
+    });
   }
 
   function actualizarEmpleados(response) {
@@ -68,7 +95,11 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
   }
 
   useEffect(function () {
-    obtenerDesplegables();
+    obtenerPais();
+    obtenerCargo();
+    obtenerArea();
+    obtenerNomRol();
+
   }, []);
 
   // ----------------------RENDER----------------------------
@@ -90,7 +121,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 className="form-control"
                 name="input_nombreEmpleado"
                 id="input_nombreEmpleado"
-                onChange={({ target }) => setNombreEmpleado(target.value)}
+                onChange={({ target }) => setNomEmpleado(target.value)}
                 required
               />
             </div>
@@ -103,7 +134,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
-                onChange={({ target }) => setCorreo(target.value)}
+                onChange={({ target }) => setcorreoEmpleado(target.value)}
                 required
               />
             </div>
@@ -139,11 +170,11 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
 
               <input
                 placeholder="Escriba el teléfono"
-                type="number"
+                type="tel"
                 className="form-control"
                 name="input_telefono"
                 id="input_telefono"
-                onChange={({ target }) => setTelefono(target.value)}
+                onChange={({ target }) => settelefonoEmpleado(target.value)}
               />
             </div>
 
@@ -155,12 +186,12 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_pais"
                 id="input_pais"
                 placeholder="Seleccione el pais"
-                onChange={({ target }) => setnomPais(target.value)}
+                onChange={({ target }) => setidPais(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
-                {listDesplegables.map((valor) => (
+                {listPais.map((valor) => (
                   <option value={valor.idPais}>{valor.nomPais}</option>
                 ))}
               </select>
@@ -174,12 +205,12 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_Cargo"
                 id="input_Cargo"
                 placeholder="Seleccione el cargo"
-                onChange={({ target }) => setnomCargo(target.value)}
+                onChange={({ target }) => setidCargo(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
-                {listDesplegables.map((valor) => (
+                {listCargo.map((valor) => (
                   <option value={valor.idCargo}>{valor.nomCargo}</option>
                 ))}
               </select>
@@ -193,12 +224,12 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_Area"
                 id="input_Area"
                 placeholder="Seleccione el área"
-                onChange={({ target }) => setnomArea(target.value)}
+                onChange={({ target }) => setidArea(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
-                {listDesplegables.map((valor) => (
+                {listArea.map((valor) => (
                   <option value={valor.idArea}>{valor.nomArea}</option>
                 ))}
               </select>
@@ -212,7 +243,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 name="input_TipoDeUsuario"
                 id="input_TipoDeUsuario"
                 placeholder="Seleccione el tipo de usuario"
-                onChange={({ target }) => setTipoUser(target.value)}
+                onChange={({ target }) => settipoUsuario(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
@@ -238,7 +269,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   Desplegar lista
                 </option>
 
-                {listDesplegables.map((valor) => (
+                {listNomRol.map((valor) => (
                   <option value={valor.idRolUsuario}>{valor.nomRol}</option>
                 ))}
               </select>
