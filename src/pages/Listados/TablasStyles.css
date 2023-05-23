@@ -63,3 +63,24 @@
   background: #e10b1c;
   color: white;
 }
+
+#selectPaginador{
+  display: flex;
+  flex-direction: row;
+  
+  
+}
+#btn1{
+  background-color: #e10b1c;
+    border-color: white; 
+    margin-left: 1px;
+    border: none;
+    border:#e10b1c solid 1px;
+    padding:0px 1em 0px 1em;
+}
+
+
+#btn2{
+  margin-left: 50px;
+
+}

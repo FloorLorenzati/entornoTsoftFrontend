@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import "../../css/InsertarRamo.css";
+import "../InsertarRamo.css";
 import SendDataService from "../../../services/SendDataService";
-import TopAlerts from "../alerts/TopAlerts";
+import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 

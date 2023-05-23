@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../css/InsertarRamo.css";
+import "../InsertarRamo.css";
 import SendDataService from "../../../services/SendDataService";
-import TopAlerts from "../alerts/TopAlerts";
+import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useCallback } from "react";
@@ -9,7 +9,7 @@ import { useCallback } from "react";
 const EditarClientes = ({
   isActiveEditCliente,
   cambiarEstado,
-  IDCliente,
+  idCliente,
   cliente,
   setCliente,
 }) => {
@@ -40,7 +40,7 @@ const EditarClientes = ({
   const getData = useCallback(() => {
     const url = "TASKS/coe-selectClientes.php";
     const operationUrl = "ID";
-    const data = { ID: IDCliente };
+    const data = { ID: idCliente };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
       setCargoReferente(response[0].cargoReferente);
@@ -50,7 +50,7 @@ const EditarClientes = ({
       setCorreoReferente(response[0].correoReferente);
       setTelefonoReferente(response[0].telefonoReferente);
     });
-  }, [IDCliente]);
+  }, [idCliente]);
 
   function SendData(e) {
     // e.preventDefault();
@@ -58,7 +58,7 @@ const EditarClientes = ({
 
     const operationUrl = "editarCliente";
     var data = {
-      ID: IDCliente,
+      ID: idCliente,
       tipo_cliente:
         tipo_cliente === "" ? responseID[0].tipo_cliente : tipo_cliente,
       nombreCliente:
@@ -92,11 +92,11 @@ const EditarClientes = ({
 
   useEffect(
     function () {
-      if (IDCliente !== null) {
+      if (idCliente !== null) {
         getData();
       }
     },
-    [IDCliente, getData]
+    [idCliente, getData]
   );
 
   // ----------------------RENDER----------------------------

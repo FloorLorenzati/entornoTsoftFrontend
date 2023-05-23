@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
-import TopAlerts from "../alerts/TopAlerts";
+import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../css/InsertarCursoCalendario.css";
+// import "../../css/InsertarCursoCalendario.css";
 import SendDataService from "../../../services/SendDataService";
-import TopAlerts from "../alerts/TopAlerts";
+import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import getDataService from "../../../services/GetDataService";
@@ -9,7 +9,7 @@ import getDataService from "../../../services/GetDataService";
 const EditarRamo = ({
   isActiveEditRamo,
   cambiarEstado,
-  IDRamo,
+  idRamo,
   ramos,
   setRamos,
 }) => {
@@ -45,7 +45,7 @@ const EditarRamo = ({
   function getData() {
     const url = "TASKS/coe-selectCursos.php";
     const operationUrl = "ID";
-    const data = { ID: IDRamo };
+    const data = { ID: idRamo };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
       setCodigoRamo(response[0].codigoRamo);
@@ -61,7 +61,7 @@ const EditarRamo = ({
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
-      ID: IDRamo,
+      ID: idRamo,
       idRelator: idRelator === "" ? responseID[0].idRelator : idRelator,
       codigoRamo: codigoRamo === "" ? responseID[0].codigoRamo : codigoRamo,
       nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
@@ -84,12 +84,12 @@ const EditarRamo = ({
 
   useEffect(
     function () {
-      if (IDRamo !== null) {
+      if (idRamo !== null) {
         getData();
         obtenerRelatores();
       }
     },
-    [IDRamo]
+    [idRamo]
   );
 
   // ----------------------RENDER----------------------------
