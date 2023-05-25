@@ -11,6 +11,16 @@ import ListadoEmpleados from "./pages/Listados/ListadoEmpleados/ListadoEmpleados
 import ListadoRelator from "./pages/Listados/ListadoRelator/ListadoRelator";
 import ListadoRamos from "./pages/Listados/ListadoRamos/ListadoRamos";
 import ListadoClientes from "./pages/Listados/ListadoClientes/ListadoClientes";
+import ListadoSesiones from "./pages/Listados/ListadoSesiones/ListadoSesiones.js";
+import ListadoServicios from "./pages/Listados/ListadoServicios/ListadoServicios";
+import ListadoAlumnos from "./pages/Listados/ListadoAlumnos/ListadoAlumnos";
+import ListadoCursos from "./pages/Listados/ListadoCursos/ListadoCursos";
+import ListadoContacto from "./pages/Listados/ListadoContacto/ListadoContacto";
+import ListadoCursoAlumnos from "./pages/Listados/ListadoCursoAlumno/ListadoCursoAlumno";
+import ListadoCursoAlumnoSesion from "./pages/Listados/ListadoCursoAlumnoSesion/ListadoCursoAlumnoSesion";
+import ListadoNotaExamen from "./pages/Listados/ListadoNotaExamen/ListadoNotaExamen";
+import ListadoRamoExamen from "./pages/Listados/ListadoRamoExamen/ListadoRamoExamen";
+import ListadoRelatorRamo from "./pages/Listados/ListadoRelatorRamo/ListadoRelatorRamo";
 
 function App() {
   return (
@@ -26,15 +36,41 @@ function App() {
               element={<ListadoEmpleados />}
               path="/listadoEmpleados"
             ></Route>
-            
-            <Route
-              element={<ListadoRelator />}
-              path="/listadoRelator"
-            ></Route>
+
+            <Route element={<ListadoRelator />} path="/listadoRelator"></Route>
 
             <Route element={<ListadoRamos />} path="/listadoRamos"></Route>
 
-            <Route element={<ListadoClientes />} path="/listadoClientes"></Route>
+            <Route element={<ListadoCursos />} path="/listadoCursos"></Route>
+
+            <Route
+              element={<ListadoClientes />}
+              path="/listadoClientes"
+            ></Route>
+
+            <Route
+              element={<ListadoSesiones />}
+              path="/listadoSesiones"
+            ></Route>
+
+            <Route
+              element={<ListadoServicios />}
+              path="/listadoServicios"
+            ></Route>
+            <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route>
+
+            <Route element={<ListadoContacto />} path="/listadoContacto"></Route>
+
+            <Route element={<ListadoCursoAlumnos />} path="/listadoCursoAlumnos"></Route>
+
+            <Route element={<ListadoCursoAlumnoSesion />} path="/listadoCursoAlumnoSesion"></Route>
+
+            <Route element={<ListadoNotaExamen />} path="/listadoNotaExamen"></Route>
+
+            <Route element={<ListadoRamoExamen />} path="/listadoRamoExamen"></Route>
+
+            <Route element={<ListadoRelatorRamo />} path="/listadoRelatorRamo"></Route>
+
           </Route>
         </Routes>
       </BrowserRouter>

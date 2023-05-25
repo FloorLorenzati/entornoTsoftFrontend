@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import "../../../templates/forms/InsertarRamo.css";
+import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
 import getDataService from "../../../services/GetDataService";
 import TopAlerts from "../../alerts/TopAlerts";
@@ -107,13 +107,13 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Empleado</Modal.Title>
+          <Modal.Title>Crear Empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
               <label htmlFor="input_nombreDelEmpleado">
-                Nombre del empleado:
+                Nombre:
               </label>
               <input
                 placeholder="Escriba nombre completo del empleado"
@@ -121,6 +121,8 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 className="form-control"
                 name="input_nombreEmpleado"
                 id="input_nombreEmpleado"
+                maxLength='50'
+                // size='5'
                 onChange={({ target }) => setNomEmpleado(target.value)}
                 required
               />
@@ -130,7 +132,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
               <label htmlFor="input_Correo">Correo:</label>
               <input
                 placeholder="Escriba el correo del empleado"
-                type="text"
+                type="email"
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
@@ -156,7 +158,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
               <label htmlFor="input_contraseña">Contraseña:</label>
               <input
                 placeholder="Escriba la contraseña"
-                type="text"
+                type="password"
                 className="form-control"
                 name="input_contraseña"
                 id="input_contraseña"

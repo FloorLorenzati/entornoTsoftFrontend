@@ -5,7 +5,7 @@ import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useCallback } from "react";
-import "../../../templates/forms/InsertarRamo.css";
+import "../../../templates/forms/Insertar.css";
 
 
 const EditarRelator = ({ isActiveEditRelator, cambiarEstado, idRelator }) => {

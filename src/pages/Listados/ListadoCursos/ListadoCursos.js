@@ -9,49 +9,53 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado";
-import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
-import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
+import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso"
+import EditarCurso from "../../../templates/forms/Editar/EditarCurso";
+// import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../../Listados/BtnInsertar.css";
 
-export default function ListadoEmpleados() {
-  const [empleado, setEmpleado] = useState([""]);
+export default function ListadoCursos() {
+  const [curso, setCurso] = useState([""]);
   //   const [paginador, setPaginadorRelator] = useState([""]);
-  //   const urlPaginador = "paginador/botones_Empleado.php";
-  const [isActiveInsertEmpleado, setIsActiveInsertEmpleado] = useState(false);
-  const [isActiveEditEmpleado, setIsActiveEditEmpleado] = useState(false);
-  const [idEmpleado, setIDEmpleado] = useState(null);
+  //   const urlPaginador = "paginador/botones_Curso.php";
+  const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
+  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
+  const [idCurso, setIDCurso] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
 
 
-  function insertarEmpleado() {
-    setIsActiveInsertEmpleado(!isActiveInsertEmpleado);
+  function insertarCurso() {
+    setIsActiveInsertCurso(!isActiveInsertCurso);
   }
 
-  function editarEmpleado(ID) {
-    setIsActiveEditEmpleado(!isActiveEditEmpleado);
-    setIDEmpleado(ID);
+  function editarCurso(ID) {
+    setIsActiveEditCurso(!isActiveEditCurso);
+    setIDCurso(ID);
   }
-  function eliminar(ID) {
-    ConfirmAlert().then((response) => {
-      if (response === true) {
-        var url = "TASKS/coe-updateStateEmpleados.php";
-        var operationUrl = "updateStateEmpleados";
-        var data = { idEmpleado: ID, usuario: userData.username };
-        SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
-        });
-      }
-    });
-  }
+  // function eliminar(ID) {
+  //   ConfirmAlert().then((response) => {
+  //     if (response === true) {
+  //       var url = "TASKS/coe-updateStateCursos.php";
+  //       var operationUrl = "updateStateCursos";
+  //       var data = { ID: ID, usuario: userData.username };
+  //       SendDataService(url, operationUrl, data).then((response) => {
+  //         const { successEdited } = response[0];
+  //         TopAlerts(successEdited);
+  //       });
+  //     }
+  //   });
+  // }
 
- 
+  //   function obtenerDatosPaginador() {
+  //     getDataService(urlPaginador).then((paginador) =>
+  //       setPaginadorRelator(paginador)
+  //     );
+  //   }
 
   useEffect(
     function () {
@@ -62,19 +66,15 @@ export default function ListadoEmpleados() {
   );
 
   //PAGINADOR ---------------------
-   // function obtenerDatosPaginador() {
-    //   getDataService(urlPaginador).then((paginador) =>
-    //     setPaginadorRelator(paginador)
-    //   );
-    // }
+
   function handleChangePaginador() {
-    var url = "pages/listados/listadoEmpleados.php";
-    var operationUrl = "listadoEmpleados";
+    var url = "pages/listados/listadoCursos.php";
+    var operationUrl = "listadoCursos";
     var data = {
       num_boton: num_boton,
-      cantidadPorPagina: cantidadPorPagina
+      cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
+    SendDataService(url, operationUrl, data).then((data) => setCurso(data));
   }
 
   //PAGINADOR ---------------------
@@ -86,11 +86,13 @@ export default function ListadoEmpleados() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de empleados</h1>
+          <h1 id="TitlesPages">Listado de cursos</h1>
+
+
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarEmpleado}>
-            Insertar Empleado
+          <Button id="btn" onClick={insertarCurso}>
+            Crear Curso
           </Button>
 
             <div className="form-group" id="btn2">
@@ -113,57 +115,54 @@ export default function ListadoEmpleados() {
               </select>
             </div>
           </div>
+{/* 
+          <InsertarCurso
+            isActiveCurso={isActiveInsertCurso}
+            cambiarEstado={setIsActiveInsertCurso}
+            curso={curso}
+          ></InsertarCurso>
 
-          <InsertarEmpleado
-            isActiveEmpleado={isActiveInsertEmpleado}
-            cambiarEstado={setIsActiveInsertEmpleado}
-            empleado={empleado}
-          ></InsertarEmpleado>
-
-          <EditarEmpleados
-            isActiveEditEmpleado={isActiveEditEmpleado}
-            cambiarEstado={setIsActiveEditEmpleado}
-            idEmpleado={idEmpleado}
-            setEmpleado={setEmpleado}
-            empleado={empleado}
-          ></EditarEmpleados>
-
+          <EditarCursos
+            isActiveEditCurso={isActiveEditCurso}
+            cambiarEstado={setIsActiveEditCurso}
+            idCurso={idCurso}
+            setCurso={setCurso}
+            curso={curso}
+          ></EditarCursos>
+ */}
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>País</th>
-                <th>Área</th>
-                <th>Cargo</th>
+                <th>Tipo Horas</th>
+                <th>Duración curso (horas)</th>
+                <th>Cant sesiones</th>
                 <th>Operaciones</th>
-                {/* <th>Usuario</th> */}
+
               </tr>
             </thead>
             <tbody>
-              {empleado.map((empleado) => (
-                <tr key={empleado.idEmpleado}>
-                  <td>{empleado.idEmpleado}</td>
-                  <td>{empleado.nomEmpleado}</td>
-                  <td>{empleado.correoEmpleado}</td>
-                  <td>{empleado.telefonoEmpleado}</td>
-                  <td>{empleado.nomPais}</td>
-                  <td>{empleado.nomArea}</td>
-                  <td>{empleado.nomCargo}</td>
-                  {/* <td>{empleado.usuario}</td> */}
+              {curso.map((curso) => (
+                <tr key={curso.idCurso}>
+                  <td>{curso.idCurso}</td>
+                  <td>{curso.codCurso}</td>
+                  <td>{curso.nomCurso}</td>
+                  <td>{curso.tipoHH}</td>
+                  <td align="right" width={188}>{curso.duracionCursoHH}</td>
+                  <td align="right" width={120}>{curso.cantSesionesCurso}</td>
                   <td>
                     <button
-                      title="Editar cliente"
+                      title="Editar curso"
                       id="OperationBtns"
-                      onClick={() => editarEmpleado(empleado.idEmpleado)}
+                      onClick={() => editarCurso(curso.idCurso)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Eliminar curso"
-                      onClick={() => eliminar(empleado.idEmpleado)}
+                      title="Desactivar curso"
+                      onClick={() => eliminar(curso.idCurso)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

@@ -9,45 +9,45 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarRelator from "../../../templates/forms/Insertar/InsertarRelator";
-import EditarRelator from "../../../templates/forms/Editar/EditarRelator";
+// import InsertarCursoAlumnoSesion from "../../../templates/forms/Insertar/InsertarCursoAlumnoSesionesion";
+// import EditarCursoAlumnoSesion from "../../../templates/forms/Editar/EditarCursoAlumnoSesion";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoRelator() {
-  const [relator, setRelator] = useState([""]);
-  // const [paginador, setPaginadorRelator] = useState([""]);
-  // const urlPaginador = "paginador/botones_Relator.php";
-  const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
-  const [idRelator, setidRelator] = useState(null);
-  const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
+export default function ListadoCursoAlumnoSesion() {
+  const [cursoAlumnoSesion, setCursoAlumnoSesion] = useState([""]);
+  // const [paginador, setPaginadorCursoAlumnoSesion] = useState([""]);
+  // const urlPaginador = "paginador/botones_CursoAlumnoSesion.php";
+  const [isActiveInsertCursoAlumnoSesion, setIsActiveInsertCursoAlumnoSesion] = useState(false);
+  const [idCursoAlumnoSesion, setidCursoAlumnoSesion] = useState(null);
+  const [isActiveEditCursoAlumnoSesion, setIsActiveEditCursoAlumnoSesion] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorRelator(paginador)
+//       setPaginadorCursoAlumnoSesion(paginador)
 //     );
 //   }
 
-  function insertarRelator() {
-    setIsActiveInsertRelator(!isActiveInsertRelator);
+  function insertarCursoAlumnoSesion() {
+    setIsActiveInsertCursoAlumnoSesion(!isActiveInsertCursoAlumnoSesion);
   }
-  function editarRelator(ID) {
-    setIsActiveEditRelator(!isActiveEditRelator);
-    setidRelator(ID);
+  function editarCursoAlumnoSesion(ID) {
+    setIsActiveEditCursoAlumnoSesion(!isActiveEditCursoAlumnoSesion);
+    setidCursoAlumnoSesion(ID);
   }
 
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateRelator.php";
-        var operationUrl = "updateStateRelator";
-        var data = { idRelator: ID, usuario: userData.username  };
+        var url = "TASKS/coe-updateStateCursoAlumnoSesion.php";
+        var operationUrl = "updateStateCursoAlumnoSesion";
+        var data = { idCursoAlumnoSesion: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -65,14 +65,14 @@ export default function ListadoRelator() {
 
   //PAGINADOR ---------------------
   function handleChangePaginador() {
-    var url = "pages/listados/listadoRelatorRamo.php";
-    var operationUrl = "listadoRelatorRamo";
+    var url = "pages/listados/listadoCursoAlumnoSesion.php";
+    var operationUrl = "listadoCursoAlumnoSesion";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setRelator(data);
+      setCursoAlumnoSesion(data);
       console.log(data);});
   }
   //PAGINADOR ---------------------
@@ -84,11 +84,11 @@ export default function ListadoRelator() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de relatores</h1>
+          <h1 id="TitlesPages">Listado de Curso Alumnos Sesion</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarRelator}>
-            Crear Relator
+          <Button id="btn" onClick={insertarCursoAlumnoSesion}>
+            Crear Curso Alumnos Sesion
           </Button>
 
             <div className="form-group" id="btn2">
@@ -111,50 +111,57 @@ export default function ListadoRelator() {
               </select>
             </div>
           </div>
-          {/* <InsertarRelator
-            isActiveRelator={isActiveInsertRelator}
-            cambiarEstado={setIsActiveInsertRelator}
-          ></InsertarRelator>
+          {/* <InsertarCursoCursoAlumnoSesionesion
+            isActiveCursoAlumnoSesion={isActiveInsertCursoAlumnoSesion}
+            cambiarEstado={setIsActiveInsertCursoAlumnoSesion}
+          ></InsertarCursoCursoAlumnoSesionesion>
 
-          <EditarRelator
-            isActiveEditRelator={isActiveEditRelator}
-            cambiarEstado={setIsActiveEditRelator}
-            idRelator={idRelator}
-          ></EditarRelator> */}
+          <EditarCursoCursoAlumnoSesionesion
+            isActiveEditCursoAlumnoSesion={isActiveEditCursoAlumnoSesion}
+            cambiarEstado={setIsActiveEditCursoAlumnoSesion}
+            idCursoAlumnoSesion={idCursoAlumnoSesion}
+          ></EditarCursoCursoAlumnoSesionesion> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre empleado</th>
-                <th>Nombre ramo</th>
-                <th>Fecha inicio de actividades</th>
-                <th>Fecha fin de actividades</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
+                <th>Asistencia</th>
+                <th>Participación</th>
+                <th>Nombre Sesion</th>
+                <th>ID Curso Alumno</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {relator.map((relator) => (
-                <tr key={relator.idRelator}>
-                  <td>{relator.idRelatorRamo}</td>
-                  <td>{relator.nomEmpleado}</td>
-                  <td>{relator.nomRamo}</td>
-                  <td>{relator.fechaIni}</td>
-                  <td>{relator.fechaFin}</td>
+              {cursoAlumnoSesion.map((cursoAlumnoSesion) => (
+                <tr key={cursoAlumnoSesion.idCursoAlumnoSesion}>
+                  <td>{cursoAlumnoSesion.idCursoAlumnoSesion}</td>
+                  <td>{cursoAlumnoSesion.fechaIni}</td>
+                  <td>{cursoAlumnoSesion.fechaFin}</td>
+                  <td>{cursoAlumnoSesion.asistencia}</td>
+                  <td>{cursoAlumnoSesion.participacion}</td>
+                  <td>{cursoAlumnoSesion.nomSesion}</td>
+                  <td>{cursoAlumnoSesion.idCursoAlumno}</td>
+
+                  {/* <td align="right" width={90}>{cursoAlumnoSesion.porcAprobacion}</td> */}
+
                   <td>
                     <button
-                      title="Editar relator"
+                      title="Editar cursoAlumnoSesion"
                       id="OperationBtns"
-                      onClick={() => editarRelator(relator.idRelator)}
+                      onClick={() => editarCursoAlumnoSesion(cursoAlumnoSesion.idCursoAlumnoSesion)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar relator" id="OperationBtns">
+                    {/* <button title="Examinar cursoAlumnoSesion" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar relator"
-                      onClick={() => eliminar(relator.idRelator)}
+                      title="Eliminar cursoAlumnoSesion"
+                      onClick={() => eliminar(cursoAlumnoSesion.idCursoAlumnoSesion)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

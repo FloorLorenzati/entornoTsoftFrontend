@@ -127,13 +127,13 @@ export default function ListadoRamos() {
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
-                <th>ID del ramo</th>
-                <th>Código del ramo</th>
-                <th>Nombre del ramo</th>
-                <th>Tipo de ramo</th>
-                <th>Tipo de ramo HH</th>
-                <th>Duración del ramo</th>
-                <th>Cantidad de sesiones</th>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Tipo de horario</th>
+                <th>Duración</th>
+                <th>Cant de sesiones</th>
                 <th>Curso</th>
                 {/* <th>Fecha de creación</th> */}
                 <th>Operaciones</th>
@@ -142,13 +142,13 @@ export default function ListadoRamos() {
             <tbody>
               {ramos.map((ramos) => (
                 <tr key={ramos.idRamo}>
-                  <td>{ramos.idRamo}</td>
+                  <td align="right" width={1}>{ramos.idRamo}</td>
                   <td>{ramos.codRamo}</td>
                   <td>{ramos.nomRamo}</td>
                   <td>{ramos.tipoRamo}</td>
                   <td>{ramos.tipoRamoHH}</td>
-                  <td>{ramos.duracionRamoHH}</td>
-                  <td>{ramos.cantSesionesRamo}</td>
+                  <td align="right" width={1}>{ramos.duracionRamoHH}</td>
+                  <td align="right" width={141}>{ramos.cantSesionesRamo}</td>
                   <td>{ramos.nomCurso}</td>
                   {/* <td>{ramo.fechaCreacion}</td> */}
                   <td>

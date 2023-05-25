@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../css/InsertarCursoCalendario.css";
+// import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../../alerts/TopAlerts";

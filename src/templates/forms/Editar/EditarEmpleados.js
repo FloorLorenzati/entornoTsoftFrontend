@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../../templates/forms/InsertarRamo.css";
+import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
 import getDataService from "../../../services/GetDataService";
 import TopAlerts from "../../alerts/TopAlerts";
@@ -136,7 +136,7 @@ const EditarEmpleados = ({
             <div>
 
             <label htmlFor="input_nombreDelEmpleado">
-                Nombre del empleado:
+                Nombre:
               </label>
               <input
                 placeholder="Escriba nombre completo del empleado"
@@ -155,7 +155,7 @@ const EditarEmpleados = ({
               <input
                 placeholder="Escriba el correo del empleado"
                 value={correoEmpleado || ""}
-                type="text"
+                type="email"
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
@@ -188,7 +188,7 @@ const EditarEmpleados = ({
                 placeholder="Seleccione el pais"
                 onChange={({ target }) => setidPais(target.value)}
               >
-                <option hidden value="">
+                <option selected hidden value="">
                   {idPais}
                 </option>
                 {listPais.map((valor) => (
@@ -208,7 +208,7 @@ const EditarEmpleados = ({
                 placeholder="Seleccione el cargo"
                 onChange={({ target }) => setidCargo(target.value)}
               >
-                <option hidden value="">
+                <option selected hidden value="">
                   {idCargo}
                 </option>
                 {listCargo.map((valor) => (
@@ -228,7 +228,7 @@ const EditarEmpleados = ({
                 placeholder="Seleccione el área"
                 onChange={({ target }) => setidArea(target.value)}
               >
-                <option hidden value="">
+                <option selected hidden value="">
                 {idArea}
                 </option>
                 {listArea.map((valor) => (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../InsertarRamo.css";
+import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";

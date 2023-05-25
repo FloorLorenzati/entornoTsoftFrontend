@@ -2,47 +2,52 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
-import GetDataService from "../../../services/GetDataService";
+import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado";
-import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
+// import InsertarAlumnos from "../../../templates/forms/Insertar/InsertarAlumnos";
+// import EditarAlumnos from "../../../templates/forms/Editar/EditarAlumnos";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
-import "../../Listados/BtnInsertar.css";
+import "../BtnInsertar.css";
 
-export default function ListadoEmpleados() {
-  const [empleado, setEmpleado] = useState([""]);
-  //   const [paginador, setPaginadorRelator] = useState([""]);
-  //   const urlPaginador = "paginador/botones_Empleado.php";
-  const [isActiveInsertEmpleado, setIsActiveInsertEmpleado] = useState(false);
-  const [isActiveEditEmpleado, setIsActiveEditEmpleado] = useState(false);
-  const [idEmpleado, setIDEmpleado] = useState(null);
+export default function ListadoAlumnos() {
+  const [alumnos, setAlumnos] = useState([""]);
+  // const [paginador, setPaginadorAlumnos] = useState([""]);
+  // const urlPaginador = "paginador/botones_Alumnos.php";
+  const [isActiveInsertAlumnos, setIsActiveInsertAlumnos] = useState(false);
+  const [idAlumnos, setidAlumnos] = useState(null);
+  const [isActiveEditAlumnos, setIsActiveEditAlumnos] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
 
+//   function obtenerDatosPaginador() {
+//     getDataService(urlPaginador).then((paginador) =>
+//       setPaginadorAlumnos(paginador)
+//     );
+//   }
 
-  function insertarEmpleado() {
-    setIsActiveInsertEmpleado(!isActiveInsertEmpleado);
+  function insertarAlumnos() {
+    setIsActiveInsertAlumnos(!isActiveInsertAlumnos);
+  }
+  function editarAlumnos(ID) {
+    setIsActiveEditAlumnos(!isActiveEditAlumnos);
+    setidAlumnos(ID);
   }
 
-  function editarEmpleado(ID) {
-    setIsActiveEditEmpleado(!isActiveEditEmpleado);
-    setIDEmpleado(ID);
-  }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateEmpleados.php";
-        var operationUrl = "updateStateEmpleados";
-        var data = { idEmpleado: ID, usuario: userData.username };
+        var url = "TASKS/coe-updateStateAlumnos.php";
+        var operationUrl = "updateStateAlumnos";
+        var data = { idAlumnos: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -50,33 +55,25 @@ export default function ListadoEmpleados() {
       }
     });
   }
-
- 
-
   useEffect(
     function () {
-      //   obtenerDatosPaginador();
+      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
-   // function obtenerDatosPaginador() {
-    //   getDataService(urlPaginador).then((paginador) =>
-    //     setPaginadorRelator(paginador)
-    //   );
-    // }
   function handleChangePaginador() {
-    var url = "pages/listados/listadoEmpleados.php";
-    var operationUrl = "listadoEmpleados";
+    var url = "pages/listados/listadoAlumnos.php";
+    var operationUrl = "listadoAlumnos";
     var data = {
       num_boton: num_boton,
-      cantidadPorPagina: cantidadPorPagina
+      cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      setAlumnos(data);});
   }
-
   //PAGINADOR ---------------------
 
   return userData.statusConected || userData !== null ? (
@@ -86,11 +83,11 @@ export default function ListadoEmpleados() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de empleados</h1>
+          <h1 id="TitlesPages">Listado de alumnos</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarEmpleado}>
-            Insertar Empleado
+          <Button id="btn" onClick={insertarAlumnos}>
+            Crear Alumnos
           </Button>
 
             <div className="form-group" id="btn2">
@@ -113,57 +110,58 @@ export default function ListadoEmpleados() {
               </select>
             </div>
           </div>
+          {/* <InsertarAlumnos
+            isActiveAlumnos={isActiveInsertAlumnos}
+            cambiarEstado={setIsActiveInsertAlumnos}
+          ></InsertarAlumnos>
 
-          <InsertarEmpleado
-            isActiveEmpleado={isActiveInsertEmpleado}
-            cambiarEstado={setIsActiveInsertEmpleado}
-            empleado={empleado}
-          ></InsertarEmpleado>
-
-          <EditarEmpleados
-            isActiveEditEmpleado={isActiveEditEmpleado}
-            cambiarEstado={setIsActiveEditEmpleado}
-            idEmpleado={idEmpleado}
-            setEmpleado={setEmpleado}
-            empleado={empleado}
-          ></EditarEmpleados>
+          <EditarAlumnos
+            isActiveEditAlumnos={isActiveEditAlumnos}
+            cambiarEstado={setIsActiveEditAlumnos}
+            idAlumnos={idAlumnos}
+          ></EditarAlumnos> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>País</th>
-                <th>Área</th>
-                <th>Cargo</th>
+                <th>Nombre alumno</th>
+                <th>Correo alumno</th>
+                <th>Teléfono alumno</th>
+                <th>Nombre servicio</th>
+                <th>Nombre area</th>
+                <th>Nombre pais</th>
+                <th>Nombre cargo</th>
+
                 <th>Operaciones</th>
-                {/* <th>Usuario</th> */}
               </tr>
             </thead>
             <tbody>
-              {empleado.map((empleado) => (
-                <tr key={empleado.idEmpleado}>
-                  <td>{empleado.idEmpleado}</td>
-                  <td>{empleado.nomEmpleado}</td>
-                  <td>{empleado.correoEmpleado}</td>
-                  <td>{empleado.telefonoEmpleado}</td>
-                  <td>{empleado.nomPais}</td>
-                  <td>{empleado.nomArea}</td>
-                  <td>{empleado.nomCargo}</td>
-                  {/* <td>{empleado.usuario}</td> */}
+              {alumnos.map((alumnos) => (
+                <tr key={alumnos.idAlumnos}>
+                  <td>{alumnos.idAlumno}</td>
+                  <td>{alumnos.nomAlumno}</td>
+                  <td>{alumnos.correoAlumno}</td>
+                  <td>{alumnos.telefonoAlumno}</td>
+                  <td>{alumnos.nomServicio}</td>
+                  <td>{alumnos.nomArea}</td>
+                  <td>{alumnos.nomPais}</td>
+                  <td>{alumnos.nomCargo}</td>
+
                   <td>
                     <button
-                      title="Editar cliente"
+                      title="Editar alumnos"
                       id="OperationBtns"
-                      onClick={() => editarEmpleado(empleado.idEmpleado)}
+                      onClick={() => editarAlumnos(alumnos.idAlumnos)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+                    {/* <button title="Examinar alumnos" id="OperationBtns">
+                      <HiEye id="icons" />
+                    </button> */}
                     <button
-                      title="Eliminar curso"
-                      onClick={() => eliminar(empleado.idEmpleado)}
+                      title="Eliminar alumnos"
+                      onClick={() => eliminar(alumnos.idAlumnos)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

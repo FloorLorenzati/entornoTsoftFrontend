@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
-import DatePicker from "react-multi-date-picker";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import DateObject from "react-date-object";
+// import DatePicker from "react-multi-date-picker";
+// import DatePanel from "react-multi-date-picker/plugins/date_panel";
+// import TimePicker from "react-multi-date-picker/plugins/time_picker";
+// import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";

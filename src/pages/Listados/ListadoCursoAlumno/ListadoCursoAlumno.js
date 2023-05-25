@@ -9,45 +9,45 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarRelator from "../../../templates/forms/Insertar/InsertarRelator";
-import EditarRelator from "../../../templates/forms/Editar/EditarRelator";
+// import InsertarCursoAlumnos from "../../../templates/forms/Insertar/InsertarCursoAlumnos";
+// import EditarCursoAlumnos from "../../../templates/forms/Editar/EditarCursoAlumnos";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoRelator() {
-  const [relator, setRelator] = useState([""]);
-  // const [paginador, setPaginadorRelator] = useState([""]);
-  // const urlPaginador = "paginador/botones_Relator.php";
-  const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
-  const [idRelator, setidRelator] = useState(null);
-  const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
+export default function ListadoCursoAlumnos() {
+  const [cursoAlumnos, setCursoAlumnos] = useState([""]);
+  // const [paginador, setPaginadorCursoAlumnos] = useState([""]);
+  // const urlPaginador = "paginador/botones_CursoAlumnos.php";
+  const [isActiveInsertCursoAlumnos, setIsActiveInsertCursoAlumnos] = useState(false);
+  const [idCursoAlumnos, setidCursoAlumnos] = useState(null);
+  const [isActiveEditCursoAlumnos, setIsActiveEditCursoAlumnos] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorRelator(paginador)
+//       setPaginadorCursoAlumnos(paginador)
 //     );
 //   }
 
-  function insertarRelator() {
-    setIsActiveInsertRelator(!isActiveInsertRelator);
+  function insertarCursoAlumnos() {
+    setIsActiveInsertCursoAlumnos(!isActiveInsertCursoAlumnos);
   }
-  function editarRelator(ID) {
-    setIsActiveEditRelator(!isActiveEditRelator);
-    setidRelator(ID);
+  function editarCursoAlumnos(ID) {
+    setIsActiveEditCursoAlumnos(!isActiveEditCursoAlumnos);
+    setidCursoAlumnos(ID);
   }
 
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateRelator.php";
-        var operationUrl = "updateStateRelator";
-        var data = { idRelator: ID, usuario: userData.username  };
+        var url = "TASKS/coe-updateStateCursoAlumnos.php";
+        var operationUrl = "updateStateCursoAlumnos";
+        var data = { idCursoAlumnos: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -65,14 +65,14 @@ export default function ListadoRelator() {
 
   //PAGINADOR ---------------------
   function handleChangePaginador() {
-    var url = "pages/listados/listadoRelatorRamo.php";
-    var operationUrl = "listadoRelatorRamo";
+    var url = "pages/listados/listadoCursoAlumno.php";
+    var operationUrl = "listadoCursoAlumno";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setRelator(data);
+      setCursoAlumnos(data);
       console.log(data);});
   }
   //PAGINADOR ---------------------
@@ -84,11 +84,11 @@ export default function ListadoRelator() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de relatores</h1>
+          <h1 id="TitlesPages">Listado de Curso Alumnos</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarRelator}>
-            Crear Relator
+          <Button id="btn" onClick={insertarCursoAlumnos}>
+            Crear Curso Alumnos
           </Button>
 
             <div className="form-group" id="btn2">
@@ -111,50 +111,64 @@ export default function ListadoRelator() {
               </select>
             </div>
           </div>
-          {/* <InsertarRelator
-            isActiveRelator={isActiveInsertRelator}
-            cambiarEstado={setIsActiveInsertRelator}
-          ></InsertarRelator>
+          {/* <InsertarCursoCursoAlumnos
+            isActiveCursoAlumnos={isActiveInsertCursoAlumnos}
+            cambiarEstado={setIsActiveInsertCursoAlumnos}
+          ></InsertarCursoCursoAlumnos>
 
-          <EditarRelator
-            isActiveEditRelator={isActiveEditRelator}
-            cambiarEstado={setIsActiveEditRelator}
-            idRelator={idRelator}
-          ></EditarRelator> */}
+          <EditarCursoCursoAlumnos
+            isActiveEditCursoAlumnos={isActiveEditCursoAlumnos}
+            cambiarEstado={setIsActiveEditCursoAlumnos}
+            idCursoAlumnos={idCursoAlumnos}
+          ></EditarCursoCursoAlumnos> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre empleado</th>
-                <th>Nombre ramo</th>
-                <th>Fecha inicio de actividades</th>
-                <th>Fecha fin de actividades</th>
+                <th>Fecha incio</th>
+                <th>Fecha fin</th>
+                <th>Hora inicio</th>
+                <th>Hora fin</th>
+                <th>Porc asistencia</th>
+                <th>Porc participación</th>
+                <th>Clase aprobada</th>
+                <th>Porc aprobación</th>
+                <th>Estado curso</th>
+                <th>Nombre alumno</th>
+                <th>Nombre Curso</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {relator.map((relator) => (
-                <tr key={relator.idRelator}>
-                  <td>{relator.idRelatorRamo}</td>
-                  <td>{relator.nomEmpleado}</td>
-                  <td>{relator.nomRamo}</td>
-                  <td>{relator.fechaIni}</td>
-                  <td>{relator.fechaFin}</td>
+              {cursoAlumnos.map((cursoAlumnos) => (
+                <tr key={cursoAlumnos.idcursoAlumnos}>
+                  <td>{cursoAlumnos.idCursoAlumno}</td>
+                  <td>{cursoAlumnos.fechaIni}</td>
+                  <td>{cursoAlumnos.fechaFin}</td>
+                  <td>{cursoAlumnos.horaIni}</td>
+                  <td>{cursoAlumnos.horaFin}</td>
+                  <td align="right" width={90}>{cursoAlumnos.porcAsistencia}</td>
+                  <td align="right" width={90}>{cursoAlumnos.porcParticipacion}</td>
+                  <td>{cursoAlumnos.claseAprobada}</td>
+                  <td align="right" width={90}>{cursoAlumnos.porcAprobacion}</td>
+                  <td>{cursoAlumnos.estadoCurso}</td>
+                  <td>{cursoAlumnos.nomAlumno}</td>
+                  <td>{cursoAlumnos.nomCurso}</td>
                   <td>
                     <button
-                      title="Editar relator"
+                      title="Editar CursoAlumnos"
                       id="OperationBtns"
-                      onClick={() => editarRelator(relator.idRelator)}
+                      onClick={() => editarCursoAlumnos(cursoAlumnos.idCursoAlumnos)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar relator" id="OperationBtns">
+                    {/* <button title="Examinar cursoAlumnos" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar relator"
-                      onClick={() => eliminar(relator.idRelator)}
+                      title="Eliminar cursoAlumnos"
+                      onClick={() => eliminar(cursoAlumnos.idCursoAlumnos)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

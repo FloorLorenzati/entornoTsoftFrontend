@@ -2,47 +2,52 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
-import GetDataService from "../../../services/GetDataService";
+import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado";
-import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
+import InsertarContacto from "../../../templates/forms/Insertar/InsertarContacto";
+import EditarContacto from "../../../templates/forms/Editar/EditarContacto";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
-import "../../Listados/BtnInsertar.css";
+import "../BtnInsertar.css";
 
-export default function ListadoEmpleados() {
-  const [empleado, setEmpleado] = useState([""]);
-  //   const [paginador, setPaginadorRelator] = useState([""]);
-  //   const urlPaginador = "paginador/botones_Empleado.php";
-  const [isActiveInsertEmpleado, setIsActiveInsertEmpleado] = useState(false);
-  const [isActiveEditEmpleado, setIsActiveEditEmpleado] = useState(false);
-  const [idEmpleado, setIDEmpleado] = useState(null);
+export default function ListadoContacto() {
+  const [contacto, setContacto] = useState([""]);
+  // const [paginador, setPaginadorContacto] = useState([""]);
+  // const urlPaginador = "paginador/botones_Contacto.php";
+  const [isActiveInsertContacto, setIsActiveInsertContacto] = useState(false);
+  const [idContacto, setidContacto] = useState(null);
+  const [isActiveEditContacto, setIsActiveEditContacto] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
 
+//   function obtenerDatosPaginador() {
+//     getDataService(urlPaginador).then((paginador) =>
+//       setPaginadorContacto(paginador)
+//     );
+//   }
 
-  function insertarEmpleado() {
-    setIsActiveInsertEmpleado(!isActiveInsertEmpleado);
+  function insertarContacto() {
+    setIsActiveInsertContacto(!isActiveInsertContacto);
+  }
+  function editarContacto(ID) {
+    setIsActiveEditContacto(!isActiveEditContacto);
+    setidContacto(ID);
   }
 
-  function editarEmpleado(ID) {
-    setIsActiveEditEmpleado(!isActiveEditEmpleado);
-    setIDEmpleado(ID);
-  }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateEmpleados.php";
-        var operationUrl = "updateStateEmpleados";
-        var data = { idEmpleado: ID, usuario: userData.username };
+        var url = "TASKS/coe-updateStateContacto.php";
+        var operationUrl = "updateStateContacto";
+        var data = { idContacto: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -50,33 +55,26 @@ export default function ListadoEmpleados() {
       }
     });
   }
-
- 
-
   useEffect(
     function () {
-      //   obtenerDatosPaginador();
+      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
-   // function obtenerDatosPaginador() {
-    //   getDataService(urlPaginador).then((paginador) =>
-    //     setPaginadorRelator(paginador)
-    //   );
-    // }
   function handleChangePaginador() {
-    var url = "pages/listados/listadoEmpleados.php";
-    var operationUrl = "listadoEmpleados";
+    var url = "pages/listados/listadoContactos.php";
+    var operationUrl = "listadoContactos";
     var data = {
       num_boton: num_boton,
-      cantidadPorPagina: cantidadPorPagina
+      cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      setContacto(data);
+      console.log(data);});
   }
-
   //PAGINADOR ---------------------
 
   return userData.statusConected || userData !== null ? (
@@ -86,11 +84,11 @@ export default function ListadoEmpleados() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de empleados</h1>
+          <h1 id="TitlesPages">Listado de contactos</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarEmpleado}>
-            Insertar Empleado
+          <Button id="btn" onClick={insertarContacto}>
+            Crear Contacto
           </Button>
 
             <div className="form-group" id="btn2">
@@ -113,20 +111,16 @@ export default function ListadoEmpleados() {
               </select>
             </div>
           </div>
+          {/* <InsertarContacto
+            isActiveContacto={isActiveInsertContacto}
+            cambiarEstado={setIsActiveInsertContacto}
+          ></InsertarContacto>
 
-          <InsertarEmpleado
-            isActiveEmpleado={isActiveInsertEmpleado}
-            cambiarEstado={setIsActiveInsertEmpleado}
-            empleado={empleado}
-          ></InsertarEmpleado>
-
-          <EditarEmpleados
-            isActiveEditEmpleado={isActiveEditEmpleado}
-            cambiarEstado={setIsActiveEditEmpleado}
-            idEmpleado={idEmpleado}
-            setEmpleado={setEmpleado}
-            empleado={empleado}
-          ></EditarEmpleados>
+          <EditarContacto
+            isActiveEditContacto={isActiveEditContacto}
+            cambiarEstado={setIsActiveEditContacto}
+            idContacto={idContacto}
+          ></EditarContacto> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -135,35 +129,36 @@ export default function ListadoEmpleados() {
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>País</th>
-                <th>Área</th>
-                <th>Cargo</th>
+                <th>Fecha inico</th>
+                <th>Fecha fin</th>
+                <th>Nombre del servicio</th>
                 <th>Operaciones</th>
-                {/* <th>Usuario</th> */}
               </tr>
             </thead>
             <tbody>
-              {empleado.map((empleado) => (
-                <tr key={empleado.idEmpleado}>
-                  <td>{empleado.idEmpleado}</td>
-                  <td>{empleado.nomEmpleado}</td>
-                  <td>{empleado.correoEmpleado}</td>
-                  <td>{empleado.telefonoEmpleado}</td>
-                  <td>{empleado.nomPais}</td>
-                  <td>{empleado.nomArea}</td>
-                  <td>{empleado.nomCargo}</td>
-                  {/* <td>{empleado.usuario}</td> */}
+              {contacto.map((contacto) => (
+                <tr key={contacto.idContacto}>
+                  <td>{contacto.idContacto}</td>
+                  <td>{contacto.nomContacto}</td>
+                  <td>{contacto.correoContacto}</td>
+                  <td>{contacto.telefonoContacto}</td>
+                  <td>{contacto.fechaIni}</td>
+                  <td>{contacto.fechaFin}</td>
+                  <td>{contacto.nomServicio}</td>
                   <td>
                     <button
-                      title="Editar cliente"
+                      title="Editar contacto"
                       id="OperationBtns"
-                      onClick={() => editarEmpleado(empleado.idEmpleado)}
+                      onClick={() => editarContacto(contacto.idContacto)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+                    {/* <button title="Examinar contacto" id="OperationBtns">
+                      <HiEye id="icons" />
+                    </button> */}
                     <button
-                      title="Eliminar curso"
-                      onClick={() => eliminar(empleado.idEmpleado)}
+                      title="Eliminar contacto"
+                      onClick={() => eliminar(contacto.idContacto)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

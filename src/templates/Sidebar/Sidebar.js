@@ -83,7 +83,6 @@ export default function SideBar(props) {
           aria-labelledby="offcanvasScrollingLabel"
         >
           <div>
-            
             <button
               type="button"
               className="buttonStyleClose"
@@ -278,6 +277,14 @@ export default function SideBar(props) {
                       className={isToggledAcademia ? "active" : ""}
                     >
                       <li id="textLeftSelect">
+                        <Link to="/listadoAlumnos">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Alumnos
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
                         <Link to="/listadoClientes">
                           <button id="submenuSidebar">
                             <IoIosPeople id="icons" />
@@ -285,12 +292,35 @@ export default function SideBar(props) {
                           </button>
                         </Link>
                       </li>
-
+                      <li id="textLeftSelect">
+                        <Link to="/listadoContacto">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Contacto
+                          </button>
+                        </Link>
+                      </li>
                       <li id="textLeftSelect">
                         <Link to="/listadoCursos">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Cursos
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoCursoAlumnos">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Curso Alumnos
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoCursoAlumnoSesion">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Curso Alumnos Sesion
                           </button>
                         </Link>
                       </li>
@@ -303,15 +333,15 @@ export default function SideBar(props) {
                         </Link>
                       </li>
 
-                      <li id="textLeftSelect">
+                      {/* <li id="textLeftSelect">
                         <Link to="/listadoEquipos">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Equipos
                           </button>
                         </Link>
-                      </li>
-                      <li id="textLeftSelect">
+                      </li> */}
+                      {/* <li id="textLeftSelect">
                         <Link to="/ListadoAsistencias">
                           <button id="submenuSidebar">
                             <TiThList id="icons" />
@@ -327,21 +357,29 @@ export default function SideBar(props) {
                             Listado de Colaboradores
                           </button>
                         </Link>
-                      </li>
-                      <li id="textLeftSelect">
+                      </li> */}
+                      {/* <li id="textLeftSelect">
                         <Link to="/Prerequisitos">
                           <button id="submenuSidebar">
                             <GoTasklist id="icons" />
                             Prerequisitos
                           </button>
                         </Link>
-                      </li>
+                      </li> */}
 
-                      <li id="textLeftSelect">
+                      {/* <li id="textLeftSelect">
                         <Link to="/listadoProyectos">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Proyectos
+                          </button>
+                        </Link>
+                      </li> */}
+                      <li id="textLeftSelect">
+                        <Link to="/listadoNotaExamen">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Nota Examen
                           </button>
                         </Link>
                       </li>
@@ -354,10 +392,42 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
+                        <Link to="/listadoRamoExamen">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Ramo Examen
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
                         <Link to="/listadoRelator">
                           <button id="submenuSidebar">
                             <ImAddressBook id="icons" />
                             Relator
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoRelatorRamo">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Relator Ramo
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoServicios">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Servicios
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoSesiones">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Sesiones
                           </button>
                         </Link>
                       </li>
