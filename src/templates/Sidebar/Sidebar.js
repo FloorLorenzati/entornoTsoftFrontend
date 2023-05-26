@@ -400,14 +400,6 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoRelator">
-                          <button id="submenuSidebar">
-                            <ImAddressBook id="icons" />
-                            Relator
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
                         <Link to="/listadoRelatorRamo">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />

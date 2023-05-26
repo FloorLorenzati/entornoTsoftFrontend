@@ -27,6 +27,7 @@ export default function ListadoRamoExamen() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "ramoexamen"
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
@@ -42,12 +43,16 @@ export default function ListadoRamoExamen() {
     setidRamoExamen(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateRamoExamen.php";
-        var operationUrl = "updateStateRamoExamen";
-        var data = { idRamoExamen: ID, usuario: userData.username  };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -150,8 +155,8 @@ export default function ListadoRamoExamen() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar ramoExamen"
-                      onClick={() => eliminar(ramoExamen.idRamoExamen)}
+                      title="Desactivar ramoExamen"
+                      onClick={() => desactivar(ramoExamen.idRamoExamen)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

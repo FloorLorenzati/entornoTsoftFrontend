@@ -30,6 +30,7 @@ export default function ListadoRamos() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [num_boton, setNumBoton] = useState(1);
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "ramo"
 
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
@@ -38,12 +39,16 @@ export default function ListadoRamos() {
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
   }
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateRamos.php";
-        var operationUrl = "updateStateRamos";
-        var data = { idRamo: ID, usuario: userData.username };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -163,9 +168,9 @@ export default function ListadoRamos() {
                       <HiEye id="icons" />
                     </button>
                     <button
-                      title="Eliminar curso"
+                      title="Desactivar curso"
                       id="OperationBtns"
-                      onClick={() => eliminar(ramos.idRamo)}
+                      onClick={() => desactivar(ramos.idRamo)}
                     >
                       <BsFillTrashFill id="icons" />
                     </button>

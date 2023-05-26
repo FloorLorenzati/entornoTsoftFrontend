@@ -27,6 +27,7 @@ export default function ListadoServicios() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "servicio"
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
@@ -42,12 +43,16 @@ export default function ListadoServicios() {
     setidServicios(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateServicios.php";
-        var operationUrl = "updateStateServicios";
-        var data = { idServicios: ID, usuario: userData.username  };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -149,8 +154,8 @@ export default function ListadoServicios() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar servicios"
-                      onClick={() => eliminar(servicios.idServicios)}
+                      title="Desactivar servicios"
+                      onClick={() => desactivar(servicios.idServicios)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

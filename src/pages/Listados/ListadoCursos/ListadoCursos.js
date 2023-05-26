@@ -27,6 +27,7 @@ export default function ListadoCursos() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "curso"
 
 
   function insertarCurso() {
@@ -37,25 +38,29 @@ export default function ListadoCursos() {
     setIsActiveEditCurso(!isActiveEditCurso);
     setIDCurso(ID);
   }
-  // function eliminar(ID) {
-  //   ConfirmAlert().then((response) => {
-  //     if (response === true) {
-  //       var url = "TASKS/coe-updateStateCursos.php";
-  //       var operationUrl = "updateStateCursos";
-  //       var data = { ID: ID, usuario: userData.username };
-  //       SendDataService(url, operationUrl, data).then((response) => {
-  //         const { successEdited } = response[0];
-  //         TopAlerts(successEdited);
-  //       });
-  //     }
-  //   });
-  // }
+  function desactivar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
+        SendDataService(url, operationUrl, data).then((response) => {
+          const { successEdited } = response[0];
+          TopAlerts(successEdited);
+        });
+      }
+    });
+  }
 
-  //   function obtenerDatosPaginador() {
-  //     getDataService(urlPaginador).then((paginador) =>
-  //       setPaginadorRelator(paginador)
-  //     );
-  //   }
+    function obtenerDatosPaginador() {
+      getDataService(urlPaginador).then((paginador) =>
+        setPaginadorRelator(paginador)
+      );
+    }
 
   useEffect(
     function () {
@@ -162,7 +167,7 @@ export default function ListadoCursos() {
                     </button>
                     <button
                       title="Desactivar curso"
-                      onClick={() => eliminar(curso.idCurso)}
+                      onClick={() => desactivar(curso.idCurso)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

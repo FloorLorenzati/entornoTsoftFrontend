@@ -22,7 +22,7 @@ const EditarEmpleados = ({
   const [idPais, setidPais] = useState("");
   const [idArea, setidArea] = useState("");
   const [idCargo, setidCargo] = useState("");
-
+  
   const [listPais, setlistPais] = useState([""]);
   const [listCargo, setlistCargo] = useState([""]);
   const [listArea, setlistArea] = useState([""]);
@@ -101,7 +101,7 @@ const EditarEmpleados = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...empleado } = response[0];
       TopAlerts(successEdited);
-      actualizarEmpleado(empleado);
+      {actualizarEmpleado(empleado);console.log(data);};
     });
 
     function actualizarEmpleado(empleado) {

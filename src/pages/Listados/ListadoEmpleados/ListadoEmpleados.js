@@ -167,7 +167,7 @@ export default function ListadoEmpleados() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Eliminar cliente"
+                      title="Desactivar cliente"
                       onClick={() => desactivar(empleado.idEmpleado)}
                       id="OperationBtns"
                     >

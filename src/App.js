@@ -8,7 +8,6 @@ import Login from "./pages/login/login";
 
 /*LISTADOS*/
 import ListadoEmpleados from "./pages/Listados/ListadoEmpleados/ListadoEmpleados";
-import ListadoRelator from "./pages/Listados/ListadoRelator/ListadoRelator";
 import ListadoRamos from "./pages/Listados/ListadoRamos/ListadoRamos";
 import ListadoClientes from "./pages/Listados/ListadoClientes/ListadoClientes";
 import ListadoSesiones from "./pages/Listados/ListadoSesiones/ListadoSesiones.js";
@@ -36,8 +35,6 @@ function App() {
               element={<ListadoEmpleados />}
               path="/listadoEmpleados"
             ></Route>
-
-            <Route element={<ListadoRelator />} path="/listadoRelator"></Route>
 
             <Route element={<ListadoRamos />} path="/listadoRamos"></Route>
 

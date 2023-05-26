@@ -28,6 +28,7 @@ export default function ListadoClientes() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "cliente"
 
 
   function insertarCliente() {
@@ -37,16 +38,21 @@ export default function ListadoClientes() {
     setIsActiveEditCliente(!isActiveEditCliente);
     setidCliente(ID);
   }
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateClientes.php";
-        var operationUrl = "updateStateClientes";
-        var data = { ID: ID, usuario: userData.username };
-        SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
-        });
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
+         SendDataService(url, operationUrl, data)
+        // SendDataService(url, operationUrl, data).then((response) => {
+        //   const { successEdited } = response[0];
+        //   TopAlerts(successEdited);
+        // });
       }
     });
   }
@@ -158,8 +164,8 @@ export default function ListadoClientes() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar cliente"
-                      onClick={() => eliminar(cliente.idCliente)}
+                      title="Desactivar cliente"
+                      onClick={() => desactivar(cliente.idCliente)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

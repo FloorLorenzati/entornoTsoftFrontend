@@ -27,6 +27,7 @@ export default function ListadoCursoAlumnos() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "cursoalumno"
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
@@ -42,12 +43,16 @@ export default function ListadoCursoAlumnos() {
     setidCursoAlumnos(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateCursoAlumnos.php";
-        var operationUrl = "updateStateCursoAlumnos";
-        var data = { idCursoAlumnos: ID, usuario: userData.username  };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -167,8 +172,8 @@ export default function ListadoCursoAlumnos() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar cursoAlumnos"
-                      onClick={() => eliminar(cursoAlumnos.idCursoAlumnos)}
+                      title="Desactivar cursoAlumnos"
+                      onClick={() => desactivar(cursoAlumnos.idCursoAlumnos)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

@@ -27,6 +27,7 @@ export default function ListadoRelatorRamo() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "relatorramo"
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
@@ -42,12 +43,16 @@ export default function ListadoRelatorRamo() {
     setidRelatorRamo(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateRelatorRamo.php";
-        var operationUrl = "updateStateRelatorRamo";
-        var data = { idRelatorRamo: ID, usuario: userData.username  };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -121,25 +126,25 @@ export default function ListadoRelatorRamo() {
             idRelatorRamo={idRelatorRamo}
           ></EditarRelatorRamo> */}
 
-          <Table id="mainTable" hover responsive>
+      <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Inicio</th>
-                <th>Nombre Empleado</th>
-                <th>Nombre Ramo</th>
+                <th>Nombre empleado</th>
+                <th>Nombre ramo</th>
+                <th>Fecha inicio de actividades</th>
+                <th>Fecha fin de actividades</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
               {relatorRamo.map((relatorRamo) => (
-                <tr key={relatorRamo.idRelatorRamo}>
+                <tr key={relatorRamo.idRelator}>
                   <td>{relatorRamo.idRelatorRamo}</td>
-                  <td>{relatorRamo.fechaIni}</td>
-                  <td>{relatorRamo.fechaFin}</td>
                   <td>{relatorRamo.nomEmpleado}</td>
                   <td>{relatorRamo.nomRamo}</td>
+                  <td>{relatorRamo.fechaIni}</td>
+                  <td>{relatorRamo.fechaFin}</td>
                   <td>
                     <button
                       title="Editar relatorRamo"
@@ -152,8 +157,8 @@ export default function ListadoRelatorRamo() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar relatorRamo"
-                      onClick={() => eliminar(relatorRamo.idRelatorRamo)}
+                      title="Desactivar relatorRamo"
+                      onClick={() => desactivar(relatorRamo.idRelatorRamo)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

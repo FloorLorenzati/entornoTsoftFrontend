@@ -27,6 +27,7 @@ export default function ListadoNotaExamen() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const nombreTabla= "notaexamen"
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
@@ -42,12 +43,16 @@ export default function ListadoNotaExamen() {
     setidNotaExamen(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateNotaExamen.php";
-        var operationUrl = "updateStateNotaExamen";
-        var data = { idNotaExamen: ID, usuario: userData.username  };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -153,8 +158,8 @@ export default function ListadoNotaExamen() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar notaExamen"
-                      onClick={() => eliminar(notaExamen.idNotaExamen)}
+                      title="Desactivar notaExamen"
+                      onClick={() => desactivar(notaExamen.idNotaExamen)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
