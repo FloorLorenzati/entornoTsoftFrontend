@@ -65,7 +65,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "pages/insertar/insertarEmpleado.php";
     const operationUrl = "insertarEmpleado";
     var data = {
@@ -101,7 +101,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     obtenerNomRol();
 
   }, []);
-
+ 
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -116,6 +116,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                 Nombre:
               </label>
               <input
+                style={{textTransform:"uppercase"}}
                 placeholder="Escriba nombre completo del empleado"
                 type="text"
                 className="form-control"

@@ -13,6 +13,7 @@ const EditarEmpleados = ({
   idEmpleado,
   empleado,
   setEmpleado,
+  nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
   const [nomEmpleado, setnomEmpleado] = useState("");
@@ -41,36 +42,32 @@ const EditarEmpleados = ({
     setidPais(responseID[0].idPais);
     setidArea(responseID[0].idArea);
     setidCargo(responseID[0].idCargo);
-
   };
   // ----------------------FUNCIONES----------------------------
   function obtenerPais() {
     const url = "pages/auxiliares/listadoPaisForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) =>
-    setlistPais(response)
-    );
+    getDataService(url, operationUrl).then((response) => setlistPais(response));
   }
   function obtenerCargo() {
     const url = "pages/auxiliares/listadoCargoForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistCargo(response)
+      setlistCargo(response)
     );
   }
   function obtenerArea() {
     const url = "pages/auxiliares/listadoAreaForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) =>
-    setlistArea(response)
-    );
+    getDataService(url, operationUrl).then((response) => setlistArea(response));
   }
 
   const getData = useCallback(() => {
-    const url = "pages/seleccionar/selectDatosEmpleado.php";
-    const operationUrl = "selectDatosEmpleado";
-    const data = { idEmpleado: idEmpleado };
+    const url = "pages/seleccionar/seleccionarDatos.php";
+    const operationUrl = "seleccionarDatos";
+    var data = { idRegistro: idEmpleado, nombreTabla: nombreTabla };
     SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
       setResponseID(response);
       setnomEmpleado(response[0].nomEmpleado);
       setcorreoEmpleado(response[0].correoEmpleado);
@@ -89,13 +86,16 @@ const EditarEmpleados = ({
     var data = {
       usuarioModificacion: userData.usuario,
       idEmpleado: idEmpleado,
-      nomEmpleado:nomEmpleado === "" ? responseID[0].nomEmpleado : nomEmpleado,
-      correoEmpleado:correoEmpleado === "" ? responseID[0].correoEmpleado : correoEmpleado,
-      telefonoEmpleado:telefonoEmpleado === "" ? responseID[0].telefonoEmpleado : telefonoEmpleado,
-      idPais:idPais === "" ? responseID[0].idPais : idPais,
-      idArea:idArea === "" ? responseID[0].idArea : idArea,
-      idCargo:idCargo === "" ? responseID[0].idCargo : idCargo,
-
+      nomEmpleado: nomEmpleado === "" ? responseID[0].nomEmpleado : nomEmpleado,
+      correoEmpleado:
+        correoEmpleado === "" ? responseID[0].correoEmpleado : correoEmpleado,
+      telefonoEmpleado:
+        telefonoEmpleado === ""
+          ? responseID[0].telefonoEmpleado
+          : telefonoEmpleado,
+      idPais: idPais === "" ? responseID[0].idPais : idPais,
+      idArea: idArea === "" ? responseID[0].idArea : idArea,
+      idCargo: idCargo === "" ? responseID[0].idCargo : idCargo,
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
@@ -134,10 +134,7 @@ const EditarEmpleados = ({
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
-
-            <label htmlFor="input_nombreDelEmpleado">
-                Nombre:
-              </label>
+              <label htmlFor="input_nombreDelEmpleado">Nombre:</label>
               <input
                 placeholder="Escriba nombre completo del empleado"
                 value={nomEmpleado || ""}
@@ -213,7 +210,8 @@ const EditarEmpleados = ({
                 </option>
                 {listCargo.map((valor) => (
                   <option value={valor.idCargo}>{valor.nomCargo}</option>
-                ))}idArea
+                ))}
+                idArea
               </select>
             </div>
 
@@ -229,7 +227,7 @@ const EditarEmpleados = ({
                 onChange={({ target }) => setidArea(target.value)}
               >
                 <option selected hidden value="">
-                {idArea}
+                  {idArea}
                 </option>
                 {listArea.map((valor) => (
                   <option value={valor.idArea}>{valor.nomArea}</option>
@@ -252,14 +250,3 @@ const EditarEmpleados = ({
 };
 
 export default EditarEmpleados;
-
-
-
-
-
-
-
-
-
-
-

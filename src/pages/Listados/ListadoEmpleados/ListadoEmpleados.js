@@ -27,7 +27,7 @@ export default function ListadoEmpleados() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-
+  const nombreTabla= "empleado"
 
   function insertarEmpleado() {
     setIsActiveInsertEmpleado(!isActiveInsertEmpleado);
@@ -37,12 +37,16 @@ export default function ListadoEmpleados() {
     setIsActiveEditEmpleado(!isActiveEditEmpleado);
     setIDEmpleado(ID);
   }
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
-        var url = "TASKS/coe-updateStateEmpleados.php";
-        var operationUrl = "updateStateEmpleados";
-        var data = { idEmpleado: ID, usuario: userData.username };
+        var url = "pages/cambiarEstado/cambiarEstado.php";
+        var operationUrl = "cambiarEstado";
+        var data = { 
+          idRegistro: ID, 
+          usuarioModificacion: userData.usuario,
+          nombreTabla : nombreTabla,
+         };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -72,7 +76,7 @@ export default function ListadoEmpleados() {
     var operationUrl = "listadoEmpleados";
     var data = {
       num_boton: num_boton,
-      cantidadPorPagina: cantidadPorPagina
+      cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
   }
@@ -124,6 +128,7 @@ export default function ListadoEmpleados() {
             isActiveEditEmpleado={isActiveEditEmpleado}
             cambiarEstado={setIsActiveEditEmpleado}
             idEmpleado={idEmpleado}
+            nombreTabla={nombreTabla}
             setEmpleado={setEmpleado}
             empleado={empleado}
           ></EditarEmpleados>
@@ -162,8 +167,8 @@ export default function ListadoEmpleados() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Eliminar curso"
-                      onClick={() => eliminar(empleado.idEmpleado)}
+                      title="Eliminar cliente"
+                      onClick={() => desactivar(empleado.idEmpleado)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
