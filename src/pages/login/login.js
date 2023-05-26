@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
-import "./login.css";
+import "../login/login.css";
 import { useNavigate, Link } from "react-router-dom";
-import Alert from "react-bootstrap/Alert";
+import  Alert from "react-bootstrap/Alert";
 import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
+
+
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -11,18 +13,18 @@ export default function Login() {
   const [show, setShow] = useState(true);
   const navigate = useNavigate();
 
-  const { login, isLogged, hasError, isLoading, tipoUsuario } =
+  const { login, isLogged, hasError, isLoading, nomRol } =
     useContext(AuthContext);
 
   useEffect(() => {
     if (isLogged) {
-      if (tipoUsuario === "administrador" || tipoUsuario === "capital_humano") {
+      if (nomRol === "administrador" || nomRol === "capital_humano") {
         navigate("/home");
-      } else if (tipoUsuario === "colaborador") {
+      } else if (nomRol === "colaborador") {
         navigate("/homeColaboradores");
       }
     }
-  }, [isLogged, navigate, tipoUsuario]);
+  }, [isLogged, navigate, nomRol]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,13 +35,7 @@ export default function Login() {
   const ErrorMessage = () => {
     if (show)
       return (
-        <Alert
-          variant="danger"
-          onClose={() => {
-            setShow(false);
-          }}
-          dismissible
-        >
+        <Alert variant="danger" onClose={() => setShow(false)}>
           <Alert.Heading>El usuario o contraseña es incorrecto.</Alert.Heading>
         </Alert>
       );
@@ -47,7 +43,7 @@ export default function Login() {
 
   return (
     <div>
-      <h3 id="pageTitleLogin">Academia de formación</h3>
+      <h3 id="pageTitleLogin">Entorno Tsoft</h3>
       {isLoading && <strong>Checking Credentials</strong>}
       {!isLoading && (
         <div id="background">

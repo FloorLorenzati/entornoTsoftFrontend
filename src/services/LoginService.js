@@ -1,6 +1,6 @@
 export default function LoginService({ username, password }) {
   const baseURL =
-    "http://localhost/App_v2/AcademiaFormaci%C3%B3n_V2/login.php?login";
+    "http://localhost/entornoTsoft/model/login.php?login";
 
   return fetch(baseURL, {
     method: "POST",
