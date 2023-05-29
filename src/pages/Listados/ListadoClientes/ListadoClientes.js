@@ -10,7 +10,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
 import InsertarClientes from "../../../templates/forms/Insertar/InsertarClientes";
-import EditarClientes from "../../../templates/forms/Editar/EditarCliente";
+import EditarCliente from "../../../templates/forms/Editar/EditarCliente";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../../../templates/Paginador";
@@ -101,12 +101,12 @@ export default function ListadoClientes() {
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_tipoCliente">Mostrar registros: </label>
+              <label htmlFor="input_mostrarRegistros">Mostrar registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
+                name="input_mostrarRegistros"
+                id="input_mostrarRegistros"
                 onChange={({ target }) => setcantidadPorPagina(target.value)}
                 required
               >
@@ -121,19 +121,20 @@ export default function ListadoClientes() {
             </div>
           </div>
 
-          {/* <InsertarClientes
+          <InsertarClientes
             isActiveCliente={isActiveInsertCliente}
             cambiarEstado={setIsActiveInsertCliente}
             cliente={cliente}
           ></InsertarClientes>
 
-          <EditarClientes
+          <EditarCliente
             isActiveEditCliente={isActiveEditCliente}
             cambiarEstado={setIsActiveEditCliente}
             idCliente={idCliente}
             setCliente={setCliente}
             cliente={cliente}
-          ></EditarClientes> */}
+            nombreTabla={nombreTabla}
+          ></EditarCliente> 
 
           <Table id="mainTable" hover responsive>
             <thead>

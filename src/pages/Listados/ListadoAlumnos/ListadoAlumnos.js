@@ -9,21 +9,21 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarAlumnos from "../../../templates/forms/Insertar/InsertarAlumnos";
-// import EditarAlumnos from "../../../templates/forms/Editar/EditarAlumnos";
+import InsertarAlumno from "../../../templates/forms/Insertar/InsertarAlumno"
+import EditarAlumno from "../../../templates/forms/Editar/EditarAlumno";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 // import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoAlumnos() {
-  const [alumnos, setAlumnos] = useState([""]);
-  // const [paginador, setPaginadorAlumnos] = useState([""]);
-  // const urlPaginador = "paginador/botones_Alumnos.php";
-  const [isActiveInsertAlumnos, setIsActiveInsertAlumnos] = useState(false);
-  const [idAlumnos, setidAlumnos] = useState(null);
-  const [isActiveEditAlumnos, setIsActiveEditAlumnos] = useState(false);
+export default function ListadoAlumno() {
+  const [alumno, setAlumno] = useState([""]);
+  // const [paginador, setPaginadorAlumno] = useState([""]);
+  // const urlPaginador = "paginador/botones_Alumno.php";
+  const [isActiveInsertAlumno, setIsActiveInsertAlumno] = useState(false);
+  const [idAlumno, setidAlumno] = useState(null);
+  const [isActiveEditAlumno, setIsActiveEditAlumno] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
@@ -31,16 +31,16 @@ export default function ListadoAlumnos() {
 
 //   function obtenerDatosPaginador() {
 //     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorAlumnos(paginador)
+//       setPaginadorAlumno(paginador)
 //     );
 //   }
 
-  function insertarAlumnos() {
-    setIsActiveInsertAlumnos(!isActiveInsertAlumnos);
+  function insertarAlumno() {
+    setIsActiveInsertAlumno(!isActiveInsertAlumno);
   }
-  function editarAlumnos(ID) {
-    setIsActiveEditAlumnos(!isActiveEditAlumnos);
-    setidAlumnos(ID);
+  function editarAlumno(ID) {
+    setIsActiveEditAlumno(!isActiveEditAlumno);
+    setidAlumno(ID);
   }
 
   function desactivar(ID) {
@@ -78,7 +78,7 @@ export default function ListadoAlumnos() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setAlumnos(data);});
+      setAlumno(data);});
   }
   //PAGINADOR ---------------------
 
@@ -89,20 +89,20 @@ export default function ListadoAlumnos() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de alumnos</h1>
+          <h1 id="TitlesPages">Listado de alumno</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarAlumnos}>
-            Crear Alumnos
+          <Button id="btn" onClick={insertarAlumno}>
+            Crear Alumno
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_tipoCliente">Mostrar registros: </label>
+              <label htmlFor="input_mostrarRegistros">Mostrar registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
+                name="input_mostrarRegistros"
+                id="input_mostrarRegistros"
                 onChange={({ target }) => setcantidadPorPagina(target.value)}
                 required
               >
@@ -116,16 +116,20 @@ export default function ListadoAlumnos() {
               </select>
             </div>
           </div>
-          {/* <InsertarAlumnos
-            isActiveAlumnos={isActiveInsertAlumnos}
-            cambiarEstado={setIsActiveInsertAlumnos}
-          ></InsertarAlumnos>
+          <InsertarAlumno
+            isActiveAlumno={isActiveInsertAlumno}
+            cambiarEstado={setIsActiveInsertAlumno}
+            alumno={alumno}
+          ></InsertarAlumno>
 
-          <EditarAlumnos
-            isActiveEditAlumnos={isActiveEditAlumnos}
-            cambiarEstado={setIsActiveEditAlumnos}
-            idAlumnos={idAlumnos}
-          ></EditarAlumnos> */}
+          <EditarAlumno
+            isActiveEditAlumno={isActiveEditAlumno}
+            cambiarEstado={setIsActiveEditAlumno}
+            idAlumno={idAlumno}
+            nombreTabla={nombreTabla}
+            setAlumno={setAlumno}
+            alumno={alumno}
+          ></EditarAlumno> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -143,31 +147,31 @@ export default function ListadoAlumnos() {
               </tr>
             </thead>
             <tbody>
-              {alumnos.map((alumnos) => (
-                <tr key={alumnos.idAlumnos}>
-                  <td>{alumnos.idAlumno}</td>
-                  <td>{alumnos.nomAlumno}</td>
-                  <td>{alumnos.correoAlumno}</td>
-                  <td>{alumnos.telefonoAlumno}</td>
-                  <td>{alumnos.nomServicio}</td>
-                  <td>{alumnos.nomArea}</td>
-                  <td>{alumnos.nomPais}</td>
-                  <td>{alumnos.nomCargo}</td>
+              {alumno.map((alumno) => (
+                <tr key={alumno.idAlumno}>
+                  <td>{alumno.idAlumno}</td>
+                  <td>{alumno.nomAlumno}</td>
+                  <td>{alumno.correoAlumno}</td>
+                  <td>{alumno.telefonoAlumno}</td>
+                  <td>{alumno.nomServicio}</td>
+                  <td>{alumno.nomArea}</td>
+                  <td>{alumno.nomPais}</td>
+                  <td>{alumno.nomCargo}</td>
 
                   <td>
                     <button
-                      title="Editar alumnos"
+                      title="Editar alumno"
                       id="OperationBtns"
-                      onClick={() => editarAlumnos(alumnos.idAlumnos)}
+                      onClick={() => editarAlumno(alumno.idAlumno)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar alumnos" id="OperationBtns">
+                    {/* <button title="Examinar alumno" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar alumnos"
-                      onClick={() => desactivar(alumnos.idAlumnos)}
+                      title="Desactivar alumno"
+                      onClick={() => desactivar(alumno.idAlumno)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

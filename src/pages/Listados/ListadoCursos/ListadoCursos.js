@@ -125,16 +125,17 @@ export default function ListadoCursos() {
             isActiveCurso={isActiveInsertCurso}
             cambiarEstado={setIsActiveInsertCurso}
             curso={curso}
-          ></InsertarCurso>
+          ></InsertarCurso>*/}
 
-          <EditarCursos
+          <EditarCurso
             isActiveEditCurso={isActiveEditCurso}
             cambiarEstado={setIsActiveEditCurso}
             idCurso={idCurso}
             setCurso={setCurso}
             curso={curso}
-          ></EditarCursos>
- */}
+            nombreTabla={nombreTabla}
+          ></EditarCurso>
+ 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>

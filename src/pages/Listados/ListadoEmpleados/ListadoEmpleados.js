@@ -98,12 +98,12 @@ export default function ListadoEmpleados() {
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_tipoCliente">Mostrar registros: </label>
+              <label htmlFor="input_mostrarRegistros">Mostrar registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
+                name="input_mostrarRegistros"
+                id="input_mostrarRegistros"
                 onChange={({ target }) => setcantidadPorPagina(target.value)}
                 required
               >

@@ -65,7 +65,7 @@ const EditarEmpleados = ({
   const getData = useCallback(() => {
     const url = "pages/seleccionar/seleccionarDatos.php";
     const operationUrl = "seleccionarDatos";
-    var data = { idRegistro: idEmpleado, nombreTabla: nombreTabla };
+    var data = { idRegistro: idEmpleado, nombreTabla: nombreTabla};
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       setResponseID(response);
@@ -79,7 +79,7 @@ const EditarEmpleados = ({
   }, [idEmpleado]);
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "pages/editar/editarEmpleado.php";
     const operationUrl = "editarEmpleado";
 
@@ -136,6 +136,7 @@ const EditarEmpleados = ({
             <div>
               <label htmlFor="input_nombreDelEmpleado">Nombre:</label>
               <input
+               style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre completo del empleado"
                 value={nomEmpleado || ""}
                 type="text"
@@ -150,6 +151,7 @@ const EditarEmpleados = ({
             <div>
               <label htmlFor="input_Correo">Correo:</label>
               <input
+               style={{ textTransform: "uppercase" }}
                 placeholder="Escriba el correo del empleado"
                 value={correoEmpleado || ""}
                 type="email"

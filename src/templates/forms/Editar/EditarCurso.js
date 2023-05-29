@@ -6,90 +6,94 @@ import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
+const EditarCurso = ({
+  isActiveEditCurso,
+  cambiarEstado,
+  idCurso,
+  nombreTabla,
+  setCurso,
+  curso,
+}) => {
   // ----------------------CONSTANTES----------------------------
+
+  const [codCurso, setcodCurso] = useState([""]);
+  const [nomCurso, setnomCurso] = useState([""]);
+  const [tipoHH, settipoHH] = useState([""]);
+  const [duracionCursoHH, setduracionCursoHH] = useState([""]);
+  const [cantSesionesCurso, setcantSesionesCurso] = useState([""]);
+
   const [responseID, setResponseID] = useState([""]);
-  const [listCuentas, setListCuentas] = useState([""]);
-  const [listRamos, setListRamos] = useState([""]);
-  const [idCuenta, setIdCuenta] = useState("");
-  const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [idRamoEdit, setidRamoEdit] = useState("");
-  const [fechaInicio, setFechaInicio] = useState("");
-  const [fechaFin, setFechaFin] = useState("");
-  const [horaInicio, setHoraInicio] = useState("");
-  const [horaFin, setHoraFin] = useState("");
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+  const listCurso = curso;
 
   const show = isActiveEditCurso;
 
   const handleClose = () => {
     cambiarEstado(false);
-    setIdCuenta(responseID[0].idCuentaEdit);
-    setCodigoCuenta(responseID[0].codigoCuentaEdit);
-    setidRamoEdit(responseID[0].idRamoEdit);
-    setFechaInicio(responseID[0].fechaInicioEdit);
-    setFechaFin(responseID[0].fechaFinEdit);
-    setHoraInicio(responseID[0].horaInicioEdit);
-    setHoraFin(responseID[0].horaFinEdit);
+    setcodCurso(responseID[0].codCurso);
+    setnomCurso(responseID[0].nomCurso);
+    settipoHH(responseID[0].tipoHH);
+    setduracionCursoHH(responseID[0].duracionCursoHH);
+    setcantSesionesCurso(responseID[0].cantSesionesCurso);
   };
 
   // ----------------------FUNCIONES----------------------------
 
   function getData() {
-    const url = "TASKS/coe-selectCuentas.php";
-    const operationUrl = "ID";
-    const data = { ID: IDCurso };
+    const url = "pages/seleccionar/seleccionarDatos.php";
+    const operationUrl = "seleccionarDatos";
+    var data = { idRegistro: idCurso, nombreTabla: nombreTabla };
     SendDataService(url, operationUrl, data).then((response) => {
-      (response);
+      response;
       setResponseID(response);
-      setIdCuenta(response[0].idCuentaEdit);
-      setCodigoCuenta(response[0].codigoCuentaEdit);
-      setidRamoEdit(response[0].idRamoEdit);
-      setFechaInicio(response[0].fechaInicioEdit);
-      setFechaFin(response[0].fechaFinEdit);
-      setHoraInicio(response[0].horaInicioEdit);
-      setHoraFin(response[0].horaFinEdit);
+      setcodCurso(response[0].codCurso);
+      setnomCurso(response[0].nomCurso);
+      settipoHH(response[0].tipoHH);
+      setduracionCursoHH(response[0].duracionCursoHH);
+      setcantSesionesCurso(response[0].cantSesionesCurso);
     });
-  }
-  function obtenerCuentas() {
-    const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
-    getDataService(url).then((cuentas) => setListCuentas(cuentas));
-  }
-
-  function obtenerRamos() {
-    const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
-    getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-editCurso.php";
+    const url = "pages/editar/editarCurso.php";
     const operationUrl = "editarCurso";
     const data = {
-      ID: IDCurso,
-      idCuenta: idCuenta === "" ? responseID[0].idCuentaEdit : idCuenta,
-      idRamoEdit: idRamoEdit === "" ? responseID[0].idRamoEdit : idRamoEdit,
-      fechaInicio:
-        fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
-      fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
-      horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
-      horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
+      usuarioModificacion: userData.usuario,
+
+      idCurso: idCurso,
+      codCurso: codCurso === "" ? responseID[0].codCurso : codCurso,
+      nomCurso: nomCurso === "" ? responseID[0].nomCurso : nomCurso,
+      tipoHH: tipoHH === "" ? responseID[0].tipoHH : tipoHH,
+      duracionCursoHH:
+        duracionCursoHH === ""
+          ? responseID[0].duracionCursoHH
+          : duracionCursoHH,
+      cantSesionesCurso:
+        cantSesionesCurso === ""
+          ? responseID[0].cantSesionesCurso
+          : cantSesionesCurso,
     };
-    (data);
     SendDataService(url, operationUrl, data).then((response) => {
-      
-      TopAlerts(response);
-      getData();
+      const { successEdited, ...curso } = response[0];
+      TopAlerts(successEdited);
+      {actualizarCurso(curso);console.log(data);};
     });
+    function actualizarCurso (curso) {
+      const nuevosCursos = listCurso.map((c) =>
+        c.idCurso === curso.idCurso ? curso : c
+      );
+      setEmpleado(nuevosCursos);
+    }
   }
 
   useEffect(
     function () {
-      if (IDCurso !== null) {
+      if (idCurso !== null) {
         getData();
-        obtenerCuentas();
-        obtenerRamos();
       }
     },
-    [IDCurso]
+    [idCurso]
   );
 
   // ----------------------RENDER----------------------------
@@ -103,92 +107,76 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
-              <label htmlFor="input_fechaInicio">Cuenta: </label>
-              <select
-                required
+              <label htmlFor="input_nombreDelCodigo">Código:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba el código"
+                value={codCurso || ""}
+                type="text"
                 className="form-control"
-                onChange={({ target }) => setIdCuenta(target.value)}
-              >
-                {listCuentas.map((valor) => (
-                  <option
-                    selected={
-                      valor.codigoCuenta === codigoCuenta ? "selected" : ""
-                    }
-                    value={valor.ID}
-                  >
-                    {valor.codigoCuenta}
-                  </option>
-                ))}
-              </select>
+                name="input_nombreDelCodigo"
+                id="input_nombreDelCodigo"
+                onChange={({ target }) => setcodCurso(target.value)}
+                required
+              />
             </div>
-
             <div>
-              <label htmlFor="input_fechaInicio">Ramo: </label>
-              <select
-                required
+              <label htmlFor="input_nombreDelCurso">Nombre:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre del curso"
+                value={nomCurso || ""}
+                type="text"
                 className="form-control"
-                onChange={({ target }) => setidRamoEdit(target.value)}
-              >
-                {listRamos.map((valor) => (
-                  <option
-                    value={valor.ID}
-                    selected={valor.ID === idRamoEdit ? "selected" : ""}
-                  >
-                    {valor.nombreRamo}
-                  </option>
-                ))}
-              </select>
+                name="input_nombreDelCurso"
+                id="input_nombreDelCurso"
+                onChange={({ target }) => setCurso(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_TipoHH">Tipo HH:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo HH"
+                value={tipoHH || ""}
+                type="double"
+                className="form-control"
+                name="input_TipoHH"
+                id="input_TipoHH"
+                onChange={({ target }) => settipoHH(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_DuracionHH">Duración curso HH:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo HH"
+                value={duracionCursoHH || ""}
+                type="double"
+                className="form-control"
+                name="input_DuracionHH"
+                id="input_DuracionHH"
+                onChange={({ target }) => setduracionCursoHH(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_cantSesionesCurso">Cant sesiones:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo HH"
+                value={cantSesionesCurso || ""}
+                type="text"
+                className="form-control"
+                name="input_cantSesionesCurso"
+                id="input_cantSesionesCurso"
+                onChange={({ target }) => setcantSesionesCurso(target.value)}
+                required
+              />
             </div>
 
-            <div className="md-form md-outline input-with-post-icon datepicker">
-              <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
-              <input
-                type="date"
-                id="input_fechaInicio"
-                name="input_fechaInicio"
-                className="form-control"
-                onChange={({ target }) => setFechaInicio(target.value)}
-                value={fechaInicio || ""}
-                required
-              />
-            </div>
-            <div className="md-form md-outline input-with-post-icon datepicker">
-              <label htmlFor="input_fechaInicio">Fecha Fin: </label>
-              <input
-                type="date"
-                id="input_fechaInicio"
-                name="input_fechaInicio"
-                className="form-control"
-                onChange={({ target }) => setFechaFin(target.value)}
-                value={fechaFin || ""}
-                required
-              />
-            </div>
-            <div className="md-form md-outline">
-              <label htmlFor="input_horaInicio">Hora Inicio: </label>
-              <input
-                type="time"
-                name="input_horaInicio"
-                className="form-control"
-                id="input_horaInicio"
-                onChange={({ target }) => setHoraInicio(target.value)}
-                value={horaInicio || ""}
-                required
-              />
-            </div>
-
-            <div className="md-form md-outline">
-              <label htmlFor="input_horaFin">Hora Fin: </label>
-              <input
-                type="time"
-                name="input_horaFin"
-                className="form-control"
-                id="input_horaFin"
-                onChange={({ target }) => setHoraFin(target.value)}
-                value={horaFin || ""}
-                required
-              />
-            </div>
             <Button
               variant="secondary"
               type="submit"

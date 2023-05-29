@@ -1,0 +1,225 @@
+import React, { useState, useEffect } from "react";
+import "../../../templates/forms/Insertar.css";
+import SendDataService from "../../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
+import TopAlerts from "../../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useCallback } from "react";
+
+const EditarContacto = ({
+  isActiveEditContacto,
+  cambiarEstado,
+  idContacto,
+  contacto,
+  setContacto,
+  nombreTabla,
+}) => {
+  // ----------------------CONSTANTES----------------------------
+  const [nomContacto, setnomContacto] = useState("");
+  const [correoContacto, setcorreoContacto] = useState("");
+  const [telefonoContacto, settelefonoContacto] = useState("");
+  const [fechaIni, setfechaIni] = useState("");
+  const [fechaFin, setfechaFin] = useState("");
+
+  const [idServicio, setidServicio] = useState("");
+  
+  const [listServicio, setlistServicio] = useState([""]);
+
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+  const [responseID, setResponseID] = useState([""]);
+  const listContacto = contacto;
+
+  const show = isActiveEditContacto;
+
+  const handleClose = () => {
+    cambiarEstado(false);
+    setnomContacto(responseID[0].nomContacto);
+    setcorreoContacto(responseID[0].correoContacto);
+    settelefonoContacto(responseID[0].telefonoContacto);
+    setfechaIni(responseID[0].fechaFin);
+    setfechaFin(responseID[0].fechaFin);
+    setidServicio(responseID[0].idServicio);
+  };
+  // ----------------------FUNCIONES----------------------------
+  function obtenerServicio() {
+    const url = "pages/auxiliares/listadoServicioForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistServicio(response));
+  }
+
+  const getData = useCallback(() => {
+    const url = "pages/seleccionar/seleccionarDatos.php";
+    const operationUrl = "seleccionarDatos";
+    var data = { idRegistro: idContacto, nombreTabla: nombreTabla};
+    SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
+      setResponseID(response);
+      setnomContacto(response[0].nomContacto);
+      setcorreoContacto(response[0].correoContacto);
+      settelefonoContacto(response[0].telefonoContacto);
+      setfechaIni(response[0].fechaIni);
+      setfechaFin(response[0].fechaFin);
+      setidServicio(response[0].nomServicio);
+    });
+  }, [idContacto]);
+
+  function SendData(e) {
+    e.preventDefault();
+    const url = "pages/editar/editarContacto.php";
+    const operationUrl = "editarContacto";
+
+    var data = {
+      usuarioModificacion: userData.usuario,
+      idContacto: idContacto,
+      nomContacto: nomContacto === "" ? responseID[0].nomContacto : nomContacto,
+      correoContacto: correoContacto === "" ? responseID[0].correoContacto : correoContacto,
+      telefonoContacto: telefonoContacto === "" ? responseID[0].telefonoContacto : telefonoContacto,
+      fechaIni: fechaIni === "" ? responseID[0].fechaIni : fechaIni,
+      fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
+
+      idServicio: idServicio === "" ? responseID[0].idServicio : idServicio,
+
+    };
+    console.log(data);
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...contacto } = response[0];
+      TopAlerts(successEdited);
+      {actualizarContacto(contacto);console.log(data);};
+    });
+
+    function actualizarContacto(contacto) {
+      const nuevosContactos = listContacto.map((c) =>
+        c.idContacto === contacto.idContacto ? contacto : c
+      );
+      setContacto(nuevosContactos);
+    }
+  }
+
+  useEffect(
+    function () {
+      if (idContacto !== null) {
+        getData();
+        obtenerServicio();
+      }
+    },
+    [idContacto]
+  );
+
+  // ----------------------RENDER----------------------------
+  return (
+    <>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Contacto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_nombreDelContacto">Nombre:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del contacto"
+                value={nomContacto || ""}
+                type="text"
+                className="form-control"
+                name="input_nombreDelContacto"
+                id="input_nombreDelContacto"
+                onChange={({ target }) => setnomContacto(target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="input_Correo">Correo:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba el correo del contacto"
+                value={correoContacto || ""}
+                type="email"
+                className="form-control"
+                name="input_correo"
+                id="input_correo"
+                onChange={({ target }) => setcorreoContacto(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_telefono">Teléfono (opcional): </label>
+
+              <input
+                placeholder="Escriba el teléfono"
+                value={telefonoContacto || ""}
+                type="tel"
+                className="form-control"
+                name="input_telefono"
+                id="input_telefono"
+                onChange={({ target }) => settelefonoContacto(target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="input_Servicio">Servicio: </label>
+              <select
+                required
+                value={idServicio || ""}
+                className="form-control"
+                name="input_Servicio"
+                id="input_Servicio"
+                placeholder="Seleccione el ervicio"
+                onChange={({ target }) => setidServicio(target.value)}
+              >
+                <option selected hidden value="">
+                {idServicio}
+                </option>
+                {listServicio.map((valor) => (
+                  <option value={valor.idServicio}>{valor.nomServicio}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div>
+              <label htmlFor="input_fechaI">Fecha inicio:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Fecha inicio"
+                value={fechaIni || ""}
+                type="date"
+                className="form-control"
+                name="input_fechaI"
+                id="input_fechaI"
+                onChange={({ target }) => setfechaIni(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_fechaF">Fecha fin:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Fecha fin"
+                value={fechaFin || ""}
+                type="date"
+                className="form-control"
+                name="input_fechaF"
+                id="input_fechaF"
+                onChange={({ target }) => setfechaFin(target.value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+            >
+              Registrar
+            </Button>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+};
+
+export default EditarContacto;

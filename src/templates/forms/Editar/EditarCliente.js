@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
 import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,14 +13,15 @@ const EditarClientes = ({
   idCliente,
   cliente,
   setCliente,
+  nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
-  const [tipo_cliente, setTipoClientes] = useState("");
-  const [nombreCliente, setNombreCliente] = useState("");
-  const [referente, setReferente] = useState("");
-  const [correoReferente, setCorreoReferente] = useState("");
-  const [cargoReferente, setCargoReferente] = useState("");
-  const [telefonoReferente, setTelefonoReferente] = useState("");
+  const [nomCliente, setNomCliente] = useState("");
+  const [direccionCliente, setDireccionCliente] = useState("");
+  const [idPais, setidPais] = useState("");
+
+  const [listPais, setlistPais] = useState([""]);
+
   const [responseID, setResponseID] = useState([""]);
   const listClientes = cliente;
 
@@ -27,53 +29,43 @@ const EditarClientes = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-    setCargoReferente(responseID[0].cargoReferente);
-    setTipoClientes(responseID[0].tipo_cliente);
-    setNombreCliente(responseID[0].nombreCliente);
-    setReferente(responseID[0].referente);
-    setCorreoReferente(responseID[0].correoReferente);
-    setTelefonoReferente(responseID[0].telefonoReferente);
+    setNomCliente(responseID[0].cargoReferente);
+    setDireccionCliente(responseID[0].tipo_cliente);
+    setidPais(responseID[0].nombreCliente);
   };
 
   // ----------------------FUNCIONES----------------------------
+  function obtenerPais() {
+    const url = "pages/auxiliares/listadoPaisForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistPais(response));
+  }
 
   const getData = useCallback(() => {
-    const url = "TASKS/coe-selectClientes.php";
-    const operationUrl = "ID";
-    const data = { ID: idCliente };
+    const url = "pages/seleccionar/seleccionarDatos.php";
+    const operationUrl = "seleccionarDatos";
+    var data = { idRegistro: idCliente, nombreTabla: nombreTabla};
     SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
       setResponseID(response);
-      setCargoReferente(response[0].cargoReferente);
-      setTipoClientes(response[0].tipo_cliente);
-      setNombreCliente(response[0].nombreCliente);
-      setReferente(response[0].referente);
-      setCorreoReferente(response[0].correoReferente);
-      setTelefonoReferente(response[0].telefonoReferente);
+      setNomCliente(response[0].nomCliente);
+      setDireccionCliente(response[0].direccionCliente);
+      setidPais(response[0].nomPais);
     });
   }, [idCliente]);
 
   function SendData(e) {
-    // e.preventDefault();
-    const url = "TASKS/coe-editClientes.php";
-
-    const operationUrl = "editarCliente";
+    e.preventDefault();
+    var url = "pages/editar/editarCliente.php";
+    var operationUrl = "editarCliente";
     var data = {
-      ID: idCliente,
-      tipo_cliente:
-        tipo_cliente === "" ? responseID[0].tipo_cliente : tipo_cliente,
-      nombreCliente:
-        nombreCliente === "" ? responseID[0].nombreCliente : nombreCliente,
-      referente: referente === "" ? responseID[0].referente : referente,
-      correoReferente:
-        correoReferente === ""
-          ? responseID[0].correoReferente
-          : correoReferente,
-      telefonoReferente:
-        telefonoReferente === ""
-          ? responseID[0].telefonoReferente
-          : telefonoReferente,
-      cargoReferente:
-        cargoReferente === "" ? responseID[0].cargoReferente : cargoReferente,
+      usuarioModificacion: userData.usuario,
+      idCliente: idCliente,
+      nomCliente: nomCliente === "" ? responseID[0].nomCliente : nomCliente,
+
+      direccionCliente: direccionCliente === "" ? responseID[0].direccionCliente : direccionCliente,
+
+      idPais: idPais === "" ? responseID[0].idPais : idPais,
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
@@ -84,7 +76,7 @@ const EditarClientes = ({
 
     function actualizarCliente(cliente) {
       const nuevosClientes = listClientes.map((c) =>
-        c.ID === cliente.ID ? cliente : c
+        c.idCliente === cliente.idCliente ? cliente : c
       );
       setCliente(nuevosClientes);
     }
@@ -94,9 +86,10 @@ const EditarClientes = ({
     function () {
       if (idCliente !== null) {
         getData();
+        obtenerPais();
       }
     },
-    [idCliente, getData]
+    [idCliente]
   );
 
   // ----------------------RENDER----------------------------
@@ -108,87 +101,55 @@ const EditarClientes = ({
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div className="form-group">
-              <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
-              <select
-                value={tipo_cliente || ""}
+          <div>
+              <label htmlFor="input_nombreDelCliente">Nombre:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del cliente"
+                value={nomCliente || ""}
+                type="text"
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
-                onChange={({ target }) => setTipoClientes(target.value)}
+                name="input_nombreDelCliente"
+                id="input_nombreDelCliente"
+                onChange={({ target }) => setNomCliente(target.value)}
                 required
+              />
+            </div>
+
+            <div>
+            <label htmlFor="input_DirecciónDelCliente">Dirección:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del cliente"
+                value={direccionCliente || ""}
+                type="text"
+                className="form-control"
+                name="input_DirecciónDelCliente"
+                id="input_DirecciónDelCliente"
+                onChange={({ target }) => setDireccionCliente(target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_pais">País: </label>
+              <select
+                value={idPais || ""}
+                required
+                className="form-control"
+                name="input_pais"
+                id="input_pais"
+                placeholder="Seleccione el pais"
+                onChange={({ target }) => setidPais(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
-                <option value="interno">Interno</option>
-                <option value="externo">Externo</option>
+                <option selected hidden value="">
+                  {idPais}
+                </option>
+                {listPais.map((valor) => (
+                  <option value={valor.idPais}>{valor.nomPais}</option>
+                ))}
               </select>
             </div>
-
-            <div>
-              <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
-              <input
-                value={nombreCliente || ""}
-                type="text"
-                className="form-control"
-                name="input_nombreCliente"
-                id="input_nombreCliente"
-                onChange={({ target }) => setNombreCliente(target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="input_referente">Referente:</label>
-              <input
-                value={referente || ""}
-                type="text"
-                className="form-control"
-                name="input_referente"
-                id="input_referente"
-                onChange={({ target }) => setReferente(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_correoReferente">
-                Correo del referente:
-              </label>
-              <input
-                value={correoReferente || ""}
-                type="email"
-                className="form-control"
-                name="input_correoReferente"
-                id="input_correoReferente"
-                onChange={({ target }) => setCorreoReferente(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_cargoReferente">Cargo del referente:</label>
-              <input
-                value={cargoReferente || ""}
-                type="text"
-                className="form-control"
-                name="input_cargoReferente"
-                id="input_cargoReferente"
-                onChange={({ target }) => setCargoReferente(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_telefonoReferente">
-                Teléfono del referente:
-              </label>
-              <input
-                type="number"
-                value={telefonoReferente || ""}
-                className="form-control"
-                name="input_telefonoReferente"
-                id="input_telefonoReferente"
-                onChange={({ target }) => setTelefonoReferente(target.value)}
-                required
-              />
-            </div>
+         
             <Button
               variant="secondary"
               type="submit"

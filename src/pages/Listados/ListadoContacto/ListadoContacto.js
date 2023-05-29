@@ -119,13 +119,16 @@ export default function ListadoContacto() {
           {/* <InsertarContacto
             isActiveContacto={isActiveInsertContacto}
             cambiarEstado={setIsActiveInsertContacto}
-          ></InsertarContacto>
+          ></InsertarContacto>*/}
 
           <EditarContacto
             isActiveEditContacto={isActiveEditContacto}
             cambiarEstado={setIsActiveEditContacto}
             idContacto={idContacto}
-          ></EditarContacto> */}
+            setContacto={setContacto}
+            contacto={contacto} 
+            nombreTabla={nombreTabla}
+          ></EditarContacto> 
 
           <Table id="mainTable" hover responsive>
             <thead>
