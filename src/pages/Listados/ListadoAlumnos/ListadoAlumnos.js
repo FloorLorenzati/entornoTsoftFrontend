@@ -9,31 +9,24 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarAlumno from "../../../templates/forms/Insertar/InsertarAlumno"
+import InsertarAlumno from "../../../templates/forms/Insertar/InsertarAlumno";
 import EditarAlumno from "../../../templates/forms/Editar/EditarAlumno";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoAlumno() {
   const [alumno, setAlumno] = useState([""]);
-  // const [paginador, setPaginadorAlumno] = useState([""]);
-  // const urlPaginador = "paginador/botones_Alumno.php";
   const [isActiveInsertAlumno, setIsActiveInsertAlumno] = useState(false);
   const [idAlumno, setidAlumno] = useState(null);
   const [isActiveEditAlumno, setIsActiveEditAlumno] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-  const nombreTabla= "alumno"
-
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorAlumno(paginador)
-//     );
-//   }
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  const nombreTabla = "alumno";
 
   function insertarAlumno() {
     setIsActiveInsertAlumno(!isActiveInsertAlumno);
@@ -48,11 +41,11 @@ export default function ListadoAlumno() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
 
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
@@ -63,10 +56,9 @@ export default function ListadoAlumno() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -78,7 +70,10 @@ export default function ListadoAlumno() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setAlumno(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setAlumno(datos.datos);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -92,18 +87,23 @@ export default function ListadoAlumno() {
           <h1 id="TitlesPages">Listado de alumno</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarAlumno}>
-            Crear Alumno
-          </Button>
+            <Button id="btn" onClick={insertarAlumno}>
+              Crear Alumno
+            </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_mostrarRegistros">Mostrar registros: </label>
+              <label htmlFor="input_mostrarRegistros">
+                Mostrar registros:{" "}
+              </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
                 name="input_mostrarRegistros"
                 id="input_mostrarRegistros"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -129,7 +129,7 @@ export default function ListadoAlumno() {
             nombreTabla={nombreTabla}
             setAlumno={setAlumno}
             alumno={alumno}
-          ></EditarAlumno> 
+          ></EditarAlumno>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -181,11 +181,11 @@ export default function ListadoAlumno() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

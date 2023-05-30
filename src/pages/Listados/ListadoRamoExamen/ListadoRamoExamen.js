@@ -13,27 +13,27 @@ import "../TablasStyles.css";
 // import EditarRamoExamen from "../../../templates/forms/Editar/EditarRamoExamen";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoRamoExamen() {
   const [ramoExamen, setRamoExamen] = useState([""]);
-  // const [paginador, setPaginadorRamoExamen] = useState([""]);
-  // const urlPaginador = "paginador/botones_RamoExamen.php";
-  const [isActiveInsertRamoExamen, setIsActiveInsertRamoExamen] = useState(false);
+  const [isActiveInsertRamoExamen, setIsActiveInsertRamoExamen] =
+    useState(false);
   const [idRamoExamen, setidRamoExamen] = useState(null);
   const [isActiveEditRamoExamen, setIsActiveEditRamoExamen] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-  const nombreTabla= "ramoexamen"
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  const nombreTabla = "ramoexamen";
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorRamoExamen(paginador)
-//     );
-//   }
+  //   function obtenerDatosPaginador() {
+  //     getDataService(urlPaginador).then((paginador) =>
+  //       setPaginadorRamoExamen(paginador)
+  //     );
+  //   }
 
   function insertarRamoExamen() {
     setIsActiveInsertRamoExamen(!isActiveInsertRamoExamen);
@@ -48,11 +48,11 @@ export default function ListadoRamoExamen() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -65,7 +65,7 @@ export default function ListadoRamoExamen() {
       // obtenerDatosPaginador();
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -77,7 +77,10 @@ export default function ListadoRamoExamen() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      {setRamoExamen(data);console.log(data);};});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setRamoExamen(datos.datos);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -91,9 +94,9 @@ export default function ListadoRamoExamen() {
           <h1 id="TitlesPages">Listado de Ramo Examen</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarRamoExamen}>
-            Crear Ramo Examen
-          </Button>
+            <Button id="btn" onClick={insertarRamoExamen}>
+              Crear Ramo Examen
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_tipoCliente">Mostrar registros: </label>
@@ -102,7 +105,10 @@ export default function ListadoRamoExamen() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -166,11 +172,11 @@ export default function ListadoRamoExamen() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

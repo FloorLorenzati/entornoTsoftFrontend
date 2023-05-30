@@ -13,20 +13,20 @@ import "../TablasStyles.css";
 // import EditarNotaExamen from "../../../templates/forms/Editar/EditarNotaExamen";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoNotaExamen() {
   const [notaExamen, setNotaExamen] = useState([""]);
-  // const [paginador, setPaginadorNotaExamen] = useState([""]);
-  // const urlPaginador = "paginador/botones_NotaExamen.php";
   const [isActiveInsertNotaExamen, setIsActiveInsertNotaExamen] = useState(false);
   const [idNotaExamen, setidNotaExamen] = useState(null);
   const [isActiveEditNotaExamen, setIsActiveEditNotaExamen] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+
   const nombreTabla= "notaexamen"
 
 //   function obtenerDatosPaginador() {
@@ -54,15 +54,15 @@ export default function ListadoNotaExamen() {
           nombreTabla : nombreTabla,
          };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
-        });
+          const { paginador, ...datos } = data;
+          setCantidadPaginas(paginador.cantPaginas);
+          setNotaExamen(datos.datos);
+            });
       }
     });
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
@@ -102,7 +102,7 @@ export default function ListadoNotaExamen() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);}}
                 required
               >
                 <option hidden value="">
@@ -169,11 +169,11 @@ export default function ListadoNotaExamen() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

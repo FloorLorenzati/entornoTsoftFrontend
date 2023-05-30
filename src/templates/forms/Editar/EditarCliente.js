@@ -23,15 +23,16 @@ const EditarClientes = ({
   const [listPais, setlistPais] = useState([""]);
 
   const [responseID, setResponseID] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const listClientes = cliente;
 
   const show = isActiveEditCliente;
 
   const handleClose = () => {
     cambiarEstado(false);
-    setNomCliente(responseID[0].cargoReferente);
-    setDireccionCliente(responseID[0].tipo_cliente);
-    setidPais(responseID[0].nombreCliente);
+    setNomCliente(responseID[0].nomCliente);
+    setDireccionCliente(responseID[0].direccionCliente);
+    setidPais(responseID[0].idPais);
   };
 
   // ----------------------FUNCIONES----------------------------

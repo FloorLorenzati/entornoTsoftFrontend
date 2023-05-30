@@ -13,20 +13,20 @@ import "../TablasStyles.css";
 // import EditarServicios from "../../../templates/forms/Editar/EditarServicios";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoServicios() {
   const [servicios, setServicios] = useState([""]);
-  // const [paginador, setPaginadorServicios] = useState([""]);
-  // const urlPaginador = "paginador/botones_Servicios.php";
 //   const [isActiveInsertServicios, setIsActiveInsertServicios] = useState(false);
 //   const [isActiveEditServicios, setIsActiveEditServicios] = useState(false);
   const [idServicios, setidServicios] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+
   const nombreTabla= "servicio"
 
 //   function obtenerDatosPaginador() {
@@ -77,8 +77,10 @@ export default function ListadoServicios() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setServicios(data);
-      console.log(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setServicios(datos.datos);
+      });
   }
   //PAGINADOR ---------------------
 
@@ -103,7 +105,8 @@ export default function ListadoServicios() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -165,11 +168,11 @@ export default function ListadoServicios() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

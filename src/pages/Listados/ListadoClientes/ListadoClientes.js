@@ -13,14 +13,14 @@ import InsertarClientes from "../../../templates/forms/Insertar/InsertarClientes
 import EditarCliente from "../../../templates/forms/Editar/EditarCliente";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../../../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   // const [paginador, setPaginadorRelator] = useState([""]);
-  // const urlPaginador = "paginador/botones_Clientes.php";
+  // const urlPaginador = "paginador/botones_Clientes";
   // const operationUrl = "pagina";
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
@@ -28,8 +28,8 @@ export default function ListadoClientes() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-  const nombreTabla= "cliente"
-
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  const nombreTabla = "cliente";
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -43,12 +43,12 @@ export default function ListadoClientes() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
-         SendDataService(url, operationUrl, data)
+          nombreTabla: nombreTabla,
+        };
+        SendDataService(url, operationUrl, data);
         // SendDataService(url, operationUrl, data).then((response) => {
         //   const { successEdited } = response[0];
         //   TopAlerts(successEdited);
@@ -80,7 +80,11 @@ export default function ListadoClientes() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setCliente(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setCliente(datos.datos);
+    });
   }
 
   //PAGINADOR ---------------------
@@ -95,19 +99,23 @@ export default function ListadoClientes() {
           <h1 id="TitlesPages">Listado de clientes</h1>
 
           <div id="selectPaginador">
-
-          <Button id="btn" onClick={insertarCliente}>
-            Crear Cliente
-          </Button>
+            <Button id="btn" onClick={insertarCliente}>
+              Crear Cliente
+            </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_mostrarRegistros">Mostrar registros: </label>
+              <label htmlFor="input_mostrarRegistros">
+                Mostrar registros:{" "}
+              </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
                 name="input_mostrarRegistros"
                 id="input_mostrarRegistros"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -134,7 +142,7 @@ export default function ListadoClientes() {
             setCliente={setCliente}
             cliente={cliente}
             nombreTabla={nombreTabla}
-          ></EditarCliente> 
+          ></EditarCliente>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -176,11 +184,11 @@ export default function ListadoClientes() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

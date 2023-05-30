@@ -23,6 +23,7 @@ const EditarRamo = ({
   const [nombreRelator, setRelator] = useState("");
   const [idRelator, setidRelator] = useState("");
   const [responseID, setResponseID] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const show = isActiveEditRamo;
 

@@ -13,27 +13,23 @@ import "../TablasStyles.css";
 // import EditarCursoAlumnos from "../../../templates/forms/Editar/EditarCursoAlumnos";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoCursoAlumnos() {
   const [cursoAlumnos, setCursoAlumnos] = useState([""]);
-  // const [paginador, setPaginadorCursoAlumnos] = useState([""]);
-  // const urlPaginador = "paginador/botones_CursoAlumnos.php";
   const [isActiveInsertCursoAlumnos, setIsActiveInsertCursoAlumnos] = useState(false);
   const [idCursoAlumnos, setidCursoAlumnos] = useState(null);
   const [isActiveEditCursoAlumnos, setIsActiveEditCursoAlumnos] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+
+
   const nombreTabla= "cursoalumno"
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorCursoAlumnos(paginador)
-//     );
-//   }
 
   function insertarCursoAlumnos() {
     setIsActiveInsertCursoAlumnos(!isActiveInsertCursoAlumnos);
@@ -77,8 +73,10 @@ export default function ListadoCursoAlumnos() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setCursoAlumnos(data);
-      console.log(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setCursoAlumnos(datos.datos);
+});
   }
   //PAGINADOR ---------------------
 
@@ -103,7 +101,8 @@ export default function ListadoCursoAlumnos() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -183,11 +182,11 @@ export default function ListadoCursoAlumnos() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

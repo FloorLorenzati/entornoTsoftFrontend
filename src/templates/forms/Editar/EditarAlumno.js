@@ -33,6 +33,7 @@ const EditarAlumno = ({
   const [listCargo, setlistCargo] = useState([""]);
   const [listArea, setlistArea] = useState([""]);
   const [listServicio, setlistServicio] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [responseID, setResponseID] = useState([""]);
   const listAlumno = alumno;
@@ -230,28 +231,8 @@ const EditarAlumno = ({
                 placeholder="Seleccione el pais"
                 onChange={({ target }) => setidPais(target.value)}
               >
-                <option selected hidden value="">
-                  {idPais}
-                </option>
-                {listPais.map((valor) => (
-                  <option value={valor.idPais}>{valor.nomPais}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="input_pais">País: </label>
-              <select
-                value={idPais || ""}
-                required
-                className="form-control"
-                name="input_pais"
-                id="input_pais"
-                placeholder="Seleccione el pais"
-                onChange={({ target }) => setidPais(target.value)}
-              >
-                <option selected hidden value="">
-                  {idPais}
+                <option hidden value="">
+                  Desplegar lista
                 </option>
                 {listPais.map((valor) => (
                   <option value={valor.idPais}>{valor.nomPais}</option>

@@ -13,20 +13,20 @@ import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado
 import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../../Listados/BtnInsertar.css";
 
 export default function ListadoEmpleados() {
   const [empleado, setEmpleado] = useState([""]);
-  //   const [paginador, setPaginadorRelator] = useState([""]);
-  //   const urlPaginador = "paginador/botones_Empleado.php";
   const [isActiveInsertEmpleado, setIsActiveInsertEmpleado] = useState(false);
   const [isActiveEditEmpleado, setIsActiveEditEmpleado] = useState(false);
   const [idEmpleado, setIDEmpleado] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+
   const nombreTabla= "empleado"
 
   function insertarEmpleado() {
@@ -78,8 +78,12 @@ export default function ListadoEmpleados() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setEmpleado(data));
-  }
+    SendDataService(url, operationUrl, data).then((data) => {
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setEmpleado(datos.datos);
+});
+}
 
   //PAGINADOR ---------------------
 
@@ -94,7 +98,7 @@ export default function ListadoEmpleados() {
 
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarEmpleado}>
-            Insertar Empleado
+            Crear Empleado
           </Button>
 
             <div className="form-group" id="btn2">
@@ -104,7 +108,8 @@ export default function ListadoEmpleados() {
                 className="form-control"
                 name="input_mostrarRegistros"
                 id="input_mostrarRegistros"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -178,11 +183,11 @@ export default function ListadoEmpleados() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

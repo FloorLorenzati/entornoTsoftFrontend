@@ -14,6 +14,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, idRelator }) => {
   const [ramo, setRamo] = useState("");
   const [listEmpleado, setlistEmpleado] = useState([]);
   const [listRamos, setlistRamos] = useState([]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const show = isActiveEditRelator;
 

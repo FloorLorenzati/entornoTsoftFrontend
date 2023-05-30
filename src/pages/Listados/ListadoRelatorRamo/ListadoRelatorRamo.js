@@ -19,21 +19,16 @@ import "../BtnInsertar.css";
 
 export default function ListadoRelatorRamo() {
   const [relatorRamo, setRelatorRamo] = useState([""]);
-  // const [paginador, setPaginadorRelatorRamo] = useState([""]);
-  // const urlPaginador = "paginador/botones_RelatorRamo.php";
-  const [isActiveInsertRelatorRamo, setIsActiveInsertRelatorRamo] = useState(false);
+  const [isActiveInsertRelatorRamo, setIsActiveInsertRelatorRamo] =
+    useState(false);
   const [idRelatorRamo, setidRelatorRamo] = useState(null);
   const [isActiveEditRelatorRamo, setIsActiveEditRelatorRamo] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-  const nombreTabla= "relatorramo"
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorRelatorRamo(paginador)
-//     );
-//   }
+  const nombreTabla = "relatorramo";
 
   function insertarRelatorRamo() {
     setIsActiveInsertRelatorRamo(!isActiveInsertRelatorRamo);
@@ -48,11 +43,11 @@ export default function ListadoRelatorRamo() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -65,7 +60,7 @@ export default function ListadoRelatorRamo() {
       // obtenerDatosPaginador();
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -77,7 +72,10 @@ export default function ListadoRelatorRamo() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      {setRelatorRamo(data);console.log(data);};});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setRelatorRamo(datos.datos);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -91,9 +89,9 @@ export default function ListadoRelatorRamo() {
           <h1 id="TitlesPages">Listado de Relator Ramo</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarRelatorRamo}>
-            Crear Relator Ramo
-          </Button>
+            <Button id="btn" onClick={insertarRelatorRamo}>
+              Crear Relator Ramo
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_tipoCliente">Mostrar registros: </label>
@@ -102,7 +100,10 @@ export default function ListadoRelatorRamo() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -126,7 +127,7 @@ export default function ListadoRelatorRamo() {
             idRelatorRamo={idRelatorRamo}
           ></EditarRelatorRamo> */}
 
-      <Table id="mainTable" hover responsive>
+          <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
@@ -149,7 +150,9 @@ export default function ListadoRelatorRamo() {
                     <button
                       title="Editar relatorRamo"
                       id="OperationBtns"
-                      onClick={() => editarRelatorRamo(relatorRamo.idRelatorRamo)}
+                      onClick={() =>
+                        editarRelatorRamo(relatorRamo.idRelatorRamo)
+                      }
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
@@ -168,11 +171,11 @@ export default function ListadoRelatorRamo() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

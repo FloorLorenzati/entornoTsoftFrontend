@@ -20,6 +20,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
   const [prerequisito, setPrerequisito] = useState("");
   const listRamos = ramos;
   const show = isActiveRamo;
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const handleClose = () => cambiarEstado(false);
 

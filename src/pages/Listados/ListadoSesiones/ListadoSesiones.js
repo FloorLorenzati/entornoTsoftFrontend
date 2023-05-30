@@ -13,27 +13,21 @@ import "../TablasStyles.css";
 // import EditarSesiones from "../../../templates/forms/Editar/EditarSesiones";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoSesiones() {
   const [sesiones, setSesiones] = useState([""]);
-  // const [paginador, setPaginadorSesiones] = useState([""]);
-  // const urlPaginador = "paginador/botones_Sesiones.php";
-//   const [isActiveInsertSesiones, setIsActiveInsertSesiones] = useState(false);
-//   const [isActiveEditSesiones, setIsActiveEditSesiones] = useState(false);
+  //   const [isActiveInsertSesiones, setIsActiveInsertSesiones] = useState(false);
+  //   const [isActiveEditSesiones, setIsActiveEditSesiones] = useState(false);
   const [idSesiones, setidSesiones] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
-  const nombreTabla= "sesion"
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorSesiones(paginador)
-//     );
-//   }
+  const nombreTabla = "sesion";
 
   function insertarSesiones() {
     setIsActiveInsertSesiones(!isActiveInsertSesiones);
@@ -48,11 +42,11 @@ export default function ListadoSesiones() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -62,10 +56,9 @@ export default function ListadoSesiones() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -76,9 +69,12 @@ export default function ListadoSesiones() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
-    
+
     SendDataService(url, operationUrl, data).then((data) => {
-      setSesiones(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setSesiones(datos.datos);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -92,9 +88,9 @@ export default function ListadoSesiones() {
           <h1 id="TitlesPages">Listado de sesiones</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarSesiones}>
-            Crear Sesion
-          </Button>
+            <Button id="btn" onClick={insertarSesiones}>
+              Crear Sesion
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_tipoCliente">Mostrar registros: </label>
@@ -103,7 +99,10 @@ export default function ListadoSesiones() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -148,7 +147,9 @@ export default function ListadoSesiones() {
                   <td>{sesiones.nomSesion}</td>
                   <td>{sesiones.tipoSesion}</td>
                   <td>{sesiones.tipoSesionHH}</td>
-                  <td align="right" width={188}>{sesiones.duracionSesionHH}</td>
+                  <td align="right" width={188}>
+                    {sesiones.duracionSesionHH}
+                  </td>
                   <td>{sesiones.nomRamo}</td>
 
                   <td>
@@ -174,11 +175,11 @@ export default function ListadoSesiones() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

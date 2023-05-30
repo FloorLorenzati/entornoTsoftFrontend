@@ -21,6 +21,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
   const show = isActiveCurso;
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const handleClose = () => cambiarEstado(false);
 

@@ -79,7 +79,7 @@ const EditarEmpleados = ({
   }, [idEmpleado]);
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "pages/editar/editarEmpleado.php";
     const operationUrl = "editarEmpleado";
 

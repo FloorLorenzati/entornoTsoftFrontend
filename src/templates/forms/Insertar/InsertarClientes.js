@@ -63,7 +63,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Cliente</Modal.Title>
+          <Modal.Title>Crear cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -104,9 +104,10 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 placeholder="Seleccione el pais"
                 onChange={({ target }) => setidPais(target.value)}
               >
-                <option selected hidden value="">
-                  {idPais}
+                <option hidden value="">
+                  Desplegar lista
                 </option>
+
                 {listPais.map((valor) => (
                   <option value={valor.idPais}>{valor.nomPais}</option>
                 ))}

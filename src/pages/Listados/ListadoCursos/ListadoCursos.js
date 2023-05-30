@@ -13,7 +13,7 @@ import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso"
 import EditarCurso from "../../../templates/forms/Editar/EditarCurso";
 // import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../../Listados/BtnInsertar.css";
 
@@ -27,6 +27,8 @@ export default function ListadoCursos() {
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+
   const nombreTabla= "curso"
 
 
@@ -56,15 +58,9 @@ export default function ListadoCursos() {
     });
   }
 
-    function obtenerDatosPaginador() {
-      getDataService(urlPaginador).then((paginador) =>
-        setPaginadorRelator(paginador)
-      );
-    }
 
   useEffect(
     function () {
-      //   obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
@@ -79,7 +75,11 @@ export default function ListadoCursos() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
     };
-    SendDataService(url, operationUrl, data).then((data) => setCurso(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setCurso(datos.datos);
+    });
   }
 
   //PAGINADOR ---------------------
@@ -92,9 +92,6 @@ export default function ListadoCursos() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
-
-
-
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarCurso}>
             Crear Curso
@@ -107,7 +104,8 @@ export default function ListadoCursos() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -178,11 +176,11 @@ export default function ListadoCursos() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

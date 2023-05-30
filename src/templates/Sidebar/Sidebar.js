@@ -115,7 +115,7 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-                  <li
+                  {/* <li
                     className={
                       userData.nomRol !== "colaborador" ? "private" : ""
                     }
@@ -256,7 +256,7 @@ export default function SideBar(props) {
                       id="COE_Academia"
                       className={isToggledTsoft ? "active" : ""}
                     ></ul>
-                  </li>
+                  </li>*/}
 
                   <li
                     id="li_Academia"
@@ -267,7 +267,7 @@ export default function SideBar(props) {
                         ? ""
                         : "private"
                     }
-                  >
+                  > 
                     <button id="buttonSidebar">
                       <FaBook id="icons" />
                       FACTORY DEVOPS
@@ -425,7 +425,7 @@ export default function SideBar(props) {
                       </li>
                     </ul>
                   </li>
-                  <li
+                  {/* <li
                     id="li_Academia"
                     onClick={handleChangeEvaluaciones}
                     className={
@@ -517,7 +517,7 @@ export default function SideBar(props) {
                       id="Colaboradores"
                       className={isToggledColaboradores ? "active" : ""}
                     ></ul>
-                  </li>
+                  </li> */}
                 </Container>
               </div>
               <Logout></Logout>

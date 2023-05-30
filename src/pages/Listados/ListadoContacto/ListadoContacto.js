@@ -13,27 +13,20 @@ import InsertarContacto from "../../../templates/forms/Insertar/InsertarContacto
 import EditarContacto from "../../../templates/forms/Editar/EditarContacto";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoContacto() {
   const [contacto, setContacto] = useState([""]);
-  // const [paginador, setPaginadorContacto] = useState([""]);
-  // const urlPaginador = "paginador/botones_Contacto.php";
   const [isActiveInsertContacto, setIsActiveInsertContacto] = useState(false);
   const [idContacto, setidContacto] = useState(null);
   const [isActiveEditContacto, setIsActiveEditContacto] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla= "contacto"
-
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorContacto(paginador)
-//     );
-//   }
 
   function insertarContacto() {
     setIsActiveInsertContacto(!isActiveInsertContacto);
@@ -54,15 +47,15 @@ export default function ListadoContacto() {
           nombreTabla : nombreTabla,
          };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
-        });
+          const { paginador, ...datos } = data;
+          setCantidadPaginas(paginador.cantPaginas);
+          setContacto(datos.datos);
+            });
       }
     });
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
@@ -77,8 +70,10 @@ export default function ListadoContacto() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setContacto(data);
-      console.log(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setContacto(datos.datos);
+});
   }
   //PAGINADOR ---------------------
 
@@ -103,7 +98,8 @@ export default function ListadoContacto() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -116,10 +112,12 @@ export default function ListadoContacto() {
               </select>
             </div>
           </div>
-          {/* <InsertarContacto
+
+          <InsertarContacto
             isActiveContacto={isActiveInsertContacto}
             cambiarEstado={setIsActiveInsertContacto}
-          ></InsertarContacto>*/}
+            contacto={contacto}
+          ></InsertarContacto>
 
           <EditarContacto
             isActiveEditContacto={isActiveEditContacto}
@@ -176,11 +174,11 @@ export default function ListadoContacto() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

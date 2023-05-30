@@ -13,27 +13,23 @@ import "../TablasStyles.css";
 // import EditarCursoAlumnoSesion from "../../../templates/forms/Editar/EditarCursoAlumnoSesion";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoCursoAlumnoSesion() {
   const [cursoAlumnoSesion, setCursoAlumnoSesion] = useState([""]);
-  // const [paginador, setPaginadorCursoAlumnoSesion] = useState([""]);
-  // const urlPaginador = "paginador/botones_CursoAlumnoSesion.php";
   const [isActiveInsertCursoAlumnoSesion, setIsActiveInsertCursoAlumnoSesion] = useState(false);
   const [idCursoAlumnoSesion, setidCursoAlumnoSesion] = useState(null);
   const [isActiveEditCursoAlumnoSesion, setIsActiveEditCursoAlumnoSesion] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
+  const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  
   const nombreTabla= "cursoalumno_sesion"
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorCursoAlumnoSesion(paginador)
-//     );
-//   }
+
 
   function insertarCursoAlumnoSesion() {
     setIsActiveInsertCursoAlumnoSesion(!isActiveInsertCursoAlumnoSesion);
@@ -77,8 +73,10 @@ export default function ListadoCursoAlumnoSesion() {
       cantidadPorPagina: cantidadPorPagina,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setCursoAlumnoSesion(data);
-      console.log(data);});
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setidCursoAlumnoSesion(datos.datos);
+});
   }
   //PAGINADOR ---------------------
 

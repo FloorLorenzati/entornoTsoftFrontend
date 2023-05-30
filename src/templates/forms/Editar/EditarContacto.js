@@ -20,7 +20,6 @@ const EditarContacto = ({
   const [correoContacto, setcorreoContacto] = useState("");
   const [telefonoContacto, settelefonoContacto] = useState("");
   const [fechaIni, setfechaIni] = useState("");
-  const [fechaFin, setfechaFin] = useState("");
 
   const [idServicio, setidServicio] = useState("");
   
@@ -39,7 +38,6 @@ const EditarContacto = ({
     setcorreoContacto(responseID[0].correoContacto);
     settelefonoContacto(responseID[0].telefonoContacto);
     setfechaIni(responseID[0].fechaFin);
-    setfechaFin(responseID[0].fechaFin);
     setidServicio(responseID[0].idServicio);
   };
   // ----------------------FUNCIONES----------------------------
@@ -60,7 +58,6 @@ const EditarContacto = ({
       setcorreoContacto(response[0].correoContacto);
       settelefonoContacto(response[0].telefonoContacto);
       setfechaIni(response[0].fechaIni);
-      setfechaFin(response[0].fechaFin);
       setidServicio(response[0].nomServicio);
     });
   }, [idContacto]);
@@ -77,7 +74,6 @@ const EditarContacto = ({
       correoContacto: correoContacto === "" ? responseID[0].correoContacto : correoContacto,
       telefonoContacto: telefonoContacto === "" ? responseID[0].telefonoContacto : telefonoContacto,
       fechaIni: fechaIni === "" ? responseID[0].fechaIni : fechaIni,
-      fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
 
       idServicio: idServicio === "" ? responseID[0].idServicio : idServicio,
 
@@ -190,20 +186,6 @@ const EditarContacto = ({
                 name="input_fechaI"
                 id="input_fechaI"
                 onChange={({ target }) => setfechaIni(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_fechaF">Fecha fin:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Fecha fin"
-                value={fechaFin || ""}
-                type="date"
-                className="form-control"
-                name="input_fechaF"
-                id="input_fechaF"
-                onChange={({ target }) => setfechaFin(target.value)}
                 required
               />
             </div>
