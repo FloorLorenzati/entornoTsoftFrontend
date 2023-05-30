@@ -50,6 +50,7 @@ export default function ListadoContacto() {
           const { paginador, ...datos } = data;
           setCantidadPaginas(paginador.cantPaginas);
           setContacto(datos.datos);
+          console.log(data);
             });
       }
     });
