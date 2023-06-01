@@ -118,12 +118,12 @@ export default function ListadoCursos() {
               </select>
             </div>
           </div>
-{/* 
+
           <InsertarCurso
             isActiveCurso={isActiveInsertCurso}
             cambiarEstado={setIsActiveInsertCurso}
             curso={curso}
-          ></InsertarCurso>*/}
+          ></InsertarCurso>
 
           <EditarCurso
             isActiveEditCurso={isActiveEditCurso}

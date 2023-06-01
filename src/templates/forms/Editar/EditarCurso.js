@@ -22,6 +22,9 @@ const EditarCurso = ({
   const [duracionCursoHH, setduracionCursoHH] = useState([""]);
   const [cantSesionesCurso, setcantSesionesCurso] = useState([""]);
 
+  const [isActive, setisActive] = useState();
+  const [usuarioAdmin, setusuarioAdmin] = useState();
+
   const [responseID, setResponseID] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
@@ -60,7 +63,6 @@ const EditarCurso = ({
     const operationUrl = "editarCurso";
     const data = {
       usuarioModificacion: userData.usuario,
-
       idCurso: idCurso,
       codCurso: codCurso === "" ? responseID[0].codCurso : codCurso,
       nomCurso: nomCurso === "" ? responseID[0].nomCurso : nomCurso,
@@ -73,13 +75,18 @@ const EditarCurso = ({
         cantSesionesCurso === ""
           ? responseID[0].cantSesionesCurso
           : cantSesionesCurso,
+      isActive: true,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...curso } = response[0];
       TopAlerts(successEdited);
-      {actualizarCurso(curso);console.log(data);};
+      {
+        actualizarCurso(curso);
+        console.log(data);
+      }
     });
-    function actualizarCurso (curso) {
+    function actualizarCurso(curso) {
       const nuevosCursos = listCurso.map((c) =>
         c.idCurso === curso.idCurso ? curso : c
       );
@@ -130,7 +137,7 @@ const EditarCurso = ({
                 className="form-control"
                 name="input_nombreDelCurso"
                 id="input_nombreDelCurso"
-                onChange={({ target }) => setCurso(target.value)}
+                onChange={({ target }) => setnomCurso(target.value)}
                 required
               />
             </div>

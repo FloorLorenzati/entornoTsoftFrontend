@@ -37,7 +37,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
     const url = "pages/insertar/insertarCliente.php";
     const operationUrl = "insertarCliente";
     var data = {
-      usuarioAdmin: userData.usuario,
+      usuarioCreacion: userData.usuario,
       nomCliente: nomCliente,
       direccionCliente: direccionCliente,
       idPais: idPais,

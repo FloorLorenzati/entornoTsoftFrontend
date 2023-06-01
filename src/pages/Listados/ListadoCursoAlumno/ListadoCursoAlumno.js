@@ -74,7 +74,7 @@ export default function ListadoCursoAlumno() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCursoAlumno(datos.datos);
+      setCursoAlumno(datos.datos);console.log(data);;
 });
   }
   //PAGINADOR ---------------------
@@ -142,8 +142,8 @@ export default function ListadoCursoAlumno() {
                 <th>Hora fin</th>
                 <th>Porc asistencia</th>
                 <th>Porc participación</th>
-                <th>Clase aprobada</th>
                 <th>Porc aprobación</th>
+                <th>Clase aprobada</th>
                 <th>Estado curso</th>
                 <th>Operaciones</th>
               </tr>
@@ -160,8 +160,8 @@ export default function ListadoCursoAlumno() {
                   <td>{CursoAlumno.horaFin}</td>
                   <td align="right" width={90}>{CursoAlumno.porcAsistencia}</td>
                   <td align="right" width={90}>{CursoAlumno.porcParticipacion}</td>
-                  <td>{CursoAlumno.claseAprobada}</td>
                   <td align="right" width={90}>{CursoAlumno.porcAprobacion}</td>
+                  <td>{CursoAlumno.claseAprobada}</td>
                   <td>{CursoAlumno.estadoCurso}</td>
                   <td>
                     <button

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
@@ -8,10 +8,14 @@ import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }) => {
+const InsertarCursoAlumno = ({
+  isActiveCursoAlumno,
+  cambiarEstado,
+  CursoAlumno,
+}) => {
   // ----------------------CONSTANTES----------------------------
-  const [nomAlumno, setnomAlumno] = useState("");
-  const [nomCurso, setnomCurso] = useState("");
+  const [idAlumno, setidAlumno] = useState("");
+  const [idCurso, setidCurso] = useState("");
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
   const [horaIni, sethoraIni] = useState("");
@@ -22,30 +26,26 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
   const [porcAprobacion, setporcAprobacion] = useState("");
   const [estadoCurso, setestadoCurso] = useState("");
 
-  const listCursoAlumno = cursoAlumno;
+  const listCursoAlumno = CursoAlumno;
 
   const show = isActiveCursoAlumno;
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+  const [listAlumnos, setlistAlumnos] = useState([]);
+  const [listCursos, setlistCursos] = useState([]);
 
   const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
 
-  function obtenerPais() {
-    const url = "pages/auxiliares/listadoPaisForms.php";
-    const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) => setlistPais(response));
-  }
-
   function SendData(e) {
     e.preventDefault();
-    const url = "pages/insertar/insertarCliente.php";
-    const operationUrl = "insertarCliente";
+    const url = "pages/insertar/insertarCursoAlumno.php";
+    const operationUrl = "insertarCursoAlumno";
     var data = {
-      usuarioAdmin: userData.usuario,
-      nomAlumno: nomAlumno,
-      nomCurso: nomCurso,
+      usuarioCreacion: userData.usuario,
+      idAlumno: idAlumno,
+      idCurso: idCurso,
       fechaIni: fechaIni,
       fechaFin: fechaFin,
       horaIni: horaIni,
@@ -55,6 +55,7 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
       porcParticipacion: porcParticipacion,
       porcAprobacion: porcAprobacion,
       estadoCurso: estadoCurso,
+      isActive: true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
@@ -65,9 +66,28 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
   }
 
   function actualizarCursoAlumno(response) {
-    actualizarCursoAlumno.push(response);
+    listCursoAlumno.push(response);
+  }
+  
+  function obtenerAlumnos() {
+    const url = "pages/auxiliares/listadoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistAlumnos(response)
+    );
+  }
+  function obtenerCursos() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCursos(response)
+    );
   }
 
+  useEffect(function () {
+    obtenerAlumnos();
+    obtenerCursos();
+  }, []);
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -78,32 +98,41 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_NomA">Nombre alumno:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Estado curso"
+              <label htmlFor="input_NomA">Nombre alumno:</label>
+
+              <select
+                required
                 type="text"
                 className="form-control"
-                name="input_NomA"
-                id="input_NomA"
-                maxLength="50"
-                onChange={({ target }) => setnomAlumno(target.value)}
-                required
-              />
+                onChange={({ target }) => setidAlumno(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listAlumnos.map((valor) => (
+                  <option value={valor.idAlumno}>{valor.nomAlumno}</option>
+                ))}
+              </select>
             </div>
+
             <div>
-              <label htmlFor="input_NomCurso">Nombre curso:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Estado curso"
+              <label htmlFor="input_idCurso">Nombre curso:</label>
+
+              <select
+                required
                 type="text"
                 className="form-control"
-                name="input_NomCurso"
-                id="input_NomCurso"
-                maxLength="50"
-                onChange={({ target }) => setnomCurso(target.value)}
-                required
-              />
+                onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listCursos.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="input_fechaI">Fecha inicio:</label>
@@ -136,7 +165,7 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Hora inicio"
-                type="double"
+                type="time"
                 className="form-control"
                 name="input_HoraI"
                 id="input_HoraI"
@@ -149,7 +178,7 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Hora fin"
-                type="double"
+                type="time"
                 className="form-control"
                 name="input_HoraF"
                 id="input_HoraF"
@@ -158,57 +187,43 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
               />
             </div>
             <div>
-              <label htmlFor="input_PorcA">Porc Asistencia:</label>
+              <label htmlFor="input_PorcA">Porc Asistencia (Maxímo 100):</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje Asistencia"
-                type="number"
+                type="int"
                 className="form-control"
                 name="input_PorcA"
                 id="input_PorcA"
-                maxLength="11"
+                maxLength="3"
                 onChange={({ target }) => setporcAsistencia(target.value)}
                 required
               />
             </div>
             <div>
-              <label htmlFor="input_PorcP">Porc Participación:</label>
+              <label htmlFor="input_PorcP">Porc Participación (Maxímo 100):</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje participación"
-                type="number"
+                type="int"
                 className="form-control"
                 name="input_PorcP"
                 id="input_PorcP"
-                maxLength="11"
+                maxLength="3"
                 onChange={({ target }) => setporcParticipacion(target.value)}
                 required
               />
             </div>
             <div>
-              <label htmlFor="input_ClaseA">Clase Aprob:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
-                type="text"
-                className="form-control"
-                name="input_ClaseA"
-                id="input_ClaseA"
-                maxLength="1"
-                onChange={({ target }) => setclaseAprobada(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_PorcAP">Porc Aprobación:</label>
+              <label htmlFor="input_PorcAP">Porc Aprobación (Maxímo 100):</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje aprobación"
-                type="number"
+                type="int"
                 className="form-control"
                 name="input_PorcAP"
                 id="input_PorcAP"
-                maxLength="11"
+                maxLength="3"
                 onChange={({ target }) => setporcAprobacion(target.value)}
                 required
               />
@@ -227,6 +242,27 @@ const InsertarCursoAlumno = ({ isActiveCursoAlumno, cambiarEstado, cursoAlumno }
                 required
               />
             </div>
+            <div>
+              <label htmlFor="input_ClaseA">Clase Aprobada:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
+                placeholder="Clase aprobada "
+                type="text"
+                className="form-control"
+                name="input_ClaseA"
+                id="input_ClaseA"
+                maxLength="1"
+                onChange={({ target }) => setclaseAprobada(target.value)}
+                required
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="S">S (Aprobado)</option>
+                <option value="N">N (Reprobado)</option>
+              </select>
+            </div>
+
             <Button
               variant="secondary"
               type="submit"

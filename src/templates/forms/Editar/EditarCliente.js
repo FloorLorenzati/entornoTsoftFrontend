@@ -67,6 +67,7 @@ const EditarClientes = ({
       direccionCliente: direccionCliente === "" ? responseID[0].direccionCliente : direccionCliente,
 
       idPais: idPais === "" ? responseID[0].idPais : idPais,
+      
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
@@ -131,26 +132,25 @@ const EditarClientes = ({
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="input_pais">País: </label>
+            <div>
+              <label htmlFor="input_Pais">Pais:</label>
               <select
-                value={idPais || ""}
                 required
+                type="text"
                 className="form-control"
-                name="input_pais"
-                id="input_pais"
-                placeholder="Seleccione el pais"
                 onChange={({ target }) => setidPais(target.value)}
               >
-                <option selected hidden value="">
-                  {idPais}
-                </option>
                 {listPais.map((valor) => (
-                  <option value={valor.idPais}>{valor.nomPais}</option>
+                  <option
+                    defaultValue={valor.idPais === idPais ? "defaultValue" : ""}
+                    value={valor.idPais}
+                  >
+                    {valor.nomPais}
+                  </option>
                 ))}
               </select>
             </div>
-         
+
             <Button
               variant="secondary"
               type="submit"

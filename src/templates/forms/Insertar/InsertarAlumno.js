@@ -67,7 +67,7 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
     const url = "pages/insertar/insertarAlumno.php";
     const operationUrl = "insertarAlumno";
     var data = {
-      usuarioAdmin: userData.usuario,
+      usuarioCreacion: userData.usuario,
       nomAlumno: nomAlumno,
       correoAlumno: correoAlumno,
       telefonoAlumno: telefonoAlumno,

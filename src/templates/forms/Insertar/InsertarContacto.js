@@ -43,13 +43,13 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
     const url = "pages/insertar/insertarContacto.php";
     const operationUrl = "insertarContacto";
     var data = {
-      usuarioAdmin: userData.usuario,
+      usuarioCreacion: userData.usuario,
       nomContacto: nomContacto,
       correoContacto: correoContacto,
       telefonoContacto: telefonoContacto,
       fechaIni: fechaIni,
       idServicio: idServicio,
-      isActive:isActive
+      isActive:true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {

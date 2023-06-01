@@ -155,22 +155,21 @@ const EditarContacto = ({
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="input_Servicio">Servicio: </label>
+            <div>
+              <label htmlFor="input_Pais">Servicio:</label>
               <select
                 required
-                value={idServicio || ""}
+                type="text"
                 className="form-control"
-                name="input_Servicio"
-                id="input_Servicio"
-                placeholder="Seleccione el ervicio"
                 onChange={({ target }) => setidServicio(target.value)}
               >
-                <option selected hidden value="">
-                {idServicio}
-                </option>
                 {listServicio.map((valor) => (
-                  <option value={valor.idServicio}>{valor.nomServicio}</option>
+                  <option
+                    defaultValue={valor.idServicio === idServicio ? "defaultValue" : ""}
+                    value={valor.idServicio}
+                  >
+                    {valor.nomServicio}
+                  </option>
                 ))}
               </select>
             </div>

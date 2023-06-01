@@ -19,17 +19,17 @@ import "../BtnInsertar.css";
 
 export default function ListadoCursoAlumnoSesion() {
   const [cursoAlumnoSesion, setCursoAlumnoSesion] = useState([""]);
-  const [isActiveInsertCursoAlumnoSesion, setIsActiveInsertCursoAlumnoSesion] = useState(false);
+  const [isActiveInsertCursoAlumnoSesion, setIsActiveInsertCursoAlumnoSesion] =
+    useState(false);
   const [idCursoAlumnoSesion, setidCursoAlumnoSesion] = useState(null);
-  const [isActiveEditCursoAlumnoSesion, setIsActiveEditCursoAlumnoSesion] = useState(false);
+  const [isActiveEditCursoAlumnoSesion, setIsActiveEditCursoAlumnoSesion] =
+    useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  
-  const nombreTabla= "cursoalumno_sesion"
 
-
+  const nombreTabla = "cursoalumno_sesion";
 
   function insertarCursoAlumnoSesion() {
     setIsActiveInsertCursoAlumnoSesion(!isActiveInsertCursoAlumnoSesion);
@@ -39,16 +39,16 @@ export default function ListadoCursoAlumnoSesion() {
     setidCursoAlumnoSesion(ID);
   }
 
-  function eliminar(ID) {
+  function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -58,10 +58,9 @@ export default function ListadoCursoAlumnoSesion() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -75,8 +74,9 @@ export default function ListadoCursoAlumnoSesion() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setidCursoAlumnoSesion(datos.datos);
-});
+      setCursoAlumnoSesion(datos.datos);
+      console.log(data);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -90,9 +90,9 @@ export default function ListadoCursoAlumnoSesion() {
           <h1 id="TitlesPages">Listado de Curso Alumnos Sesion</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarCursoAlumnoSesion}>
-            Crear Curso Alumnos Sesion
-          </Button>
+            <Button id="btn" onClick={insertarCursoAlumnoSesion}>
+              Crear Curso Alumnos Sesion
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_tipoCliente">Mostrar registros: </label>
@@ -101,7 +101,10 @@ export default function ListadoCursoAlumnoSesion() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => setcantidadPorPagina(target.value)}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -155,7 +158,11 @@ export default function ListadoCursoAlumnoSesion() {
                     <button
                       title="Editar cursoAlumnoSesion"
                       id="OperationBtns"
-                      onClick={() => editarCursoAlumnoSesion(cursoAlumnoSesion.idCursoAlumnoSesion)}
+                      onClick={() =>
+                        editarCursoAlumnoSesion(
+                          cursoAlumnoSesion.idCursoAlumnoSesion
+                        )
+                      }
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
@@ -164,7 +171,9 @@ export default function ListadoCursoAlumnoSesion() {
                     </button> */}
                     <button
                       title="Desactivar cursoAlumnoSesion"
-                      onClick={() => desactivar(cursoAlumnoSesion.idCursoAlumnoSesion)}
+                      onClick={() =>
+                        desactivar(cursoAlumnoSesion.idCursoAlumnoSesion)
+                      }
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
@@ -174,11 +183,11 @@ export default function ListadoCursoAlumnoSesion() {
               ))}
             </tbody>
           </Table>
-          {/* <Paginador
-            paginas={paginador}
+          <Paginador
+            paginas={cantidadPaginas}
             cambiarNumero={setNumBoton}
             num_boton={num_boton}
-          ></Paginador> */}
+          ></Paginador>
         </div>
       </Container>
     </>

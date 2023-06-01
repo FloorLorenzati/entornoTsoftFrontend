@@ -91,10 +91,10 @@ const EditarAlumno = ({
       setcorreoAlumno(response[0].correoAlumno);
       settelefonoAlumno(response[0].telefonoAlumno);
 
-      setidServicio(response[0].nomServicio);
-      setidArea(response[0].nomArea);
-      setidPais(response[0].nomPais);
-      setidCargo(response[0].nomCargo);
+      setidServicio(response[0].idServicio);
+      setidArea(response[0].idArea);
+      setidPais(response[0].idPais);
+      setidCargo(response[0].idCargo);
     });
   };
 
@@ -200,86 +200,88 @@ const EditarAlumno = ({
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="input_Servicio">Servicio: </label>
+            <div>
+              <label htmlFor="input_Pais">Servicio:</label>
               <select
                 required
-                value={idServicio || ""}
+                type="text"
                 className="form-control"
-                name="input_Servicio"
-                id="input_Servicio"
-                placeholder="Seleccione el ervicio"
                 onChange={({ target }) => setidServicio(target.value)}
               >
-                <option selected hidden value="">
-                  {idServicio}
-                </option>
                 {listServicio.map((valor) => (
-                  <option value={valor.idServicio}>{valor.nomServicio}</option>
+                  <option
+                    defaultValue={valor.idServicio === idServicio ? "defaultValue" : ""}
+                    value={valor.idServicio}
+                  >
+                    {valor.nomServicio}
+                  </option>
                 ))}
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="input_pais">País: </label>
+
+            <div>
+              <label htmlFor="input_Pais">Pais:</label>
               <select
-                value={idPais || ""}
                 required
+                type="text"
                 className="form-control"
-                name="input_pais"
-                id="input_pais"
-                placeholder="Seleccione el pais"
                 onChange={({ target }) => setidPais(target.value)}
               >
-                <option hidden value="">
-                  Desplegar lista
-                </option>
                 {listPais.map((valor) => (
-                  <option value={valor.idPais}>{valor.nomPais}</option>
+                  <option
+                    defaultValue={valor.idPais === idPais ? "defaultValue" : ""}
+                    value={valor.idPais}
+                  >
+                    {valor.nomPais}
+                  </option>
                 ))}
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="input_Cargo">Cargo: </label>
+
+
+            <div>
+              <label htmlFor="input_Pais">Cargo:</label>
               <select
                 required
-                value={idCargo || ""}
+                type="text"
                 className="form-control"
-                name="input_Cargo"
-                id="input_Cargo"
-                placeholder="Seleccione el cargo"
                 onChange={({ target }) => setidCargo(target.value)}
               >
-                <option selected hidden value="">
-                  {idCargo}
-                </option>
                 {listCargo.map((valor) => (
-                  <option value={valor.idCargo}>{valor.nomCargo}</option>
+                  <option
+                    defaultValue={valor.idCargo === idCargo ? "defaultValue" : ""}
+                    value={valor.idCargo}
+                  >
+                    {valor.nomCargo}
+                  </option>
                 ))}
-                idArea
               </select>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="input_Area">Área: </label>
+
+
+            <div>
+              <label htmlFor="input_Pais">Área:</label>
               <select
                 required
-                value={idArea || ""}
+                type="text"
                 className="form-control"
-                name="input_Area"
-                id="input_Area"
-                placeholder="Seleccione el área"
                 onChange={({ target }) => setidArea(target.value)}
               >
-                <option selected hidden value="">
-                  {idArea}
-                </option>
                 {listArea.map((valor) => (
-                  <option value={valor.idArea}>{valor.nomArea}</option>
+                  <option
+                    defaultValue={valor.idArea === idArea ? "defaultValue" : ""}
+                    value={valor.idArea}
+                  >
+                    {valor.nomArea}
+                  </option>
                 ))}
               </select>
             </div>
+
+
 
             <Button
               variant="secondary"
