@@ -9,11 +9,11 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarRelatorRamo from "../../../templates/forms/Insertar/InsertarRelatorRamo";
-// import EditarRelatorRamo from "../../../templates/forms/Editar/EditarRelatorRamo";
+import InsertarRelatorRamo from "../../../templates/forms/Insertar/InsertarRelatorRamo";
+import EditarRelatorRamo from "../../../templates/forms/Editar/EditarRelatorRamo";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
-// import Paginador from "../templates/Paginador";
+import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
@@ -57,7 +57,6 @@ export default function ListadoRelatorRamo() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton, cantidadPorPagina]
@@ -116,7 +115,7 @@ export default function ListadoRelatorRamo() {
               </select>
             </div>
           </div>
-          {/* <InsertarRelatorRamo
+          <InsertarRelatorRamo
             isActiveRelatorRamo={isActiveInsertRelatorRamo}
             cambiarEstado={setIsActiveInsertRelatorRamo}
           ></InsertarRelatorRamo>
@@ -125,7 +124,10 @@ export default function ListadoRelatorRamo() {
             isActiveEditRelatorRamo={isActiveEditRelatorRamo}
             cambiarEstado={setIsActiveEditRelatorRamo}
             idRelatorRamo={idRelatorRamo}
-          ></EditarRelatorRamo> */}
+            setRelatorRamo={setRelatorRamo}
+            relatorRamo={relatorRamo}
+            nombreTabla={nombreTabla}
+          ></EditarRelatorRamo>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -168,18 +170,19 @@ export default function ListadoRelatorRamo() {
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Paginador
-            paginas={cantidadPaginas}
-            cambiarNumero={setNumBoton}
-            num_boton={num_boton}
-          ></Paginador>
-        </div>
-      </Container>
-    </>
-  ) : (
-    <Navigate to="/login"></Navigate>
-  );
-}
+               ))}
+               </tbody>
+             </Table>
+             <Paginador
+               paginas={cantidadPaginas}
+               cambiarNumero={setNumBoton}
+               num_boton={num_boton}
+             ></Paginador>
+           </div>
+         </Container>
+       </>
+     ) : (
+       <Navigate to="/login"></Navigate>
+     );
+   }
+   

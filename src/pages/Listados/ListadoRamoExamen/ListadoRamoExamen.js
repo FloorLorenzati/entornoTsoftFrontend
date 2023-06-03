@@ -9,8 +9,8 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarRamoExamen from "../../../templates/forms/Insertar/InsertarRamoExamen";
-// import EditarRamoExamen from "../../../templates/forms/Editar/EditarRamoExamen";
+import InsertarRamoExamen from "../../../templates/forms/Insertar/InsertarRamoExamen";
+import EditarRamoExamen from "../../../templates/forms/Editar/EditarRamoExamen";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
@@ -29,11 +29,6 @@ export default function ListadoRamoExamen() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "ramoexamen";
 
-  //   function obtenerDatosPaginador() {
-  //     getDataService(urlPaginador).then((paginador) =>
-  //       setPaginadorRamoExamen(paginador)
-  //     );
-  //   }
 
   function insertarRamoExamen() {
     setIsActiveInsertRamoExamen(!isActiveInsertRamoExamen);
@@ -121,7 +116,7 @@ export default function ListadoRamoExamen() {
               </select>
             </div>
           </div>
-          {/* <InsertarRamoExamen
+          <InsertarRamoExamen
             isActiveRamoExamen={isActiveInsertRamoExamen}
             cambiarEstado={setIsActiveInsertRamoExamen}
           ></InsertarRamoExamen>
@@ -130,7 +125,10 @@ export default function ListadoRamoExamen() {
             isActiveEditRamoExamen={isActiveEditRamoExamen}
             cambiarEstado={setIsActiveEditRamoExamen}
             idRamoExamen={idRamoExamen}
-          ></EditarRamoExamen> */}
+            setRamoExamen={setRamoExamen}
+            ramoExamen={ramoExamen} 
+            nombreTabla={nombreTabla}
+          ></EditarRamoExamen> 
 
           <Table id="mainTable" hover responsive>
             <thead>

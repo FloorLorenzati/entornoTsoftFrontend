@@ -210,7 +210,7 @@ const EditarAlumno = ({
               >
                 {listServicio.map((valor) => (
                   <option
-                    defaultValue={valor.idServicio === idServicio ? "defaultValue" : ""}
+                    selected={valor.idServicio === idServicio ? "selected" : ""}
                     value={valor.idServicio}
                   >
                     {valor.nomServicio}
@@ -230,7 +230,7 @@ const EditarAlumno = ({
               >
                 {listPais.map((valor) => (
                   <option
-                    defaultValue={valor.idPais === idPais ? "defaultValue" : ""}
+                    selected={valor.idPais === idPais ? "selected" : ""}
                     value={valor.idPais}
                   >
                     {valor.nomPais}
@@ -251,7 +251,7 @@ const EditarAlumno = ({
               >
                 {listCargo.map((valor) => (
                   <option
-                    defaultValue={valor.idCargo === idCargo ? "defaultValue" : ""}
+                    selected={valor.idCargo === idCargo ? "selected" : ""}
                     value={valor.idCargo}
                   >
                     {valor.nomCargo}
@@ -272,7 +272,7 @@ const EditarAlumno = ({
               >
                 {listArea.map((valor) => (
                   <option
-                    defaultValue={valor.idArea === idArea ? "defaultValue" : ""}
+                    selected={valor.idArea === idArea ? "selected" : ""}
                     value={valor.idArea}
                   >
                     {valor.nomArea}

@@ -37,7 +37,7 @@ const EditarContacto = ({
     setnomContacto(responseID[0].nomContacto);
     setcorreoContacto(responseID[0].correoContacto);
     settelefonoContacto(responseID[0].telefonoContacto);
-    setfechaIni(responseID[0].fechaFin);
+    setfechaIni(responseID[0].fechaIni);
     setidServicio(responseID[0].idServicio);
   };
   // ----------------------FUNCIONES----------------------------
@@ -165,7 +165,7 @@ const EditarContacto = ({
               >
                 {listServicio.map((valor) => (
                   <option
-                    defaultValue={valor.idServicio === idServicio ? "defaultValue" : ""}
+                    selected={valor.idServicio === idServicio ? "selected" : ""}
                     value={valor.idServicio}
                   >
                     {valor.nomServicio}

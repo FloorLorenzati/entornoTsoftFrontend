@@ -20,6 +20,7 @@ import ListadoCursoAlumnoSesion from "./pages/Listados/ListadoCursoAlumnoSesion/
 import ListadoNotaExamen from "./pages/Listados/ListadoNotaExamen/ListadoNotaExamen";
 import ListadoRamoExamen from "./pages/Listados/ListadoRamoExamen/ListadoRamoExamen";
 import ListadoRelatorRamo from "./pages/Listados/ListadoRelatorRamo/ListadoRelatorRamo";
+import ListadoReqCurso from "./pages/Listados/ListadoReqCurso/ListadoReqCurso";
 
 function App() {
   return (
@@ -67,6 +68,9 @@ function App() {
             <Route element={<ListadoRamoExamen />} path="/listadoRamoExamen"></Route>
 
             <Route element={<ListadoRelatorRamo />} path="/listadoRelatorRamo"></Route>
+
+            <Route element={<ListadoReqCurso />} path="/listadoReqCurso"></Route>
+
 
           </Route>
         </Routes>

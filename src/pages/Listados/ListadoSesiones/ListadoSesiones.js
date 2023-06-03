@@ -9,19 +9,19 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarSesiones from "../../../templates/forms/Insertar/InsertarSesiones";
-// import EditarSesiones from "../../../templates/forms/Editar/EditarSesiones";
+import InsertarSesion from "../../../templates/forms/Insertar/InsertarSesiones";
+import EditarSesion from "../../../templates/forms/Editar/EditarSesiones";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoSesiones() {
-  const [sesiones, setSesiones] = useState([""]);
-  //   const [isActiveInsertSesiones, setIsActiveInsertSesiones] = useState(false);
-  //   const [isActiveEditSesiones, setIsActiveEditSesiones] = useState(false);
-  const [idSesiones, setidSesiones] = useState(null);
+export default function ListadoSesion() {
+  const [Sesion, setSesion] = useState([""]);
+  const [isActiveInsertSesion, setIsActiveInsertSesion] = useState(false);
+  const [isActiveEditSesion, setIsActiveEditSesion] = useState(false);
+  const [idSesion, setidSesion] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
@@ -29,12 +29,12 @@ export default function ListadoSesiones() {
 
   const nombreTabla = "sesion";
 
-  function insertarSesiones() {
-    setIsActiveInsertSesiones(!isActiveInsertSesiones);
+  function insertarSesion() {
+    setIsActiveInsertSesion(!isActiveInsertSesion);
   }
-  function editarSesiones(ID) {
-    setIsActiveEditSesiones(!isActiveEditSesiones);
-    setidSesiones(ID);
+  function editarSesion(ID) {
+    setIsActiveEditSesion(!isActiveEditSesion);
+    setidSesion(ID);
   }
 
   function desactivar(ID) {
@@ -73,7 +73,7 @@ export default function ListadoSesiones() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setSesiones(datos.datos);
+      setSesion(datos.datos);
     });
   }
   //PAGINADOR ---------------------
@@ -85,10 +85,10 @@ export default function ListadoSesiones() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de sesiones</h1>
+          <h1 id="TitlesPages">Listado de Sesion</h1>
 
           <div id="selectPaginador">
-            <Button id="btn" onClick={insertarSesiones}>
+            <Button id="btn" onClick={insertarSesion}>
               Crear Sesion
             </Button>
 
@@ -115,16 +115,19 @@ export default function ListadoSesiones() {
               </select>
             </div>
           </div>
-          {/* <InsertarSesiones
-            isActiveSesiones={isActiveInsertSesiones}
-            cambiarEstado={setIsActiveInsertSesiones}
-          ></InsertarSesiones>
+          <InsertarSesion
+            isActiveSesion={isActiveInsertSesion}
+            cambiarEstado={setIsActiveInsertSesion}
+          ></InsertarSesion>
 
-          <EditarSesiones
-            isActiveEditSesiones={isActiveEditSesiones}
-            cambiarEstado={setIsActiveEditSesiones}
-            idSesiones={idSesiones}
-          ></EditarSesiones> */}
+          <EditarSesion
+            isActiveEditSesion={isActiveEditSesion}
+            cambiarEstado={setIsActiveEditSesion}
+            idSesion={idSesion}
+            setSesion={setSesion}
+            Sesion={Sesion}
+            nombreTabla={nombreTabla}
+          ></EditarSesion>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -140,32 +143,32 @@ export default function ListadoSesiones() {
               </tr>
             </thead>
             <tbody>
-              {sesiones.map((sesiones) => (
-                <tr key={sesiones.idSesiones}>
-                  <td>{sesiones.idSesion}</td>
-                  <td>{sesiones.nroSesion}</td>
-                  <td>{sesiones.nomSesion}</td>
-                  <td>{sesiones.tipoSesion}</td>
-                  <td>{sesiones.tipoSesionHH}</td>
+              {Sesion.map((Sesion) => (
+                <tr key={Sesion.idSesion}>
+                  <td>{Sesion.idSesion}</td>
+                  <td>{Sesion.nroSesion}</td>
+                  <td>{Sesion.nomSesion}</td>
+                  <td>{Sesion.tipoSesion}</td>
+                  <td>{Sesion.tipoSesionHH}</td>
                   <td align="right" width={188}>
-                    {sesiones.duracionSesionHH}
+                    {Sesion.duracionSesionHH}
                   </td>
-                  <td>{sesiones.nomRamo}</td>
+                  <td>{Sesion.nomRamo}</td>
 
                   <td>
                     <button
-                      title="Editar sesiones"
+                      title="Editar Sesion"
                       id="OperationBtns"
-                      onClick={() => editarSesiones(sesiones.idSesiones)}
+                      onClick={() => editarSesion(Sesion.idSesion)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar sesiones" id="OperationBtns">
+                    {/* <button title="Examinar Sesion" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar sesiones"
-                      onClick={() => desactivar(sesiones.idSesiones)}
+                      title="Desactivar Sesion"
+                      onClick={() => desactivar(Sesion.idSesion)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

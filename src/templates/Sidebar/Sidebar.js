@@ -408,6 +408,14 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
+                        <Link to="/listadoReqCurso">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Requerimiento Curso
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
                         <Link to="/listadoServicios">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />

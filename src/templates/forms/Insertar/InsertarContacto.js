@@ -14,7 +14,6 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
   const [correoContacto, setcorreoContacto] = useState("");
   const [telefonoContacto, settelefonoContacto] = useState("");
   const [fechaIni, setfechaIni] = useState("");
-  const [isActive, setisActive] = useState(1);
 
 
   const [idServicio, setidServicio] = useState("");

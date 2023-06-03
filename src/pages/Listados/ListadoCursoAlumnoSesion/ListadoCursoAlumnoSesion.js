@@ -9,8 +9,8 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarCursoAlumnoSesion from "../../../templates/forms/Insertar/InsertarCursoAlumnoSesionesion";
-// import EditarCursoAlumnoSesion from "../../../templates/forms/Editar/EditarCursoAlumnoSesion";
+import InsertarCursoAlumnoSesion from "../../../templates/forms/Insertar/InsertarCursoAlumnoSesion";
+import EditarCursoAlumnoSesion from "../../../templates/forms/Editar/EditarCursoAlumnoSesion";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
@@ -74,9 +74,8 @@ export default function ListadoCursoAlumnoSesion() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCursoAlumnoSesion(datos.datos);
-      console.log(data);
-    });
+      setCursoAlumnoSesion(datos.datos);console.log(data);;
+});
   }
   //PAGINADOR ---------------------
 
@@ -117,16 +116,19 @@ export default function ListadoCursoAlumnoSesion() {
               </select>
             </div>
           </div>
-          {/* <InsertarCursoCursoAlumnoSesionesion
+          <InsertarCursoAlumnoSesion
             isActiveCursoAlumnoSesion={isActiveInsertCursoAlumnoSesion}
             cambiarEstado={setIsActiveInsertCursoAlumnoSesion}
-          ></InsertarCursoCursoAlumnoSesionesion>
+          ></InsertarCursoAlumnoSesion>
 
-          <EditarCursoCursoAlumnoSesionesion
+          <EditarCursoAlumnoSesion
             isActiveEditCursoAlumnoSesion={isActiveEditCursoAlumnoSesion}
             cambiarEstado={setIsActiveEditCursoAlumnoSesion}
             idCursoAlumnoSesion={idCursoAlumnoSesion}
-          ></EditarCursoCursoAlumnoSesionesion> */}
+            setCursoAlumnoSesion={setCursoAlumnoSesion}
+            cursoAlumnoSesion={cursoAlumnoSesion} 
+            nombreTabla={nombreTabla}
+          ></EditarCursoAlumnoSesion> 
 
           <Table id="mainTable" hover responsive>
             <thead>

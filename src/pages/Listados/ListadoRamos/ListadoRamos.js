@@ -112,7 +112,7 @@ export default function ListadoRamos() {
               </select>
             </div>
           </div>
-          {/* <InsertarRamo
+          <InsertarRamo
             isActiveRamo={isActiveInsertRamo}
             cambiarEstado={setIsActiveInsertRamo}
             ramos={ramos}
@@ -123,7 +123,8 @@ export default function ListadoRamos() {
             idRamo={idRamo}
             setRamos={setRamos}
             ramos={ramos}
-          ></EditarRamo> */}
+            nombreTabla={nombreTabla}
+          ></EditarRamo> 
 
           <Table id="mainTable" hover responsive>
             <thead>

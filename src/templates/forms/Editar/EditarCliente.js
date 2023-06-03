@@ -142,7 +142,7 @@ const EditarClientes = ({
               >
                 {listPais.map((valor) => (
                   <option
-                    defaultValue={valor.idPais === idPais ? "defaultValue" : ""}
+                    selected={valor.idPais === idPais ? "selected" : ""}
                     value={valor.idPais}
                   >
                     {valor.nomPais}

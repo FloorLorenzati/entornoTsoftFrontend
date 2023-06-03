@@ -1,93 +1,111 @@
 import React, { useState, useEffect } from "react";
-// import "../../css/InsertarCursoCalendario.css";
+import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
 import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import getDataService from "../../../services/GetDataService";
+import { useCallback } from "react";
 
 const EditarRamo = ({
   isActiveEditRamo,
   cambiarEstado,
   idRamo,
-  ramos,
-  setRamos,
+  ramo,
+  setRamo,
+  nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
+  const [codRamo, setcodRamo] = useState("");
+  const [nomRamo, setnomRamo] = useState("");
+  const [tipoRamo, settipoRamo] = useState("");
+  const [tipoRamoHH, settipoRamoHH] = useState("");
+  const [duracionRamoHH, setduracionRamoHH] = useState("");
+  const [cantSesionesRamo, setcantSesionesRamo] = useState("");
 
-  const [listRelatores, setListRelatores] = useState([""]);
-  const [codigoRamo, setCodigoRamo] = useState("");
-  const [nombreRamo, setNombreRamo] = useState("");
-  const [hh_academicas, set_hh_academicas] = useState("");
-  const listRamos = ramos;
-  const [nombreRelator, setRelator] = useState("");
-  const [idRelator, setidRelator] = useState("");
-  const [responseID, setResponseID] = useState([""]);
+  const [idCurso, setidCurso] = useState("");
+
+  const [listCurso, setlistCurso] = useState([""]);
+
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+  const [responseID, setResponseID] = useState([""]);
+
+  const listRamo = ramo;
 
   const show = isActiveEditRamo;
 
   const handleClose = () => {
     cambiarEstado(false);
-    setCodigoRamo(responseID[0].codigoRamo);
-    setNombreRamo(responseID[0].nombreRamo);
-    set_hh_academicas(responseID[0].hh_academicas);
-    setRelator(responseID[0].nombre);
-    setidRelator(responseID[0].idRelator);
+    setcodRamo(responseID[0].codRamo);
+    setnomRamo(responseID[0].nomRamo);
+    settipoRamo(responseID[0].tipoRamo);
+    settipoRamoHH(responseID[0].tipoRamoHH);
+    setduracionRamoHH(responseID[0].duracionRamoHH);
+    setcantSesionesRamo(responseID[0].cantSesionesRamo);
+    setidCurso(responseID[0].idCurso);
   };
-
   // ----------------------FUNCIONES----------------------------
-
-  function obtenerRelatores() {
-    const url = "TASKS/auxiliar/ListadoRelatores.php?listadoRelatores";
-    getDataService(url).then((relatores) => setListRelatores(relatores));
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistCurso(response));
   }
 
-  function getData() {
-    const url = "TASKS/coe-selectCursos.php";
-    const operationUrl = "ID";
-    const data = { ID: idRamo };
+  const getData = useCallback(() => {
+    const url = "pages/seleccionar/seleccionarDatos.php";
+    const operationUrl = "seleccionarDatos";
+    var data = { idRegistro: idRamo, nombreTabla: nombreTabla};
     SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
       setResponseID(response);
-      setCodigoRamo(response[0].codigoRamo);
-      setNombreRamo(response[0].nombreRamo);
-      set_hh_academicas(response[0].hh_academicas);
-      setRelator(response[0].nombre);
-      setidRelator(response[0].idRelator);
+      setcodRamo(response[0].codRamo);
+      setnomRamo(response[0].nomRamo);
+      settipoRamo(response[0].tipoRamo);
+      settipoRamoHH(response[0].tipoRamoHH);
+      setduracionRamoHH(response[0].duracionRamoHH);
+      setcantSesionesRamo(response[0].cantSesionesRamo);
+      setidCurso(response[0].nomCurso);
     });
-  }
+  }, [idRamo]);
 
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-editRamo.php";
+    const url = "pages/editar/editarRamo.php";
     const operationUrl = "editarRamo";
-    var data = {
-      ID: idRamo,
-      idRelator: idRelator === "" ? responseID[0].idRelator : idRelator,
-      codigoRamo: codigoRamo === "" ? responseID[0].codigoRamo : codigoRamo,
-      nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
-      hh_academicas:
-        hh_academicas === "" ? responseID[0].hh_academicas : hh_academicas,
-      nombreRelator:
-        nombreRelator === "" ? responseID[0].idRelator : nombreRelator,
-    };
 
+    var data = {
+      usuarioModificacion: userData.usuario,
+      idRamo: idRamo,
+      codRamo: codRamo === "" ? responseID[0].codRamo : codRamo,
+      nomRamo: nomRamo === "" ? responseID[0].nomRamo : nomRamo,
+      tipoRamo: tipoRamo === "" ? responseID[0].tipoRamo : tipoRamo,
+      tipoRamoHH: tipoRamoHH === "" ? responseID[0].tipoRamoHH : tipoRamoHH,
+      duracionRamoHH: duracionRamoHH === "" ? responseID[0].duracionRamoHH : duracionRamoHH,
+      cantSesionesRamo: cantSesionesRamo === "" ? responseID[0].cantSesionesRamo : cantSesionesRamo,
+      idCurso: idCurso === "" ? responseID[0].idCurso : idCurso,
+      isActive:true,
+    };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramo } = response[0];
       TopAlerts(successEdited);
-      actualizarRamo(ramo);
+      {actualizarRamo(ramo);console.log(data);};
     });
-  }
-  function actualizarRamo(ramo) {
-    const nuevosRamos = listRamos.map((r) => (r.ID === ramo.ID ? ramo : r));
-    setRamos(nuevosRamos);
+
+    function actualizarRamo(ramo) {
+      const nuevosRamo = listRamo.map((c) =>
+        c.idRamo === ramo.idRamo ? ramo : c
+      );
+      setRamo(nuevosRamo);
+    }
   }
 
   useEffect(
     function () {
       if (idRamo !== null) {
         getData();
-        obtenerRelatores();
+        obtenerCurso();
       }
     },
     [idRamo]
@@ -102,62 +120,128 @@ const EditarRamo = ({
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            {/* <div>
-              <label htmlFor="input_codigoRamo">Código del ramo: </label>
+            <div>
+              <label htmlFor="input_tipoDelRamo">Código:</label>
               <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del Ramo"
+                value={codRamo || ""}
                 type="text"
-                placeholder="Ejemplo: JAV"
-                id="input_codigoRamo"
-                name="input_codigoRamo"
                 className="form-control"
-                onChange={({ target }) => setCodigoRamo(target.value)}
-                value={codigoRamo || ""}
+                name="input_tipoDelRamo"
+                id="input_tipoDelRamo"
+                maxLength="20"
+                onChange={({ target }) => setcodRamo(target.value)}
                 required
               />
             </div>
+
+
             <div>
-              <label htmlFor="input_nombreRamo">Nombre del ramo: </label>
+              <label htmlFor="input_nombreDelRamo">Nombre ramo:</label>
               <input
-                value={nombreRamo || ""}
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del Ramo"
+                value={nomRamo || ""}
                 type="text"
-                placeholder="Ejemplo: JAV"
-                id="input_nombreRamo"
-                name="input_nombreRamo"
                 className="form-control"
-                onChange={({ target }) => setNombreRamo(target.value)}
+                name="input_nombreDelRamo"
+                id="input_nombreDelRamo"
+                maxLength="50"
+                onChange={({ target }) => setnomRamo(target.value)}
                 required
               />
             </div>
+
+
             <div>
-              <label htmlFor="input_hhAcademicas">Horas académicas</label>
+              <label htmlFor="input_tipoDelRamohh">Tipo ramo:</label>
               <input
-                value={hh_academicas || ""}
-                type="number"
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo del Ramo"
+                value={tipoRamo || ""}
+                type="text"
                 className="form-control"
-                name="input_hhAcademicas"
-                id="input_hhAcademicas"
-                onChange={({ target }) => set_hh_academicas(target.value)}
+                name="input_tipoDelRamohh"
+                id="input_tipoDelRamohh"
+                maxLength="10"
+                onChange={({ target }) => settipoRamo(target.value)}
                 required
               />
-            </div> */}
+            </div>
+
             <div>
-              <label htmlFor="input_tipoCliente">Relator:</label>
+              <label htmlFor="input_nombreDelRamo">Tipo ramo HH:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del Ramo"
+                value={tipoRamoHH || ""}
+                type="text"
+                className="form-control"
+                name="input_nombreDelRamo"
+                id="input_nombreDelRamo"
+                maxLength="12"
+                onChange={({ target }) => settipoRamoHH(target.value)}
+                required
+              />
+            </div>
+
+
+
+            <div>
+              <label htmlFor="input_duracionDelRamohh">Duración ramo HH:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del Ramo"
+                value={duracionRamoHH || ""}
+                type="double"
+                className="form-control"
+                name="input_duracionDelRamohh"
+                id="input_duracionDelRamohh"
+                onChange={({ target }) => setduracionRamoHH(target.value)}
+                required
+              />
+            </div>
+
+
+
+            <div>
+              <label htmlFor="input_cantSesionesDelRamo">Cantidad sesiones ramo:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre completo del Ramo"
+                value={cantSesionesRamo || ""}
+                type="int"
+                className="form-control"
+                name="input_cantSesionesDelRamo"
+                id="input_cantSesionesDelRamo"
+                maxLength="11"
+                onChange={({ target }) => setcantSesionesRamo(target.value)}
+                required
+              />
+            </div>
+
+
+            <div>
+              <label htmlFor="input_Curso">Nombre del curso:</label>
               <select
                 required
+                type="text"
                 className="form-control"
-                onChange={({ target }) => setidRelator(target.value)}
+                onChange={({ target }) => setidCurso(target.value)}
               >
-                {listRelatores.map((valor) => (
+                {listCurso.map((valor) => (
                   <option
-                    selected={valor.nombre === nombreRelator ? "selected" : ""}
-                    value={valor.ID}
+                    selected={valor.idCurso === idCurso ? "selected" : ""}
+                    value={valor.idCurso}
                   >
-                    {valor.nombre}
+                    {valor.nomCurso}
                   </option>
                 ))}
               </select>
             </div>
-
+            
+           
             <Button
               variant="secondary"
               type="submit"
@@ -172,4 +256,5 @@ const EditarRamo = ({
     </>
   );
 };
+
 export default EditarRamo;

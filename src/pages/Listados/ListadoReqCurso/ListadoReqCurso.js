@@ -9,33 +9,31 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarNotaExamen from "../../../templates/forms/Insertar/InsertarNotaExamen";
-import EditarNotaExamen from "../../../templates/forms/Editar/EditarNotaExamen";
+import InsertarReqCurso from "../../../templates/forms/Insertar/InsertarReqCurso";
+import EditarReqCurso from "../../../templates/forms/Editar/EditarReqCurso";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoNotaExamen() {
-  const [notaExamen, setNotaExamen] = useState([""]);
-  const [isActiveInsertNotaExamen, setIsActiveInsertNotaExamen] = useState(false);
-  const [idNotaExamen, setidNotaExamen] = useState(null);
-  const [isActiveEditNotaExamen, setIsActiveEditNotaExamen] = useState(false);
+export default function ListadoReqCurso() {
+  const [reqCurso, setReqCurso] = useState([""]);
+  const [isActiveInsertReqCurso, setIsActiveInsertReqCurso] = useState(false);
+  const [idReqCurso, setidReqCurso] = useState(null);
+  const [isActiveEditReqCurso, setIsActiveEditReqCurso] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  const nombreTabla= "reqcurso"
 
-  const nombreTabla= "notaexamen"
-
-
-  function insertarNotaExamen() {
-    setIsActiveInsertNotaExamen(!isActiveInsertNotaExamen);
+  function insertarReqCurso() {
+    setIsActiveInsertReqCurso(!isActiveInsertReqCurso);
   }
-  function editarNotaExamen(ID) {
-    setIsActiveEditNotaExamen(!isActiveEditNotaExamen);
-    setidNotaExamen(ID);
+  function editarReqCurso(ID) {
+    setIsActiveEditReqCurso(!isActiveEditReqCurso);
+    setidReqCurso(ID);
   }
 
   function desactivar(ID) {
@@ -51,12 +49,12 @@ export default function ListadoNotaExamen() {
         SendDataService(url, operationUrl, data).then((response) => {
           const { paginador, ...datos } = data;
           setCantidadPaginas(paginador.cantPaginas);
-          setNotaExamen(datos.datos);
+          setReqCurso(datos.datos);
+          console.log(data);
             });
       }
     });
   }
-
   useEffect(
     function () {
       handleChangePaginador();
@@ -66,8 +64,8 @@ export default function ListadoNotaExamen() {
 
   //PAGINADOR ---------------------
   function handleChangePaginador() {
-    var url = "pages/listados/listadoNotaExamen.php";
-    var operationUrl = "listadoNotaExamen";
+    var url = "pages/listados/listadoReqCurso.php";
+    var operationUrl = "listadoReqCurso";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
@@ -75,8 +73,8 @@ export default function ListadoNotaExamen() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setNotaExamen(datos.datos);
-    });
+      setReqCurso(datos.datos);
+});
   }
   //PAGINADOR ---------------------
 
@@ -87,11 +85,11 @@ export default function ListadoNotaExamen() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Nota Examen</h1>
+          <h1 id="TitlesPages">Listado de requisito cursos</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarNotaExamen}>
-            Crear Nota Examen
+          <Button id="btn" onClick={insertarReqCurso}>
+            Crear Req Curso
           </Button>
 
             <div className="form-group" id="btn2">
@@ -101,7 +99,8 @@ export default function ListadoNotaExamen() {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -114,54 +113,51 @@ export default function ListadoNotaExamen() {
               </select>
             </div>
           </div>
-          <InsertarNotaExamen
-            isActiveNotaExamen={isActiveInsertNotaExamen}
-            cambiarEstado={setIsActiveInsertNotaExamen}
-          ></InsertarNotaExamen>
 
-          <EditarNotaExamen
-            isActiveEditNotaExamen={isActiveEditNotaExamen}
-            cambiarEstado={setIsActiveEditNotaExamen}
-            idNotaExamen={idNotaExamen}
-            setNotaExamen={setNotaExamen}
-            nomExamen={notaExamen} 
+          <InsertarReqCurso
+            isActiveReqCurso={isActiveInsertReqCurso}
+            cambiarEstado={setIsActiveInsertReqCurso}
+            reqCurso={reqCurso}
+          ></InsertarReqCurso>
+
+          <EditarReqCurso
+            isActiveEditReqCurso={isActiveEditReqCurso}
+            cambiarEstado={setIsActiveEditReqCurso}
+            idReqCurso={idReqCurso}
+            setReqCurso={setReqCurso}
+            reqCurso={reqCurso} 
             nombreTabla={nombreTabla}
-          ></EditarNotaExamen> 
+          ></EditarReqCurso> 
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nota examen</th>
-                <th>Aprueba examen</th>
-                <th>Nombre examen</th>
-                <th>Id curso alumno</th>
+                <th>Nombre curso</th>
+                <th>Requisito curso</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {notaExamen.map((notaExamen) => (
-                <tr key={notaExamen.idNotaExamen}>
-                  <td>{notaExamen.idNotaExamen}</td>
-                  <td>{notaExamen.notaExamen}</td>
-                  <td>{notaExamen.apruebaExamen}</td>
-                  <td>{notaExamen.nomExamen}</td>
-                  <td>{notaExamen.idCursoAlumno}</td>
-
+              {reqCurso.map((reqCurso) => (
+                <tr key={reqCurso.idReqCurso}>
+                  <td>{reqCurso.idReqCurso}</td>
+                  <td>{reqCurso.nomCurso}</td>
+                  <td>{reqCurso.requisitoCurso}</td>
                   <td>
                     <button
-                      title="Editar notaExamen"
+                      title="Editar ReqCurso"
                       id="OperationBtns"
-                      onClick={() => editarNotaExamen(notaExamen.idNotaExamen)}
+                      onClick={() => editarReqCurso(reqCurso.idReqCurso)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar notaExamen" id="OperationBtns">
+                    {/* <button title="Examinar ReqCurso" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar notaExamen"
-                      onClick={() => desactivar(notaExamen.idNotaExamen)}
+                      title="Desactivar ReqCurso"
+                      onClick={() => desactivar(reqCurso.idReqCurso)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
@@ -172,10 +168,10 @@ export default function ListadoNotaExamen() {
             </tbody>
           </Table>
           <Paginador
-            paginas={cantidadPaginas}
-            cambiarNumero={setNumBoton}
-            num_boton={num_boton}
-          ></Paginador>
+               paginas={cantidadPaginas}
+               cambiarNumero={setNumBoton}
+               num_boton={num_boton}
+             ></Paginador>
         </div>
       </Container>
     </>

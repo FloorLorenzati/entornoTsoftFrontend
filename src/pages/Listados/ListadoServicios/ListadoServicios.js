@@ -9,19 +9,19 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-// import InsertarServicios from "../../../templates/forms/Insertar/InsertarServicios";
-// import EditarServicios from "../../../templates/forms/Editar/EditarServicios";
+import InsertarServicio from "../../../templates/forms/Insertar/InsertarServicios";
+import EditarServicio from "../../../templates/forms/Editar/EditarServicios";
 import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoServicios() {
-  const [servicios, setServicios] = useState([""]);
-//   const [isActiveInsertServicios, setIsActiveInsertServicios] = useState(false);
-//   const [isActiveEditServicios, setIsActiveEditServicios] = useState(false);
-  const [idServicios, setidServicios] = useState(null);
+export default function ListadoServicio() {
+  const [servicio, setServicio] = useState([""]);
+  const [isActiveInsertServicio, setIsActiveInsertServicio] = useState(false);
+  const [isActiveEditServicio, setIsActiveEditServicio] = useState(false);
+  const [idServicio, setidServicio] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
@@ -29,18 +29,12 @@ export default function ListadoServicios() {
 
   const nombreTabla= "servicio"
 
-//   function obtenerDatosPaginador() {
-//     getDataService(urlPaginador).then((paginador) =>
-//       setPaginadorServicios(paginador)
-//     );
-//   }
-
-  function insertarServicios() {
-    setIsActiveInsertServicios(!isActiveInsertServicios);
+  function insertarServicio() {
+    setIsActiveInsertServicio(!isActiveInsertServicio);
   }
-  function editarServicios(ID) {
-    setIsActiveEditServicios(!isActiveEditServicios);
-    setidServicios(ID);
+  function editarServicio(ID) {
+    setIsActiveEditServicio(!isActiveEditServicio);
+    setidServicio(ID);
   }
 
   function desactivar(ID) {
@@ -62,7 +56,7 @@ export default function ListadoServicios() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
+
       handleChangePaginador();
     },
     [num_boton,cantidadPorPagina]
@@ -79,7 +73,7 @@ export default function ListadoServicios() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setServicios(datos.datos);
+      setServicio(datos.datos);
       });
   }
   //PAGINADOR ---------------------
@@ -91,10 +85,10 @@ export default function ListadoServicios() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de sesiones</h1>
+          <h1 id="TitlesPages">Listado de Servicio</h1>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarServicios}>
+          <Button id="btn" onClick={insertarServicio}>
             Crear Sesion
           </Button>
 
@@ -119,16 +113,19 @@ export default function ListadoServicios() {
               </select>
             </div>
           </div>
-          {/* <InsertarServicios
-            isActiveServicios={isActiveInsertServicios}
-            cambiarEstado={setIsActiveInsertServicios}
-          ></InsertarServicios>
+          <InsertarServicio
+            isActiveServicio={isActiveInsertServicio}
+            cambiarEstado={setIsActiveInsertServicio}
+          ></InsertarServicio>
 
-          <EditarServicios
-            isActiveEditServicios={isActiveEditServicios}
-            cambiarEstado={setIsActiveEditServicios}
-            idServicios={idServicios}
-          ></EditarServicios> */}
+          <EditarServicio
+            isActiveEditServicio={isActiveEditServicio}
+            cambiarEstado={setIsActiveEditServicio}
+            idServicio={idServicio}
+            setServicio={setServicio}
+            servicio={servicio}
+            nombreTabla={nombreTabla}
+          ></EditarServicio> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -140,25 +137,25 @@ export default function ListadoServicios() {
               </tr>
             </thead>
             <tbody>
-              {servicios.map((servicios) => (
-                <tr key={servicios.idServicios}>
-                  <td>{servicios.idServicio}</td>
-                  <td>{servicios.nomServicio}</td>
-                  <td>{servicios.nomCliente}</td>
+              {servicio.map((Servicio) => (
+                <tr key={Servicio.idServicio}>
+                  <td>{Servicio.idServicio}</td>
+                  <td>{Servicio.nomServicio}</td>
+                  <td>{Servicio.nomCliente}</td>
                   <td>
                     <button
-                      title="Editar servicios"
+                      title="Editar Servicio"
                       id="OperationBtns"
-                      onClick={() => editarServicios(servicios.idServicios)}
+                      onClick={() => editarServicio(Servicio.idServicio)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar servicios" id="OperationBtns">
+                    {/* <button title="Examinar Servicio" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar servicios"
-                      onClick={() => desactivar(servicios.idServicios)}
+                      title="Desactivar Servicio"
+                      onClick={() => desactivar(Servicio.idServicio)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
