@@ -131,6 +131,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   className="form-control"
                   name="input_correo"
                   id="input_correo"
+                  maxLength="100"
                   onChange={({ target }) => setcorreoEmpleado(target.value)}
                   required
                 />
@@ -145,6 +146,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   className="form-control"
                   name="input_Usuario"
                   id="input_Usuario"
+                  maxLength="15"
                   onChange={({ target }) => setUsuario(target.value)}
                   required
                 />
@@ -158,6 +160,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   className="form-control"
                   name="input_contraseña"
                   id="input_contraseña"
+                  maxLength="50"
                   onChange={({ target }) => setPassword(target.value)}
                   required
                 />
@@ -172,6 +175,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   className="form-control"
                   name="input_telefono"
                   id="input_telefono"
+                  maxLength="15"
                   onChange={({ target }) => settelefonoEmpleado(target.value)}
                 />
               </div>

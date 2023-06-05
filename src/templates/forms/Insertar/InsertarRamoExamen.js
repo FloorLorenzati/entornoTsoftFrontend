@@ -81,6 +81,7 @@ const InsertarRamoExamen = ({
                 className="form-control"
                 name="input_nombreDelRamoExamen"
                 id="input_nombreDelRamoExamen"
+                maxLength="50"
                 onChange={({ target }) => setnomExamen(target.value)}
                 required
               />
