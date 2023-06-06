@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../../../templates/forms/Insertar.css";
 import SendDataService from "../../../services/SendDataService";
@@ -8,14 +8,22 @@ import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, cursoAlumnoSesion }) => {
+const InsertarCursoAlumnoSesion = ({
+  isActiveCursoAlumnoSesion,
+  cambiarEstado,
+  cursoAlumnoSesion,
+}) => {
   // ----------------------CONSTANTES----------------------------
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
   const [asistencia, setasistencia] = useState("");
   const [participacion, setparticipacion] = useState("");
-  const [nomSesion, setnomSesion] = useState("");
+
+  const [idSesion, setidSesion] = useState("");
   const [idCursoAlumno, setidCursoAlumno] = useState("");
+
+  const [listSesion, setlistSesion] = useState([""]);
+  const [listCursoAlumno, setlistCursoAlumno] = useState([""]);
 
   const listCursoAlumnoSesion = cursoAlumnoSesion;
 
@@ -26,6 +34,20 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
   const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
+  function obtenerSesion() {
+    const url = "pages/auxiliares/listadoSesionForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistSesion(response)
+    );
+  }
+  function obtenerCursoAlumno() {
+    const url = "pages/auxiliares/listadoCursoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCursoAlumno(response)
+    );
+  }
   function SendData(e) {
     e.preventDefault();
     const url = "pages/insertar/insertarCursoAlumnoSesion.php";
@@ -36,9 +58,9 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
       fechaFin: fechaFin,
       asistencia: asistencia,
       participacion: participacion,
-      nomSesion: nomSesion,
+      idSesion: idSesion,
       idCursoAlumno: idCursoAlumno,
-      isActive:true,
+      isActive: true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
@@ -51,8 +73,10 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
   function actualizarCursoAlumnoSesion(response) {
     listCursoAlumnoSesion.push(response);
   }
-
-
+  useEffect(function () {
+    obtenerCursoAlumno();
+    obtenerSesion();
+  }, []);
 
   // ----------------------RENDER----------------------------
   return (
@@ -63,7 +87,7 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-          <div>
+            <div>
               <label htmlFor="input_fechaI">Fecha inicio:</label>
               <input
                 style={{ textTransform: "uppercase" }}
@@ -93,8 +117,8 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
               <label htmlFor="input_PorcA">Asistencia :</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Asistencia"
-                type="int"
+                placeholder="Porcentaje asistencia"
+                type="number"
                 className="form-control"
                 name="input_PorcA"
                 id="input_PorcA"
@@ -108,7 +132,7 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje participación"
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcP"
                 id="input_PorcP"
@@ -117,33 +141,41 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
                 required
               />
             </div>
-            <div>
-              <label htmlFor="input_PorcP">Sesion :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Porcentaje participación"
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setnomSesion(target.value)}
+            <div className="form-group">
+              <label htmlFor="input_Servicio">Nombre sesion: </label>
+              <select
                 required
-              />
+                className="form-control"
+                name="input_Servicio"
+                id="input_Servicio"
+                placeholder="Seleccione el ervicio"
+                onChange={({ target }) => setidSesion(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listSesion.map((valor) => (
+                  <option value={valor.idServicio}>{valor.nomSesion}</option>
+                ))}
+              </select>
             </div>
-            <div>
-              <label htmlFor="input_PorcP">Curso Alumno :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Porcentaje participación"
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setidCursoAlumno(target.value)}
+            <div className="form-group">
+              <label htmlFor="input_Servicio">Curso Alumno: </label>
+              <select
                 required
-              />
+                className="form-control"
+                name="input_Servicio"
+                id="input_Servicio"
+                placeholder="Seleccione el ervicio"
+                onChange={({ target }) => setidCursoAlumno(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listCursoAlumno.map((valor) => (
+                  <option value={valor.idCursoAlumno}>{valor.idCursoAlumno}</option>
+                ))}
+              </select>
             </div>
             <Button
               variant="secondary"
@@ -160,5 +192,3 @@ const InsertarCursoAlumnoSesion = ({ isActiveCursoAlumnoSesion, cambiarEstado, c
   );
 };
 export default InsertarCursoAlumnoSesion;
-
-

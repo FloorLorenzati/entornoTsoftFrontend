@@ -72,9 +72,9 @@ const EditarEmpleados = ({
       setnomEmpleado(response[0].nomEmpleado);
       setcorreoEmpleado(response[0].correoEmpleado);
       setTelefonoEmpleado(response[0].telefonoEmpleado);
-      setidPais(response[0].nomPais);
-      setidArea(response[0].nomArea);
-      setidCargo(response[0].nomCargo);
+      setidPais(response[0].idPais);
+      setidArea(response[0].idArea);
+      setidCargo(response[0].idCargo);
     });
   }, [idEmpleado]);
 

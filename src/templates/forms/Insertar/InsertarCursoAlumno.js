@@ -57,11 +57,11 @@ const InsertarCursoAlumno = ({
       estadoCurso: estadoCurso,
       isActive: true,
     };
-    console.log(data);
+    
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...cursoAlumno } = response[0];
       TopAlerts(successCreated);
-      actualizarCursoAlumno(cursoAlumno);
+      actualizarCursoAlumno(cursoAlumno);console.log(data);;
     });
   }
 
@@ -191,7 +191,7 @@ const InsertarCursoAlumno = ({
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje Asistencia"
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcA"
                 id="input_PorcA"
@@ -205,7 +205,7 @@ const InsertarCursoAlumno = ({
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje participación"
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcP"
                 id="input_PorcP"
@@ -219,7 +219,7 @@ const InsertarCursoAlumno = ({
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje aprobación"
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcAP"
                 id="input_PorcAP"

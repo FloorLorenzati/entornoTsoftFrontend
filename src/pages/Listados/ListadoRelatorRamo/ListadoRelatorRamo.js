@@ -93,12 +93,12 @@ export default function ListadoRelatorRamo() {
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_tipoCliente">Mostrar registros: </label>
+              <label htmlFor="input_MostrarR">Mostrar registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
+                name="input_MostrarR"
+                id="input_MostrarR"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);

@@ -18,10 +18,12 @@ const EditarNotaExamen = ({
   // ----------------------CONSTANTES----------------------------
   const [notaExamen, setnotaExamen] = useState("");
   const [apruebaExamen, setapruebaExamen] = useState("");
-  const [idCursoAlumno, setidCursoAlumno] = useState("");
 
+  const [idCursoAlumno, setidCursoAlumno] = useState("");
   const [idRamoExamen, setidRamoExamen] = useState("");
+
   const [listRamoExamen, setlistRamoExamen] = useState([""]);
+  const [listCursoAlumno, setlistCursoAlumno] = useState([""]);
 
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -47,6 +49,14 @@ const EditarNotaExamen = ({
     setlistRamoExamen(response)
     );
   }
+  function obtenerCursoAlumno() {
+    const url = "pages/auxiliares/listadoCursoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCursoAlumno(response)
+    );
+  }
+
 
   const getData = useCallback(() => {
     const url = "pages/seleccionar/seleccionarDatos.php";
@@ -97,6 +107,7 @@ const EditarNotaExamen = ({
       if (idNotaExamen !== null) {
         getData();
         obtenerRamoExamen();
+        obtenerCursoAlumno();
     }
     },
     [idNotaExamen]
@@ -117,7 +128,7 @@ const EditarNotaExamen = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Nota examen"
                 value={notaExamen || ""}
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_NotaExamen"
                 id="input_NotaExamen"
@@ -149,12 +160,12 @@ const EditarNotaExamen = ({
             </div>
 
             <div>
-              <label htmlFor="input_Pais">Servicio:</label>
+              <label htmlFor="input_Servicio">Examen:</label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => setidRamoExamen(target.value)}
               >
                 {listRamoExamen.map((valor) => (
                   <option
@@ -167,21 +178,29 @@ const EditarNotaExamen = ({
               </select>
             </div>
 
-            <div>
-              <label htmlFor="input_PorcP">Curso Alumno :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Curso alumno"
-                value={idCursoAlumno || ""}
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setidCursoAlumno(target.value)}
+            
+           <div>
+            <label htmlFor="input_CursoA">Curso Alumno :</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidCursoAlumno(target.value)}
+              >
+                {listCursoAlumno.map((valor) => (
+                  <option
+                    selected={valor.idCursoAlumno === idCursoAlumno ? "selected" : ""}
+                    value={valor.idCursoAlumno}
+                  >
+                    {valor.idCursoAlumno}
+                  </option>
+                ))}
+              </select>
             </div>
+
+
+
+          
 
             <Button
               variant="secondary"

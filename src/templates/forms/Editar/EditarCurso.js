@@ -123,6 +123,7 @@ const EditarCurso = ({
                 className="form-control"
                 name="input_nombreDelCodigo"
                 id="input_nombreDelCodigo"
+                maxLength="20"
                 onChange={({ target }) => setcodCurso(target.value)}
                 required
               />
@@ -137,6 +138,7 @@ const EditarCurso = ({
                 className="form-control"
                 name="input_nombreDelCurso"
                 id="input_nombreDelCurso"
+                maxLength="50"
                 onChange={({ target }) => setnomCurso(target.value)}
                 required
               />
@@ -147,16 +149,17 @@ const EditarCurso = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba tipo HH"
                 value={tipoHH || ""}
-                type="double"
+                type="text"
                 className="form-control"
                 name="input_TipoHH"
                 id="input_TipoHH"
+                maxLength="20"
                 onChange={({ target }) => settipoHH(target.value)}
                 required
               />
             </div>
             <div>
-              <label htmlFor="input_DuracionHH">Duración curso HH:</label>
+              <label htmlFor="input_DuracionHH">Duración curso HH: (double)</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba tipo HH"
@@ -175,10 +178,11 @@ const EditarCurso = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba tipo HH"
                 value={cantSesionesCurso || ""}
-                type="text"
+                type="number"
                 className="form-control"
                 name="input_cantSesionesCurso"
                 id="input_cantSesionesCurso"
+                maxLength="11"
                 onChange={({ target }) => setcantSesionesCurso(target.value)}
                 required
               />

@@ -167,6 +167,7 @@ const EditarAlumno = ({
                 className="form-control"
                 name="input_nombreDelAlumno"
                 id="input_nombreDelAlumno"
+                maxLength="50"
                 onChange={({ target }) => setnomAlumno(target.value)}
                 required
               />
@@ -181,6 +182,7 @@ const EditarAlumno = ({
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
+                maxLength="100"
                 onChange={({ target }) => setcorreoAlumno(target.value)}
                 required
               />
@@ -196,6 +198,7 @@ const EditarAlumno = ({
                 className="form-control"
                 name="input_telefono"
                 id="input_telefono"
+                maxLength="15"
                 onChange={({ target }) => settelefonoAlumno(target.value)}
               />
             </div>

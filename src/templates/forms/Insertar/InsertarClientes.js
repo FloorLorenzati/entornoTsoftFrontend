@@ -76,6 +76,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 className="form-control"
                 name="input_nombreDelCliente"
                 id="input_nombreDelCliente"
+                maxLength="100"
                 onChange={({ target }) => setNomCliente(target.value)}
                 required
               />
@@ -90,6 +91,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 className="form-control"
                 name="input_DirecciónDelCliente"
                 id="input_DirecciónDelCliente"
+                maxLength="100"
                 onChange={({ target }) => setDireccionCliente(target.value)}
                 required
               />

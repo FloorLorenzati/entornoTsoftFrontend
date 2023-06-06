@@ -20,8 +20,13 @@ const EditarCursoAlumnoSesion = ({
   const [fechaFin, setfechaFin] = useState("");
   const [asistencia, setasistencia] = useState("");
   const [participacion, setparticipacion] = useState("");
-  const [nomSesion, setnomSesion] = useState("");
+
+  const [idSesion, setidSesion] = useState("");
   const [idCursoAlumno, setidCursoAlumno] = useState("");
+
+  const [listSesion, setlistSesion] = useState([""]);
+  const [listCursoAlumno, setlistCursoAlumno] = useState([""]);
+
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
@@ -36,10 +41,22 @@ const EditarCursoAlumnoSesion = ({
     setfechaFin(responseID[0].fechaFin);
     setasistencia(responseID[0].asistencia);
     setparticipacion(responseID[0].participacion);
-    setnomSesion(responseID[0].nomSesion);
+    setidSesion(responseID[0].idSesion);
     setidCursoAlumno(responseID[0].idCursoAlumno);
   };
   // ----------------------FUNCIONES----------------------------
+
+  function obtenerSesion() {
+    const url = "pages/auxiliares/listadoSesionForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistSesion(response));
+  }  
+  function obtenerCursoAlumno() {
+    const url = "pages/auxiliares/listadoCursoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistCursoAlumno(response));
+  }
+
   const getData = useCallback(() => {
     const url = "pages/seleccionar/seleccionarDatos.php";
     const operationUrl = "seleccionarDatos";
@@ -51,7 +68,7 @@ const EditarCursoAlumnoSesion = ({
       setfechaFin(response[0].fechaFin);
       setasistencia(response[0].asistencia);
       setparticipacion(response[0].participacion);
-      setnomSesion(response[0].nomSesion);
+      setidSesion(response[0].idSesion);
       setidCursoAlumno(response[0].idCursoAlumno);
 
     });
@@ -70,7 +87,7 @@ const EditarCursoAlumnoSesion = ({
       fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
       asistencia: asistencia === "" ? responseID[0].asistencia : asistencia,
       participacion: participacion === "" ? responseID[0].participacion : participacion,
-      nomSesion: nomSesion === "" ? responseID[0].nomSesion : nomSesion,
+      idSesion: idSesion === "" ? responseID[0].idSesion : idSesion,
       idCursoAlumno: idCursoAlumno === "" ? responseID[0].idCursoAlumno : idCursoAlumno,
       isActive:true,
 
@@ -94,6 +111,8 @@ const EditarCursoAlumnoSesion = ({
     function () {
       if (idCursoAlumnoSesion !== null) {
         getData();
+        obtenerSesion();
+        obtenerCursoAlumno();
       }
     },
     [idCursoAlumnoSesion]
@@ -142,7 +161,7 @@ const EditarCursoAlumnoSesion = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Asistencia"
                 value={asistencia || ""}
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcA"
                 id="input_PorcA"
@@ -157,7 +176,7 @@ const EditarCursoAlumnoSesion = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Porcentaje participación"
                 value={participacion || ""}
-                type="int"
+                type="number"
                 className="form-control"
                 name="input_PorcP"
                 id="input_PorcP"
@@ -167,34 +186,41 @@ const EditarCursoAlumnoSesion = ({
               />
             </div>
             <div>
-              <label htmlFor="input_PorcP">Sesion :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Porcentaje participación"
-                value={nomSesion || ""}
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setnomSesion(target.value)}
+              <label htmlFor="input_Pais">Nombre sesion:</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidSesion(target.value)}
+              >
+                {listSesion.map((valor) => (
+                  <option
+                    selected={valor.idSesion === idSesion ? "selected" : ""}
+                    value={valor.idSesion}
+                  >
+                    {valor.nomSesion}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div>
-              <label htmlFor="input_PorcP">Curso Alumno :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Curso alumno"
-                value={idCursoAlumno || ""}
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setidCursoAlumno(target.value)}
+              <label htmlFor="input_Pais">Curso alumno:</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidCursoAlumno(target.value)}
+              >
+                {listCursoAlumno.map((valor) => (
+                  <option
+                    selected={valor.idCursoAlumno === idCursoAlumno ? "selected" : ""}
+                    value={valor.idCursoAlumno}
+                  >
+                    {valor.idCursoAlumno  }
+                  </option>
+                ))}
+              </select>
             </div>
             <Button
               variant="secondary"

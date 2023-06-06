@@ -85,6 +85,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
                 className="form-control"
                 name="input_nombreDelContacto"
                 id="input_nombreDelContacto"
+                maxLength="50"
                 onChange={({ target }) => setnomContacto(target.value)}
                 required
               />
@@ -100,6 +101,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
+                maxLength="100"
                 onChange={({ target }) => setcorreoContacto(target.value)}
                 required
               />
@@ -114,6 +116,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
                 className="form-control"
                 name="input_telefono"
                 id="input_telefono"
+                maxLength="15"
                 onChange={({ target }) => settelefonoContacto(target.value)}
               />
             </div>

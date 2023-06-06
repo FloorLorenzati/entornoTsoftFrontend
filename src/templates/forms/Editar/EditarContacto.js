@@ -58,7 +58,7 @@ const EditarContacto = ({
       setcorreoContacto(response[0].correoContacto);
       settelefonoContacto(response[0].telefonoContacto);
       setfechaIni(response[0].fechaIni);
-      setidServicio(response[0].nomServicio);
+      setidServicio(response[0].idServicio);
     });
   }, [idContacto]);
 
@@ -122,6 +122,7 @@ const EditarContacto = ({
                 className="form-control"
                 name="input_nombreDelContacto"
                 id="input_nombreDelContacto"
+                maxLength="50"
                 onChange={({ target }) => setnomContacto(target.value)}
                 required
               />
@@ -137,6 +138,7 @@ const EditarContacto = ({
                 className="form-control"
                 name="input_correo"
                 id="input_correo"
+                maxLength="100"
                 onChange={({ target }) => setcorreoContacto(target.value)}
                 required
               />
@@ -151,6 +153,7 @@ const EditarContacto = ({
                 className="form-control"
                 name="input_telefono"
                 id="input_telefono"
+                maxLength="15"
                 onChange={({ target }) => settelefonoContacto(target.value)}
               />
             </div>
@@ -177,7 +180,7 @@ const EditarContacto = ({
             <div>
               <label htmlFor="input_fechaI">Fecha inicio:</label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
                 type="date"
@@ -188,6 +191,8 @@ const EditarContacto = ({
                 required
               />
             </div>
+
+            
             <Button
               variant="secondary"
               type="submit"

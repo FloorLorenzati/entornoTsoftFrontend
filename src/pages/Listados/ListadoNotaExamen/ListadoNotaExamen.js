@@ -95,12 +95,12 @@ export default function ListadoNotaExamen() {
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_tipoCliente">Mostrar registros: </label>
+              <label htmlFor="input_MostrarR">Mostrar registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_tipoCliente"
-                id="input_tipoCliente"
+                name="input_MostrarR"
+                id="input_MostrarR"
                 onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);}}
                 required
               >
@@ -135,7 +135,7 @@ export default function ListadoNotaExamen() {
                 <th>Nota examen</th>
                 <th>Aprueba examen</th>
                 <th>Nombre examen</th>
-                <th>Id curso alumno</th>
+                <th>Curso alumno</th>
                 <th>Operaciones</th>
               </tr>
             </thead>

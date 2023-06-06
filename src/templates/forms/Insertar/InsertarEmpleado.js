@@ -65,7 +65,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     const url = "pages/insertar/insertarEmpleado.php";
     const operationUrl = "insertarEmpleado";
     var data = {
-      usuarioAdmin: userData.usuario,
+      usuarioCreacion: userData.usuario,
       nomEmpleado: nomEmpleado,
       correoEmpleado: correoEmpleado,
       idPais: idPais,

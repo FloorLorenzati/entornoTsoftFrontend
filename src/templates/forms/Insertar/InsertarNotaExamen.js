@@ -16,10 +16,12 @@ const InsertarNotaExamen = ({
   // ----------------------CONSTANTES----------------------------
   const [notaExamen, setnotaExamen] = useState("");
   const [apruebaExamen, setapruebaExamen] = useState("");
-  const [idCursoAlumno, setidCursoAlumno] = useState("");
 
+  const [idCursoAlumno, setidCursoAlumno] = useState("");
   const [idRamoExamen, setidRamoExamen] = useState("");
+  
   const [listRamoExamen, setlistRamoExamen] = useState([""]);
+  const [listCursoAlumno, setlistCursoAlumno] = useState([""]);
 
   const listNotaExamen = notaDeExamen;
 
@@ -39,6 +41,13 @@ const InsertarNotaExamen = ({
     );
   }
 
+  function obtenerCursoAlumno() {
+    const url = "pages/auxiliares/listadoCursoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCursoAlumno(response)
+    );
+  }
 
   function SendData(e) {
     e.preventDefault();
@@ -66,6 +75,7 @@ const InsertarNotaExamen = ({
 
   useEffect(function () {
     obtenerRamoExamen();
+    obtenerCursoAlumno();
   }, []);
 
   // ----------------------RENDER----------------------------
@@ -130,19 +140,23 @@ const InsertarNotaExamen = ({
             </div>
 
             <div>
-              <label htmlFor="input_PorcP">Curso Alumno :</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Curso alumno"
-                type="int"
-                className="form-control"
-                name="input_PorcP"
-                id="input_PorcP"
-                maxLength="11"
-                onChange={({ target }) => setidCursoAlumno(target.value)}
+              <label htmlFor="input_Pais">Curso Alumno:</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidCursoAlumno(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                {listCursoAlumno.map((valor) => (
+                  <option value={valor.idCursoAlumno}>{valor.idCursoAlumno}</option>
+                ))}
+              </select>
             </div>
+
+
             <Button
               variant="secondary"
               type="submit"

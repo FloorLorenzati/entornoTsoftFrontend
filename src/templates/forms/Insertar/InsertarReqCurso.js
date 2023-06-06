@@ -86,20 +86,20 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
               </select>
             </div>
             <div>
-              <label htmlFor="input_nombreDelReqCurso">
-                Requerimiento curso:
-              </label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre completo del curso"
-                type="int"
-                className="form-control"
-                name="input_nombreDelReqCurso"
-                id="input_nombreDelReqCurso"
-                maxLength="11"
-                onChange={({ target }) => setrequisitoCurso(target.value)}
+              <label htmlFor="input_Pais">Requerimiento curso:</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setrequisitoCurso(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>{" "}
+                {listCurso.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
+              </select>
             </div>
 
             <Button

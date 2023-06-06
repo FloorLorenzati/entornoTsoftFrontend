@@ -122,19 +122,22 @@ const EditarReqCurso = ({
               </select>
             </div>
             <div>
-              <label htmlFor="input_nombreDelReqCurso">Requerimiento curso:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre completo del curso"
-                value={requisitoCurso || ""}
-                type="int"
-                className="form-control"
-                name="input_nombreDelReqCurso"
-                id="input_nombreDelReqCurso"
-                maxLength="11"
-                onChange={({ target }) => setrequisitoCurso(target.value)}
+              <label htmlFor="input_Pais">Curso:</label>
+              <select
                 required
-              />
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setrequisitoCurso(target.value)}
+              >
+                {listCurso.map((valor) => (
+                  <option
+                    selected={valor.idCurso === idCurso ? "selected" : ""}
+                    value={valor.idCurso}
+                  >
+                    {valor.nomCurso}
+                  </option>
+                ))}
+              </select>
             </div>
            
             <Button

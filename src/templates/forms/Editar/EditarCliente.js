@@ -51,7 +51,7 @@ const EditarClientes = ({
       setResponseID(response);
       setNomCliente(response[0].nomCliente);
       setDireccionCliente(response[0].direccionCliente);
-      setidPais(response[0].nomPais);
+      setidPais(response[0].idPais);
     });
   }, [idCliente]);
 
@@ -66,7 +66,7 @@ const EditarClientes = ({
 
       direccionCliente: direccionCliente === "" ? responseID[0].direccionCliente : direccionCliente,
 
-      idPais: idPais === "" ? responseID[0].idPais : idPais,
+      idPais:idPais === "" ? responseID[0].idPais:idPais,
       
     };
 
@@ -113,6 +113,7 @@ const EditarClientes = ({
                 className="form-control"
                 name="input_nombreDelCliente"
                 id="input_nombreDelCliente"
+                maxLength="100"
                 onChange={({ target }) => setNomCliente(target.value)}
                 required
               />
@@ -128,6 +129,7 @@ const EditarClientes = ({
                 className="form-control"
                 name="input_DirecciónDelCliente"
                 id="input_DirecciónDelCliente"
+                maxLength="100"
                 onChange={({ target }) => setDireccionCliente(target.value)}
                 required
               />

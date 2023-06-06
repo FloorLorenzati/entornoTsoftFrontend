@@ -20,8 +20,7 @@ export default function HomePage() {
   return userData.statusConected || userData !== null ? (
     <div>
       <Header></Header>
-<h1>HOME</h1>
-      {/* <div id="container_cards">
+      <div id="container_cards">
         {cards.map((singleCard) => (
           <>
             <Card id="coe_carta">
@@ -83,11 +82,11 @@ export default function HomePage() {
           </>
         ))}
       </div>
-      <div id="chartsContainer"> */}
+      <div id="chartsContainer">
         {/* <BarChart data={cards}></BarChart>  */}
         {/* <PieChart data={cards}></PieChart> */}
-      {/* </div>*/}
-    </div> 
+      </div>
+    </div>
   ) : (
     <Navigate to="/login"></Navigate>
   );
