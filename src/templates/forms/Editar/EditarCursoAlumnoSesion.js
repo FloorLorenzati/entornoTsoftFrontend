@@ -21,8 +21,8 @@ const EditarCursoAlumnoSesion = ({
   const [asistencia, setasistencia] = useState("");
   const [participacion, setparticipacion] = useState("");
 
-  const [idSesion, setidSesion] = useState("");
   const [idCursoAlumno, setidCursoAlumno] = useState("");
+  const [idSesion, setidSesion] = useState("");
 
   const [listSesion, setlistSesion] = useState([""]);
   const [listCursoAlumno, setlistCursoAlumno] = useState([""]);
@@ -45,12 +45,11 @@ const EditarCursoAlumnoSesion = ({
     setidCursoAlumno(responseID[0].idCursoAlumno);
   };
   // ----------------------FUNCIONES----------------------------
-
   function obtenerSesion() {
     const url = "pages/auxiliares/listadoSesionForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) => setlistSesion(response));
-  }  
+  }
   function obtenerCursoAlumno() {
     const url = "pages/auxiliares/listadoCursoAlumnoForms.php";
     const operationUrl = "listados";
@@ -68,8 +67,8 @@ const EditarCursoAlumnoSesion = ({
       setfechaFin(response[0].fechaFin);
       setasistencia(response[0].asistencia);
       setparticipacion(response[0].participacion);
-      setidSesion(response[0].idSesion);
       setidCursoAlumno(response[0].idCursoAlumno);
+      setidSesion(response[0].idSesion);
 
     });
   }, [idCursoAlumnoSesion]);
@@ -87,8 +86,8 @@ const EditarCursoAlumnoSesion = ({
       fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
       asistencia: asistencia === "" ? responseID[0].asistencia : asistencia,
       participacion: participacion === "" ? responseID[0].participacion : participacion,
-      idSesion: idSesion === "" ? responseID[0].idSesion : idSesion,
       idCursoAlumno: idCursoAlumno === "" ? responseID[0].idCursoAlumno : idCursoAlumno,
+      idSesion: idSesion === "" ? responseID[0].idSesion : idSesion,
       isActive:true,
 
     };
@@ -111,8 +110,8 @@ const EditarCursoAlumnoSesion = ({
     function () {
       if (idCursoAlumnoSesion !== null) {
         getData();
-        obtenerSesion();
         obtenerCursoAlumno();
+        obtenerSesion();
       }
     },
     [idCursoAlumnoSesion]
@@ -133,7 +132,7 @@ const EditarCursoAlumnoSesion = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
-                type="date"
+                type="datetime"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -145,9 +144,9 @@ const EditarCursoAlumnoSesion = ({
               <label htmlFor="input_fechaI">Fecha Fin:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Fecha fin"
+                placeholder="Fecha inicio"
                 value={fechaFin || ""}
-                type="date"
+                type="datetime"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -186,12 +185,12 @@ const EditarCursoAlumnoSesion = ({
               />
             </div>
             <div>
-              <label htmlFor="input_Pais">Nombre sesion:</label>
+              <label htmlFor="input_Pais">Sesion:</label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidSesion(target.value)}
+                onChange={({ target }) => setidCursoAlumno(target.value)}
               >
                 {listSesion.map((valor) => (
                   <option
@@ -203,7 +202,6 @@ const EditarCursoAlumnoSesion = ({
                 ))}
               </select>
             </div>
-
             <div>
               <label htmlFor="input_Pais">Curso alumno:</label>
               <select
@@ -217,7 +215,7 @@ const EditarCursoAlumnoSesion = ({
                     selected={valor.idCursoAlumno === idCursoAlumno ? "selected" : ""}
                     value={valor.idCursoAlumno}
                   >
-                    {valor.idCursoAlumno  }
+                    {valor.idCursoAlumno}
                   </option>
                 ))}
               </select>

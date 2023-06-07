@@ -3,6 +3,50 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto+Slab:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+.flechaAbajo1 {
+  width:0px;
+  height:0px;
+  border-style: solid;
+  border-width: 20px;
+  border-bottom-width:0px;
+  border-color: rgb(219, 82, 69) transparent transparent transparent;
+}
+.flechaAbajo2 {
+  width:0px;
+  height:0px;
+  border-style: solid;
+  border-width: 20px;
+  border-top-width:0px;
+  border-color:  transparent transparent rgb(142, 217, 119) transparent;
+}
+.flechaAbajo3 {
+  width:0px;
+  height:0px;
+  border-style: solid;
+  border-width: 20px;
+  border-top-width:0px;
+  border-color: transparent transparent rgb(223, 191, 87) transparent;
+}
+.flechaArriba1 {
+  width:0px;
+  height:0px;
+  border-style: solid;
+  border-width: 20px;
+  border-top-width:0px;
+  border-color: transparent transparent green transparent;
+}
+
+#barraDerecha{
+  float: right;
+  margin-block: -45rem;
+}
+#barraMedio2{
+  text-align: center;
+  margin-block: -45rem;
+}
+
+h3{
+color:rgb(156, 154, 154)}
 
 #container_cards {
   display: grid;
@@ -19,18 +63,18 @@
   margin: 1% auto;
 }
 #coe_carta {
+  background-color: blue;
   text-transform: uppercase;
   color: white;
   border-radius: 10px;
   text-align: center;
-  background-color: rgb(46, 45, 45);
   box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
 }
 
 #coe_carta:hover{
-  background-color: rgb(66, 66, 66);
+  background-color: rgb(61, 99, 205);
   transition: all ease 0.3s;
 }
 .card-header {

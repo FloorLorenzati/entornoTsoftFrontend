@@ -118,6 +118,7 @@ export default function ListadoRelatorRamo() {
           <InsertarRelatorRamo
             isActiveRelatorRamo={isActiveInsertRelatorRamo}
             cambiarEstado={setIsActiveInsertRelatorRamo}
+            relatorRamo={relatorRamo}
           ></InsertarRelatorRamo>
 
           <EditarRelatorRamo

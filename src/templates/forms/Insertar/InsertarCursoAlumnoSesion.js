@@ -37,8 +37,9 @@ const InsertarCursoAlumnoSesion = ({
   function obtenerSesion() {
     const url = "pages/auxiliares/listadoSesionForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) =>
+    getDataService(url, operationUrl).then((response) =>{
       setlistSesion(response)
+      console.log(response);}
     );
   }
   function obtenerCursoAlumno() {
@@ -142,30 +143,30 @@ const InsertarCursoAlumnoSesion = ({
               />
             </div>
             <div className="form-group">
-              <label htmlFor="input_Servicio">Nombre sesion: </label>
+              <label htmlFor="input_sesion">Nombre sesion: </label>
               <select
                 required
                 className="form-control"
-                name="input_Servicio"
-                id="input_Servicio"
-                placeholder="Seleccione el ervicio"
+                name="input_sesion"
+                id="input_sesion"
+                placeholder="Seleccione la sesion"
                 onChange={({ target }) => setidSesion(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
                 {listSesion.map((valor) => (
-                  <option value={valor.idServicio}>{valor.nomSesion}</option>
+                  <option value={valor.idSesion}>{valor.nomSesion}</option>
                 ))}
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="input_Servicio">Curso Alumno: </label>
+              <label htmlFor="input_alumno">Curso Alumno: </label>
               <select
                 required
                 className="form-control"
-                name="input_Servicio"
-                id="input_Servicio"
+                name="input_alumno"
+                id="input_alumno"
                 placeholder="Seleccione el ervicio"
                 onChange={({ target }) => setidCursoAlumno(target.value)}
               >

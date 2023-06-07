@@ -116,6 +116,7 @@ export default function ListadoServicio() {
           <InsertarServicio
             isActiveServicio={isActiveInsertServicio}
             cambiarEstado={setIsActiveInsertServicio}
+            servicio={servicio}
           ></InsertarServicio>
 
           <EditarServicio

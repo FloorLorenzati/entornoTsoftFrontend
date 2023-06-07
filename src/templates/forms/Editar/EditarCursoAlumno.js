@@ -31,8 +31,8 @@ const EditarCursoAlumno = ({
   const [responseID, setResponseID] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const listCursoAlumno = CursoAlumno;
-  const [listAlumnos, setlistAlumnos] = useState([]);
-  const [listCursos, setlistCursos] = useState([]);
+  const [listAlumnos, setlistAlumnos] = useState([""]);
+  const [listCursos, setlistCursos] = useState([""]);
   const show = isActiveEditCursoAlumno;
 
   const handleClose = () => {

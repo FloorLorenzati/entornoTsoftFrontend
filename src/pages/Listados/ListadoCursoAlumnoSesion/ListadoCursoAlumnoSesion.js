@@ -119,6 +119,7 @@ export default function ListadoCursoAlumnoSesion() {
           <InsertarCursoAlumnoSesion
             isActiveCursoAlumnoSesion={isActiveInsertCursoAlumnoSesion}
             cambiarEstado={setIsActiveInsertCursoAlumnoSesion}
+            cursoAlumnoSesion={cursoAlumnoSesion}
           ></InsertarCursoAlumnoSesion>
 
           <EditarCursoAlumnoSesion

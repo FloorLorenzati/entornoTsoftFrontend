@@ -119,6 +119,7 @@ export default function ListadoRamoExamen() {
           <InsertarRamoExamen
             isActiveRamoExamen={isActiveInsertRamoExamen}
             cambiarEstado={setIsActiveInsertRamoExamen}
+            ramoExamen={ramoExamen}
           ></InsertarRamoExamen>
 
           <EditarRamoExamen

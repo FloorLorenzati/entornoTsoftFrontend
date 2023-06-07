@@ -118,6 +118,7 @@ export default function ListadoSesion() {
           <InsertarSesion
             isActiveSesion={isActiveInsertSesion}
             cambiarEstado={setIsActiveInsertSesion}
+            sesion={Sesion}
           ></InsertarSesion>
 
           <EditarSesion

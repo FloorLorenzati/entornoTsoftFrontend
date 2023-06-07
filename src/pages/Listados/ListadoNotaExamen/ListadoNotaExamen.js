@@ -117,6 +117,7 @@ export default function ListadoNotaExamen() {
           <InsertarNotaExamen
             isActiveNotaExamen={isActiveInsertNotaExamen}
             cambiarEstado={setIsActiveInsertNotaExamen}
+            notaDeExamen={notaExamen}
           ></InsertarNotaExamen>
 
           <EditarNotaExamen
