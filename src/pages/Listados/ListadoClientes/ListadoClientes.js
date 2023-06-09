@@ -19,9 +19,6 @@ import "../BtnInsertar.css";
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
-  // const [paginador, setPaginadorRelator] = useState([""]);
-  // const urlPaginador = "paginador/botones_Clientes";
-  // const operationUrl = "pagina";
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [idCliente, setidCliente] = useState(null);
@@ -57,15 +54,8 @@ export default function ListadoClientes() {
     });
   }
 
-  // function obtenerDatosPaginador() {
-  //   getDataService(urlPaginador).then((paginador) =>
-  //     setPaginadorRelator(paginador)
-  //   );
-  // }
-
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
     },
     [num_boton, cantidadPorPagina]
@@ -104,14 +94,14 @@ export default function ListadoClientes() {
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_mostrarRegistros">
-                Mostrar registros:{" "}
+              <label htmlFor="input_CantidadRegistros">
+                Cantidad registros:{" "}
               </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_mostrarRegistros"
-                id="input_mostrarRegistros"
+                name="input_CantidadRegistros"
+                id="input_CantidadRegistros"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);
@@ -148,9 +138,9 @@ export default function ListadoClientes() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre del cliente</th>
+                <th>Cliente</th>
                 <th>Dirección</th>
-                <th>Pais</th>
+                <th>País</th>
                 <th>Operaciones</th>
               </tr>
             </thead>

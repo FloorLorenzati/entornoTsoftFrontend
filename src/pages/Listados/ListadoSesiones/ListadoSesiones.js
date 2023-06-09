@@ -27,8 +27,25 @@ export default function ListadoSesion() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  const nombreTabla = "sesion";
+  // const [idCurso, setidCurso] = useState("");
+  // const [idRamo, setidRamo] = useState("");
 
+  const [listCurso, setlistCurso] = useState([""]);
+  const [listRamo, setlistRamo] = useState([""]);
+
+  const nombreTabla = "sesion";
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCurso(response)
+    );
+  }
+  function obtenerRamo() {
+    const url = "pages/auxiliares/listadoRamoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistRamo(response));
+  }
   function insertarSesion() {
     setIsActiveInsertSesion(!isActiveInsertSesion);
   }
@@ -57,6 +74,8 @@ export default function ListadoSesion() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerRamo();
+      obtenerCurso();
     },
     [num_boton, cantidadPorPagina]
   );
@@ -85,20 +104,19 @@ export default function ListadoSesion() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Sesion</h1>
+          <h1 id="TitlesPages">Listado de Sesiones</h1>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarSesion}>
-              Crear Sesion
+              Crear Sesión
             </Button>
-
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);
@@ -112,6 +130,40 @@ export default function ListadoSesion() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>{" "}
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Cursos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCurso.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Ramos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listRamo.map((valor) => (
+                  <option value={valor.idRamo}>{valor.nomRamo}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -134,12 +186,13 @@ export default function ListadoSesion() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Número de sesion</th>
-                <th>Nombre de sesion</th>
-                <th>Tipo de sesion</th>
-                <th>Tipo de sesion HH</th>
-                <th>Duración de sesion HH</th>
-                <th>Nombre del ramo</th>
+                <th>N° Sesión</th>
+                <th>Sesión</th>
+                <th>Tipo Sesión</th>
+                <th>Tipo Sesión HH</th>
+                <th>Duración Sesión HH</th>
+                <th>Ramo</th>
+                <th>Curso</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -155,6 +208,8 @@ export default function ListadoSesion() {
                     {Sesion.duracionSesionHH}
                   </td>
                   <td>{Sesion.nomRamo}</td>
+                  <td>{"JIRA"}</td>
+
 
                   <td>
                     <button

@@ -29,6 +29,15 @@ export default function ListadoRamoExamen() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "ramoexamen";
 
+  // const [idRamo, setidRamo] = useState("");
+
+  const [listRamo, setlistRamo] = useState([""]);
+
+  function obtenerRamo() {
+    const url = "pages/auxiliares/listadoRamoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistRamo(response));
+  }
 
   function insertarRamoExamen() {
     setIsActiveInsertRamoExamen(!isActiveInsertRamoExamen);
@@ -59,6 +68,7 @@ export default function ListadoRamoExamen() {
     function () {
       // obtenerDatosPaginador();
       handleChangePaginador();
+      obtenerRamo();
     },
     [num_boton, cantidadPorPagina]
   );
@@ -86,20 +96,20 @@ export default function ListadoRamoExamen() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Ramo Examen</h1>
+          <h1 id="TitlesPages">Listado de Ramos Examenes</h1>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarRamoExamen}>
-              Crear Ramo Examen
+              Crear Examen
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);
@@ -113,6 +123,23 @@ export default function ListadoRamoExamen() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Ramos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listRamo.map((valor) => (
+                  <option value={valor.idRamo}>{valor.nomRamo}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -135,9 +162,9 @@ export default function ListadoRamoExamen() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre examen</th>
+                <th>Examen</th>
                 <th>Fecha examen</th>
-                <th>Nombre Ramo</th>
+                <th>Ramo</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -154,9 +181,9 @@ export default function ListadoRamoExamen() {
                       id="OperationBtns"
                       onClick={() => editarRamoExamen(ramoExamen.idRamoExamen)}
                     >
-                      <RiEditBoxFill id="icons" />
-                    </button>
-                    {/* <button title="Examinar ramoExamen" id="OperationBtns">
+                      <RiEditBoxFill id="icons" /></button>
+                    {/* </button>
+                    <button title="Sesiones relacionadas" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button

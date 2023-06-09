@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 import GetDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -9,7 +9,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import "../TablasStyles.css";
-import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso"
+import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso";
 import EditarCurso from "../../../templates/forms/Editar/EditarCurso";
 // import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
@@ -29,8 +29,7 @@ export default function ListadoCursos() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  const nombreTabla= "curso"
-
+  const nombreTabla = "curso";
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
@@ -45,11 +44,11 @@ export default function ListadoCursos() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -58,12 +57,11 @@ export default function ListadoCursos() {
     });
   }
 
-
   useEffect(
     function () {
       handleChangePaginador();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -93,18 +91,20 @@ export default function ListadoCursos() {
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarCurso}>
-            Crear Curso
-          </Button>
+            <Button id="btn" onClick={insertarCurso}>
+              Crear Curso
+            </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                name="input_CantidadR"
+                id="input_CantidadR"
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
                 }}
                 required
               >
@@ -133,18 +133,17 @@ export default function ListadoCursos() {
             curso={curso}
             nombreTabla={nombreTabla}
           ></EditarCurso>
- 
+
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Código</th>
-                <th>Nombre</th>
+                <th>Curso</th>
                 <th>Tipo Horas</th>
                 <th>Duración curso (horas)</th>
                 <th>Cant sesiones</th>
                 <th>Operaciones</th>
-
               </tr>
             </thead>
             <tbody>
@@ -154,8 +153,12 @@ export default function ListadoCursos() {
                   <td>{curso.codCurso}</td>
                   <td>{curso.nomCurso}</td>
                   <td>{curso.tipoHH}</td>
-                  <td align="right" width={188}>{curso.duracionCursoHH}</td>
-                  <td align="right" width={120}>{curso.cantSesionesCurso}</td>
+                  <td align="right" width={188}>
+                    {curso.duracionCursoHH}
+                  </td>
+                  <td align="right" width={120}>
+                    {curso.cantSesionesCurso}
+                  </td>
                   <td>
                     <button
                       title="Editar curso"
@@ -164,6 +167,15 @@ export default function ListadoCursos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+
+
+                    <Link to="/listadoRamos">
+                      <button title="Ramo relacionado" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
+
+                    
                     <button
                       title="Desactivar curso"
                       onClick={() => desactivar(curso.idCurso)}

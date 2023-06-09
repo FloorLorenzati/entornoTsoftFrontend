@@ -85,20 +85,20 @@ export default function ListadoServicio() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Servicio</h1>
+          <h1 id="TitlesPages">Listado de Servicios</h1>
 
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarServicio}>
-            Crear Sesion
+            Crear servicio
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
                 }}
                 required

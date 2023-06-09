@@ -197,7 +197,7 @@ const InsertarCursoAlumno = ({
                 id="input_PorcA"
                 maxLength="3"
                 onChange={({ target }) => setporcAsistencia(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -211,7 +211,7 @@ const InsertarCursoAlumno = ({
                 id="input_PorcP"
                 maxLength="3"
                 onChange={({ target }) => setporcParticipacion(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -225,7 +225,7 @@ const InsertarCursoAlumno = ({
                 id="input_PorcAP"
                 maxLength="3"
                 onChange={({ target }) => setporcAprobacion(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -239,7 +239,7 @@ const InsertarCursoAlumno = ({
                 id="input_EstC"
                 maxLength="15"
                 onChange={({ target }) => setestadoCurso(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -253,7 +253,7 @@ const InsertarCursoAlumno = ({
                 id="input_ClaseA"
                 maxLength="1"
                 onChange={({ target }) => setclaseAprobada(target.value)}
-                required
+                
               >
                 <option hidden value="">
                   Desplegar lista

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -27,7 +27,20 @@ export default function ListadoRamos() {
   const [num_boton, setNumBoton] = useState(1);
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla= "ramo"
+  
+  // const [idCurso, setidCurso] = useState("");
+
+  const [listCurso, setlistCurso] = useState([""]);
+
+  const nombreTabla = "ramo";
+
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCurso(response)
+    );
+  }
 
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
@@ -41,11 +54,11 @@ export default function ListadoRamos() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -57,10 +70,10 @@ export default function ListadoRamos() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerCurso();
     },
     [num_boton, cantidadPorPagina]
   );
-
 
   function handleChangePaginador() {
     var url = "pages/listados/listadoRamos.php";
@@ -92,13 +105,15 @@ export default function ListadoRamos() {
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                name="input_CantidadR"
+                id="input_CantidadR"
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
                 }}
                 required
               >
@@ -109,6 +124,23 @@ export default function ListadoRamos() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Cursos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCurso.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -124,7 +156,7 @@ export default function ListadoRamos() {
             setRamos={setRamos}
             ramos={ramos}
             nombreTabla={nombreTabla}
-          ></EditarRamo> 
+          ></EditarRamo>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -144,13 +176,19 @@ export default function ListadoRamos() {
             <tbody>
               {ramos.map((ramos) => (
                 <tr key={ramos.idRamo}>
-                  <td align="right" width={1}>{ramos.idRamo}</td>
+                  <td align="right" width={1}>
+                    {ramos.idRamo}
+                  </td>
                   <td>{ramos.codRamo}</td>
                   <td>{ramos.nomRamo}</td>
                   <td>{ramos.tipoRamo}</td>
                   <td>{ramos.tipoRamoHH}</td>
-                  <td align="right" width={1}>{ramos.duracionRamoHH}</td>
-                  <td align="right" width={141}>{ramos.cantSesionesRamo}</td>
+                  <td align="right" width={1}>
+                    {ramos.duracionRamoHH}
+                  </td>
+                  <td align="right" width={141}>
+                    {ramos.cantSesionesRamo}
+                  </td>
                   <td>{ramos.nomCurso}</td>
                   {/* <td>{ramo.fechaCreacion}</td> */}
                   <td>
@@ -161,9 +199,19 @@ export default function ListadoRamos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <button title="Examinar curso" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button>
+
+                    <Link to="/listadoSesiones">
+                      <button title="Sesiones relacionadas" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
+
+                    <Link to="/listadoRamoExamen">
+                      <button title="Examen relacionados" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
+
                     <button
                       title="Desactivar curso"
                       id="OperationBtns"

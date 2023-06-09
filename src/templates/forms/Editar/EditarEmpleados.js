@@ -129,7 +129,7 @@ const EditarEmpleados = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Empleado</Modal.Title>
+          <Modal.Title>Editar Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -137,7 +137,7 @@ const EditarEmpleados = ({
               <label htmlFor="input_nombreDelEmpleado">Nombre:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre completo del empleado"
+                placeholder="Escriba nombre completo del colaborador"
                 value={nomEmpleado || ""}
                 type="text"
                 className="form-control"
@@ -152,7 +152,7 @@ const EditarEmpleados = ({
               <label htmlFor="input_Correo">Correo:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba el correo del empleado"
+                placeholder="Escriba el correo del colaborador"
                 value={correoEmpleado || ""}
                 type="email"
                 className="form-control"

@@ -50,7 +50,7 @@ const InsertarCursoAlumnoSesion = ({
     );
   }
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "pages/insertar/insertarCursoAlumnoSesion.php";
     const operationUrl = "insertarCursoAlumnoSesion";
     var data = {
@@ -125,7 +125,7 @@ const InsertarCursoAlumnoSesion = ({
                 id="input_PorcA"
                 maxLength="11"
                 onChange={({ target }) => setasistencia(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -139,11 +139,11 @@ const InsertarCursoAlumnoSesion = ({
                 id="input_PorcP"
                 maxLength="11"
                 onChange={({ target }) => setparticipacion(target.value)}
-                required
+                
               />
             </div>
             <div className="form-group">
-              <label htmlFor="input_sesion">Nombre sesion: </label>
+              <label htmlFor="input_sesion">Sesión: </label>
               <select
                 required
                 className="form-control"

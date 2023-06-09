@@ -85,7 +85,7 @@ export default function ListadoRelatorRamo() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Relator Ramo</h1>
+          <h1 id="TitlesPages">Listado de relatores ramos</h1>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarRelatorRamo}>
@@ -93,12 +93,12 @@ export default function ListadoRelatorRamo() {
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);
@@ -134,10 +134,10 @@ export default function ListadoRelatorRamo() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre empleado</th>
-                <th>Nombre ramo</th>
-                <th>Fecha inicio de actividades</th>
-                <th>Fecha fin de actividades</th>
+                <th>Empleado</th>
+                <th>Ramo</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
                 <th>Operaciones</th>
               </tr>
             </thead>

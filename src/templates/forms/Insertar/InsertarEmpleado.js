@@ -101,7 +101,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Empleado</Modal.Title>
+          <Modal.Title>Crear Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -250,10 +250,10 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
                   <option hidden value="">
                     Desplegar lista
                   </option>
-                  <option value="empleado">Empleado</option>
+                  <option value="empleado">Colaborador</option>
                   <option value="alumno">Alumno</option>
                   <option value="people">People</option>
-                  <option value="adminstrador">Adminstrador</option>
+                  <option value="adminstrador">Administrador</option>
                 </select>
               </div>
 

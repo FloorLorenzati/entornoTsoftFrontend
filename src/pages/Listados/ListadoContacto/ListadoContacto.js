@@ -93,12 +93,12 @@ export default function ListadoContacto() {
           </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
                 }}
                 required
@@ -138,7 +138,7 @@ export default function ListadoContacto() {
                 <th>Teléfono</th>
                 <th>Fecha inico</th>
                 <th>Fecha fin</th>
-                <th>Nombre del servicio</th>
+                <th>Servicio</th>
                 <th>Operaciones</th>
               </tr>
             </thead>

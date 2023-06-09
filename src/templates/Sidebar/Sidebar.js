@@ -328,7 +328,7 @@ export default function SideBar(props) {
                         <Link to="/listadoEmpleados">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
-                            Empleados
+                            Colaboradores
                           </button>
                         </Link>
                       </li>

@@ -86,20 +86,20 @@ export default function ListadoCursoAlumnoSesion() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Curso Alumnos Sesion</h1>
+          <h1 id="TitlesPages">Listado de Cursos Alumnos Sesiones</h1>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarCursoAlumnoSesion}>
-              Crear Curso Alumnos Sesion
+              Crear Curso Alumnos Sesiones
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_MostrarR">Mostrar registros: </label>
+              <label htmlFor="input_CantidadR">Cantidad registros: </label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
-                name="input_MostrarR"
-                id="input_MostrarR"
+                name="input_CantidadR"
+                id="input_CantidadR"
                 onChange={({ target }) => {
                   setcantidadPorPagina(target.value);
                   setNumBoton(1);
@@ -139,7 +139,7 @@ export default function ListadoCursoAlumnoSesion() {
                 <th>Fecha fin</th>
                 <th>Asistencia</th>
                 <th>Participación</th>
-                <th>Nombre Sesion</th>
+                <th>Sesión</th>
                 <th>ID Curso Alumno</th>
                 <th>Operaciones</th>
               </tr>

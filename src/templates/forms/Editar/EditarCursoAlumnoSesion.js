@@ -74,7 +74,7 @@ const EditarCursoAlumnoSesion = ({
   }, [idCursoAlumnoSesion]);
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "pages/editar/editarCursoAlumnoSesion.php";
     const operationUrl = "editarCursoAlumnoSesion";
 
@@ -166,7 +166,7 @@ const EditarCursoAlumnoSesion = ({
                 id="input_PorcA"
                 maxLength="11"
                 onChange={({ target }) => setasistencia(target.value)}
-                required
+                
               />
             </div>
             <div>
@@ -181,7 +181,7 @@ const EditarCursoAlumnoSesion = ({
                 id="input_PorcP"
                 maxLength="11"
                 onChange={({ target }) => setparticipacion(target.value)}
-                required
+                
               />
             </div>
             <div>
