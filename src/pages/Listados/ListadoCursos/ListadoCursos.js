@@ -169,7 +169,7 @@ export default function ListadoCursos() {
                     </button>
 
 
-                    <Link to="/listadoRamos">
+                    <Link to={`/listadoRamos/${curso.idCurso}`} >
                       <button title="Ramo relacionado" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

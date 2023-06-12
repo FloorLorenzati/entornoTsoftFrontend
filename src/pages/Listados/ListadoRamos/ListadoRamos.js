@@ -4,6 +4,7 @@ import { Navigate, Link } from "react-router-dom";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import { BsFillTrashFill } from "react-icons/bs";
+import { useRoute, Redirect } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -19,6 +20,7 @@ import Button from "react-bootstrap/Button";
 import Paginador from "../../../templates/Paginador/Paginador";
 
 export default function ListadoRamos() {
+  const [, params] = useRoute("/listadoRamos/:params");
   const [ramos, setRamos] = useState([""]);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
@@ -81,6 +83,7 @@ export default function ListadoRamos() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idCurso: params.params
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;

@@ -131,7 +131,7 @@ export default function ListadoSesion() {
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-            </div>{" "}
+            </div>
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cursos: </label>
               <select

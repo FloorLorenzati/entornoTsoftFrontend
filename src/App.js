@@ -37,7 +37,7 @@ function App() {
               path="/listadoEmpleados"
             ></Route>
 
-            <Route element={<ListadoRamos />} path="/listadoRamos"></Route>
+            <Route element={<ListadoRamos />} path="/listadoRamos/:params"></Route>
 
             <Route element={<ListadoCursos />} path="/listadoCursos"></Route>
 

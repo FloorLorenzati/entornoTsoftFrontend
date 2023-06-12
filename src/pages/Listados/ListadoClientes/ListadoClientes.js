@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate,Link } from "react-router-dom";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -118,7 +118,7 @@ export default function ListadoClientes() {
               </select>
             </div>
           </div>
-
+        
           <InsertarClientes
             isActiveCliente={isActiveInsertCliente}
             cambiarEstado={setIsActiveInsertCliente}
@@ -159,9 +159,13 @@ export default function ListadoClientes() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar curso" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
+
+                    <Link to="/listadoServicios">
+                      <button title="Servicios relacionados" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
+
                     <button
                       title="Desactivar cliente"
                       onClick={() => desactivar(cliente.idCliente)}

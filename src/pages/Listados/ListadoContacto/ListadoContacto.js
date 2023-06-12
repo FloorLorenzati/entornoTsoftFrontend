@@ -27,6 +27,11 @@ export default function ListadoContacto() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla= "contacto"
+  // const [idCliente, setidCliente] = useState("");
+  // const [idServicio, setidServicio] = useState("");
+
+  const [listCliente, setlistCliente] = useState([""]);
+  const [listServicio, setlistServicio] = useState([""]);
 
   function insertarContacto() {
     setIsActiveInsertContacto(!isActiveInsertContacto);
@@ -69,6 +74,7 @@ export default function ListadoContacto() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;

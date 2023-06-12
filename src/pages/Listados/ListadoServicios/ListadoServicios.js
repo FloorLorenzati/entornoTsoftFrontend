@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -26,8 +26,19 @@ export default function ListadoServicio() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
+  // const [idCliente, setidCliente] = useState("");
+
+  const [listCliente, setlistCliente] = useState([""]);
 
   const nombreTabla= "servicio"
+
+  function obtenerCliente() {
+    const url = "pages/auxiliares/listadoClienteForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCliente(response)
+    );
+  }
 
   function insertarServicio() {
     setIsActiveInsertServicio(!isActiveInsertServicio);
@@ -58,6 +69,7 @@ export default function ListadoServicio() {
     function () {
 
       handleChangePaginador();
+      obtenerCliente();
     },
     [num_boton,cantidadPorPagina]
   );
@@ -112,6 +124,23 @@ export default function ListadoServicio() {
                 <option value="100">100</option>
               </select>
             </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Clientes: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCliente.map((valor) => (
+                  <option value={valor.idCliente}>{valor.nomCliente}</option>
+                ))}
+              </select>
+            </div>
           </div>
           <InsertarServicio
             isActiveServicio={isActiveInsertServicio}
@@ -151,9 +180,12 @@ export default function ListadoServicio() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar Servicio" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
+
+                    <Link to="/listadoContacto">
+                      <button title="Contactos relacionados" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar Servicio"
                       onClick={() => desactivar(Servicio.idServicio)}
