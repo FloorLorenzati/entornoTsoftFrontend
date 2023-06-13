@@ -87,6 +87,8 @@ export default function ListadoClientes() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de clientes</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de clientes</h6>
+          <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarCliente}>
@@ -160,7 +162,7 @@ export default function ListadoClientes() {
                       <RiEditBoxFill id="icons" />
                     </button>
 
-                    <Link to="/listadoServicios">
+                    <Link to={`/listadoServicios/${cliente.idCliente}`} > 
                       <button title="Servicios relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

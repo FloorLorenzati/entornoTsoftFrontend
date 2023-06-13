@@ -88,6 +88,8 @@ export default function ListadoNotaExamen() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Notas Examenes</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Nota Examenes</h6>
+          <br></br>
 
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarNotaExamen}>

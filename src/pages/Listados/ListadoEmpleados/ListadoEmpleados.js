@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate,Link } from "react-router-dom";
 
 import GetDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -95,7 +95,8 @@ export default function ListadoEmpleados() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de colaboradores</h1>
-
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de colaboradores</h6>
+          <br></br>
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarEmpleado}>
             Crear Colaborador
@@ -171,6 +172,11 @@ export default function ListadoEmpleados() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+                    <Link to="/listadoCursos">
+                      <button title="Cursos relacionados" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar cliente"
                       onClick={() => desactivar(empleado.idEmpleado)}

@@ -26,13 +26,26 @@ export default function ListadoContacto() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla= "contacto"
+  const nombreTabla = "contacto";
   // const [idCliente, setidCliente] = useState("");
   // const [idServicio, setidServicio] = useState("");
 
   const [listCliente, setlistCliente] = useState([""]);
   const [listServicio, setlistServicio] = useState([""]);
-
+  function obtenerCliente() {
+    const url = "pages/auxiliares/listadoClienteForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCliente(response)
+    );
+  }
+  function obtenerServicio() {
+    const url = "pages/auxiliares/listadoServicioForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistServicio(response)
+    );
+  }
   function insertarContacto() {
     setIsActiveInsertContacto(!isActiveInsertContacto);
   }
@@ -46,25 +59,27 @@ export default function ListadoContacto() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { paginador, ...datos } = data;
           setCantidadPaginas(paginador.cantPaginas);
           setContacto(datos.datos);
           console.log(data);
-            });
+        });
       }
     });
   }
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerCliente();
+      obtenerServicio();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
@@ -74,13 +89,12 @@ export default function ListadoContacto() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
       setContacto(datos.datos);
-});
+    });
   }
   //PAGINADOR ---------------------
 
@@ -92,11 +106,13 @@ export default function ListadoContacto() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de contactos</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de contactos</h6>
+          <br></br>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarContacto}>
-            Crear Contacto
-          </Button>
+            <Button id="btn" onClick={insertarContacto}>
+              Crear Contacto
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cantidad registros: </label>
@@ -105,7 +121,9 @@ export default function ListadoContacto() {
                 className="form-control"
                 name="input_CantidadR"
                 id="input_CantidadR"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
                 }}
                 required
               >
@@ -116,6 +134,40 @@ export default function ListadoContacto() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Clientes: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCliente.map((valor) => (
+                  <option value={valor.idCliente}>{valor.nomCliente}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Servicios: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listServicio.map((valor) => (
+                  <option value={valor.idServicio}>{valor.nomServicio}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -131,9 +183,9 @@ export default function ListadoContacto() {
             cambiarEstado={setIsActiveEditContacto}
             idContacto={idContacto}
             setContacto={setContacto}
-            contacto={contacto} 
+            contacto={contacto}
             nombreTabla={nombreTabla}
-          ></EditarContacto> 
+          ></EditarContacto>
 
           <Table id="mainTable" hover responsive>
             <thead>

@@ -86,6 +86,8 @@ export default function ListadoReqCurso() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de requisitos cursos</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de requisitos cursos</h6>
+          <br></br>
 
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarReqCurso}>

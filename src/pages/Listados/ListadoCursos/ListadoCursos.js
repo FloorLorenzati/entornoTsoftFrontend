@@ -90,6 +90,9 @@ export default function ListadoCursos() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Cursos</h6>
+          <br></br>
+
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarCurso}>
               Crear Curso

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate, Link } from "react-router-dom";
-
+import { useRoute } from "wouter";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
@@ -18,6 +18,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoServicio() {
+  const [, params] = useRoute("/listadoServicios/:params"); 
   const [servicio, setServicio] = useState([""]);
   const [isActiveInsertServicio, setIsActiveInsertServicio] = useState(false);
   const [isActiveEditServicio, setIsActiveEditServicio] = useState(false);
@@ -26,7 +27,9 @@ export default function ListadoServicio() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  // const [idCliente, setidCliente] = useState("");
+
+  const [idCliente, setidCliente] = useState(params.params);
+
 
   const [listCliente, setlistCliente] = useState([""]);
 
@@ -71,7 +74,7 @@ export default function ListadoServicio() {
       handleChangePaginador();
       obtenerCliente();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton,cantidadPorPagina,idCliente]
   );
 
   //PAGINADOR ---------------------
@@ -81,6 +84,7 @@ export default function ListadoServicio() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idCliente:idCliente
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -97,7 +101,9 @@ export default function ListadoServicio() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Servicios</h1>
+          <h1 id="TitlesPages">Listado de servicios</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Servicios</h6>
+          <br></br>
 
           <div id="selectPaginador">
           <Button id="btn" onClick={insertarServicio}>
@@ -130,7 +136,7 @@ export default function ListadoServicio() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidCliente(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -181,7 +187,7 @@ export default function ListadoServicio() {
                       <RiEditBoxFill id="icons" />
                     </button>
 
-                    <Link to="/listadoContacto">
+                    <Link to={`/listadoContacto/${Servicio.idServicio}`} > 
                       <button title="Contactos relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

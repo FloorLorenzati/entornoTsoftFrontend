@@ -285,7 +285,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoClientes">
+                        <Link to="/listadoClientes/0">
                           <button id="submenuSidebar">
                             <IoIosPeople id="icons" />
                             Clientes
@@ -384,7 +384,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoRamos">
+                        <Link to="/listadoRamos/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Ramos
@@ -416,7 +416,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoServicios">
+                        <Link to="/listadoServicios/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Servicios
@@ -424,7 +424,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoSesiones">
+                        <Link to="/listadoSesiones/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Sesiones

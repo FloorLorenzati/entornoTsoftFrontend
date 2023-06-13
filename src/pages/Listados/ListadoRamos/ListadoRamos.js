@@ -4,7 +4,7 @@ import { Navigate, Link } from "react-router-dom";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import { BsFillTrashFill } from "react-icons/bs";
-import { useRoute, Redirect } from "wouter";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -30,7 +30,7 @@ export default function ListadoRamos() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   
-  // const [idCurso, setidCurso] = useState("");
+  const [idCurso, setidCurso] = useState(params.params);
 
   const [listCurso, setlistCurso] = useState([""]);
 
@@ -74,7 +74,7 @@ export default function ListadoRamos() {
       handleChangePaginador();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idCurso]
   );
 
   function handleChangePaginador() {
@@ -83,7 +83,7 @@ export default function ListadoRamos() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idCurso: params.params
+      idCurso: idCurso,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -101,6 +101,8 @@ export default function ListadoRamos() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de ramos</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Ramos</h6>
+          <br></br>
 
           <div id="selectPaginador">
             <Button id="btn1" onClick={insertarRamo}>
@@ -135,7 +137,7 @@ export default function ListadoRamos() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidCurso(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -202,8 +204,7 @@ export default function ListadoRamos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-
-                    <Link to="/listadoSesiones">
+                    <Link to={`/listadoSesiones/${ramos.idRamo}`} >
                       <button title="Sesiones relacionadas" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

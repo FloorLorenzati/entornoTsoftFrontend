@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
-
+import { useRoute } from "wouter";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
@@ -18,6 +18,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoSesion() {
+  const [, params] = useRoute("/listadoSesiones/:params");
   const [Sesion, setSesion] = useState([""]);
   const [isActiveInsertSesion, setIsActiveInsertSesion] = useState(false);
   const [isActiveEditSesion, setIsActiveEditSesion] = useState(false);
@@ -28,7 +29,7 @@ export default function ListadoSesion() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
   // const [idCurso, setidCurso] = useState("");
-  // const [idRamo, setidRamo] = useState("");
+  const [idRamo, setidRamo] = useState(params.params);
 
   const [listCurso, setlistCurso] = useState([""]);
   const [listRamo, setlistRamo] = useState([""]);
@@ -77,7 +78,7 @@ export default function ListadoSesion() {
       obtenerRamo();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idRamo]
   );
 
   //PAGINADOR ---------------------
@@ -87,6 +88,7 @@ export default function ListadoSesion() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idRamo:idRamo,
     };
 
     SendDataService(url, operationUrl, data).then((data) => {
@@ -105,6 +107,8 @@ export default function ListadoSesion() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Sesiones</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Sesiones</h6>
+          <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarSesion}>
@@ -155,7 +159,7 @@ export default function ListadoSesion() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidRamo(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista

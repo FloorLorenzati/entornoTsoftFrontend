@@ -31,13 +31,23 @@ export default function ListadoAlumno() {
   // const [idPais, setidPais] = useState("");
   // const [idArea, setidArea] = useState("");
   // const [idCargo, setidCargo] = useState("");
+  // const [idCurso, setidCurso] = useState("");
 
   const [listPais, setlistPais] = useState([""]);
   const [listCargo, setlistCargo] = useState([""]);
   const [listArea, setlistArea] = useState([""]);
   const [listServicio, setlistServicio] = useState([""]);
+  const [listCurso, setlistCurso] = useState([""]);
 
   const nombreTabla = "alumno";
+
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistCurso(response)
+    );
+  }
 
 
   function obtenerPais() {
@@ -99,6 +109,7 @@ export default function ListadoAlumno() {
       obtenerCargo();
       obtenerArea();
       obtenerServicio();  
+      obtenerCurso();
     },
     [num_boton, cantidadPorPagina]
   );
@@ -127,6 +138,8 @@ export default function ListadoAlumno() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de alumno</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de alumno</h6>
+          <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarAlumno}>
@@ -157,6 +170,7 @@ export default function ListadoAlumno() {
                 <option value="100">100</option>
               </select>
             </div>
+            
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Servicios: </label>
               <select
@@ -282,9 +296,11 @@ export default function ListadoAlumno() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar alumno" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
+                    <Link to="/listadoCursos">
+                      <button title="Cursos relacionados" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar alumno"
                       onClick={() => desactivar(alumno.idAlumno)}

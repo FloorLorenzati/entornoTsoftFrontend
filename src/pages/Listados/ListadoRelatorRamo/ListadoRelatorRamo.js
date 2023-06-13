@@ -86,6 +86,8 @@ export default function ListadoRelatorRamo() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de relatores ramos</h1>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de relatore ramo</h6>
+          <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarRelatorRamo}>

@@ -43,17 +43,17 @@ function App() {
 
             <Route
               element={<ListadoClientes />}
-              path="/listadoClientes"
+              path="/listadoClientes/:params"
             ></Route>
 
             <Route
               element={<ListadoSesiones />}
-              path="/listadoSesiones"
+              path="/listadoSesiones/:params"
             ></Route>
 
             <Route
               element={<ListadoServicios />}
-              path="/listadoServicios"
+              path="/listadoServicios/:params"
             ></Route>
             <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route>
 
