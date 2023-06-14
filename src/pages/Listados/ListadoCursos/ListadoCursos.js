@@ -179,6 +179,13 @@ export default function ListadoCursos() {
                     </Link>
 
                     
+                    <Link to={`/listadoReqCurso/${curso.idCurso}`} >
+                      <button title="Ramo relacionado" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
+
+                    
                     <button
                       title="Desactivar curso"
                       onClick={() => desactivar(curso.idCurso)}

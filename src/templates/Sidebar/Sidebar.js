@@ -293,7 +293,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoContacto">
+                        <Link to="/listadoContacto/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Contacto
@@ -309,7 +309,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoCursoAlumnos">
+                        <Link to="/listadoCursoAlumnos/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Curso Alumnos
@@ -376,7 +376,7 @@ export default function SideBar(props) {
                         </Link>
                       </li> */}
                       <li id="textLeftSelect">
-                        <Link to="/listadoNotaExamen">
+                        <Link to="/listadoNotaExamen/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Nota Examen
@@ -392,7 +392,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoRamoExamen">
+                        <Link to="/listadoRamoExamen/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Ramo Examen
@@ -408,7 +408,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoReqCurso">
+                        <Link to="/listadoReqCurso/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Requerimiento Curso

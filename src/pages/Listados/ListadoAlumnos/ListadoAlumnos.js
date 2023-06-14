@@ -27,11 +27,11 @@ export default function ListadoAlumno() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  // const [idServicio, setidServicio] = useState("");
-  // const [idPais, setidPais] = useState("");
-  // const [idArea, setidArea] = useState("");
-  // const [idCargo, setidCargo] = useState("");
-  // const [idCurso, setidCurso] = useState("");
+  const [idServicio, setidServicio] = useState("");
+  const [idPais, setidPais] = useState("");
+  const [idArea, setidArea] = useState("");
+  const [idCargo, setidCargo] = useState("");
+  const [idCurso, setidCurso] = useState("");
 
   const [listPais, setlistPais] = useState([""]);
   const [listCargo, setlistCargo] = useState([""]);
@@ -111,7 +111,7 @@ export default function ListadoAlumno() {
       obtenerServicio();  
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina, idServicio,idArea,idCargo,idPais]
   );
 
   //PAGINADOR ---------------------
@@ -121,6 +121,11 @@ export default function ListadoAlumno() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idPais:idPais,
+      idServicio:idServicio,
+      idArea:idArea,
+      idCargo:idCargo
+
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -148,7 +153,7 @@ export default function ListadoAlumno() {
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_Cantidad Registros">
-                Cantidad registros:
+                Cant registros:
               </label>
               <select
                 value={cantidadPorPagina || ""}
@@ -177,7 +182,7 @@ export default function ListadoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidServicio(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -196,7 +201,7 @@ export default function ListadoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidPais(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -215,7 +220,7 @@ export default function ListadoAlumno() {
                 type="text"
                 className="form-control"
                 // style={{borderColor:'red'}}
-                // onChange={({ target }) => setidCargo(target.value)}
+                onChange={({ target }) => setidCargo(target.value)}
               >
                 <option selected hidden value="">
                   Desplegar lista
@@ -224,7 +229,6 @@ export default function ListadoAlumno() {
                 {listCargo.map((valor) => (
                   <option value={valor.idCargo}>{valor.nomCargo}</option>
                 ))}
-                idArea
               </select>
             </div>
 
@@ -234,7 +238,7 @@ export default function ListadoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidArea(target.value)}
+                onChange={({ target }) => setidArea(target.value)}
               >
                 <option selected hidden value="">
                 Desplegar lista
@@ -296,7 +300,8 @@ export default function ListadoAlumno() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to="/listadoCursos">
+
+                    <Link to={`/listadoCursoAlumnos/${alumno.idAlumno}`} >
                       <button title="Cursos relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

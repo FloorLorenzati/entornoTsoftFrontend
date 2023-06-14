@@ -57,19 +57,19 @@ function App() {
             ></Route>
             <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route>
 
-            <Route element={<ListadoContacto />} path="/listadoContacto"></Route>
+            <Route element={<ListadoContacto />} path="/listadoContacto/:params"></Route>
 
-            <Route element={<ListadoCursoAlumnos />} path="/listadoCursoAlumnos"></Route>
+            <Route element={<ListadoCursoAlumnos />} path="/listadoCursoAlumnos/:params"></Route>
 
             <Route element={<ListadoCursoAlumnoSesion />} path="/listadoCursoAlumnoSesion"></Route>
 
-            <Route element={<ListadoNotaExamen />} path="/listadoNotaExamen"></Route>
+            <Route element={<ListadoNotaExamen />} path="/listadoNotaExamen/:params"></Route>
 
-            <Route element={<ListadoRamoExamen />} path="/listadoRamoExamen"></Route>
+            <Route element={<ListadoRamoExamen />} path="/listadoRamoExamen/:params"></Route>
 
             <Route element={<ListadoRelatorRamo />} path="/listadoRelatorRamo"></Route>
 
-            <Route element={<ListadoReqCurso />} path="/listadoReqCurso"></Route>
+            <Route element={<ListadoReqCurso />} path="/listadoReqCurso/:params"></Route>
 
 
           </Route>

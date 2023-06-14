@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoReqCurso() {
+  const [, params] = useRoute("/listadoReqCurso/:params");
   const [reqCurso, setReqCurso] = useState([""]);
   const [isActiveInsertReqCurso, setIsActiveInsertReqCurso] = useState(false);
   const [idReqCurso, setidReqCurso] = useState(null);
@@ -27,6 +29,19 @@ export default function ListadoReqCurso() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla= "reqcurso"
+  
+  const [idCurso, setidCurso] = useState(params.params);
+
+  const [listCurso, setlistCurso] = useState([""]);
+
+
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCurso(response)
+    );
+  }
 
   function insertarReqCurso() {
     setIsActiveInsertReqCurso(!isActiveInsertReqCurso);
@@ -45,7 +60,7 @@ export default function ListadoReqCurso() {
           idRegistro: ID, 
           usuarioModificacion: userData.usuario,
           nombreTabla : nombreTabla,
-         };
+         }; console.log(data);
         SendDataService(url, operationUrl, data).then((response) => {
           const { paginador, ...datos } = data;
           setCantidadPaginas(paginador.cantPaginas);
@@ -58,8 +73,9 @@ export default function ListadoReqCurso() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerCurso();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton,cantidadPorPagina,idCurso]
   );
 
   //PAGINADOR ---------------------
@@ -69,6 +85,7 @@ export default function ListadoReqCurso() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idCurso:idCurso
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -112,6 +129,23 @@ export default function ListadoReqCurso() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Cursos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCurso.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
               </select>
             </div>
           </div>

@@ -68,6 +68,24 @@ export default function ListadoServicio() {
       }
     });
   }
+
+
+  //Envia datos ---------------------
+  function handleChangePaginador() {
+    var url = "pages/listados/listadoServicios.php";
+    var operationUrl = "listadoServicios";
+    var data = {
+      num_boton: num_boton,
+      cantidadPorPagina: cantidadPorPagina,
+      idCliente:idCliente
+    };console.log(data);
+    SendDataService(url, operationUrl, data).then((data) => {
+      const { paginador, ...datos } = data;
+      setCantidadPaginas(paginador.cantPaginas);
+      setServicio(datos.datos);
+      });
+  }
+  //-------------------------------------------
   useEffect(
     function () {
 
@@ -76,23 +94,6 @@ export default function ListadoServicio() {
     },
     [num_boton,cantidadPorPagina,idCliente]
   );
-
-  //PAGINADOR ---------------------
-  function handleChangePaginador() {
-    var url = "pages/listados/listadoServicios.php";
-    var operationUrl = "listadoServicios";
-    var data = {
-      num_boton: num_boton,
-      cantidadPorPagina: cantidadPorPagina,
-      idCliente:idCliente
-    };
-    SendDataService(url, operationUrl, data).then((data) => {
-      const { paginador, ...datos } = data;
-      setCantidadPaginas(paginador.cantPaginas);
-      setServicio(datos.datos);
-      });
-  }
-  //PAGINADOR ---------------------
 
   return userData.statusConected || userData !== null ? (
     <>

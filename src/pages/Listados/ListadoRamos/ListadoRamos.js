@@ -209,8 +209,8 @@ export default function ListadoRamos() {
                         <HiEye id="icons" />
                       </button>
                     </Link>
-
-                    <Link to="/listadoRamoExamen">
+                    
+                    <Link to={`/listadoRamoExamen/${ramos.idRamo}`} >
                       <button title="Examen relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

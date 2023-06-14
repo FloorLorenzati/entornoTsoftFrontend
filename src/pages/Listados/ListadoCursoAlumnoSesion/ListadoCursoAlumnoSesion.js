@@ -70,6 +70,8 @@ export default function ListadoCursoAlumnoSesion() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idSesion:idSesion,
+      idAlumno:idAlumno
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;

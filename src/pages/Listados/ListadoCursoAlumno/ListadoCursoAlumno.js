@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,8 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoCursoAlumno() {
+  const [, params] = useRoute("/listadoCursoAlumnos/:params");
+
   const [CursoAlumno, setCursoAlumno] = useState([""]);
   const [isActiveInsertCursoAlumno, setIsActiveInsertCursoAlumno] = useState(false);
   const [idCursoAlumno, setidCursoAlumno] = useState(null);
@@ -27,9 +30,30 @@ export default function ListadoCursoAlumno() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-
   const nombreTabla= "cursoalumno"
 
+  const [idAlumno, setidAlumno] = useState(params.params);
+  const [idCurso, setidCurso] = useState(params.params);
+
+  const [listAlumno, setlistAlumno] = useState([""]);
+  const [listCurso, setlistCurso] = useState([""]);
+
+
+  function obtenerAlumno() {
+    const url = "pages/auxiliares/listadoAlumnoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistAlumno(response)
+    );
+  }
+
+  function obtenerCurso() {
+    const url = "pages/auxiliares/listadoCursoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCurso(response)
+    );
+  }
 
   function insertarCursoAlumno() {
     setIsActiveInsertCursoAlumno(!isActiveInsertCursoAlumno);
@@ -59,8 +83,10 @@ export default function ListadoCursoAlumno() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerCurso();
+      obtenerAlumno()
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton,cantidadPorPagina, idAlumno, idCurso]
   );
 
   //PAGINADOR ---------------------
@@ -70,6 +96,8 @@ export default function ListadoCursoAlumno() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idAlumno:idAlumno,
+      idCurso:idCurso
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -113,6 +141,40 @@ export default function ListadoCursoAlumno() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Cursos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidCurso(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCurso.map((valor) => (
+                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Alumnos: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidAlumno(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listAlumno.map((valor) => (
+                  <option value={valor.idAlumno}>{valor.nomAlumno}</option>
+                ))}
               </select>
             </div>
           </div>

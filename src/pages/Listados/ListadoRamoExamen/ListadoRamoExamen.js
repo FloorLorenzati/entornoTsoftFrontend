@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate ,Link } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoRamoExamen() {
+  const [, params] = useRoute("/listadoRamoExamen/:params");
   const [ramoExamen, setRamoExamen] = useState([""]);
   const [isActiveInsertRamoExamen, setIsActiveInsertRamoExamen] =
     useState(false);
@@ -29,7 +31,7 @@ export default function ListadoRamoExamen() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "ramoexamen";
 
-  // const [idRamo, setidRamo] = useState("");
+  const [idRamo, setidRamo] = useState(params.params);
 
   const [listRamo, setlistRamo] = useState([""]);
 
@@ -70,7 +72,7 @@ export default function ListadoRamoExamen() {
       handleChangePaginador();
       obtenerRamo();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idRamo]
   );
 
   //PAGINADOR ---------------------
@@ -80,6 +82,7 @@ export default function ListadoRamoExamen() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idRamo:idRamo
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -133,7 +136,7 @@ export default function ListadoRamoExamen() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidRamo(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -184,8 +187,9 @@ export default function ListadoRamoExamen() {
                       onClick={() => editarRamoExamen(ramoExamen.idRamoExamen)}
                     >
                       <RiEditBoxFill id="icons" /></button>
-                      <Link to="/listadoNotaExamen">
-                      <button title="Cursos relacionados" id="OperationBtns">
+
+                    <Link to={`/listadoNotaExamen/${ramoExamen.idRamoExamen}`} >
+                      <button title="Notas relacionadas" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>
                     </Link>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoNotaExamen() {
+  const [, params] = useRoute("/listadoNotaExamen/:params");
   const [notaExamen, setNotaExamen] = useState([""]);
   const [isActiveInsertNotaExamen, setIsActiveInsertNotaExamen] = useState(false);
   const [idNotaExamen, setidNotaExamen] = useState(null);
@@ -28,8 +30,15 @@ export default function ListadoNotaExamen() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
   const nombreTabla= "notaexamen"
+  const [idRamoExamen, setidRamoExamen] = useState(params.params);
 
+  const [listRamoExamen, setlistRamoExamen] = useState([""]);
 
+  function obtenerRamoExamen() {
+    const url = "pages/auxiliares/listadoRamoExamenForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistRamoExamen(response));
+  }
   function insertarNotaExamen() {
     setIsActiveInsertNotaExamen(!isActiveInsertNotaExamen);
   }
@@ -60,6 +69,7 @@ export default function ListadoNotaExamen() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerRamoExamen();
     },
     [num_boton,cantidadPorPagina]
   );
@@ -71,6 +81,7 @@ export default function ListadoNotaExamen() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idRamoExamen:idRamoExamen
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -113,6 +124,23 @@ export default function ListadoNotaExamen() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Examen: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidRamoExamen(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listRamoExamen.map((valor) => (
+                  <option value={valor.idRamoExamen}>{valor.nomRamoExamen}</option>
+                ))}
               </select>
             </div>
           </div>

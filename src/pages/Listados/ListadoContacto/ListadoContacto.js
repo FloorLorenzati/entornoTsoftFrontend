@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoContacto() {
+  const [, params] = useRoute("/listadoContacto/:params"); 
   const [contacto, setContacto] = useState([""]);
   const [isActiveInsertContacto, setIsActiveInsertContacto] = useState(false);
   const [idContacto, setidContacto] = useState(null);
@@ -28,7 +30,7 @@ export default function ListadoContacto() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "contacto";
   // const [idCliente, setidCliente] = useState("");
-  // const [idServicio, setidServicio] = useState("");
+  const [idServicio, setidServicio] = useState(params.params);
 
   const [listCliente, setlistCliente] = useState([""]);
   const [listServicio, setlistServicio] = useState([""]);
@@ -79,7 +81,7 @@ export default function ListadoContacto() {
       obtenerCliente();
       obtenerServicio();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idServicio]
   );
 
   //PAGINADOR ---------------------
@@ -89,7 +91,8 @@ export default function ListadoContacto() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-    };
+      idServicio:idServicio
+    };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
@@ -159,7 +162,7 @@ export default function ListadoContacto() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => setidServicio(target.value)}
               >
                 <option hidden value="" selected>
                   Desplegar lista

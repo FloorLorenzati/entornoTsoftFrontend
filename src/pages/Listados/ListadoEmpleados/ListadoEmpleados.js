@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate,Link } from "react-router-dom";
 
-import GetDataService from "../../../services/GetDataService";
+import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -27,6 +27,16 @@ export default function ListadoEmpleados() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
+  // const [idServicio, setidServicio] = useState("");
+  const [idPais, setidPais] = useState("");
+  const [idArea, setidArea] = useState("");
+  const [idCargo, setidCargo] = useState("");
+
+  const [listPais, setlistPais] = useState([""]);
+  const [listCargo, setlistCargo] = useState([""]);
+  const [listArea, setlistArea] = useState([""]);
+  // const [listServicio, setlistServicio] = useState([""]);
+
   const nombreTabla= "empleado"
 
   function insertarEmpleado() {
@@ -37,6 +47,33 @@ export default function ListadoEmpleados() {
     setIsActiveEditEmpleado(!isActiveEditEmpleado);
     setIDEmpleado(ID);
   }
+  function obtenerPais() {
+    const url = "pages/auxiliares/listadoPaisForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistPais(response));
+  }
+
+  function obtenerCargo() {
+    const url = "pages/auxiliares/listadoCargoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistCargo(response)
+    );
+  }
+  function obtenerArea() {
+    const url = "pages/auxiliares/listadoAreaForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistArea(response));
+  }
+
+  // function obtenerServicio() {
+  //   const url = "pages/auxiliares/listadoServicioForms.php";
+  //   const operationUrl = "listados";
+  //   getDataService(url, operationUrl).then((response) =>
+  //     setlistServicio(response)
+  //   );
+  // }
+
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
@@ -55,28 +92,27 @@ export default function ListadoEmpleados() {
     });
   }
 
- 
-
   useEffect(
     function () {
-      //   obtenerDatosPaginador();
       handleChangePaginador();
+      obtenerPais();
+      obtenerCargo();
+      obtenerArea();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton,cantidadPorPagina,idArea,idCargo,idPais]
   );
 
   //PAGINADOR ---------------------
-   // function obtenerDatosPaginador() {
-    //   getDataService(urlPaginador).then((paginador) =>
-    //     setPaginadorRelator(paginador)
-    //   );
-    // }
+
   function handleChangePaginador() {
     var url = "pages/listados/listadoEmpleados.php";
     var operationUrl = "listadoEmpleados";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idPais:idPais,
+      idArea:idArea,
+      idCargo:idCargo
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -120,6 +156,80 @@ export default function ListadoEmpleados() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            {/* <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Servicios: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidServicio(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listServicio.map((valor) => (
+                  <option value={valor.idServicio}>{valor.nomServicio}</option>
+                ))}
+              </select>
+            </div> */}
+
+            
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">País: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidPais(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listPais.map((valor) => (
+                  <option value={valor.idPais}>{valor.nomPais}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Cargo:</label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                // style={{borderColor:'red'}}
+                onChange={({ target }) => setidCargo(target.value)}
+              >
+                <option selected hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listCargo.map((valor) => (
+                  <option value={valor.idCargo}>{valor.nomCargo}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Área:</label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidArea(target.value)}
+              >
+                <option selected hidden value="">
+                Desplegar lista
+
+                </option>
+                <option value="">Todos</option>
+                {listArea.map((valor) => (
+                  <option value={valor.idArea}>{valor.nomArea}</option>
+                ))}
               </select>
             </div>
           </div>
