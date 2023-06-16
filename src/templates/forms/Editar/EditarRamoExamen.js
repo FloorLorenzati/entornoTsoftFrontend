@@ -52,7 +52,7 @@ const EditarRamoExamen = ({
       setResponseID(response);
       setnomExamen(response[0].nomExamen);
       setfechaExamen(response[0].fechaExamen);
-      setidRamo(response[0].nomRamo);
+      setidRamo(response[0].idRamo);
     });
   }, [idRamoExamen]);
 
@@ -67,13 +67,14 @@ const EditarRamoExamen = ({
       nomExamen: nomExamen === "" ? responseID[0].nomExamen : nomExamen,
       fechaExamen: fechaExamen === "" ? responseID[0].fechaExamen : fechaExamen,
       idRamo: idRamo === "" ? responseID[0].idRamo : idRamo,
+      isActive: true,
 
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramoExamen } = response[0];
       TopAlerts(successEdited);
-      {actualizarRamoExamen(ramoExamen);console.log(data);};
+      {actualizarRamoExamen(ramoExamen);console.log(response);};
     });
 
     function actualizarRamoExamen(ramoExamen) {
@@ -140,7 +141,7 @@ const EditarRamoExamen = ({
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => setidRamo(target.value)}
               >
                 {listRamo.map((valor) => (
                   <option

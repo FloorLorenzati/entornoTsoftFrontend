@@ -65,7 +65,7 @@ const InsertarNotaExamen = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...notaExamen } = response[0];
       TopAlerts(successCreated);
-      actualizarNotaExamen(notaExamen);
+      actualizarNotaExamen(notaExamen);    console.log(response);
     });
   }
 
@@ -88,7 +88,7 @@ const InsertarNotaExamen = ({
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
-              <label htmlFor="input_NotaExamen">Nota examen:</label>
+              <label htmlFor="input_NotaExamen">Nota examen: (De 0 a 10)</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Nota examen"

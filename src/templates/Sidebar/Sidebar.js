@@ -317,7 +317,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoCursoAlumnoSesion">
+                        <Link to="/listadoCursoAlumnoSesion/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Curso Alumnos Sesion

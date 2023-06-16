@@ -155,7 +155,7 @@ export default function ListadoNotaExamen() {
             cambiarEstado={setIsActiveEditNotaExamen}
             idNotaExamen={idNotaExamen}
             setNotaExamen={setNotaExamen}
-            nomExamen={notaExamen} 
+            notaDeExamen={notaExamen} 
             nombreTabla={nombreTabla}
           ></EditarNotaExamen> 
 

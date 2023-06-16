@@ -61,7 +61,7 @@ const InsertarCursoAlumno = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...cursoAlumno } = response[0];
       TopAlerts(successCreated);
-      actualizarCursoAlumno(cursoAlumno);console.log(data);;
+      actualizarCursoAlumno(cursoAlumno);console.log(response);;
     });
   }
 

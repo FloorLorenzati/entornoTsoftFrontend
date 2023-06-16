@@ -11,17 +11,17 @@ const EditarRamo = ({
   isActiveEditRamo,
   cambiarEstado,
   idRamo,
-  ramo,
-  setRamo,
+  ramos,
+  setRamos,
   nombreTabla,
 }) => {
-  // ----------------------CONSTANTES----------------------------
+  // ----------------------CONSTANTES----------------------------duracionRamoHH
   const [codRamo, setcodRamo] = useState("");
   const [nomRamo, setnomRamo] = useState("");
   const [tipoRamo, settipoRamo] = useState("");
   const [tipoRamoHH, settipoRamoHH] = useState("");
-  const [duracionRamoHH, setduracionRamoHH] = useState("");
   const [cantSesionesRamo, setcantSesionesRamo] = useState("");
+  const [duracionRamoHH, setduracionRamoHH] = useState("");
 
   const [idCurso, setidCurso] = useState("");
 
@@ -31,7 +31,7 @@ const EditarRamo = ({
 
   const [responseID, setResponseID] = useState([""]);
 
-  const listRamo = ramo;
+  const listRamos = ramos;
 
   const show = isActiveEditRamo;
 
@@ -40,22 +40,24 @@ const EditarRamo = ({
     setcodRamo(responseID[0].codRamo);
     setnomRamo(responseID[0].nomRamo);
     settipoRamo(responseID[0].tipoRamo);
-    settipoRamoHH(responseID[0].tipoRamoHH);
-    setduracionRamoHH(responseID[0].duracionRamoHH);
+    settipoRamoHH(responseID[0].tipoRamoHH);    
     setcantSesionesRamo(responseID[0].cantSesionesRamo);
+    setduracionRamoHH(responseID[0].duracionRamoHH)
     setidCurso(responseID[0].idCurso);
   };
   // ----------------------FUNCIONES----------------------------
   function obtenerCurso() {
     const url = "pages/auxiliares/listadoCursoForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) => setlistCurso(response));
+    getDataService(url, operationUrl).then((response) =>
+      setlistCurso(response)
+    );
   }
 
   const getData = useCallback(() => {
     const url = "pages/seleccionar/seleccionarDatos.php";
     const operationUrl = "seleccionarDatos";
-    var data = { idRegistro: idRamo, nombreTabla: nombreTabla};
+    var data = { idRegistro: idRamo, nombreTabla: nombreTabla };
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       setResponseID(response);
@@ -63,9 +65,10 @@ const EditarRamo = ({
       setnomRamo(response[0].nomRamo);
       settipoRamo(response[0].tipoRamo);
       settipoRamoHH(response[0].tipoRamoHH);
-      setduracionRamoHH(response[0].duracionRamoHH);
       setcantSesionesRamo(response[0].cantSesionesRamo);
-      setidCurso(response[0].nomCurso);
+      setduracionRamoHH(response[0].duracionRamo)
+      setidCurso(response[0].idCurso);
+      
     });
   }, [idRamo]);
 
@@ -82,25 +85,28 @@ const EditarRamo = ({
       tipoRamo: tipoRamo === "" ? responseID[0].tipoRamo : tipoRamo,
       tipoRamoHH: tipoRamoHH === "" ? responseID[0].tipoRamoHH : tipoRamoHH,
       duracionRamoHH: duracionRamoHH === "" ? responseID[0].duracionRamoHH : duracionRamoHH,
-      cantSesionesRamo: cantSesionesRamo === "" ? responseID[0].cantSesionesRamo : cantSesionesRamo,
-      idCurso: idCurso === "" ? responseID[0].idCurso : idCurso,
-      isActive:true,
+      cantSesionesRamo:
+        cantSesionesRamo === ""
+          ? responseID[0].cantSesionesRamo
+          : cantSesionesRamo,
+      idCurso: idCurso,
+      isActive: true,
     };
-    console.log(data);
+console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...ramo } = response[0];
+      const { successEdited, ...ramos } = response[0];
       TopAlerts(successEdited);
-      {actualizarRamo(ramo);console.log(data);};
+      actualizarRamo(ramos);
     });
 
-    function actualizarRamo(ramo) {
-      const nuevosRamo = listRamo.map((c) =>
-        c.idRamo === ramo.idRamo ? ramo : c
+    function actualizarRamo(ramos) {
+      const nuevosRamos = listRamos.map((c) =>
+        c.idRamo === ramos.idRamo ? ramos : c
       );
-      setRamo(nuevosRamo);
+      setRamos(nuevosRamos);
     }
   }
-
+  
   useEffect(
     function () {
       if (idRamo !== null) {
@@ -123,7 +129,7 @@ const EditarRamo = ({
             <div>
               <label htmlFor="input_tipoDelRamo">Código:</label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre completo del Ramo"
                 value={codRamo || ""}
                 type="text"
@@ -136,11 +142,10 @@ const EditarRamo = ({
               />
             </div>
 
-
             <div>
               <label htmlFor="input_nombreDelRamo">Nombre ramo:</label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre completo del Ramo"
                 value={nomRamo || ""}
                 type="text"
@@ -153,11 +158,10 @@ const EditarRamo = ({
               />
             </div>
 
-
             <div>
               <label htmlFor="input_tipoDelRamohh">Tipo ramo:</label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba tipo del Ramo"
                 value={tipoRamo || ""}
                 type="text"
@@ -171,44 +175,46 @@ const EditarRamo = ({
             </div>
 
             <div>
-              <label htmlFor="input_nombreDelRamo">Tipo ramo HH:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre completo del Ramo"
+            <label htmlFor="input_tipoDelRamohh">Tipo ramo HH:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
                 value={tipoRamoHH || ""}
-                type="text"
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_nombreDelRamo"
-                id="input_nombreDelRamo"
-                maxLength="12"
+                name="input_tipoDelRamohh"
+                id="input_tipoDelRamohh"
                 onChange={({ target }) => settipoRamoHH(target.value)}
                 required
-              />
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
             </div>
-
-
-
             <div>
-              <label htmlFor="input_duracionDelRamohh">Duración ramo HH:</label>
+              <label htmlFor="input_duracionDelRamo">Duración ramo HH:</label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre completo del Ramo"
                 value={duracionRamoHH || ""}
                 type="double"
                 className="form-control"
-                name="input_duracionDelRamohh"
-                id="input_duracionDelRamohh"
+                name="input_duracionDelRamo"
+                id="input_duracionDelRamo"
+                maxLength="12"
                 onChange={({ target }) => setduracionRamoHH(target.value)}
                 required
               />
             </div>
-
-
-
             <div>
-              <label htmlFor="input_cantSesionesDelRamo">Cantidad sesiones ramo:</label>
+              <label htmlFor="input_cantSesionesDelRamo">
+                Cantidad sesiones ramo:
+              </label>
               <input
-               style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre completo del Ramo"
                 value={cantSesionesRamo || ""}
                 type="number"
@@ -220,7 +226,6 @@ const EditarRamo = ({
                 required
               />
             </div>
-
 
             <div>
               <label htmlFor="input_Curso">Nombre del curso:</label>
@@ -240,8 +245,7 @@ const EditarRamo = ({
                 ))}
               </select>
             </div>
-            
-           
+
             <Button
               variant="secondary"
               type="submit"

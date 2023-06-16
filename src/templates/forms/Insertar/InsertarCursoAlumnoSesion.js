@@ -50,7 +50,7 @@ const InsertarCursoAlumnoSesion = ({
     );
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "pages/insertar/insertarCursoAlumnoSesion.php";
     const operationUrl = "insertarCursoAlumnoSesion";
     var data = {
@@ -67,7 +67,7 @@ const InsertarCursoAlumnoSesion = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...cursoAlumnoSesion } = response[0];
       TopAlerts(successCreated);
-      actualizarCursoAlumnoSesion(cursoAlumnoSesion);
+      actualizarCursoAlumnoSesion(cursoAlumnoSesion);console.log(response);
     });
   }
 

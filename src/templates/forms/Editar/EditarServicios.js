@@ -70,7 +70,7 @@ const EditarServicio = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...servicio } = response[0];
       TopAlerts(successEdited);
-      {actualizarServicio(servicio);console.log(data);};
+      {actualizarServicio(servicio);console.log(response);};
     });
 
     function actualizarServicio(servicio) {
@@ -104,6 +104,7 @@ const EditarServicio = ({
               <label htmlFor="input_nombreDelservicio">Servicio:</label>
               <input
                style={{ textTransform: "uppercase" }}
+               value={nomServicio || ""}
                 placeholder="Escriba nombre del servicio"
                 type="text"
                 className="form-control"

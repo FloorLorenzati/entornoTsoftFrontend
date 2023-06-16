@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,8 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoCursoAlumnoSesion() {
+  const [, params] = useRoute("/listadoCursoAlumnoSesion/:params");
+
   const [cursoAlumnoSesion, setCursoAlumnoSesion] = useState([""]);
   const [isActiveInsertCursoAlumnoSesion, setIsActiveInsertCursoAlumnoSesion] =
     useState(false);
@@ -29,7 +32,17 @@ export default function ListadoCursoAlumnoSesion() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
+  const [idSesion, setidSesion] = useState(params.params);
+
+  const [listSesion, setlistSesion] = useState([""]);
+
   const nombreTabla = "cursoalumno_sesion";
+
+  function obtenerSesion() {
+    const url = "pages/auxiliares/listadoSesionForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistSesion(response));
+  }
 
   function insertarCursoAlumnoSesion() {
     setIsActiveInsertCursoAlumnoSesion(!isActiveInsertCursoAlumnoSesion);
@@ -59,8 +72,9 @@ export default function ListadoCursoAlumnoSesion() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerSesion();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idSesion]
   );
 
   //PAGINADOR ---------------------
@@ -71,7 +85,6 @@ export default function ListadoCursoAlumnoSesion() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
       idSesion:idSesion,
-      idAlumno:idAlumno
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -117,6 +130,23 @@ export default function ListadoCursoAlumnoSesion() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Sesiones: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => setidSesion(target.value)}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listSesion.map((valor) => (
+                  <option value={valor.idSesion}>{valor.nomSesion}</option>
+                ))}
               </select>
             </div>
           </div>

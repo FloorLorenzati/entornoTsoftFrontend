@@ -146,7 +146,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
                style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
-                type="date"
+                type="datetime"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"

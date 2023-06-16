@@ -12,11 +12,6 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
   const [nomAlumno, setnomAlumno] = useState("");
   const [correoAlumno, setcorreoAlumno] = useState("");
   const [telefonoAlumno, settelefonoAlumno] = useState("");
-  const [usuario, setUsuario] = useState("");
-  const [password, setPassword] = useState("");
-  const [tipoUsuario, settipoUsuario] = useState("");
-  const [nomRol, setnomRol] = useState("");
-
 
   const [idServicio, setidServicio] = useState("");
   const [idPais, setidPais] = useState("");
@@ -75,7 +70,7 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
       password: password,
       tipoUsuario: tipoUsuario,
       nomRol: nomRol,
-
+      isActive: true,
       idServicio:idServicio,
       idPais: idPais,
       idCargo: idCargo,
@@ -86,7 +81,7 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...alumno } = response[0];
       TopAlerts(successCreated);
-      actualizarAlumno(alumno);
+      actualizarAlumno(alumno);console.log(response);
     });
   }
 

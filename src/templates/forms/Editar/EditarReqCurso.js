@@ -63,7 +63,8 @@ const EditarReqCurso = ({
       usuarioModificacion: userData.usuario,
       idReqCurso: idReqCurso,
       requisitoCurso: requisitoCurso === "" ? responseID[0].requisitoCurso : requisitoCurso,
-
+      
+      idrequisitoCurso: idrequisitoCurso,
       idCurso: idCurso === "" ? responseID[0].idCurso : idCurso,
         isActive:true,
 
@@ -72,7 +73,7 @@ const EditarReqCurso = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...reqCurso } = response[0];
       TopAlerts(successEdited);
-      {actualizarReqCurso(reqCurso);console.log(data);};
+      {actualizarReqCurso(reqCurso);console.log(response);};
     });
 
     function actualizarReqCurso(reqCurso) {

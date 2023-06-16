@@ -124,7 +124,7 @@ const EditarAlumno = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...alumno } = response[0];
       TopAlerts(successEdited);
-      actualizarAlumno(alumno);
+      actualizarAlumno(alumno);console.log(response);
     });
 
     function actualizarAlumno(alumno) {

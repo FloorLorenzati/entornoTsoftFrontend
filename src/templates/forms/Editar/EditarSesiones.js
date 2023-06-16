@@ -61,7 +61,7 @@ const EditarSesion = ({
       settipoSesion(response[0].tipoSesion);
       settipoSesionHH(response[0].tipoSesionHH);
       setduracionSesionHH(response[0].duracionSesionHH);
-      setidRamo(response[0].nomRamo);
+      setidRamo(response[0].idRamo);
     });
   }, [idSesion]);
 
@@ -81,13 +81,13 @@ const EditarSesion = ({
       duracionSesionHH: duracionSesionHH === "" ? responseID[0].duracionSesionHH : duracionSesionHH,
       idRamo: idRamo === "" ? responseID[0].idRamo : idRamo,
 
-
+      isActive:true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...sesion } = response[0];
       TopAlerts(successEdited);
-      {actualizarSesion(sesion);console.log(data);};
+      {actualizarSesion(sesion);console.log(response);};
     });
 
     function actualizarSesion(sesion) {
@@ -152,42 +152,52 @@ const EditarSesion = ({
 
 
             <div>
-              <label htmlFor="input_nombreDelSesion">Tipo de sesion:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-               placeholder="Escriba el tipo de Sesion"
-               value={tipoSesion || ""}
-                type="text"
+            <label htmlFor="input_tipoDeShh">Tipo sesión:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
+                value={tipoSesion || ""}
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_nombreDelSesion"
-                id="input_nombreDelSesion"
-                maxLength="10"
+                name="input_tipoDeShh"
+                id="input_tipoDeShh"
                 onChange={({ target }) => settipoSesion(target.value)}
                 required
-              />
-            </div>        
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="PRESENCIAL">PRESENCIAL</option>
+                <option value="REMOTO">REMOTO</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
+            </div>      
             <div>
-              <label htmlFor="input_nombreDelSesion">Tipo de sesion HH:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-               placeholder="Escriba tipo HH de Sesion"
-               value={tipoSesionHH || ""}
-                type="text"
+            <label htmlFor="input_tipoDeS">Tipo sesión HH:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
+                value={tipoSesionHH || ""}
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_nombreDelSesion"
-                id="input_nombreDelSesion"
-                maxLength="12"
+                name="input_tipoDeS"
+                id="input_tipoDeS"
                 onChange={({ target }) => settipoSesionHH(target.value)}
                 required
-              />
-            </div>
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
+            </div>      
             <div>
               <label htmlFor="input_nombreDelSesion">Duracion de la sesion:</label>
               <input
                style={{ textTransform: "uppercase" }}
                placeholder="Escriba la duración de la Sesion"
                value={duracionSesionHH || ""}
-                type="double"
+                type="number"
                 className="form-control"
                 name="input_nombreDelSesion"
                 id="input_nombreDelSesion"

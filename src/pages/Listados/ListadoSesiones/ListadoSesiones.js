@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
@@ -213,7 +213,7 @@ export default function ListadoSesion() {
                     {Sesion.duracionSesionHH}
                   </td>
                   <td>{Sesion.nomRamo}</td>
-                  <td>{"JIRA"}</td>
+                  <td>{"Modif.Front"}</td>
 
 
                   <td>
@@ -224,9 +224,11 @@ export default function ListadoSesion() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar Sesion" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
+                    <Link to={`/listadoCursoAlumnoSesion/${Sesion.idSesion}`} >
+                      <button title="Asistencia relacionadas" id="OperationBtns">
+                        <HiEye id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar Sesion"
                       onClick={() => desactivar(Sesion.idSesion)}

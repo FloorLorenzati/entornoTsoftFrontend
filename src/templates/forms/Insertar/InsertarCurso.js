@@ -43,7 +43,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado, curso }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...curso } = response[0];
       TopAlerts(successCreated);
-      actualizarCurso(curso);
+      actualizarCurso(curso);console.log(response);
     });
   }
 
@@ -90,21 +90,26 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado, curso }) => {
               />
             </div>
             <div>
-              <label htmlFor="input_TipoHH">Tipo HH:</label>
-              <input
+            <label htmlFor="input_tipoDelRamohh">Tipo ramo HH:</label>
+              <select
                 style={{ textTransform: "uppercase" }}
-                placeholder="Escriba tipo HH"
-                type="text"
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_TipoHH"
-                id="input_TipoHH"
-                maxLength="12"
+                name="input_tipoDelRamohh"
+                id="input_tipoDelRamohh"
                 onChange={({ target }) => settipoHH(target.value)}
                 required
-              />
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
             </div>
             <div>
-              <label htmlFor="input_DuracionHH">Duración curso HH: (double)</label>
+              <label htmlFor="input_DuracionHH">Duración curso HH:</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba duración del curso HH"

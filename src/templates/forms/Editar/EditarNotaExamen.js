@@ -85,18 +85,17 @@ const EditarNotaExamen = ({
       idRamoExamen: idRamoExamen === "" ? responseID[0].idRamoExamen : idRamoExamen,
       idCursoAlumno: idCursoAlumno === "" ? responseID[0].idCursoAlumno : idCursoAlumno,
       isActive:true,
-
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...notaDeExamen } = response[0];
       TopAlerts(successEdited);
-      {actualizarNotaExamen(notaDeExamen);console.log(data);};
+      {actualizarNotaExamen(notaDeExamen);console.log(response);};
     });
 
-    function actualizarNotaExamen(notaDeExamen) {
+    function actualizarNotaExamen(notaExamen) {
       const nuevosNotaExamen = listNotaExamen.map((c) =>
-        c.idNotaExamen === notaDeExamen.idNotaExamen ? notaDeExamen : c
+        c.idNotaExamen === notaExamen.idNotaExamen ? notaExamen : c
       );
       setNotaExamen(nuevosNotaExamen);
     }
@@ -123,7 +122,7 @@ const EditarNotaExamen = ({
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_NotaExamen">Nota examen:</label>
+              <label htmlFor="input_NotaExamen">Nota examen: (De 0 a 10)</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Nota examen"

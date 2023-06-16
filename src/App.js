@@ -61,7 +61,7 @@ function App() {
 
             <Route element={<ListadoCursoAlumnos />} path="/listadoCursoAlumnos/:params"></Route>
 
-            <Route element={<ListadoCursoAlumnoSesion />} path="/listadoCursoAlumnoSesion"></Route>
+            <Route element={<ListadoCursoAlumnoSesion />} path="/listadoCursoAlumnoSesion/:params"></Route>
 
             <Route element={<ListadoNotaExamen />} path="/listadoNotaExamen/:params"></Route>
 

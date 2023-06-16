@@ -41,6 +41,7 @@ const InsertarSesion = ({ isActiveSesion, cambiarEstado, sesion }) => {
     const url = "pages/insertar/insertarSesion.php";
     const operationUrl = "insertarSesion";
     var data = {
+      usuarioCreacion: userData.usuario,
         nroSesion: nroSesion,
         nomSesion: nomSesion,
         tipoSesion: tipoSesion,
@@ -53,7 +54,7 @@ const InsertarSesion = ({ isActiveSesion, cambiarEstado, sesion }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...sesion } = response[0];
       TopAlerts(successCreated);
-      actualizarSesion(sesion);
+      actualizarSesion(sesion);console.log(response);
     });
   }
 
@@ -104,42 +105,50 @@ const InsertarSesion = ({ isActiveSesion, cambiarEstado, sesion }) => {
                 required
               />
             </div>
-
-
             <div>
-              <label htmlFor="input_nombreDelSesion">Tipo de sesion:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Escriba el tipo de Sesion"
-                type="text"
+            <label htmlFor="input_tipoDeShh">Tipo sesión:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_nombreDelSesion"
-                id="input_nombreDelSesion"
-                maxLength="10"
+                name="input_tipoDeShh"
+                id="input_tipoDeShh"
                 onChange={({ target }) => settipoSesion(target.value)}
                 required
-              />
-            </div>        
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="PRESENCIAL">PRESENCIAL</option>
+                <option value="REMOTO">REMOTO</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
+            </div>      
             <div>
-              <label htmlFor="input_nombreDelSesion">Tipo de sesion HH:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Escriba tipo HH de Sesion"
-                type="text"
+            <label htmlFor="input_tipoDeS">Tipo sesión HH:</label>
+              <select
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_nombreDelSesion"
-                id="input_nombreDelSesion"
-                maxLength="12"
+                name="input_tipoDeS"
+                id="input_tipoDeS"
                 onChange={({ target }) => settipoSesionHH(target.value)}
                 required
-              />
-            </div>
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
+            </div>      
             <div>
               <label htmlFor="input_nombreDelSesion">Duracion de la sesion:</label>
               <input
                style={{ textTransform: "uppercase" }}
                 placeholder="Escriba la duración de la Sesion"
-                type="double"
+                type="number"
                 className="form-control"
                 name="input_nombreDelSesion"
                 id="input_nombreDelSesion"
@@ -154,7 +163,7 @@ const InsertarSesion = ({ isActiveSesion, cambiarEstado, sesion }) => {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => setidRamo(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista

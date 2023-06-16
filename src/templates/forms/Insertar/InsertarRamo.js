@@ -8,7 +8,7 @@ import TopAlerts from "../../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramo }) => {
+const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
   // ----------------------CONSTANTES----------------------------
   const [codRamo, setcodRamo] = useState("");
   const [nomRamo, setnomRamo] = useState("");
@@ -21,7 +21,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramo }) => {
 
   const [listCurso, setlistCurso] = useState([""]);
 
-  const listRamo = ramo;
+  const listRamos = ramos;
 
   const show = isActiveRamo;
 
@@ -57,14 +57,15 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramo }) => {
 
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...Ramo } = response[0];
+      const { successCreated, ...ramos } = response[0];
+      console.log(response);
       TopAlerts(successCreated);
-      actualizarRamo(ramo);
+      actualizarRamo(ramos);
     });
   }
 
   function actualizarRamo(response) {
-    listRamo.push(response);
+    listRamos.push(response);
   }
 
   useEffect(function () {
@@ -126,18 +127,23 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramo }) => {
             </div>
 
             <div>
-              <label htmlFor="input_tipoDelRamohh">Tipo ramo HH:</label>
-              <input
+            <label htmlFor="input_tipoDelRamohh">Tipo ramo HH:</label>
+              <select
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba tipo del ramo HH"
-                type="text"
                 className="form-control"
                 name="input_tipoDelRamohh"
                 id="input_tipoDelRamohh"
-                maxLength="12"
                 onChange={({ target }) => settipoRamoHH(target.value)}
                 required
-              />
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
             </div>
 
             <div>

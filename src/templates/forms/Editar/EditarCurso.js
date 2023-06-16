@@ -22,9 +22,6 @@ const EditarCurso = ({
   const [duracionCursoHH, setduracionCursoHH] = useState([""]);
   const [cantSesionesCurso, setcantSesionesCurso] = useState([""]);
 
-  const [isActive, setisActive] = useState();
-  const [usuarioAdmin, setusuarioAdmin] = useState();
-
   const [responseID, setResponseID] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
@@ -83,14 +80,14 @@ const EditarCurso = ({
       TopAlerts(successEdited);
       {
         actualizarCurso(curso);
-        console.log(data);
+        console.log(response);
       }
     });
     function actualizarCurso(curso) {
       const nuevosCursos = listCurso.map((c) =>
         c.idCurso === curso.idCurso ? curso : c
       );
-      setEmpleado(nuevosCursos);
+      setCurso(nuevosCursos);
     }
   }
 
@@ -144,19 +141,24 @@ const EditarCurso = ({
               />
             </div>
             <div>
-              <label htmlFor="input_TipoHH">Tipo HH:</label>
-              <input
+            <label htmlFor="input_tipoDelRamohh">Tipo ramo HH:</label>
+              <select
                 style={{ textTransform: "uppercase" }}
-                placeholder="Escriba tipo HH"
                 value={tipoHH || ""}
-                type="text"
+                placeholder="Escriba tipo del ramo HH"
                 className="form-control"
-                name="input_TipoHH"
-                id="input_TipoHH"
-                maxLength="20"
+                name="input_tipoDelRamohh"
+                id="input_tipoDelRamohh"
                 onChange={({ target }) => settipoHH(target.value)}
                 required
-              />
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="ACADEMICAS">ACADEMICAS</option>
+                <option value="CRONOLOGICAS">CRONOLOGICAS</option>
+                <option value="MIXTO">MIXTO</option>
+              </select>
             </div>
             <div>
               <label htmlFor="input_DuracionHH">Duración curso HH: (double)</label>

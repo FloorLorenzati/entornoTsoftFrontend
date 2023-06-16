@@ -48,7 +48,7 @@ const InsertarServicio = ({ isActiveServicio, cambiarEstado, servicio }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...servicio } = response[0];
       TopAlerts(successCreated);
-      actualizarServicio(servicio);
+      actualizarServicio(servicio);console.log(response);
     });
   }
 
