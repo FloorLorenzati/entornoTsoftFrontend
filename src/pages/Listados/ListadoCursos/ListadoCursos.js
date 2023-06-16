@@ -19,8 +19,6 @@ import "../../Listados/BtnInsertar.css";
 
 export default function ListadoCursos() {
   const [curso, setCurso] = useState([""]);
-  //   const [paginador, setPaginadorRelator] = useState([""]);
-  //   const urlPaginador = "paginador/botones_Curso.php";
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [idCurso, setIDCurso] = useState(null);

@@ -81,7 +81,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...empleado } = response[0];
       TopAlerts(successCreated);
-      actualizarEmpleados(empleado);
+      actualizarEmpleados(empleado);console.log(response);
     });
   }
 
@@ -138,7 +138,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
               </div>
 
               <div>
-                <label htmlFor="input_Usuario">Usuario:</label>
+                <label htmlFor="input_Usuario">Usuario del colaborador:</label>
                 <input
                  style={{ textTransform: "uppercase" }}
                   placeholder="Escriba el correo del usuario a loguear"

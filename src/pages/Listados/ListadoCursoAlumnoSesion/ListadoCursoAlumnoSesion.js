@@ -138,7 +138,7 @@ export default function ListadoCursoAlumnoSesion() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidSesion(target.value)}
+                onChange={({ target }) => {setidSesion(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista

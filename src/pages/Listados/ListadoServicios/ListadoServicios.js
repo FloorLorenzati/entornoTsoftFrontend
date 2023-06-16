@@ -137,7 +137,7 @@ export default function ListadoServicio() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidCliente(target.value)}
+                onChange={({ target }) => {setidCliente(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista

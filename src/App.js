@@ -39,7 +39,7 @@ function App() {
 
             <Route element={<ListadoRamos />} path="/listadoRamos/:params"></Route>
 
-            <Route element={<ListadoCursos />} path="/listadoCursos"></Route>
+            <Route element={<ListadoCursos />} path="/listadoCursos/:params"></Route>
 
             <Route
               element={<ListadoClientes />}
@@ -67,7 +67,7 @@ function App() {
 
             <Route element={<ListadoRamoExamen />} path="/listadoRamoExamen/:params"></Route>
 
-            <Route element={<ListadoRelatorRamo />} path="/listadoRelatorRamo"></Route>
+            <Route element={<ListadoRelatorRamo />} path="/listadoRelatorRamo/:params"></Route>
 
             <Route element={<ListadoReqCurso />} path="/listadoReqCurso/:params"></Route>
 

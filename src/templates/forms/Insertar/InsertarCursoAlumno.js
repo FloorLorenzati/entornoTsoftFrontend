@@ -20,11 +20,11 @@ const InsertarCursoAlumno = ({
   const [fechaFin, setfechaFin] = useState("");
   const [horaIni, sethoraIni] = useState("");
   const [horaFin, sethoraFin] = useState("");
-  const [porcAsistencia, setporcAsistencia] = useState("");
-  const [porcParticipacion, setporcParticipacion] = useState("");
-  const [claseAprobada, setclaseAprobada] = useState("");
-  const [porcAprobacion, setporcAprobacion] = useState("");
-  const [estadoCurso, setestadoCurso] = useState("");
+  const [porcAsistencia, setporcAsistencia] = useState(0);
+  const [porcParticipacion, setporcParticipacion] = useState(0);
+  const [claseAprobada, setclaseAprobada] = useState(0);
+  const [porcAprobacion, setporcAprobacion] = useState(0);
+  const [estadoCurso, setestadoCurso] = useState(0);
 
   const listCursoAlumno = CursoAlumno;
 
@@ -57,7 +57,7 @@ const InsertarCursoAlumno = ({
       estadoCurso: estadoCurso,
       isActive: true,
     };
-    
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...cursoAlumno } = response[0];
       TopAlerts(successCreated);
@@ -230,9 +230,9 @@ const InsertarCursoAlumno = ({
             </div>
             <div>
               <label htmlFor="input_EstC">Estado Curso:</label>
-              <input
+              <select
                 style={{ textTransform: "uppercase" }}
-                placeholder="Estado curso"
+                placeholder="Clase aprobada "
                 type="text"
                 className="form-control"
                 name="input_EstC"
@@ -240,7 +240,13 @@ const InsertarCursoAlumno = ({
                 maxLength="15"
                 onChange={({ target }) => setestadoCurso(target.value)}
                 
-              />
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+                <option value="1">Activo</option>
+                <option value="0">Desactivado</option>
+              </select>
             </div>
             <div>
               <label htmlFor="input_ClaseA">Clase Aprobada:</label>

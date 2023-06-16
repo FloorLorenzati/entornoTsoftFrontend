@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -18,6 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoRelatorRamo() {
+  const [, params] = useRoute("/listadoRelatorRamo/:params");
   const [relatorRamo, setRelatorRamo] = useState([""]);
   const [isActiveInsertRelatorRamo, setIsActiveInsertRelatorRamo] =
     useState(false);
@@ -28,6 +30,10 @@ export default function ListadoRelatorRamo() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
+  const [idEmpleado, setidEmpleado] = useState(params.params);
+
+  const [listEmpleado, setlistEmpleado] = useState([""]);
+
   const nombreTabla = "relatorramo";
 
   function insertarRelatorRamo() {
@@ -36,6 +42,12 @@ export default function ListadoRelatorRamo() {
   function editarRelatorRamo(ID) {
     setIsActiveEditRelatorRamo(!isActiveEditRelatorRamo);
     setidRelatorRamo(ID);
+  }
+
+  function obtenerEmpleado() {
+    const url = "pages/auxiliares/listadoEmpleadoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistEmpleado(response));
   }
 
   function desactivar(ID) {
@@ -58,8 +70,9 @@ export default function ListadoRelatorRamo() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerEmpleado();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idEmpleado]
   );
 
   //PAGINADOR ---------------------
@@ -69,6 +82,7 @@ export default function ListadoRelatorRamo() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idEmpleado:idEmpleado
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -114,6 +128,23 @@ export default function ListadoRelatorRamo() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Empleados: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {setidEmpleado(target.value);setNumBoton(1); }}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listEmpleado.map((valor) => (
+                  <option value={valor.idEmpleado}>{valor.nomEmpleado}</option>
+                ))}
               </select>
             </div>
           </div>

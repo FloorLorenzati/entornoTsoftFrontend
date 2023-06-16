@@ -98,11 +98,11 @@ export default function ListadoCursoAlumno() {
       cantidadPorPagina: cantidadPorPagina,
       idAlumno:idAlumno,
       idCurso:idCurso
-    };
+    };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCursoAlumno(datos.datos);console.log(data);;
+      setCursoAlumno(datos.datos);
 });
   }
   //PAGINADOR ---------------------
@@ -149,7 +149,7 @@ export default function ListadoCursoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -166,7 +166,7 @@ export default function ListadoCursoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidAlumno(target.value)}
+                onChange={({ target }) => {setidAlumno(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista

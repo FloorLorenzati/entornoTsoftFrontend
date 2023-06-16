@@ -16,8 +16,8 @@ const InsertarCursoAlumnoSesion = ({
   // ----------------------CONSTANTES----------------------------
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
-  const [asistencia, setasistencia] = useState("");
-  const [participacion, setparticipacion] = useState("");
+  const [asistencia, setasistencia] = useState(0);
+  const [participacion, setparticipacion] = useState(0);
 
   const [idSesion, setidSesion] = useState("");
   const [idCursoAlumno, setidCursoAlumno] = useState("");

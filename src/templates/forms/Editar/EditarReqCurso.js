@@ -16,7 +16,7 @@ const EditarReqCurso = ({
   nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
-  const [requisitoCurso, setrequisitoCurso] = useState("");
+  const [idCursoRequisito, setidCursoRequisito] = useState("");
   const [idCurso, setidCurso] = useState("");
   
   const [listCurso, setlistCurso] = useState([""]);
@@ -31,7 +31,7 @@ const EditarReqCurso = ({
   const handleClose = () => {
     cambiarEstado(false);
 
-    setrequisitoCurso(responseID[0].requisitoCurso);
+    setidCursoRequisito(responseID[0].idCursoRequisito);
     setidCurso(responseID[0].idCurso);
   };
   // ----------------------FUNCIONES----------------------------
@@ -49,8 +49,8 @@ const EditarReqCurso = ({
       console.log(response);
       setResponseID(response);
 
-      setidCurso(response[0].nomCurso);
-      setrequisitoCurso(response[0].requisitoCurso);
+      setidCurso(response[0].idCurso);
+      setidCursoRequisito(response[0].requisitoCurso);
     });
   }, [idReqCurso]);
 
@@ -62,11 +62,9 @@ const EditarReqCurso = ({
     var data = {
       usuarioModificacion: userData.usuario,
       idReqCurso: idReqCurso,
-      requisitoCurso: requisitoCurso === "" ? responseID[0].requisitoCurso : requisitoCurso,
-      
-      idrequisitoCurso: idrequisitoCurso,
+      idCursoRequisito: idCursoRequisito === "" ? responseID[0].idCursoRequisito : idCursoRequisito,
       idCurso: idCurso === "" ? responseID[0].idCurso : idCurso,
-        isActive:true,
+      isActive:true,
 
     };
     console.log(data);
@@ -104,8 +102,9 @@ const EditarReqCurso = ({
         <Modal.Body>
           <form onSubmit={SendData}>
         
-            <div>
-              <label htmlFor="input_Pais">Curso:</label>
+            
+          <div>
+              <label htmlFor="input_Curso">Nombre del curso:</label>
               <select
                 required
                 type="text"
@@ -123,12 +122,12 @@ const EditarReqCurso = ({
               </select>
             </div>
             <div>
-              <label htmlFor="input_Pais">Curso:</label>
+              <label htmlFor="input_Curso">Nombre del Requisito:</label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setrequisitoCurso(target.value)}
+                onChange={({ target }) => setidCursoRequisito(target.value)}
               >
                 {listCurso.map((valor) => (
                   <option

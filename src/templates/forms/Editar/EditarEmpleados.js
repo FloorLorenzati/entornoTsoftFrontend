@@ -97,11 +97,11 @@ const EditarEmpleados = ({
       idArea: idArea === "" ? responseID[0].idArea : idArea,
       idCargo: idCargo === "" ? responseID[0].idCargo : idCargo,
     };
-
+console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...empleado } = response[0];
       TopAlerts(successEdited);
-      {actualizarEmpleado(empleado);console.log(data);};
+      {actualizarEmpleado(empleado);console.log(response);};
     });
 
     function actualizarEmpleado(empleado) {

@@ -57,7 +57,7 @@ export default function ListadoNotaExamen() {
           usuarioModificacion: userData.usuario,
           nombreTabla : nombreTabla,
          };
-        SendDataService(url, operationUrl, data).then((response) => {
+        SendDataService(url, operationUrl, data).then((data) => {
           const { paginador, ...datos } = data;
           setCantidadPaginas(paginador.cantPaginas);
           setNotaExamen(datos.datos);
@@ -132,7 +132,7 @@ export default function ListadoNotaExamen() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidRamoExamen(target.value)}
+                onChange={({ target }) => {setidRamoExamen(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista

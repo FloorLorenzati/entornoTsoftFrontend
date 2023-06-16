@@ -29,6 +29,7 @@ export default function ListadoContacto() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "contacto";
+
   // const [idCliente, setidCliente] = useState("");
   const [idServicio, setidServicio] = useState(params.params);
 
@@ -145,7 +146,7 @@ export default function ListadoContacto() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                // onChange={({ target }) => {setidCliente(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -162,7 +163,7 @@ export default function ListadoContacto() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => {setidServicio(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista

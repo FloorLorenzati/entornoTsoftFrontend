@@ -136,7 +136,7 @@ export default function ListadoRamoExamen() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidRamo(target.value)}
+                onChange={({ target }) => {setidRamo(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista

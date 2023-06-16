@@ -29,7 +29,7 @@ export default function ListadoSesion() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  // const [idCurso, setidCurso] = useState("");
+  const [idCurso, setidCurso] = useState("");
   const [idRamo, setidRamo] = useState(params.params);
 
   const [listCurso, setlistCurso] = useState([""]);
@@ -79,7 +79,7 @@ export default function ListadoSesion() {
       obtenerRamo();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina,idRamo]
+    [num_boton, cantidadPorPagina,idRamo,idCurso]
   );
 
   //PAGINADOR ---------------------
@@ -90,8 +90,8 @@ export default function ListadoSesion() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
       idRamo:idRamo,
+      idCurso,idCurso
     };
-
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
@@ -143,7 +143,7 @@ export default function ListadoSesion() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -160,7 +160,7 @@ export default function ListadoSesion() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidRamo(target.value)}
+                onChange={({ target }) => {setidRamo(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -193,9 +193,9 @@ export default function ListadoSesion() {
                 <th>ID</th>
                 <th>N° Sesión</th>
                 <th>Sesión</th>
-                <th>Tipo Sesión</th>
-                <th>Tipo Sesión HH</th>
-                <th>Duración Sesión HH</th>
+                <th>Tipo</th>
+                <th>Tipo HH</th>
+                <th>Duración HH</th>
                 <th>Ramo</th>
                 <th>Curso</th>
                 <th>Operaciones</th>
@@ -204,16 +204,18 @@ export default function ListadoSesion() {
             <tbody>
               {Sesion.map((Sesion) => (
                 <tr key={Sesion.idSesion}>
-                  <td>{Sesion.idSesion}</td>
-                  <td>{Sesion.nroSesion}</td>
+                  <td align="right" width={1}>
+                    {Sesion.idSesion}</td>
+                    <td align="right" width={100}>
+                    {Sesion.nroSesion}</td>
                   <td>{Sesion.nomSesion}</td>
                   <td>{Sesion.tipoSesion}</td>
                   <td>{Sesion.tipoSesionHH}</td>
-                  <td align="right" width={188}>
+                  <td align="right" width={120}>
                     {Sesion.duracionSesionHH}
                   </td>
                   <td>{Sesion.nomRamo}</td>
-                  <td>{"Modif.Front"}</td>
+                  <td>{Sesion.nomCurso}</td>
 
 
                   <td>

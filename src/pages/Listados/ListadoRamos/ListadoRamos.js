@@ -29,7 +29,7 @@ export default function ListadoRamos() {
   const [num_boton, setNumBoton] = useState(1);
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  
+
   const [idCurso, setidCurso] = useState(params.params);
 
   const [listCurso, setlistCurso] = useState([""]);
@@ -74,7 +74,7 @@ export default function ListadoRamos() {
       handleChangePaginador();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina,idCurso]
+    [num_boton, cantidadPorPagina, idCurso]
   );
 
   function handleChangePaginador() {
@@ -101,7 +101,9 @@ export default function ListadoRamos() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de ramos</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Ramos</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de Ramos
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
@@ -137,14 +139,16 @@ export default function ListadoRamos() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1); }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listCurso.map((valor) => (
-                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                  <option
+                    selected={(valor.idCurso === idCurso ? "selected" : "")}
+                    value={valor.idCurso}
+                  >
+                    {valor.nomCurso}
+                  </option>
                 ))}
               </select>
             </div>
@@ -204,13 +208,13 @@ export default function ListadoRamos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to={`/listadoSesiones/${ramos.idRamo}`} >
+                    <Link to={`/listadoSesiones/${ramos.idRamo}`}>
                       <button title="Sesiones relacionadas" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>
                     </Link>
-                    
-                    <Link to={`/listadoRamoExamen/${ramos.idRamo}`} >
+
+                    <Link to={`/listadoRamoExamen/${ramos.idRamo}`}>
                       <button title="Examen relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

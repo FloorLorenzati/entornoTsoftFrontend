@@ -45,10 +45,9 @@ export default function ListadoAlumno() {
     const url = "pages/auxiliares/listadoCursoForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistCurso(response)
+      setlistCurso(response)
     );
   }
-
 
   function obtenerPais() {
     const url = "pages/auxiliares/listadoPaisForms.php";
@@ -108,10 +107,10 @@ export default function ListadoAlumno() {
       obtenerPais();
       obtenerCargo();
       obtenerArea();
-      obtenerServicio();  
+      obtenerServicio();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina, idServicio,idArea,idCargo,idPais]
+    [num_boton, cantidadPorPagina, idServicio, idArea, idCargo, idPais]
   );
 
   //PAGINADOR ---------------------
@@ -121,11 +120,10 @@ export default function ListadoAlumno() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idPais:idPais,
-      idServicio:idServicio,
-      idArea:idArea,
-      idCargo:idCargo
-
+      idPais: idPais,
+      idServicio: idServicio,
+      idArea: idArea,
+      idCargo: idCargo,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -143,7 +141,9 @@ export default function ListadoAlumno() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de alumno</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de alumno</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de alumno
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
@@ -152,9 +152,7 @@ export default function ListadoAlumno() {
             </Button>
 
             <div className="form-group" id="btn2">
-              <label htmlFor="input_Cantidad Registros">
-                Cant registros:
-              </label>
+              <label htmlFor="input_Cantidad Registros">Cant registros:</label>
               <select
                 value={cantidadPorPagina || ""}
                 className="form-control"
@@ -175,14 +173,17 @@ export default function ListadoAlumno() {
                 <option value="100">100</option>
               </select>
             </div>
-            
+
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Servicios: </label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => {
+                  setidServicio(target.value);
+                  setNumBoton(1);
+                }}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -194,14 +195,13 @@ export default function ListadoAlumno() {
               </select>
             </div>
 
-            
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">País: </label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidPais(target.value)}
+                onChange={({ target }) => {setidPais(target.value);setNumBoton(1);}}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -220,7 +220,7 @@ export default function ListadoAlumno() {
                 type="text"
                 className="form-control"
                 // style={{borderColor:'red'}}
-                onChange={({ target }) => setidCargo(target.value)}
+                onChange={({ target }) => {setidCargo(target.value);setNumBoton(1); }}
               >
                 <option selected hidden value="">
                   Desplegar lista
@@ -238,11 +238,10 @@ export default function ListadoAlumno() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidArea(target.value)}
+                onChange={({ target }) => {setidArea(target.value);setNumBoton(1); }}
               >
                 <option selected hidden value="">
-                Desplegar lista
-
+                  Desplegar lista
                 </option>
                 <option value="">Todos</option>
                 {listArea.map((valor) => (
@@ -301,7 +300,7 @@ export default function ListadoAlumno() {
                       <RiEditBoxFill id="icons" />
                     </button>
 
-                    <Link to={`/listadoCursoAlumnos/${alumno.idAlumno}`} >
+                    <Link to={`/listadoCursoAlumnos/${alumno.idAlumno}`}>
                       <button title="Cursos relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

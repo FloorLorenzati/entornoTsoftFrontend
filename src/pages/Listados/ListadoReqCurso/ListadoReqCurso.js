@@ -137,7 +137,7 @@ export default function ListadoReqCurso() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidCurso(target.value)}
+                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista

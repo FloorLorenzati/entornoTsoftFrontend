@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate,Link } from "react-router-dom";
 
+
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
@@ -157,33 +158,14 @@ export default function ListadoEmpleados() {
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-            </div>
-            {/* <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Servicios: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
-              >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
-                <option value="">Todos</option>
-                {listServicio.map((valor) => (
-                  <option value={valor.idServicio}>{valor.nomServicio}</option>
-                ))}
-              </select>
-            </div> */}
-
-            
+            </div>           
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">País: </label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidPais(target.value)}
+                onChange={({ target }) => {setidPais(target.value);setNumBoton(1); }}
               >
                 <option hidden value="" selected>
                   Desplegar lista
@@ -202,7 +184,7 @@ export default function ListadoEmpleados() {
                 type="text"
                 className="form-control"
                 // style={{borderColor:'red'}}
-                onChange={({ target }) => setidCargo(target.value)}
+                onChange={({ target }) => {setidCargo(target.value);setNumBoton(1); }}
               >
                 <option selected hidden value="">
                   Desplegar lista
@@ -220,7 +202,7 @@ export default function ListadoEmpleados() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidArea(target.value)}
+                onChange={({ target }) => {setidArea(target.value);setNumBoton(1); }}
               >
                 <option selected hidden value="">
                 Desplegar lista
@@ -282,8 +264,8 @@ export default function ListadoEmpleados() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to="/listadoCursos">
-                      <button title="Cursos relacionados" id="OperationBtns">
+                    <Link to={`/listadoRelatorRamo/${empleado.idEmpleado}`} >
+                      <button title="Ramo  relacionados" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>
                     </Link>

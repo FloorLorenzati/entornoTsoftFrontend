@@ -12,6 +12,11 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
   const [nomAlumno, setnomAlumno] = useState("");
   const [correoAlumno, setcorreoAlumno] = useState("");
   const [telefonoAlumno, settelefonoAlumno] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState("");
+  const [nomRol, setNomRol] = useState("");
+
 
   const [idServicio, setidServicio] = useState("");
   const [idPais, setidPais] = useState("");
@@ -30,7 +35,8 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
   const show = isActiveAlumno;
 
   const handleClose = () => cambiarEstado(false);
-
+  
+  const [listNomRol, setlistNomRol] = useState([""]);
   // ----------------------FUNCIONES----------------------------
 
   function obtenerPais() {
@@ -55,6 +61,14 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
     const url = "pages/auxiliares/listadoServicioForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) => setlistServicio(response));
+  }
+
+  function obtenerNomRol() {
+    const url = "pages/auxiliares/listadoRolForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistNomRol(response)
+    );
   }
 
   function SendData(e) {
@@ -94,6 +108,7 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
     obtenerCargo();
     obtenerArea();
     obtenerServicio();
+    obtenerNomRol();
   }, []);
 
   // ----------------------RENDER----------------------------
@@ -119,6 +134,35 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
                 required
               />
             </div>
+            <div>
+                <label htmlFor="input_Usuario">Usuario del alumno:</label>
+                <input
+                 style={{ textTransform: "uppercase" }}
+                  placeholder="Escriba el correo del usuario a loguear"
+                  type="text"
+                  className="form-control"
+                  name="input_Usuario"
+                  id="input_Usuario"
+                  maxLength="15"
+                  onChange={({ target }) => setUsuario(target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="input_contraseña">Contraseña:</label>
+                <input
+                  placeholder="Escriba la contraseña"
+                  type="password"
+                  className="form-control"
+                  name="input_contraseña"
+                  id="input_contraseña"
+                  maxLength="50"
+                  onChange={({ target }) => setPassword(target.value)}
+                  required
+                />
+              </div>
+
             <div>
               <label htmlFor="input_Correo">Correo:</label>
               <input
@@ -228,6 +272,47 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
                 ))}
               </select>
             </div>
+
+            <div className="form-group">
+                <label htmlFor="input_TipoDeUsuario">Tipo de usuario: </label>
+                <select
+                  required
+                  className="form-control"
+                  name="input_TipoDeUsuario"
+                  id="input_TipoDeUsuario"
+                  placeholder="Seleccione el tipo de usuario"
+                  onChange={({ target }) => setTipoUsuario(target.value)}
+                >
+                  <option hidden value="">
+                    Desplegar lista
+                  </option>
+                  <option value="empleado">Colaborador</option>
+                  <option value="alumno">Alumno</option>
+                  <option value="people">People</option>
+                  <option value="adminstrador">Administrador</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="input_RolUsuario">Rol de usuario: </label>
+                <select
+                  required
+                  className="form-control"
+                  name="input_RolUsuario"
+                  id="input_RolUsuario"
+                  placeholder="Seleccione el rol de usuario"
+                  onChange={({ target }) => setNomRol(target.value)}
+                >
+                  <option hidden value="">
+                    Desplegar lista
+                  </option>
+
+                  {listNomRol.map((valor) => (
+                    <option value={valor.idRolUsuario}>{valor.nomRol}</option>
+                  ))}
+                </select>
+              </div>
+
 
             <Button
               variant="secondary"

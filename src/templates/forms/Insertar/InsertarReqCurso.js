@@ -10,7 +10,7 @@ import Modal from "react-bootstrap/Modal";
 
 const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
   // ----------------------CONSTANTES----------------------------
-  const [requisitoCurso, setrequisitoCurso] = useState("");
+  const [idCursoRequisito, setidCursoRequisito] = useState("");
   const [idCurso, setidCurso] = useState("");
 
   const [listCurso, setlistCurso] = useState([""]);
@@ -39,10 +39,8 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
     const operationUrl = "insertarReqCurso";
     var data = {
       usuarioCreacion: userData.usuario,
-      requisitoCurso: requisitoCurso,
       idCurso: idCurso,
-            
-      idrequisitoCurso: idrequisitoCurso,
+      idCursoRequisito: idCursoRequisito,
       isActive: true,
 
     };
@@ -93,7 +91,7 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setrequisitoCurso(target.value)}
+                onChange={({ target }) => setidCursoRequisito(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista

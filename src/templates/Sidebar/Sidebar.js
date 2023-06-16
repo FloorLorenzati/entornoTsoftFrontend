@@ -301,7 +301,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoCursos">
+                        <Link to="/listadoCursos/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Cursos
@@ -400,7 +400,7 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoRelatorRamo">
+                        <Link to="/listadoRelatorRamo/0">
                           <button id="submenuSidebar">
                             <IoBookmarks id="icons" />
                             Relator Ramo
