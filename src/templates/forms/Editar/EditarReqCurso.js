@@ -69,8 +69,7 @@ const EditarReqCurso = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...reqCurso } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarReqCurso(reqCurso);console.log(response);};
     });
 

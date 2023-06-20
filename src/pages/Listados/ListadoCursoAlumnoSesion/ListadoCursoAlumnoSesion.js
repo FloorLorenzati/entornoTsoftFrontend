@@ -63,8 +63,7 @@ export default function ListadoCursoAlumnoSesion() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          TopAlerts('successEdited');
         });
       }
     });
@@ -174,8 +173,10 @@ export default function ListadoCursoAlumnoSesion() {
                 <th>ID</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
-                <th>Asistencia</th>
-                <th>Participación</th>
+                <th>Hora inicio</th>
+                <th>Hora fin</th>
+                <th>%Asistencia</th>
+                <th>%Participación</th>
                 <th>Sesión</th>
                 <th>ID Curso Alumno</th>
                 <th>Operaciones</th>
@@ -184,13 +185,15 @@ export default function ListadoCursoAlumnoSesion() {
             <tbody>
               {cursoAlumnoSesion.map((cursoAlumnoSesion) => (
                 <tr key={cursoAlumnoSesion.idCursoAlumnoSesion}>
-                  <td>{cursoAlumnoSesion.idCursoAlumnoSesion}</td>
+                  <td align="right" width={30}>{cursoAlumnoSesion.idCursoAlumnoSesion}</td>
                   <td>{cursoAlumnoSesion.fechaIni}</td>
                   <td>{cursoAlumnoSesion.fechaFin}</td>
-                  <td>{cursoAlumnoSesion.asistencia}</td>
-                  <td>{cursoAlumnoSesion.participacion}</td>
+                  <td>{cursoAlumnoSesion.horaIni}</td>
+                  <td>{cursoAlumnoSesion.horaFin}</td>
+                  <td align="right" width={30}>{cursoAlumnoSesion.asistencia}</td>
+                  <td align="right" width={30}>{cursoAlumnoSesion.participacion}</td>
                   <td>{cursoAlumnoSesion.nomSesion}</td>
-                  <td>{cursoAlumnoSesion.idCursoAlumno}</td>
+                  <td align="right" width={90}>{cursoAlumnoSesion.idCursoAlumno}</td>
 
                   {/* <td align="right" width={90}>{cursoAlumnoSesion.porcAprobacion}</td> */}
 

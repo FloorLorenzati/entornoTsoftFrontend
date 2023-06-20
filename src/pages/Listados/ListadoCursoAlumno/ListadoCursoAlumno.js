@@ -74,8 +74,7 @@ export default function ListadoCursoAlumno() {
           nombreTabla : nombreTabla,
          };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          TopAlerts('successEdited');
         });
       }
     });
@@ -102,7 +101,7 @@ export default function ListadoCursoAlumno() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCursoAlumno(datos.datos);
+      setCursoAlumno(datos.datos);console.log(data);
 });
   }
   //PAGINADOR ---------------------
@@ -208,9 +207,9 @@ export default function ListadoCursoAlumno() {
                 <th>Fecha fin</th>
                 <th>Hora inicio</th>
                 <th>Hora fin</th>
-                <th>Porc asistencia</th>
-                <th>Porc participación</th>
-                <th>Porc aprobación</th>
+                <th>%Asistencia</th>
+                <th>%Participación</th>
+                <th>%Aprobación</th>
                 <th>Clase aprobada</th>
                 <th>Estado curso</th>
                 <th>Operaciones</th>
@@ -239,9 +238,7 @@ export default function ListadoCursoAlumno() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar CursoAlumno" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
+
                     <button
                       title="Desactivar CursoAlumno"
                       onClick={() => desactivar(CursoAlumno.idCursoAlumno)}

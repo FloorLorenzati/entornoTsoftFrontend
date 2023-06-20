@@ -18,6 +18,9 @@ const EditarCursoAlumnoSesion = ({
   // ----------------------CONSTANTES----------------------------
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
+  const [horaFin, sethoraFin] = useState("");
+  const [horaIni, sethoraInicio] = useState("");
+
   const [asistencia, setasistencia] = useState("");
   const [participacion, setparticipacion] = useState("");
 
@@ -39,6 +42,9 @@ const EditarCursoAlumnoSesion = ({
     cambiarEstado(false);
     setfechaIni(responseID[0].fechaIni);
     setfechaFin(responseID[0].fechaFin);
+    sethoraFin(responseID[0].horaFin);
+    sethoraInicio(responseID[0].horaIni);
+
     setasistencia(responseID[0].asistencia);
     setparticipacion(responseID[0].participacion);
     setidSesion(responseID[0].idSesion);
@@ -65,6 +71,8 @@ const EditarCursoAlumnoSesion = ({
       setResponseID(response);
       setfechaIni(response[0].fechaIni);
       setfechaFin(response[0].fechaFin);
+      sethoraInicio(response[0].horaIni);
+      sethoraFin(response[0].horaFin);
       setasistencia(response[0].asistencia);
       setparticipacion(response[0].participacion);
       setidCursoAlumno(response[0].idCursoAlumno);
@@ -84,6 +92,9 @@ const EditarCursoAlumnoSesion = ({
 
       fechaIni: fechaIni === "" ? responseID[0].fechaIni : fechaIni,
       fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
+      horaFin: horaFin === "" ? responseID[0].horaFin : horaFin,
+      horaIni: horaIni === "" ? responseID[0].horaIni : horaIni,
+
       asistencia: asistencia === "" ? responseID[0].asistencia : asistencia,
       participacion: participacion === "" ? responseID[0].participacion : participacion,
       idCursoAlumno: idCursoAlumno === "" ? responseID[0].idCursoAlumno : idCursoAlumno,
@@ -93,8 +104,7 @@ const EditarCursoAlumnoSesion = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...cursoAlumnoSesion } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarCursoAlumnoSesion(cursoAlumnoSesion);console.log(data);};
     });
 
@@ -132,7 +142,7 @@ const EditarCursoAlumnoSesion = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
-                type="datetime"
+                type="date"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -146,11 +156,38 @@ const EditarCursoAlumnoSesion = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaFin || ""}
-                type="datetime"
+                type="date"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
                 onChange={({ target }) => setfechaFin(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_horaI">Hora inicio:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Fecha inicio"
+                value={horaIni || ""}
+                type="time"
+                className="form-control"
+                name="input_horaI"
+                id="input_horaI"
+                onChange={({ target }) => sethoraInicio(target.value)}
+                required
+              />
+            </div><div>
+              <label htmlFor="input_horaF">Hora fin:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Fecha inicio"
+                value={horaFin || ""}
+                type="time"
+                className="form-control"
+                name="input_horaF"
+                id="input_horaF"
+                onChange={({ target }) => sethoraFin(target.value)}
                 required
               />
             </div>

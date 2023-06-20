@@ -63,8 +63,7 @@ const InsertarNotaExamen = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...notaExamen } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarNotaExamen(notaExamen);    console.log(response);
     });
   }

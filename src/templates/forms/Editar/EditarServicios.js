@@ -68,8 +68,7 @@ const EditarServicio = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...servicio } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarServicio(servicio);console.log(response);};
     });
 

@@ -59,8 +59,7 @@ const InsertarCursoAlumno = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...cursoAlumno } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarCursoAlumno(cursoAlumno);console.log(response);;
     });
   }
@@ -264,8 +263,8 @@ const InsertarCursoAlumno = ({
                 <option hidden value="">
                   Desplegar lista
                 </option>
-                <option value="S">S (Aprobado)</option>
-                <option value="N">N (Reprobado)</option>
+                <option value="S">SÍ (Aprobado)</option>
+                <option value="N">NO (Reprobado)</option>
               </select>
             </div>
 

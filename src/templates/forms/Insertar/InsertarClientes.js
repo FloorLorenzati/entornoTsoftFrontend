@@ -44,8 +44,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...cliente } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarCliente(cliente);
     });
   }

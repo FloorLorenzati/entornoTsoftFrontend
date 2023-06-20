@@ -52,8 +52,7 @@ const InsertarSesion = ({ isActiveSesion, cambiarEstado, sesion }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...sesion } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarSesion(sesion);console.log(response);
     });
   }

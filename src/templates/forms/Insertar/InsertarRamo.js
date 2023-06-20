@@ -57,9 +57,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
 
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...ramos } = response[0];
-      console.log(response);
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarRamo(ramos);
     });
   }

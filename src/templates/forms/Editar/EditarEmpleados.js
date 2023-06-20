@@ -99,8 +99,7 @@ const EditarEmpleados = ({
     };
 console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...empleado } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarEmpleado(empleado);console.log(response);};
     });
 

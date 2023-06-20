@@ -21,7 +21,8 @@ import "../BtnInsertar.css";
 export default function ListadoNotaExamen() {
   const [, params] = useRoute("/listadoNotaExamen/:params");
   const [notaExamen, setNotaExamen] = useState([""]);
-  const [isActiveInsertNotaExamen, setIsActiveInsertNotaExamen] = useState(false);
+  const [isActiveInsertNotaExamen, setIsActiveInsertNotaExamen] =
+    useState(false);
   const [idNotaExamen, setidNotaExamen] = useState(null);
   const [isActiveEditNotaExamen, setIsActiveEditNotaExamen] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
@@ -29,7 +30,7 @@ export default function ListadoNotaExamen() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  const nombreTabla= "notaexamen"
+  const nombreTabla = "notaexamen";
   const [idRamoExamen, setidRamoExamen] = useState(params.params);
 
   const [listRamoExamen, setlistRamoExamen] = useState([""]);
@@ -37,7 +38,9 @@ export default function ListadoNotaExamen() {
   function obtenerRamoExamen() {
     const url = "pages/auxiliares/listadoRamoExamenForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) => setlistRamoExamen(response));
+    getDataService(url, operationUrl).then((response) =>
+      setlistRamoExamen(response)
+    );
   }
   function insertarNotaExamen() {
     setIsActiveInsertNotaExamen(!isActiveInsertNotaExamen);
@@ -52,16 +55,14 @@ export default function ListadoNotaExamen() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((data) => {
-          const { paginador, ...datos } = data;
-          setCantidadPaginas(paginador.cantPaginas);
-          setNotaExamen(datos.datos);
-            });
+          TopAlerts("successEdited");
+        });
       }
     });
   }
@@ -71,7 +72,7 @@ export default function ListadoNotaExamen() {
       handleChangePaginador();
       obtenerRamoExamen();
     },
-    [num_boton,cantidadPorPagina,idRamoExamen]
+    [num_boton, cantidadPorPagina, idRamoExamen]
   );
 
   //PAGINADOR ---------------------
@@ -81,7 +82,7 @@ export default function ListadoNotaExamen() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idRamoExamen:idRamoExamen
+      idRamoExamen: idRamoExamen,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -99,13 +100,15 @@ export default function ListadoNotaExamen() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Notas Examenes</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Nota Examenes</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de Nota Examenes
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarNotaExamen}>
-            Crear Nota Examen
-          </Button>
+            <Button id="btn" onClick={insertarNotaExamen}>
+              Crear Nota Examen
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cantidad registros: </label>
@@ -114,7 +117,10 @@ export default function ListadoNotaExamen() {
                 className="form-control"
                 name="input_CantidadR"
                 id="input_CantidadR"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
+                }}
                 required
               >
                 <option hidden value="">
@@ -132,17 +138,21 @@ export default function ListadoNotaExamen() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidRamoExamen(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidRamoExamen(target.value);
+                  setNumBoton(1);
+                }}
               >
-
                 <option value="">Todos</option>
                 {listRamoExamen.map((valor) => (
                   <option
-                  selected={(valor.idRamoExamen === idRamoExamen ? "selected" : "")}
-                  value={valor.idRamoExamen}
-                >
-                  {valor.nomExamen}
-                </option>
+                    selected={
+                      valor.idRamoExamen === idRamoExamen ? "selected" : ""
+                    }
+                    value={valor.idRamoExamen}
+                  >
+                    {valor.nomExamen}
+                  </option>
                 ))}
               </select>
             </div>
@@ -158,9 +168,9 @@ export default function ListadoNotaExamen() {
             cambiarEstado={setIsActiveEditNotaExamen}
             idNotaExamen={idNotaExamen}
             setNotaExamen={setNotaExamen}
-            notaDeExamen={notaExamen} 
+            notaDeExamen={notaExamen}
             nombreTabla={nombreTabla}
-          ></EditarNotaExamen> 
+          ></EditarNotaExamen>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -190,9 +200,6 @@ export default function ListadoNotaExamen() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar notaExamen" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
                     <button
                       title="Desactivar notaExamen"
                       onClick={() => desactivar(notaExamen.idNotaExamen)}

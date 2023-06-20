@@ -13,7 +13,6 @@ const InsertarRelatorRamo = ({ isActiveRelatorRamo, cambiarEstado, relatorRamo }
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
 
-
   const [idEmpleado, setidEmpleado] = useState("");
   const [idRamo, setidRamo] = useState("");
 
@@ -59,8 +58,7 @@ const InsertarRelatorRamo = ({ isActiveRelatorRamo, cambiarEstado, relatorRamo }
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...relatorRamo } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarRelatorRamo(relatorRamo);console.log(data);
     });
   }
@@ -89,7 +87,7 @@ const InsertarRelatorRamo = ({ isActiveRelatorRamo, cambiarEstado, relatorRamo }
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
-                type="datetime"
+                type="date"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -103,7 +101,7 @@ const InsertarRelatorRamo = ({ isActiveRelatorRamo, cambiarEstado, relatorRamo }
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha fin"
                 value={fechaFin || ""}
-                type="datetime"
+                type="date"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"

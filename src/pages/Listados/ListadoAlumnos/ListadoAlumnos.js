@@ -95,8 +95,7 @@ export default function ListadoAlumno() {
         };
 
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          TopAlerts('successEdited');
         });
       }
     });

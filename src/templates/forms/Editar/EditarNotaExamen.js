@@ -88,8 +88,7 @@ const EditarNotaExamen = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...notaDeExamen } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarNotaExamen(notaDeExamen);console.log(response);};
     });
 

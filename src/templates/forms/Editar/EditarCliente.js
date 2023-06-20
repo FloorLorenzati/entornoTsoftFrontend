@@ -71,8 +71,7 @@ const EditarClientes = ({
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...cliente } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       actualizarCliente(cliente);
     });
 

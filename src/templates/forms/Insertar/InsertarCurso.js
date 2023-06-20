@@ -41,8 +41,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado, curso }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...curso } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarCurso(curso);console.log(response);
     });
   }

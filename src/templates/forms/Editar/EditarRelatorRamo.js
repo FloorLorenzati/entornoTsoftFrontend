@@ -89,8 +89,7 @@ const EditarRelatorRamo = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...relatorRamo } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarRelatorRamo(relatorRamo);console.log(response);};
     });
 

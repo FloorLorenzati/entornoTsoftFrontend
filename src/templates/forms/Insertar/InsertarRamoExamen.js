@@ -49,8 +49,7 @@ const InsertarRamoExamen = ({
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...ramoExamen } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarRamoExamen(ramoExamen);console.log(response);
     });
   }

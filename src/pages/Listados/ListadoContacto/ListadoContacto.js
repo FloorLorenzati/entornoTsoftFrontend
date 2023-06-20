@@ -68,10 +68,7 @@ export default function ListadoContacto() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { paginador, ...datos } = data;
-          setCantidadPaginas(paginador.cantPaginas);
-          setContacto(datos.datos);
-          console.log(data);
+          TopAlerts('successEdited');
         });
       }
     });
@@ -98,7 +95,7 @@ export default function ListadoContacto() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setContacto(datos.datos);
+      setContacto(datos.datos);console.log(data);
     });
   }
   //PAGINADOR ---------------------

@@ -79,8 +79,7 @@ const InsertarEmpleado = ({ isActiveEmpleado, cambiarEstado, empleado }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...empleado } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarEmpleados(empleado);console.log(response);
     });
   }

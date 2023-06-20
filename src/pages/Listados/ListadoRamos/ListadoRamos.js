@@ -66,8 +66,7 @@ export default function ListadoRamos() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          TopAlerts('successEdited');
         });
       }
     });
@@ -89,10 +88,11 @@ export default function ListadoRamos() {
       cantidadPorPagina: cantidadPorPagina,
       idCurso: idCurso,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setRamos(datos.datos);
+      setRamos(datos.datos);console.log(data);
     });
   }
   //PAGINADOR ---------------------

@@ -93,8 +93,7 @@ const InsertarAlumno = ({ isActiveAlumno, cambiarEstado, alumno }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...alumno } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarAlumno(alumno);console.log(response);
     });
   }

@@ -45,11 +45,9 @@ export default function ListadoClientes() {
           usuarioModificacion: userData.usuario,
           nombreTabla: nombreTabla,
         };
-        SendDataService(url, operationUrl, data);
-        // SendDataService(url, operationUrl, data).then((response) => {
-        //   const { successEdited } = response[0];
-        //   TopAlerts(successEdited);
-        // });
+        SendDataService(url, operationUrl, data).then((response) => {
+          TopAlerts('successEdited');
+        });
       }
     });
   }

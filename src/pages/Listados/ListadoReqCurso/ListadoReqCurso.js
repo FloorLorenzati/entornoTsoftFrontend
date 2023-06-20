@@ -62,11 +62,8 @@ export default function ListadoReqCurso() {
           nombreTabla : nombreTabla,
          }; console.log(data);
         SendDataService(url, operationUrl, data).then((response) => {
-          const { paginador, ...datos } = data;
-          setCantidadPaginas(paginador.cantPaginas);
-          setReqCurso(datos.datos);
-          console.log(data);
-            });
+          TopAlerts('successEdited');
+        });
       }
     });
   }
@@ -193,9 +190,6 @@ export default function ListadoReqCurso() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar ReqCurso" id="OperationBtns">
-                      <HiEye id="icons" />
-                    </button> */}
                     <button
                       title="Desactivar ReqCurso"
                       onClick={() => desactivar(reqCurso.idReqCurso)}

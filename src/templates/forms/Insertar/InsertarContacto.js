@@ -52,8 +52,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...contacto } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarContacto(contacto);console.log(response);
     });
   }

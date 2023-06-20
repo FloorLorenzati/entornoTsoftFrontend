@@ -13,7 +13,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import "../TablasStyles.css";
 import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso";
 import EditarCurso from "../../../templates/forms/Editar/EditarCurso";
-// import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
+import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../templates/alerts/TopAlerts";
 import Paginador from "../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
@@ -50,8 +50,7 @@ export default function ListadoCursos() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          TopAlerts('successEdited');
         });
       }
     });

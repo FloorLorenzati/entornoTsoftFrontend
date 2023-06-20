@@ -115,9 +115,7 @@ const EditarCursoAlumno = ({
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...cursoAlumno } = response[0];
-      console.log(response)
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       actualizarCursoAlumno(cursoAlumno);
     });
 
@@ -325,8 +323,8 @@ const EditarCursoAlumno = ({
                 <option hidden value="">
                   {claseAprobada}
                 </option>
-                <option value="S">S (Aprobado)</option>
-                <option value="N">N (Reprobado)</option>
+                <option value="S">SÍ (Aprobado)</option>
+                <option value="N">NO (Reprobado)</option>
               </select>
             </div>
 

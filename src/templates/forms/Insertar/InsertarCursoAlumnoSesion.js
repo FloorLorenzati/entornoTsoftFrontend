@@ -16,6 +16,9 @@ const InsertarCursoAlumnoSesion = ({
   // ----------------------CONSTANTES----------------------------
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
+  const [horaFin, sethoraFin] = useState("");
+  const [horaIni, sethoraInicio] = useState("");
+
   const [asistencia, setasistencia] = useState(0);
   const [participacion, setparticipacion] = useState(0);
 
@@ -57,6 +60,9 @@ const InsertarCursoAlumnoSesion = ({
       usuarioCreacion: userData.usuario,
       fechaIni: fechaIni,
       fechaFin: fechaFin,
+      horaFin: horaFin,
+      horaIni: horaIni,
+
       asistencia: asistencia,
       participacion: participacion,
       idSesion: idSesion,
@@ -65,8 +71,7 @@ const InsertarCursoAlumnoSesion = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...cursoAlumnoSesion } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarCursoAlumnoSesion(cursoAlumnoSesion);console.log(response);
     });
   }
@@ -111,6 +116,32 @@ const InsertarCursoAlumnoSesion = ({
                 name="input_fechaI"
                 id="input_fechaI"
                 onChange={({ target }) => setfechaFin(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_horaI">Hora inicio:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Fecha inicio"
+                type="time"
+                className="form-control"
+                name="input_horaI"
+                id="input_horaI"
+                onChange={({ target }) => sethoraInicio(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_horaF">Hora fin:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Fecha inicio"
+                type="time"
+                className="form-control"
+                name="input_horaF"
+                id="input_horaF"
+                onChange={({ target }) => sethoraFin(target.value)}
                 required
               />
             </div>

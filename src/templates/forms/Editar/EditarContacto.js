@@ -80,8 +80,7 @@ const EditarContacto = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...contacto } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {actualizarContacto(contacto);console.log(response);};
     });
 

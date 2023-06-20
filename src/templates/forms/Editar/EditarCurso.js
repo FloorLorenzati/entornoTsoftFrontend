@@ -76,8 +76,7 @@ const EditarCurso = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...curso } = response[0];
-      TopAlerts(successEdited);
+      TopAlerts('successEdited');
       {
         actualizarCurso(curso);
         console.log(response);

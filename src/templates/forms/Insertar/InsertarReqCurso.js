@@ -46,8 +46,7 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successCreated, ...reqCurso } = response[0];
-      TopAlerts(successCreated);
+      TopAlerts('successCreated');
       actualizarReqCurso(reqCurso);console.log(response);
     });
   }
