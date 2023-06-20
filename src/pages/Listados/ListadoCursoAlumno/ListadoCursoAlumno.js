@@ -151,12 +151,14 @@ export default function ListadoCursoAlumno() {
                 className="form-control"
                 onChange={({ target }) => {setidCurso(target.value);setNumBoton(1);}}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listCurso.map((valor) => (
-                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                  <option
+                  selected={(valor.idCurso === idCurso ? "selected" : "")}
+                  value={valor.idCurso}
+                >
+                  {valor.nomCurso}
+                </option>
                 ))}
               </select>
             </div>
@@ -168,12 +170,14 @@ export default function ListadoCursoAlumno() {
                 className="form-control"
                 onChange={({ target }) => {setidAlumno(target.value);setNumBoton(1);}}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listAlumno.map((valor) => (
-                  <option value={valor.idAlumno}>{valor.nomAlumno}</option>
+                  <option
+                  selected={(valor.idAlumno === idAlumno ? "selected" : "")}
+                  value={valor.idAlumno}
+                >
+                  {valor.nomAlumno}
+                </option>
                 ))}
               </select>
             </div>

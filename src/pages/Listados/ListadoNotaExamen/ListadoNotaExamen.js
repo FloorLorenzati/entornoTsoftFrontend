@@ -71,7 +71,7 @@ export default function ListadoNotaExamen() {
       handleChangePaginador();
       obtenerRamoExamen();
     },
-    [num_boton,cantidadPorPagina]
+    [num_boton,cantidadPorPagina,idRamoExamen]
   );
 
   //PAGINADOR ---------------------
@@ -134,12 +134,15 @@ export default function ListadoNotaExamen() {
                 className="form-control"
                 onChange={({ target }) => {setidRamoExamen(target.value);setNumBoton(1); }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
+
                 <option value="">Todos</option>
                 {listRamoExamen.map((valor) => (
-                  <option value={valor.idRamoExamen}>{valor.nomRamoExamen}</option>
+                  <option
+                  selected={(valor.idRamoExamen === idRamoExamen ? "selected" : "")}
+                  value={valor.idRamoExamen}
+                >
+                  {valor.nomExamen}
+                </option>
                 ))}
               </select>
             </div>

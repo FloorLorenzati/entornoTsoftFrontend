@@ -8,7 +8,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { ImSortNumbericDesc } from "react-icons/im";
 import "../TablasStyles.css";
 import InsertarRamoExamen from "../../../templates/forms/Insertar/InsertarRamoExamen";
 import EditarRamoExamen from "../../../templates/forms/Editar/EditarRamoExamen";
@@ -68,7 +68,6 @@ export default function ListadoRamoExamen() {
   }
   useEffect(
     function () {
-      // obtenerDatosPaginador();
       handleChangePaginador();
       obtenerRamo();
     },
@@ -138,13 +137,16 @@ export default function ListadoRamoExamen() {
                 className="form-control"
                 onChange={({ target }) => {setidRamo(target.value);setNumBoton(1); }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
+
                 <option value="">Todos</option>
                 {listRamo.map((valor) => (
-                  <option value={valor.idRamo}>{valor.nomRamo}</option>
-                ))}
+                  <option
+                  selected={(valor.idRamo === idRamo ? "selected" : "")}
+                  value={valor.idRamo}
+                >
+                  {valor.nomRamo}
+                </option>
+              ))}
               </select>
             </div>
           </div>
@@ -190,7 +192,7 @@ export default function ListadoRamoExamen() {
 
                     <Link to={`/listadoNotaExamen/${ramoExamen.idRamoExamen}`} >
                       <button title="Notas relacionadas" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <ImSortNumbericDesc id="icons" />
                       </button>
                     </Link>
                     <button

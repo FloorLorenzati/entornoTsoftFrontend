@@ -8,7 +8,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { BsBookmarksFill } from "react-icons/bs";
 import "../TablasStyles.css";
 import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado";
 import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
@@ -176,7 +176,24 @@ export default function ListadoEmpleados() {
                 ))}
               </select>
             </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Área:</label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {setidArea(target.value);setNumBoton(1); }}
+              >
+                <option selected hidden value="">
+                Desplegar lista
 
+                </option>
+                <option value="">Todos</option>
+                {listArea.map((valor) => (
+                  <option value={valor.idArea}>{valor.nomArea}</option>
+                ))}
+              </select>
+            </div>
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cargo:</label>
               <select
@@ -196,24 +213,7 @@ export default function ListadoEmpleados() {
               </select>
             </div>
 
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Área:</label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {setidArea(target.value);setNumBoton(1); }}
-              >
-                <option selected hidden value="">
-                Desplegar lista
-
-                </option>
-                <option value="">Todos</option>
-                {listArea.map((valor) => (
-                  <option value={valor.idArea}>{valor.nomArea}</option>
-                ))}
-              </select>
-            </div>
+           
           </div>
 
           <InsertarEmpleado
@@ -266,7 +266,7 @@ export default function ListadoEmpleados() {
                     </button>
                     <Link to={`/listadoRelatorRamo/${empleado.idEmpleado}`} >
                       <button title="Ramo  relacionados" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <BsBookmarksFill id="icons" />
                       </button>
                     </Link>
                     <button

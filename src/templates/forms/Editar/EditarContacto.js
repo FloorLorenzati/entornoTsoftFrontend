@@ -82,7 +82,7 @@ const EditarContacto = ({
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...contacto } = response[0];
       TopAlerts(successEdited);
-      {actualizarContacto(contacto);console.log(data);};
+      {actualizarContacto(contacto);console.log(response);};
     });
 
     function actualizarContacto(contacto) {
@@ -144,7 +144,7 @@ const EditarContacto = ({
               />
             </div>
             <div>
-              <label htmlFor="input_telefono">Teléfono (opcional): </label>
+              <label htmlFor="input_telefono">Teléfono: </label>
 
               <input
                 placeholder="Escriba el teléfono"
@@ -154,6 +154,7 @@ const EditarContacto = ({
                 name="input_telefono"
                 id="input_telefono"
                 maxLength="15"
+                required
                 onChange={({ target }) => settelefonoContacto(target.value)}
               />
             </div>

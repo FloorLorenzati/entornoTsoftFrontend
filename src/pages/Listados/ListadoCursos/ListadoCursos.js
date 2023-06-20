@@ -7,7 +7,9 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { BsBookmarksFill } from "react-icons/bs";
+import { AiTwotoneEdit } from "react-icons/ai";
+
 import "../TablasStyles.css";
 import InsertarCurso from "../../../templates/forms/Insertar/InsertarCurso";
 import EditarCurso from "../../../templates/forms/Editar/EditarCurso";
@@ -142,7 +144,7 @@ export default function ListadoCursos() {
                 <th>Código</th>
                 <th>Curso</th>
                 <th>Tipo Horas</th>
-                <th>Duración curso (horas)</th>
+                <th>Durac horas</th>
                 <th>Cant sesiones</th>
                 <th>Operaciones</th>
               </tr>
@@ -154,10 +156,10 @@ export default function ListadoCursos() {
                   <td>{curso.codCurso}</td>
                   <td>{curso.nomCurso}</td>
                   <td>{curso.tipoHH}</td>
-                  <td align="right" width={188}>
+                  <td align="right" width={30}>
                     {curso.duracionCursoHH}
                   </td>
-                  <td align="right" width={120}>
+                  <td align="right" width={30}>
                     {curso.cantSesionesCurso}
                   </td>
                   <td>
@@ -172,14 +174,14 @@ export default function ListadoCursos() {
 
                     <Link to={`/listadoRamos/${curso.idCurso}`} >
                       <button title="Ramo relacionado" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <BsBookmarksFill id="icons" />
                       </button>
                     </Link>
 
                     
                     <Link to={`/listadoReqCurso/${curso.idCurso}`} >
-                      <button title="Ramo relacionado" id="OperationBtns">
-                        <HiEye id="icons" />
+                      <button title="Requerimiento relacionado" id="OperationBtns">
+                        <AiTwotoneEdit id="icons" />
                       </button>
                     </Link>
 

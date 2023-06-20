@@ -144,8 +144,13 @@ export default function ListadoReqCurso() {
                 </option>
                 <option value="">Todos</option>
                 {listCurso.map((valor) => (
-                  <option value={valor.idCurso}>{valor.nomCurso}</option>
-                ))}
+                  <option
+                  selected={(valor.idCurso === idCurso ? "selected" : "")}
+                  value={valor.idCurso}
+                >
+                  {valor.nomCurso}
+                </option>
+              ))}
               </select>
             </div>
           </div>

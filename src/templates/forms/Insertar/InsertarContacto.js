@@ -54,7 +54,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
     SendDataService(url, operationUrl, data).then((response) => {
       const { successCreated, ...contacto } = response[0];
       TopAlerts(successCreated);
-      actualizarContacto(contacto);
+      actualizarContacto(contacto);console.log(response);
     });
   }
 
@@ -107,7 +107,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
               />
             </div>
             <div>
-              <label htmlFor="input_telefono">Teléfono (opcional): </label>
+              <label htmlFor="input_telefono">Teléfono: </label>
 
               <input
                 placeholder="Escriba el teléfono"
@@ -118,6 +118,7 @@ const InsertarContacto = ({ isActiveContacto, cambiarEstado, contacto }) => {
                 id="input_telefono"
                 maxLength="15"
                 onChange={({ target }) => settelefonoContacto(target.value)}
+                required
               />
             </div>
 

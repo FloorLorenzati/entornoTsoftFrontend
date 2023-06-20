@@ -7,7 +7,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { AiFillBook } from "react-icons/ai";
 import "../TablasStyles.css";
 import InsertarAlumno from "../../../templates/forms/Insertar/InsertarAlumno";
 import EditarAlumno from "../../../templates/forms/Editar/EditarAlumno";
@@ -172,6 +172,25 @@ export default function ListadoAlumno() {
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
+            </div> <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">País: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidPais(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option hidden value="" selected>
+                  Desplegar lista
+                </option>
+                <option value="">Todos</option>
+                {listPais.map((valor) => (
+                  <option value={valor.idPais}>{valor.nomPais}</option>
+                ))}
+              </select>
             </div>
 
             <div className="form-group" id="btn2">
@@ -194,24 +213,27 @@ export default function ListadoAlumno() {
                 ))}
               </select>
             </div>
-
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">País: </label>
+              <label htmlFor="input_CantidadR">Área:</label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidPais(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {
+                  setidArea(target.value);
+                  setNumBoton(1);
+                }}
               >
-                <option hidden value="" selected>
+                <option selected hidden value="">
                   Desplegar lista
                 </option>
                 <option value="">Todos</option>
-                {listPais.map((valor) => (
-                  <option value={valor.idPais}>{valor.nomPais}</option>
+                {listArea.map((valor) => (
+                  <option value={valor.idArea}>{valor.nomArea}</option>
                 ))}
               </select>
             </div>
+          
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cargo:</label>
@@ -220,7 +242,10 @@ export default function ListadoAlumno() {
                 type="text"
                 className="form-control"
                 // style={{borderColor:'red'}}
-                onChange={({ target }) => {setidCargo(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidCargo(target.value);
+                  setNumBoton(1);
+                }}
               >
                 <option selected hidden value="">
                   Desplegar lista
@@ -232,23 +257,7 @@ export default function ListadoAlumno() {
               </select>
             </div>
 
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Área:</label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {setidArea(target.value);setNumBoton(1); }}
-              >
-                <option selected hidden value="">
-                  Desplegar lista
-                </option>
-                <option value="">Todos</option>
-                {listArea.map((valor) => (
-                  <option value={valor.idArea}>{valor.nomArea}</option>
-                ))}
-              </select>
-            </div>
+            
           </div>
           <InsertarAlumno
             isActiveAlumno={isActiveInsertAlumno}
@@ -272,9 +281,10 @@ export default function ListadoAlumno() {
                 <th>Alumno</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
+                <th>País</th>
                 <th>Servicio</th>
                 <th>Área</th>
-                <th>País</th>
+
                 <th>Cargo</th>
                 <th>Operaciones</th>
               </tr>
@@ -285,13 +295,12 @@ export default function ListadoAlumno() {
                   <td>{alumno.idAlumno}</td>
                   <td>{alumno.nomAlumno}</td>
                   <td>{alumno.correoAlumno}</td>
-                  <td>{alumno.telefonoAlumno}</td>
+                  <td>{alumno.telefonoAlumno}</td> 
+                  <td>{alumno.nomPais}</td>
                   <td>{alumno.nomServicio}</td>
                   <td>{alumno.nomArea}</td>
-                  <td>{alumno.nomPais}</td>
                   <td>{alumno.nomCargo}</td>
-
-                  <td>
+                  <td align="right" width={150}>
                     <button
                       title="Editar alumno"
                       id="OperationBtns"
@@ -302,7 +311,7 @@ export default function ListadoAlumno() {
 
                     <Link to={`/listadoCursoAlumnos/${alumno.idAlumno}`}>
                       <button title="Cursos relacionados" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <AiFillBook id="icons" />
                       </button>
                     </Link>
                     <button

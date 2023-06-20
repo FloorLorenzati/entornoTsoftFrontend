@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate, Link } from "react-router-dom";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
-import { BsFillTrashFill } from "react-icons/bs";
+import { SiSessionize } from "react-icons/si";
+import { BsPenFill } from "react-icons/bs";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { BsFillTrashFill  } from "react-icons/bs";
+
+
 import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
@@ -172,13 +176,12 @@ export default function ListadoRamos() {
               <tr>
                 <th>ID</th>
                 <th>Código</th>
-                <th>Nombre</th>
+                <th>Ramo</th>
                 <th>Tipo</th>
-                <th>Tipo de horario</th>
+                <th>Tipo horario</th>
                 <th>Duración</th>
-                <th>Cant de sesiones</th>
+                <th>Cant sesiones</th>
                 <th>Curso</th>
-                {/* <th>Fecha de creación</th> */}
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -195,11 +198,10 @@ export default function ListadoRamos() {
                   <td align="right" width={1}>
                     {ramos.duracionRamoHH}
                   </td>
-                  <td align="right" width={141}>
+                  <td align="right" width={30}>
                     {ramos.cantSesionesRamo}
                   </td>
                   <td>{ramos.nomCurso}</td>
-                  {/* <td>{ramo.fechaCreacion}</td> */}
                   <td>
                     <button
                       title="Editar ramo"
@@ -210,13 +212,20 @@ export default function ListadoRamos() {
                     </button>
                     <Link to={`/listadoSesiones/${ramos.idRamo}`}>
                       <button title="Sesiones relacionadas" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <SiSessionize id="icons" />
                       </button>
                     </Link>
 
                     <Link to={`/listadoRamoExamen/${ramos.idRamo}`}>
                       <button title="Examen relacionados" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <BsPenFill id="icons" />
+                      </button>
+                    </Link>
+
+                    
+                    <Link to={`/listadoRelatorRamo/${ramos.idRamo}`}>
+                      <button title="Relator relacionados" id="OperationBtns">
+                        <BsFillPersonLinesFill id="icons" />
                       </button>
                     </Link>
 

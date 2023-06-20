@@ -212,7 +212,7 @@ const EditarSesion = ({
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => setidRamo(target.value)}
               >
                 {listRamo.map((valor) => (
                   <option

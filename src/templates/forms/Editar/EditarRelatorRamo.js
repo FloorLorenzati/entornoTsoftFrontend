@@ -66,8 +66,8 @@ const EditarRelatorRamo = ({
       setfechaIni(response[0].fechaIni);
       setfechaFin(response[0].fechaFin);
 
-      setidEmpleado(response[0].nomEmpleado);
-      setidRamo(response[0].nomRamo);
+      setidEmpleado(response[0].idEmpleado);
+      setidRamo(response[0].idRamo);
     });
   }, [idRelatorRamo]);
 
@@ -85,12 +85,13 @@ const EditarRelatorRamo = ({
       idEmpleado: idEmpleado === "" ? responseID[0].idEmpleado : idEmpleado,
       idRamo: idRamo === "" ? responseID[0].idRamo : idRamo,
 
+      isActive:true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...relatorRamo } = response[0];
       TopAlerts(successEdited);
-      {actualizarRelatorRamo(relatorRamo);console.log(data);};
+      {actualizarRelatorRamo(relatorRamo);console.log(response);};
     });
 
     function actualizarRelatorRamo(relatorRamo) {
@@ -127,7 +128,7 @@ const EditarRelatorRamo = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
                 value={fechaIni || ""}
-                type="date"
+                type="datetime"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -141,7 +142,7 @@ const EditarRelatorRamo = ({
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha fin"
                 value={fechaFin || ""}
-                type="date"
+                type="datetime"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"

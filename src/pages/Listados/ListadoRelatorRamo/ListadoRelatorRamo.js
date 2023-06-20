@@ -31,8 +31,12 @@ export default function ListadoRelatorRamo() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
   const [idEmpleado, setidEmpleado] = useState(params.params);
+  const [idRamo, setidRamo] = useState(params.params);
+
 
   const [listEmpleado, setlistEmpleado] = useState([""]);
+  const [listRamo, setlistRamo] = useState([""]);
+
 
   const nombreTabla = "relatorramo";
 
@@ -42,6 +46,12 @@ export default function ListadoRelatorRamo() {
   function editarRelatorRamo(ID) {
     setIsActiveEditRelatorRamo(!isActiveEditRelatorRamo);
     setidRelatorRamo(ID);
+  }
+
+  function obtenerRamo() {
+    const url = "pages/auxiliares/listadoRamoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) => setlistRamo(response));
   }
 
   function obtenerEmpleado() {
@@ -71,8 +81,9 @@ export default function ListadoRelatorRamo() {
     function () {
       handleChangePaginador();
       obtenerEmpleado();
-    },
-    [num_boton, cantidadPorPagina,idEmpleado]
+      obtenerRamo()
+        },
+    [num_boton, cantidadPorPagina,idEmpleado,idRamo]
   );
 
   //PAGINADOR ---------------------
@@ -82,12 +93,13 @@ export default function ListadoRelatorRamo() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idEmpleado:idEmpleado
+      idEmpleado:idEmpleado,
+      idRamo:idRamo
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setRelatorRamo(datos.datos);
+      setRelatorRamo(datos.datos);console.log(data);
     });
   }
   //PAGINADOR ---------------------
@@ -100,7 +112,7 @@ export default function ListadoRelatorRamo() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de relatores ramos</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de relatore ramo</h6>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de relator ramo</h6>
           <br></br>
 
           <div id="selectPaginador">
@@ -131,20 +143,42 @@ export default function ListadoRelatorRamo() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Empleados: </label>
+              <label htmlFor="input_CantidadR">Relator: </label>
               <select
                 required
                 type="text"
                 className="form-control"
                 onChange={({ target }) => {setidEmpleado(target.value);setNumBoton(1); }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
+
                 <option value="">Todos</option>
                 {listEmpleado.map((valor) => (
-                  <option value={valor.idEmpleado}>{valor.nomEmpleado}</option>
-                ))}
+                  <option
+                  selected={(valor.idEmpleado === idEmpleado ? "selected" : "")}
+                  value={valor.idEmpleado}
+                >
+                  {valor.nomEmpleado}
+                </option>
+              ))}
+              </select>
+            </div><div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Ramo: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {setidRamo(target.value);setNumBoton(1); }}
+              >
+
+                <option value="">Todos</option>
+                {listRamo.map((valor) => (
+                  <option
+                  selected={(valor.idRamo === idRamo ? "selected" : "")}
+                  value={valor.idRamo}
+                >
+                  {valor.nomRamo}
+                </option>
+              ))}
               </select>
             </div>
           </div>
@@ -167,7 +201,7 @@ export default function ListadoRelatorRamo() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Empleado</th>
+                <th>Relator</th>
                 <th>Ramo</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>

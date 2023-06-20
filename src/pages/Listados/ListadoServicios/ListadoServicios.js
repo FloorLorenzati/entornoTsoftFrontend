@@ -7,7 +7,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { MdContactMail } from "react-icons/md";
 import "../TablasStyles.css";
 import InsertarServicio from "../../../templates/forms/Insertar/InsertarServicios";
 import EditarServicio from "../../../templates/forms/Editar/EditarServicios";
@@ -18,7 +18,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoServicio() {
-  const [, params] = useRoute("/listadoServicios/:params"); 
+  const [, params] = useRoute("/listadoServicios/:params");
   const [servicio, setServicio] = useState([""]);
   const [isActiveInsertServicio, setIsActiveInsertServicio] = useState(false);
   const [isActiveEditServicio, setIsActiveEditServicio] = useState(false);
@@ -30,16 +30,15 @@ export default function ListadoServicio() {
 
   const [idCliente, setidCliente] = useState(params.params);
 
-
   const [listCliente, setlistCliente] = useState([""]);
 
-  const nombreTabla= "servicio"
+  const nombreTabla = "servicio";
 
   function obtenerCliente() {
     const url = "pages/auxiliares/listadoClienteForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistCliente(response)
+      setlistCliente(response)
     );
   }
 
@@ -56,11 +55,11 @@ export default function ListadoServicio() {
       if (response === true) {
         var url = "pages/cambiarEstado/cambiarEstado.php";
         var operationUrl = "cambiarEstado";
-        var data = { 
-          idRegistro: ID, 
+        var data = {
+          idRegistro: ID,
           usuarioModificacion: userData.usuario,
-          nombreTabla : nombreTabla,
-         };
+          nombreTabla: nombreTabla,
+        };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -69,7 +68,6 @@ export default function ListadoServicio() {
     });
   }
 
-
   //Envia datos ---------------------
   function handleChangePaginador() {
     var url = "pages/listados/listadoServicios.php";
@@ -77,22 +75,22 @@ export default function ListadoServicio() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idCliente:idCliente
-    };console.log(data);
+      idCliente: idCliente,
+    };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
       setServicio(datos.datos);
-      });
+    });
   }
   //-------------------------------------------
   useEffect(
     function () {
-
       handleChangePaginador();
       obtenerCliente();
     },
-    [num_boton,cantidadPorPagina,idCliente]
+    [num_boton, cantidadPorPagina, idCliente]
   );
 
   return userData.statusConected || userData !== null ? (
@@ -103,13 +101,15 @@ export default function ListadoServicio() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de servicios</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Servicios</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de Servicios
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
-          <Button id="btn" onClick={insertarServicio}>
-            Crear servicio
-          </Button>
+            <Button id="btn" onClick={insertarServicio}>
+              Crear servicio
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Cantidad registros: </label>
@@ -118,7 +118,9 @@ export default function ListadoServicio() {
                 className="form-control"
                 name="input_CantidadR"
                 id="input_CantidadR"
-                onChange={({ target }) => {setcantidadPorPagina(target.value);setNumBoton(1);
+                onChange={({ target }) => {
+                  setcantidadPorPagina(target.value);
+                  setNumBoton(1);
                 }}
                 required
               >
@@ -137,14 +139,22 @@ export default function ListadoServicio() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidCliente(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidCliente(target.value);
+                  setNumBoton(1);
+                }}
               >
                 <option hidden value="" selected>
                   Desplegar lista
                 </option>
                 <option value="">Todos</option>
                 {listCliente.map((valor) => (
-                  <option value={valor.idCliente}>{valor.nomCliente}</option>
+                  <option
+                    selected={valor.idCliente === idCliente ? "selected" : ""}
+                    value={valor.idCliente}
+                  >
+                    {valor.nomCliente}
+                  </option>
                 ))}
               </select>
             </div>
@@ -162,14 +172,14 @@ export default function ListadoServicio() {
             setServicio={setServicio}
             servicio={servicio}
             nombreTabla={nombreTabla}
-          ></EditarServicio> 
+          ></EditarServicio>
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Nombre del cliente</th> 
                 <th>Nombre del servicio</th>
-                <th>Nombre del cliente</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -177,8 +187,8 @@ export default function ListadoServicio() {
               {servicio.map((Servicio) => (
                 <tr key={Servicio.idServicio}>
                   <td>{Servicio.idServicio}</td>
+                  <td>{Servicio.nomCliente}</td> 
                   <td>{Servicio.nomServicio}</td>
-                  <td>{Servicio.nomCliente}</td>
                   <td>
                     <button
                       title="Editar Servicio"
@@ -188,9 +198,9 @@ export default function ListadoServicio() {
                       <RiEditBoxFill id="icons" />
                     </button>
 
-                    <Link to={`/listadoContacto/${Servicio.idServicio}`} > 
+                    <Link to={`/listadoContacto/${Servicio.idServicio}`}>
                       <button title="Contactos relacionados" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <MdContactMail id="icons" />
                       </button>
                     </Link>
                     <button

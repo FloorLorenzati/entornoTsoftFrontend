@@ -91,7 +91,9 @@ const InsertarServicio = ({ isActiveServicio, cambiarEstado, servicio }) => {
                 type="text"
                 className="form-control"
                 onChange={({ target }) => setidCliente(target.value)}
-              >
+              >                <option hidden value="">
+              Desplegar lista
+            </option>
                 {listCliente.map((valor) => (
                   <option
                     selected={valor.idCliente === idCliente ? "selected" : ""}

@@ -7,7 +7,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { BsFillKeyFill } from "react-icons/bs";
 import "../TablasStyles.css";
 import InsertarClientes from "../../../templates/forms/Insertar/InsertarClientes";
 import EditarCliente from "../../../templates/forms/Editar/EditarCliente";
@@ -164,7 +164,7 @@ export default function ListadoClientes() {
 
                     <Link to={`/listadoServicios/${cliente.idCliente}`} > 
                       <button title="Servicios relacionados" id="OperationBtns">
-                        <HiEye id="icons" />
+                        <BsFillKeyFill id="icons" />
                       </button>
                     </Link>
 

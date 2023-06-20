@@ -8,7 +8,7 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { BsPersonCheckFill } from "react-icons/bs";
 import "../TablasStyles.css";
 import InsertarSesion from "../../../templates/forms/Insertar/InsertarSesiones";
 import EditarSesion from "../../../templates/forms/Editar/EditarSesiones";
@@ -29,13 +29,15 @@ export default function ListadoSesion() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  const [idCurso, setidCurso] = useState("");
+  const [idCurso, setidCurso] = useState(params.params);
+
   const [idRamo, setidRamo] = useState(params.params);
 
   const [listCurso, setlistCurso] = useState([""]);
   const [listRamo, setlistRamo] = useState([""]);
 
   const nombreTabla = "sesion";
+
   function obtenerCurso() {
     const url = "pages/auxiliares/listadoCursoForms.php";
     const operationUrl = "listados";
@@ -79,7 +81,7 @@ export default function ListadoSesion() {
       obtenerRamo();
       obtenerCurso();
     },
-    [num_boton, cantidadPorPagina,idRamo,idCurso]
+    [num_boton, cantidadPorPagina, idCurso, idRamo]
   );
 
   //PAGINADOR ---------------------
@@ -89,13 +91,15 @@ export default function ListadoSesion() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idRamo:idRamo,
-      idCurso,idCurso
+      idRamo: idRamo,
+      idCurso,
+      idCurso,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
       setSesion(datos.datos);
+      console.log(data);
     });
   }
   //PAGINADOR ---------------------
@@ -108,7 +112,9 @@ export default function ListadoSesion() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Sesiones</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Sesiones</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de Sesiones
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
@@ -143,14 +149,19 @@ export default function ListadoSesion() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidCurso(target.value);
+                  setNumBoton(1);
+                }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listCurso.map((valor) => (
-                  <option value={valor.idCurso}>{valor.nomCurso}</option>
+                  <option
+                    selected={valor.idCurso === idCurso ? "selected" : ""}
+                    value={valor.idCurso}
+                  >
+                    {valor.nomCurso}
+                  </option>
                 ))}
               </select>
             </div>
@@ -160,14 +171,19 @@ export default function ListadoSesion() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidRamo(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidRamo(target.value);
+                  setNumBoton(1);
+                }}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listRamo.map((valor) => (
-                  <option value={valor.idRamo}>{valor.nomRamo}</option>
+                  <option
+                    selected={valor.idRamo === idRamo ? "selected" : ""}
+                    value={valor.idRamo}
+                  >
+                    {valor.nomRamo}
+                  </option>
                 ))}
               </select>
             </div>
@@ -194,10 +210,11 @@ export default function ListadoSesion() {
                 <th>N° Sesión</th>
                 <th>Sesión</th>
                 <th>Tipo</th>
-                <th>Tipo HH</th>
-                <th>Duración HH</th>
-                <th>Ramo</th>
+                <th>Tipo Horas</th>
+                <th>Durac Horas</th>
                 <th>Curso</th>
+                <th>Ramo</th>
+
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -205,18 +222,22 @@ export default function ListadoSesion() {
               {Sesion.map((Sesion) => (
                 <tr key={Sesion.idSesion}>
                   <td align="right" width={1}>
-                    {Sesion.idSesion}</td>
-                    <td align="right" width={100}>
-                    {Sesion.nroSesion}</td>
-                  <td>{Sesion.nomSesion}</td>
+                    {Sesion.idSesion}
+                  </td>
+                  <td align="right" width={1}>
+                    {Sesion.nroSesion}
+                  </td>
+                  <td align="left">
+                    {Sesion.nomSesion}
+                  </td>
                   <td>{Sesion.tipoSesion}</td>
                   <td>{Sesion.tipoSesionHH}</td>
-                  <td align="right" width={120}>
+                  <td align="right" width={30}>
                     {Sesion.duracionSesionHH}
                   </td>
-                  <td>{Sesion.nomRamo}</td>
-                  <td>{Sesion.nomCurso}</td>
 
+                  <td>{Sesion.nomCurso}</td>
+                  <td>{Sesion.nomRamo}</td>
 
                   <td>
                     <button
@@ -226,9 +247,12 @@ export default function ListadoSesion() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to={`/listadoCursoAlumnoSesion/${Sesion.idSesion}`} >
-                      <button title="Asistencia relacionadas" id="OperationBtns">
-                        <HiEye id="icons" />
+                    <Link to={`/listadoCursoAlumnoSesion/${Sesion.idSesion}`}>
+                      <button
+                        title="Asistencia relacionadas"
+                        id="OperationBtns"
+                      >
+                        <BsPersonCheckFill id="icons" />
                       </button>
                     </Link>
                     <button

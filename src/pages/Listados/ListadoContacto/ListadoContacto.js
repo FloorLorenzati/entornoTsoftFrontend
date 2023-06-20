@@ -30,7 +30,7 @@ export default function ListadoContacto() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "contacto";
 
-  // const [idCliente, setidCliente] = useState("");
+  const [idCliente, setidCliente] = useState("");
   const [idServicio, setidServicio] = useState(params.params);
 
   const [listCliente, setlistCliente] = useState([""]);
@@ -82,7 +82,7 @@ export default function ListadoContacto() {
       obtenerCliente();
       obtenerServicio();
     },
-    [num_boton, cantidadPorPagina,idServicio]
+    [num_boton, cantidadPorPagina,idServicio,idCliente]
   );
 
   //PAGINADOR ---------------------
@@ -92,7 +92,8 @@ export default function ListadoContacto() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idServicio:idServicio
+      idServicio:idServicio,
+      idCliente:idCliente
     };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -146,14 +147,16 @@ export default function ListadoContacto() {
                 required
                 type="text"
                 className="form-control"
-                // onChange={({ target }) => {setidCliente(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {setidCliente(target.value);setNumBoton(1);}}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listCliente.map((valor) => (
-                  <option value={valor.idCliente}>{valor.nomCliente}</option>
+                  <option
+                  selected={(valor.idCliente === idCliente ? "selected" : "")}
+                  value={valor.idCliente}
+                >
+                  {valor.nomCliente}
+                </option>
                 ))}
               </select>
             </div>
@@ -165,13 +168,15 @@ export default function ListadoContacto() {
                 className="form-control"
                 onChange={({ target }) => {setidServicio(target.value);setNumBoton(1);}}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
                 <option value="">Todos</option>
                 {listServicio.map((valor) => (
-                  <option value={valor.idServicio}>{valor.nomServicio}</option>
-                ))}
+                  <option
+                  selected={(valor.idServicio === idServicio ? "selected" : "")}
+                  value={valor.idServicio}
+                >
+                  {valor.nomServicio}
+                </option>
+              ))}
               </select>
             </div>
           </div>
@@ -198,9 +203,10 @@ export default function ListadoContacto() {
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>Fecha inico</th>
+                <th>Fecha inicio</th>
                 <th>Fecha fin</th>
                 <th>Servicio</th>
+                <th>Cliente</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -214,6 +220,8 @@ export default function ListadoContacto() {
                   <td>{contacto.fechaIni}</td>
                   <td>{contacto.fechaFin}</td>
                   <td>{contacto.nomServicio}</td>
+                  <td>{contacto.nomCliente}</td>
+
                   <td>
                     <button
                       title="Editar contacto"

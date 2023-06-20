@@ -140,12 +140,15 @@ export default function ListadoCursoAlumnoSesion() {
                 className="form-control"
                 onChange={({ target }) => {setidSesion(target.value);setNumBoton(1);}}
               >
-                <option hidden value="" selected>
-                  Desplegar lista
-                </option>
+
                 <option value="">Todos</option>
                 {listSesion.map((valor) => (
-                  <option value={valor.idSesion}>{valor.nomSesion}</option>
+                  <option
+                  selected={(valor.idSesion === idSesion ? "selected" : "")}
+                  value={valor.idSesion}
+                >
+                  {valor.nomSesion}
+                </option>
                 ))}
               </select>
             </div>
