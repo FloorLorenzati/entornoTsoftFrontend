@@ -202,6 +202,11 @@ export default function ListadoServicio() {
                         <MdContactMail id="icons" />
                       </button>
                     </Link>
+                    <Link to={`/listadoEddProyecto/${Servicio.idServicio}`} > 
+                      <button title="Servicios relacionados" id="OperationBtns">
+                        <RiEditBoxFill id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar Servicio"
                       onClick={() => desactivar(Servicio.idServicio)}

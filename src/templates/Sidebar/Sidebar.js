@@ -433,6 +433,64 @@ export default function SideBar(props) {
                       </li>
                     </ul>
                   </li>
+                  <li
+                    id="li_Academia"
+                    onClick={handleChangeEvaluaciones}
+                    className={
+                      userData.nomRol === "administrador" ||
+                      userData.nomRol === "capital_humano"
+                        ? ""
+                        : "private"
+                    }
+                  > 
+                    <button id="buttonSidebar">
+                      <FaBook id="icons" />
+                      EDD
+                    </button>
+                    <ul
+                      id="COE_Academia"
+                      className={isToggledEvaluaciones ? "active" : ""}
+                    >
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddProyecto/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            EddProyecto
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalCompetencia/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            EddEvalCompetencia
+                          </button>
+                        </Link>
+                      </li><li id="textLeftSelect">
+                        <Link to="/listadoEddProyEmp/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            EddProyEmp
+                          </button>
+                        </Link>
+                      </li><li id="textLeftSelect">
+                        <Link to="/listadoEmpSubsist/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            EmpSubsist
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEmpTipoPerfil/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            EmpTipoPerfil
+                          </button>
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                   {/* <li
                     id="li_Academia"
                     onClick={handleChangeEvaluaciones}
