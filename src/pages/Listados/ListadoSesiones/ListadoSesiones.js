@@ -198,7 +198,7 @@ export default function ListadoSesion() {
             cambiarEstado={setIsActiveEditSesion}
             idSesion={idSesion}
             setSesion={setSesion}
-            Sesion={Sesion}
+            sesion={Sesion}
             nombreTabla={nombreTabla}
           ></EditarSesion>
 

@@ -85,7 +85,7 @@ const EditarSesion = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts('successEdited');
+      // TopAlerts('successEdited');
       {actualizarSesion(sesion);console.log(response);};
     });
 

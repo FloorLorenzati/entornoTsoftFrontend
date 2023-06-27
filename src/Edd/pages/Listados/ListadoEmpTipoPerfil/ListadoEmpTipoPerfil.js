@@ -1,40 +1,67 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate,Link } from "react-router-dom";
+import { useRoute } from "wouter";
 
-import getDataService from "../../../services/GetDataService";
-import SendDataService from "../../../services/SendDataService";
-import Header from "../../../templates/Header/Header";
-import { BsFillTrashFill } from "react-icons/bs";
+import getDataService from "../../../../services/GetDataService";
+import SendDataService from "../../../../services/SendDataService";
+import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
-import { BsFillKeyFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
+
+
 import "../TablasStyles.css";
-import InsertarEmpTipoPerfil from "../../../templates/forms/Insertar/InsertarClientes";
-import EditarEmpTipoPerfil from "../../../templates/forms/Editar/EditarCliente";
-import ConfirmAlert from "../../../templates/alerts/ConfirmAlert";
-import TopAlerts from "../../../templates/alerts/TopAlerts";
-import Paginador from "../../../templates/Paginador/Paginador";
+// import InsertarEmpTipoPerfil from "../../../templates/forms/Insertar/InsertarEmpTipoPerfil";
+// import EditarEmpTipoPerfil from "../../../templates/forms/Editar/EditarEmpTipoPerfil";
+import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
+import TopAlerts from "../../../../templates/alerts/TopAlerts";
+import Paginador from "../../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoEmpTipoPerfil() {
-  const [cliente, setCliente] = useState([""]);
-  const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
-  const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
-  const [idCliente, setidCliente] = useState(null);
+  const [, params] = useRoute("/listadoEmpTipoPerfil/:params");
+
+  const [EmpTipoPerfil, setEmpTipoPerfil] = useState([""]);
+  const [isActiveInsertEmpTipoPerfil, setIsActiveInsertEmpTipoPerfil] = useState(false);
+  const [isActiveEditEmpTipoPerfil, setIsActiveEditEmpTipoPerfil] = useState(false);
+  const [idEmpTipoPerfil, setidEmpTipoPerfil] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "cliente";
+  const nombreTabla = "emptipoperfil";
 
-  function insertarCliente() {
-    setIsActiveInsertCliente(!isActiveInsertCliente);
+  const [idTipoPerfil, setidTipoPerfil] = useState(params.params);
+  const [idEmpleado, setidEmpleado] = useState(params.params);
+
+  const [listTipoPerfil, setlistTipoPerfil] = useState([""]);
+  const [listEmpleado, setlistEmpleado] = useState([""]);
+
+  function obtenerTipoPerfil() {
+    const url = "pages/auxiliares/listadoTipoPerfilForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistTipoPerfil(response)
+    );
   }
-  function editarCliente(ID) {
-    setIsActiveEditCliente(!isActiveEditCliente);
-    setidCliente(ID);
+
+  function obtenerEmpleado() {
+    const url = "pages/auxiliares/listadoEmpleadoForms.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistEmpleado(response)
+    );
   }
+
+//   function insertarEmpTipoPerfil() {
+//     setIsActiveInsertEmpTipoPerfil(!isActiveInsertEmpTipoPerfil);
+//   }
+//   function editarEmpTipoPerfil(ID) {
+//     setIsActiveEditEmpTipoPerfil(!isActiveEditEmpTipoPerfil);
+//     setidEmpTipoPerfil(ID);
+//   }
+
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
@@ -55,23 +82,27 @@ export default function ListadoEmpTipoPerfil() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerEmpleado();
+      obtenerTipoPerfil();
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idTipoPerfil,idEmpleado]
   );
 
   //PAGINADOR ---------------------
 
   function handleChangePaginador() {
-    var url = "pages/listados/listadoClientes.php";
-    var operationUrl = "listadoClientes";
+    var url = "pages/listados/listadoEmpTipoPerfil.php";
+    var operationUrl = "listadoEmpTipoPerfil";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idTipoPerfil:idTipoPerfil,
+      idEmpleado:idEmpleado
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCliente(datos.datos);
+      setEmpTipoPerfil(datos.datos);
     });
   }
 
@@ -84,14 +115,14 @@ export default function ListadoEmpTipoPerfil() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de clientes</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de clientes</h6>
+          <h1 id="TitlesPages">Listado de Emp tipo perfil</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de Emp tipo perfil</h6>
           <br></br>
 
           <div id="selectPaginador">
-            <Button id="btn" onClick={insertarCliente}>
-              Crear Cliente
-            </Button>
+            {/* <Button id="btn" onClick={insertarEmpTipoPerfil}>
+              Crear Proyecto
+            </Button> */}
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -117,58 +148,90 @@ export default function ListadoEmpTipoPerfil() {
                 <option value="100">100</option>
               </select>
             </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Empleado: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEmpleado(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listEmpleado.map((valor) => (
+                  <option
+                    selected={valor.idEmpleado === idEmpleado ? "selected" : ""}
+                    value={valor.idEmpleado}
+                  >
+                    {valor.nomEmpleado}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Tipo Perfil: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {setidEmpTipoPerfil(target.value);setNumBoton(1);}}
+              >
+                <option value="">Todos</option>
+                {listTipoPerfil.map((valor) => (
+                  <option
+                  selected={(valor.idTipoPerfil === idTipoPerfil ? "selected" : "")}
+                  value={valor.idTipoPerfil}
+                >
+                  {valor.nomTipoPerfil}
+                </option>
+              ))}
+              </select>
+            </div>
           </div>
         
-          <InsertarClientes
-            isActiveCliente={isActiveInsertCliente}
-            cambiarEstado={setIsActiveInsertCliente}
-            cliente={cliente}
-          ></InsertarClientes>
+          {/* <InsertarEmpTipoPerfil
+            isActiveEmpTipoPerfil={isActiveInsertEmpTipoPerfil}
+            cambiarEstado={setIsActiveInsertEmpTipoPerfil}
+            EmpTipoPerfil={EmpTipoPerfil}
+          ></InsertarEmpTipoPerfil>
 
-          <EditarCliente
-            isActiveEditCliente={isActiveEditCliente}
-            cambiarEstado={setIsActiveEditCliente}
-            idCliente={idCliente}
-            setCliente={setCliente}
-            cliente={cliente}
+          <EditarEmpTipoPerfil
+            isActiveEditEmpTipoPerfil={isActiveEditEmpTipoPerfil}
+            cambiarEstado={setIsActiveEditEmpTipoPerfil}
+            idEmpTipoPerfil={idEmpTipoPerfil}
+            setEmpTipoPerfil={setEmpTipoPerfil}
+            EmpTipoPerfil={EmpTipoPerfil}
             nombreTabla={nombreTabla}
-          ></EditarCliente>
+          ></EditarEmpTipoPerfil> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Cliente</th>
-                <th>Dirección</th>
-                <th>País</th>
+                <th>Nombre</th>
+                <th>Tipo Perfil</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {cliente.map((cliente) => (
-                <tr key={cliente.idCliente}>
-                  <td>{cliente.idCliente}</td>
-                  <td>{cliente.nomCliente}</td>
-                  <td>{cliente.direccionCliente}</td>
-                  <td>{cliente.nomPais}</td>
+              {EmpTipoPerfil.map((EmpTipoPerfil) => (
+                <tr key={EmpTipoPerfil.idEmpTipoPerfil}>
+                  <td>{EmpTipoPerfil.idEmpTipoPerfil}</td>
+                  <td>{EmpTipoPerfil.nomEmpleado}</td>
+                  <td>{EmpTipoPerfil.nomTipoPerfil}</td>
                   <td>
                     <button
-                      title="Editar cliente"
+                      title="Editar proyecto"
                       id="OperationBtns"
-                      onClick={() => editarCliente(cliente.idCliente)}
+                      onClick={() => editarEmpTipoPerfil(EmpTipoPerfil.idEmpTipoPerfil)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-
-                    <Link to={`/listadoServicios/${cliente.idCliente}`} > 
-                      <button title="Servicios relacionados" id="OperationBtns">
-                        <BsFillKeyFill id="icons" />
-                      </button>
-                    </Link>
-
                     <button
-                      title="Desactivar cliente"
-                      onClick={() => desactivar(cliente.idCliente)}
+                      title="Desactivar proyecto"
+                      onClick={() => desactivar(EmpTipoPerfil.idEmpTipoPerfil)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

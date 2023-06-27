@@ -203,7 +203,7 @@ export default function ListadoServicio() {
                       </button>
                     </Link>
                     <Link to={`/listadoEddProyecto/${Servicio.idServicio}`} > 
-                      <button title="Servicios relacionados" id="OperationBtns">
+                      <button title="Proyectos relacionados" id="OperationBtns">
                         <RiEditBoxFill id="icons" />
                       </button>
                     </Link>

@@ -253,9 +253,9 @@ export default function ListadoEmpleados() {
                   <td>{empleado.telefonoEmpleado}</td>
                   <td>{empleado.nomPais}</td>
                   <td>{empleado.nomArea}</td>
-                  <td>{empleado.nomCargo}</td>
+                  <td align="right" width={260}>{empleado.nomCargo}</td>
                   {/* <td>{empleado.usuario}</td> */}
-                  <td>
+                  <td align="right" width={235}>
                     <button
                       title="Editar cliente"
                       id="OperationBtns"
@@ -264,7 +264,17 @@ export default function ListadoEmpleados() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoRelatorRamo/${empleado.idEmpleado}`} >
-                      <button title="Ramo  relacionados" id="OperationBtns">
+                      <button title="Ramos relacionados" id="OperationBtns">
+                        <BsBookmarksFill id="icons" />
+                      </button>
+                    </Link>
+                    <Link to={`/listadoEDDProyEmp/${empleado.idEmpleado}`} >
+                      <button title="Proyc. Empleados relacionados" id="OperationBtns">
+                        <BsBookmarksFill id="icons" />
+                      </button>
+                    </Link>
+                    <Link to={`/listadoEmpSubsist/${empleado.idEmpleado}`} >
+                      <button title="Subsistemas relacionados" id="OperationBtns">
                         <BsBookmarksFill id="icons" />
                       </button>
                     </Link>

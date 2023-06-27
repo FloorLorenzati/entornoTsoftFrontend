@@ -24,6 +24,12 @@ import ListadoRelatorRamo from "./pages/Listados/ListadoRelatorRamo/ListadoRelat
 import ListadoReqCurso from "./pages/Listados/ListadoReqCurso/ListadoReqCurso";
 // EDD
 import ListadoEddProyecto from "./Edd/pages/Listados/ListadoEddProyecto/ListadoEddProyecto";
+import ListadoEddEvalCompetencia from "./Edd/pages/Listados/ListadoEddEvalCompetencia/ListadoEddEvalCompetencia";
+import ListadoEDDProyEmp from "./Edd/pages/Listados/ListadoEddProyEmp/ListadoEddProyEmp";
+import ListadoEmpSubsist from "./Edd/pages/Listados/ListadoEmpSubsist/ListadoEmpSubsist";
+import ListadoEmpTipoPerfil from "./Edd/pages/Listados/ListadoEmpTipoPerfil/ListadoEmpTipoPerfil";
+import ListadoEDDEvalPregunta from "./Edd/pages/Listados/ListadoEddEvalPregunta/ListadoEddEvalPregunta";
+import ListadoEDDEvalRespPreg from "./Edd/pages/Listados/ListadoEddEvalRespPreg/ListadoEddEvalRespPreg";
 
 
 function App() {
@@ -36,76 +42,73 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<HomePage />}></Route>
+            {/* ACADEMIA */}
             <Route
               element={<ListadoEmpleados />}
               path="/listadoEmpleados"
             ></Route>
-
             <Route
               element={<ListadoRamos />}
               path="/listadoRamos/:params"
             ></Route>
-
             <Route
               element={<ListadoCursos />}
               path="/listadoCursos/:params"
             ></Route>
-
             <Route
               element={<ListadoClientes />}
               path="/listadoClientes/:params"
             ></Route>
-
             <Route
               element={<ListadoSesiones />}
               path="/listadoSesiones/:params"
             ></Route>
-
             <Route
               element={<ListadoServicios />}
               path="/listadoServicios/:params"
             ></Route>
             <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route>
-
             <Route
               element={<ListadoContacto />}
               path="/listadoContacto/:params"
             ></Route>
-
             <Route
               element={<ListadoCursoAlumnos />}
               path="/listadoCursoAlumnos/:params"
             ></Route>
-
             <Route
               element={<ListadoCursoAlumnoSesion />}
               path="/listadoCursoAlumnoSesion/:params"
             ></Route>
-
             <Route
               element={<ListadoNotaExamen />}
               path="/listadoNotaExamen/:params"
             ></Route>
-
             <Route
               element={<ListadoRamoExamen />}
               path="/listadoRamoExamen/:params"
             ></Route>
-
             <Route
               element={<ListadoRelatorRamo />}
               path="/listadoRelatorRamo/:params"
             ></Route>
-
             <Route
               element={<ListadoReqCurso />}
               path="/listadoReqCurso/:params"
             ></Route>
+            {/* ------------------------------------------------------------------------------------------ */}
 
             {/* EDD */}
             <Route element={<ListadoEddProyecto />} path="/listadoEddProyecto/:params"></Route>
+            <Route element={<ListadoEddEvalCompetencia />} path="/listadoEddEvalCompetencia"></Route>
+            <Route element={<ListadoEDDProyEmp />} path="/listadoEddProyEmp/:params"></Route>
+            <Route element={<ListadoEmpSubsist />} path="/listadoEmpSubsist/:params"></Route>
+            <Route element={<ListadoEmpTipoPerfil />} path="/listadoEmpTipoPerfil/:params"></Route>
+            <Route element={<ListadoEDDEvalPregunta />} path="/listadoEddEvalPregunta/:params"></Route>
+            <Route element={<ListadoEDDEvalRespPreg />} path="/listadoEddEvalRespPreg/:params"></Route>
 
 
+            {/* ------------------------------------------------------------------------------------------ */}
           </Route>
         </Routes>
       </BrowserRouter>

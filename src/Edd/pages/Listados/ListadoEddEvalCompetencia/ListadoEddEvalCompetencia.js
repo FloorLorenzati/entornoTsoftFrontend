@@ -19,36 +19,22 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoEddEvalCompetencia() {
-  const [, params] = useRoute("/listadoEddEvalCompetencia/:params");
-
-  const [EDDProyecto, setEDDProyecto] = useState([""]);
+  const [EddEvalCompetencia, setEddEvalCompetencia] = useState([""]);
   const [isActiveInsertEddEvalCompetencia, setIsActiveInsertEddEvalCompetencia] = useState(false);
   const [isActiveEditEddEvalCompetencia, setIsActiveEditEddEvalCompetencia] = useState(false);
-  const [idEDDProyecto, setidEDDProyecto] = useState(null);
+  const [idEDDEvalCompetencia, setidEDDEvalCompetencia] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "eddproyecto";
+  const nombreTabla = "eddevalcompetencia";
 
-  const [idServicio, setidServicio] = useState(params.params);
-
-  const [listServicio, setlistServicio] = useState([""]);
-
-  function obtenerServicio() {
-    const url = "pages/auxiliares/listadoServicioForms.php";
-    const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) =>
-      setlistServicio(response)
-    );
-  }
-
-//   function insertarEDDProyecto() {
-//     setIsActiveInsertEDDProyecto(!isActiveInsertEDDProyecto);
+//   function insertarEddEvalCompetencia() {
+//     setIsActiveInsertEddEvalCompetencia(!isActiveInsertEddEvalCompetencia);
 //   }
-//   function editarEDDProyecto(ID) {
-//     setIsActiveEditEDDProyecto(!isActiveEditEDDProyecto);
-//     setidEDDProyecto(ID);
+//   function editarEddEvalCompetencia(ID) {
+//     setIsActiveEditEddEvalCompetencia(!isActiveEditEddEvalCompetencia);
+//     setidEDDEvalCompetencia(ID);
 //   }
 
   function desactivar(ID) {
@@ -71,25 +57,23 @@ export default function ListadoEddEvalCompetencia() {
   useEffect(
     function () {
       handleChangePaginador();
-      obtenerServicio();
     },
-    [num_boton, cantidadPorPagina,idServicio]
+    [num_boton, cantidadPorPagina]
   );
 
   //PAGINADOR ---------------------
 
   function handleChangePaginador() {
-    var url = "pages/listados/listadoEddProyecto.php";
-    var operationUrl = "listadoEddProyecto";
+    var url = "pages/listados/listadoEddEvalCompetencia.php";
+    var operationUrl = "listadoEddEvalCompetencia";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idServicio:idServicio
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEDDProyecto(datos.datos);
+      setEddEvalCompetencia(datos.datos);
     });
   }
 
@@ -102,12 +86,12 @@ export default function ListadoEddEvalCompetencia() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Proyecto</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Proyecto</h6>
+          <h1 id="TitlesPages">Listado de EDD Eval Competencia</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Eval Competencia</h6>
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEDDProyecto}>
+            {/* <Button id="btn" onClick={insertarEddEvalCompetencia}>
               Crear Proyecto
             </Button> */}
 
@@ -135,74 +119,49 @@ export default function ListadoEddEvalCompetencia() {
                 <option value="100">100</option>
               </select>
             </div>
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Servicios: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {setidServicio(target.value);setNumBoton(1);}}
-              >
-                <option value="">Todos</option>
-                {listServicio.map((valor) => (
-                  <option
-                  selected={(valor.idServicio === idServicio ? "selected" : "")}
-                  value={valor.idServicio}
-                >
-                  {valor.nomServicio}
-                </option>
-              ))}
-              </select>
             </div>
-          </div>
         
-          {/* <InsertarEDDProyecto
-            isActiveEDDProyecto={isActiveInsertEDDProyecto}
-            cambiarEstado={setIsActiveInsertEDDProyecto}
-            EDDProyecto={EDDProyecto}
-          ></InsertarEDDProyecto>
+          {/* <InsertarEddEvalCompetencia
+            isActiveEddEvalCompetencia={isActiveInsertEddEvalCompetencia}
+            cambiarEstado={setIsActiveInsertEddEvalCompetencia}
+            EddEvalCompetencia={EddEvalCompetencia}
+          ></InsertarEddEvalCompetencia>
 
-          <EditarEDDProyecto
-            isActiveEditEDDProyecto={isActiveEditEDDProyecto}
-            cambiarEstado={setIsActiveEditEDDProyecto}
-            idEDDProyecto={idEDDProyecto}
-            setEDDProyecto={setEDDProyecto}
-            EDDProyecto={EDDProyecto}
+          <EditarEddEvalCompetencia
+            isActiveEditEddEvalCompetencia={isActiveEditEddEvalCompetencia}
+            cambiarEstado={setIsActiveEditEddEvalCompetencia}
+            idEDDEvalCompetencia={idEDDEvalCompetencia}
+            setEddEvalCompetencia={setEddEvalCompetencia}
+            EddEvalCompetencia={EddEvalCompetencia}
             nombreTabla={nombreTabla}
-          ></EditarEDDProyecto> */}
+          ></EditarEddEvalCompetencia> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Proyecto</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Servicio</th>
+                <th>Competencia</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {EDDProyecto.map((EDDProyecto) => (
-                <tr key={EDDProyecto.idEDDProyecto}>
-                  <td>{EDDProyecto.idEDDProyecto}</td>
-                  <td>{EDDProyecto.nomProyecto}</td>
-                  <td>{EDDProyecto.fechaIni}</td>
-                  <td>{EDDProyecto.fechaFin}</td>
-                  <td>{EDDProyecto.nomServicio}</td>
+              {EddEvalCompetencia.map((EddEvalCompetencia) => (
+                <tr key={EddEvalCompetencia.idEDDEvalCompetencia}>
+                  <td>{EddEvalCompetencia.idEDDEvalCompetencia}</td>
+                  <td>{EddEvalCompetencia.nomCompetencia}</td>
                   <td>
-                    {/* <button
+                    <button
                       title="Editar proyecto"
                       id="OperationBtns"
-                      onClick={() => editarEDDProyecto(EDDProyecto.idEDDProyecto)}
+                      onClick={() => editarEddEvalCompetencia(EddEvalCompetencia.idEDDEvalCompetencia)}
                     >
                       <RiEditBoxFill id="icons" />
-                    </button> */}
+                    </button>
 
 
                     <button
                       title="Desactivar proyecto"
-                      onClick={() => desactivar(EDDProyecto.idEDDProyecto)}
+                      onClick={() => desactivar(EddEvalCompetencia.idEDDEvalCompetencia)}
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

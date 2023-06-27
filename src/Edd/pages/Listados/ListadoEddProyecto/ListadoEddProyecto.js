@@ -7,11 +7,12 @@ import getDataService from "../../../../services/GetDataService";
 import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
-import { BsFillKeyFill,BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
+
 
 import "../TablasStyles.css";
-// import InsertarEDDProyecto from "../../../templates/forms/Insertar/InsertarEDDProyecto";
-// import EditarEDDProyecto from "../../../templates/forms/Editar/EditarEDDProyecto";
+import InsertarEddProyecto from "../../templates/form/Insertar/InsertarEddProyecto";
+import EditarEDDProyecto from "../../templates/form/Editar/EditarEddProyecto";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -43,13 +44,13 @@ export default function ListadoEddProyecto() {
     );
   }
 
-//   function insertarEDDProyecto() {
-//     setIsActiveInsertEDDProyecto(!isActiveInsertEDDProyecto);
-//   }
-//   function editarEDDProyecto(ID) {
-//     setIsActiveEditEDDProyecto(!isActiveEditEDDProyecto);
-//     setidEDDProyecto(ID);
-//   }
+  function insertarEDDProyecto() {
+    setIsActiveInsertEDDProyecto(!isActiveInsertEDDProyecto);
+  }
+  function editarEDDProyecto(ID) {
+    setIsActiveEditEDDProyecto(!isActiveEditEDDProyecto);
+    setidEDDProyecto(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -102,14 +103,14 @@ export default function ListadoEddProyecto() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Proyecto</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Proyecto</h6>
+          <h1 id="TitlesPages">Listado de Proyecto</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de Proyecto</h6>
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEDDProyecto}>
+            <Button id="btn" onClick={insertarEDDProyecto}>
               Crear Proyecto
-            </Button> */}
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -156,11 +157,11 @@ export default function ListadoEddProyecto() {
             </div>
           </div>
         
-          {/* <InsertarEDDProyecto
+          <InsertarEddProyecto
             isActiveEDDProyecto={isActiveInsertEDDProyecto}
             cambiarEstado={setIsActiveInsertEDDProyecto}
             EDDProyecto={EDDProyecto}
-          ></InsertarEDDProyecto>
+          ></InsertarEddProyecto>
 
           <EditarEDDProyecto
             isActiveEditEDDProyecto={isActiveEditEDDProyecto}
@@ -169,7 +170,7 @@ export default function ListadoEddProyecto() {
             setEDDProyecto={setEDDProyecto}
             EDDProyecto={EDDProyecto}
             nombreTabla={nombreTabla}
-          ></EditarEDDProyecto> */}
+          ></EditarEDDProyecto>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -191,16 +192,15 @@ export default function ListadoEddProyecto() {
                   <td>{EDDProyecto.fechaFin}</td>
                   <td>{EDDProyecto.nomServicio}</td>
                   <td>
-                    {/* <button
+                    <button
                       title="Editar proyecto"
                       id="OperationBtns"
                       onClick={() => editarEDDProyecto(EDDProyecto.idEDDProyecto)}
                     >
                       <RiEditBoxFill id="icons" />
-                    </button> */}
-
-                    <Link to={`/listadoServicios/${EDDProyecto.idEDDProyecto}`} > 
-                      <button title="Servicios relacionados" id="OperationBtns">
+                    </button>
+                    <Link to={`/listadoEDDProyEmp/${EDDProyecto.idEDDProyecto}`} >
+                      <button title="Proyc. Empleados relacionados" id="OperationBtns">
                         <RiEditBoxFill id="icons" />
                       </button>
                     </Link>

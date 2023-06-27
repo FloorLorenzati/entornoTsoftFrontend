@@ -10,59 +10,60 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEmpSubsist from "../../../templates/forms/Insertar/InsertarEmpSubsist";
-// import EditarEmpSubsist from "../../../templates/forms/Editar/EditarEmpSubsist";
+// import InsertaridEDDEvalPregunta from "../../../templates/forms/Insertar/InsertaridEDDEvalPregunta";
+// import EditaridEDDEvalPregunta from "../../../templates/forms/Editar/EditaridEDDEvalPregunta";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoEmpSubsist() {
-  const [, params] = useRoute("/listadoEmpSubsist/:params");
+export default function ListadoEDDEvalPregunta() {
+  const [, params] = useRoute("/listadoEddEvalPregunta/:params");
 
-  const [EmpSubsist, setEmpSubsist] = useState([""]);
-  const [isActiveInsertEmpSubsist, setIsActiveInsertEmpSubsist] =
+  const [EDDEvalPregunta, setEDDEvalPregunta] = useState([""]);
+  const [isActiveInsertEDDEvalPregunta, setIsActiveInsertEDDEvalPregunta] =
     useState(false);
-  const [isActiveEditEmpSubsist, setIsActiveEditEmpSubsist] = useState(false);
-  const [idEmpSubsist, setidEmpSubsist] = useState(null);
+  const [isActiveEditEDDEvalPregunta, setIsActiveEditEDDEvalPregunta] =
+    useState(false);
+  const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "empsubsist";
+  const nombreTabla = "idEDDEvalPregunta";
 
-  const [idEmpleado, setidEmpleado] = useState(params.params);
-  const [idSubsist, setidSubsist] = useState(params.params);
+  const [idEDDEvalCompetencia, setidEDDEvalCompetencia] = useState(
+    params.params
+  );
+  const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
 
-  const [listEmpleado, setlistEmpleado] = useState([""]);
-  const [listSubsist, setlistSubsist] = useState([""]);
+  const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
+  const [listEDDEvalCompetencia, setlistEDDEvalCompetencia] = useState([""]);
 
-
-
-  function obtenerEmpleado() {
-    const url = "pages/auxiliares/listadoEmpleadoForms.php";
+  function obtenerEDDEvalCompetencia() {
+    const url = "pages/auxiliares/listadoEddEvalCompetencia.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-      setlistEmpleado(response)
+      setlistEDDEvalCompetencia(response)
     );
   }
 
-  function obtenerSubsist() {
-    const url = "pages/auxiliares/listadoSubsistForms.php";
+  function obtenerEDDEvaluacion() {
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistSubsist(response)
+      setlistEDDEvaluacion(response)
     );
   }
 
-  //   function insertarEmpSubsist() {
-  //     setIsActiveInsertEmpSubsist(!isActiveInsertEmpSubsist);
-  //   }
-  //   function editarEmpSubsist(ID) {
-  //     setIsActiveEditEmpSubsist(!isActiveEditEmpSubsist);
-  //     setidEmpSubsist(ID);
-  //   }
+  // function insertarEDDEvalPregunta() {
+  //   setIsActiveInsertEDDEvalPregunta(!isActiveInsertEDDEvalPregunta);
+  // }
+  // function editarEDDEvalPregunta(ID) {
+  //   setIsActiveEditEDDEvalPregunta(!isActiveEditEDDEvalPregunta);
+  //   setidEDDEvalPregunta(ID);
+  // }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -84,27 +85,27 @@ export default function ListadoEmpSubsist() {
   useEffect(
     function () {
       handleChangePaginador();
-      obtenerEmpleado();
-      obtenerSubsist();
+      obtenerEDDEvalCompetencia();
+      obtenerEDDEvaluacion();
     },
-    [num_boton, cantidadPorPagina, idEmpleado,idSubsist]
+    [num_boton, cantidadPorPagina, idEDDEvalCompetencia, idEDDEvaluacion]
   );
 
   //PAGINADOR ---------------------
 
   function handleChangePaginador() {
-    var url = "pages/listados/listadoEmpSubsist.php";
-    var operationUrl = "listadoEmpSubsist";
+    var url = "pages/listados/listadoEddEvalPregunta.php";
+    var operationUrl = "listadoEddEvalPregunta";
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idEmpleado: idEmpleado,
-      idSubsist:idSubsist
+      idEDDEvalCompetencia: idEDDEvalCompetencia,
+      idEDDEvaluacion: idEDDEvaluacion,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEmpSubsist(datos.datos);
+      setEDDEvalPregunta(datos.datos);
     });
   }
 
@@ -117,20 +118,18 @@ export default function ListadoEmpSubsist() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Empleado SubSistema</h1>
-          <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de Empleado SubSistema
-          </h6>
+          <h1 id="TitlesPages">Listado de Evaluación pregunta</h1>
+          <h6 style={{ color: "gray" }}>EDD {"->"} Listado de Eval pregunta</h6>
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEmpSubsist}>
+            {/* <Button id="btn" onClick={insertaridEDDEvalPregunta}>
               Crear Proyecto
             </Button> */}
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
-                Cantidad registros:{" "}
+                Cantidad registros:
               </label>
               <select
                 value={cantidadPorPagina || ""}
@@ -153,100 +152,110 @@ export default function ListadoEmpSubsist() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Empleado: </label>
+              <label htmlFor="input_CantidadR">EvalCompetencia: </label>
               <select
                 required
                 type="text"
                 className="form-control"
                 onChange={({ target }) => {
-                  setidEmpleado(target.value);
+                  setidEDDEvalCompetencia(target.value);
                   setNumBoton(1);
                 }}
               >
                 <option value="">Todos</option>
-                {listEmpleado.map((valor) => (
+                {listEDDEvalCompetencia.map((valor) => (
                   <option
-                    selected={valor.idEmpleado === idEmpleado ? "selected" : ""}
-                    value={valor.idEmpleado}
+                    selected={
+                      valor.idEDDEvalCompetencia === idEDDEvalCompetencia
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvalCompetencia}
                   >
-                    {valor.nomEmpleado}
+                    {valor.nomCompetencia}
                   </option>
                 ))}
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Subsistema: </label>
+              <label htmlFor="input_CantidadR">EDDEvaluacion: </label>
               <select
                 required
                 type="text"
                 className="form-control"
                 onChange={({ target }) => {
-                  setidEmpleado(target.value);
+                  setidEDDEvaluacion(target.value);
                   setNumBoton(1);
                 }}
               >
                 <option value="">Todos</option>
-                {listSubsist.map((valor) => (
+                {listEDDEvaluacion.map((valor) => (
                   <option
-                    selected={valor.idSubsist === idSubsist ? "selected" : ""}
-                    value={valor.idSubsist}
+                    selected={
+                      valor.idEDDEvaluacion === idEDDEvaluacion
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvaluacion}
                   >
-                    {valor.nomSubsist}
+                    {valor.nomEvaluacion}
                   </option>
                 ))}
               </select>
             </div>
           </div>
 
-          {/* <InsertarEmpSubsist
-            isActiveEmpSubsist={isActiveInsertEmpSubsist}
-            cambiarEstado={setIsActiveInsertEmpSubsist}
-            EmpSubsist={EmpSubsist}
-          ></InsertarEmpSubsist>
+          {/* <InsertaridEDDEvalPregunta
+            isActiveidEDDEvalPregunta={isActiveInsertEDDEvalPregunta}
+            cambiarEstado={setIsActiveInsertEDDEvalPregunta}
+            EDDEvalPregunta={EDDEvalPregunta}
+          ></InsertaridEDDEvalPregunta>
 
-          <EditarEmpSubsist
-            isActiveEditEmpSubsist={isActiveEditEmpSubsist}
-            cambiarEstado={setIsActiveEditEmpSubsist}
-            idEmpSubsist={idEmpSubsist}
-            setEmpSubsist={setEmpSubsist}
-            EmpSubsist={EmpSubsist}
+          <EditaridEDDEvalPregunta
+            isActiveEditidEDDEvalPregunta={isActiveEditEDDEvalPregunta}
+            cambiarEstado={setIsActiveEditEDDEvalPregunta}
+            ididEDDEvalPregunta={idEDDEvalPregunta}
+            setEDDEvalPregunta={setEDDEvalPregunta}
+            EDDEvalPregunta={EDDEvalPregunta}
             nombreTabla={nombreTabla}
-          ></EditarEmpSubsist> */}
+          ></EditaridEDDEvalPregunta> */}
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Subsistema</th>
-                <th>Empleado</th>
+                <th>Pregunta</th>
+                <th>Orden</th>
+                <th>Evaluación</th>
+                <th>Competencia</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
-              {EmpSubsist.map((EmpSubsist) => (
-                <tr key={EmpSubsist.idEmpSubsist}>
-                  <td>{EmpSubsist.idEmpSubsist}</td>
-                  <td>{EmpSubsist.nomSubsistema}</td>
-                  <td>{EmpSubsist.nomEmpleado}</td>
+              {EDDEvalPregunta.map((idEDDEvalPregunta) => (
+                <tr key={idEDDEvalPregunta.idEDDEvalPregunta}>
+                  <td>{idEDDEvalPregunta.idEDDEvalPregunta}</td>
+                  <td>{idEDDEvalPregunta.nomPregunta}</td>
+                  <td>{idEDDEvalPregunta.ordenPregunta}</td>
+                  <td>{idEDDEvalPregunta.nomEvaluacion}</td>
+                  <td>{idEDDEvalPregunta.nomCompetencia}</td>
                   <td>
                     <button
                       title="Editar proyecto"
                       id="OperationBtns"
-                      onClick={() => editarEmpSubsist(EmpSubsist.idEmpSubsist)}
+                      onClick={() =>
+                        editaridEDDEvalPregunta(
+                          idEDDEvalPregunta.idEDDEvalPregunta
+                        )
+                      }
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to={`/listadoEDDProyEmp/${EmpSubsist.idEmpSubsist}`}>
-                      <button
-                        title="Proyc. Empleados relacionados"
-                        id="OperationBtns"
-                      >
-                        <RiEditBoxFill id="icons" />
-                      </button>
-                    </Link>
                     <button
                       title="Desactivar proyecto"
-                      onClick={() => desactivar(EmpSubsist.idEmpSubsist)}
+                      onClick={() =>
+                        desactivar(idEDDEvalPregunta.idEDDEvalPregunta)
+                      }
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />

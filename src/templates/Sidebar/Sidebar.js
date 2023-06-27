@@ -267,7 +267,7 @@ export default function SideBar(props) {
                         ? ""
                         : "private"
                     }
-                  > 
+                  >
                     <button id="buttonSidebar">
                       <FaBook id="icons" />
                       FACTORY DEVOPS
@@ -442,7 +442,7 @@ export default function SideBar(props) {
                         ? ""
                         : "private"
                     }
-                  > 
+                  >
                     <button id="buttonSidebar">
                       <FaBook id="icons" />
                       EDD
@@ -451,6 +451,31 @@ export default function SideBar(props) {
                       id="COE_Academia"
                       className={isToggledEvaluaciones ? "active" : ""}
                     >
+                    
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalCompetencia">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Edd Eval Competencia
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalPregunta/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Eval pregunta
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalRespPreg/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Eval resp pregunta
+                          </button>
+                        </Link>
+                      </li>
                       <li id="textLeftSelect">
                         <Link to="/listadoEddProyecto/0">
                           <button id="submenuSidebar">
@@ -460,20 +485,14 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalCompetencia/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            EddEvalCompetencia
-                          </button>
-                        </Link>
-                      </li><li id="textLeftSelect">
                         <Link to="/listadoEddProyEmp/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             EddProyEmp
                           </button>
                         </Link>
-                      </li><li id="textLeftSelect">
+                      </li>
+                      <li id="textLeftSelect">
                         <Link to="/listadoEmpSubsist/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
