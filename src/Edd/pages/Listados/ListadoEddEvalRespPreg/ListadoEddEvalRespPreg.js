@@ -93,7 +93,7 @@ export default function ListadoEDDEvalRespPreg() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEDDEvalRespPreg(datos.datos);
+      setEDDEvalRespPreg(datos.datos);console.log(data);
     });
   }
 

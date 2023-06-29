@@ -176,7 +176,7 @@ export default function ListadoEmpTipoPerfil() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidEmpTipoPerfil(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {setidTipoPerfil(target.value);setNumBoton(1);}}
               >
                 <option value="">Todos</option>
                 {listTipoPerfil.map((valor) => (

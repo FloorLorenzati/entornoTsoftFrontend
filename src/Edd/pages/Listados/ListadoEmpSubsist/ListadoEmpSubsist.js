@@ -33,10 +33,10 @@ export default function ListadoEmpSubsist() {
   const nombreTabla = "empsubsist";
 
   const [idEmpleado, setidEmpleado] = useState(params.params);
-  const [idSubsist, setidSubsist] = useState(params.params);
+  const [idSubsistema, setidSubsistema] = useState(params.params);
 
   const [listEmpleado, setlistEmpleado] = useState([""]);
-  const [listSubsist, setlistSubsist] = useState([""]);
+  const [listSubsistema, setlistSubsistema] = useState([""]);
 
 
 
@@ -49,10 +49,10 @@ export default function ListadoEmpSubsist() {
   }
 
   function obtenerSubsist() {
-    const url = "pages/auxiliares/listadoSubsistForms.php";
+    const url = "pages/auxiliares/listadoSubsistemaForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistSubsist(response)
+    setlistSubsistema(response)
     );
   }
 
@@ -87,7 +87,7 @@ export default function ListadoEmpSubsist() {
       obtenerEmpleado();
       obtenerSubsist();
     },
-    [num_boton, cantidadPorPagina, idEmpleado,idSubsist]
+    [num_boton, cantidadPorPagina, idEmpleado,idSubsistema]
   );
 
   //PAGINADOR ---------------------
@@ -99,7 +99,7 @@ export default function ListadoEmpSubsist() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
       idEmpleado: idEmpleado,
-      idSubsist:idSubsist
+      idSubsistema:idSubsistema
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -153,6 +153,28 @@ export default function ListadoEmpSubsist() {
               </select>
             </div>
             <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Subsistema: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEmpleado(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listSubsistema.map((valor) => (
+                  <option
+                    selected={valor.idSubsistema === idSubsistema ? "selected" : ""}
+                    value={valor.idSubsistema}
+                  >
+                    {valor.nomSubsistema}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Empleado: </label>
               <select
                 required
@@ -174,28 +196,7 @@ export default function ListadoEmpSubsist() {
                 ))}
               </select>
             </div>
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Subsistema: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {
-                  setidEmpleado(target.value);
-                  setNumBoton(1);
-                }}
-              >
-                <option value="">Todos</option>
-                {listSubsist.map((valor) => (
-                  <option
-                    selected={valor.idSubsist === idSubsist ? "selected" : ""}
-                    value={valor.idSubsist}
-                  >
-                    {valor.nomSubsist}
-                  </option>
-                ))}
-              </select>
-            </div>
+            
           </div>
 
           {/* <InsertarEmpSubsist

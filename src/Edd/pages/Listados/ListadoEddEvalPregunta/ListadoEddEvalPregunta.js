@@ -151,34 +151,9 @@ export default function ListadoEDDEvalPregunta() {
                 <option value="100">100</option>
               </select>
             </div>
+            
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">EvalCompetencia: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {
-                  setidEDDEvalCompetencia(target.value);
-                  setNumBoton(1);
-                }}
-              >
-                <option value="">Todos</option>
-                {listEDDEvalCompetencia.map((valor) => (
-                  <option
-                    selected={
-                      valor.idEDDEvalCompetencia === idEDDEvalCompetencia
-                        ? "selected"
-                        : ""
-                    }
-                    value={valor.idEDDEvalCompetencia}
-                  >
-                    {valor.nomCompetencia}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">EDDEvaluacion: </label>
+              <label htmlFor="input_CantidadR">Evaluacion: </label>
               <select
                 required
                 type="text"
@@ -199,6 +174,32 @@ export default function ListadoEDDEvalPregunta() {
                     value={valor.idEDDEvaluacion}
                   >
                     {valor.nomEvaluacion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Competencia: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEDDEvalCompetencia(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listEDDEvalCompetencia.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDEvalCompetencia === idEDDEvalCompetencia
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvalCompetencia}
+                  >
+                    {valor.nomCompetencia}
                   </option>
                 ))}
               </select>
