@@ -469,10 +469,34 @@ export default function SideBar(props) {
                         </Link>
                       </li>
                       <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalProyEmp/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Eval Proy Emp
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvalProyResp/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Eval Proy Resp
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
                         <Link to="/listadoEddEvalRespPreg/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Eval resp pregunta
+                          </button>
+                        </Link>
+                      </li>
+                      <li id="textLeftSelect">
+                        <Link to="/listadoEddEvaluacion/0">
+                          <button id="submenuSidebar">
+                            <ImBook id="icons" />
+                            Evaluación
                           </button>
                         </Link>
                       </li>

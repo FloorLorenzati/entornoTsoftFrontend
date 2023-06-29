@@ -30,6 +30,9 @@ import ListadoEmpSubsist from "./Edd/pages/Listados/ListadoEmpSubsist/ListadoEmp
 import ListadoEmpTipoPerfil from "./Edd/pages/Listados/ListadoEmpTipoPerfil/ListadoEmpTipoPerfil";
 import ListadoEDDEvalPregunta from "./Edd/pages/Listados/ListadoEddEvalPregunta/ListadoEddEvalPregunta";
 import ListadoEDDEvalRespPreg from "./Edd/pages/Listados/ListadoEddEvalRespPreg/ListadoEddEvalRespPreg";
+import ListadoEddEvalProyEmp from "./Edd/pages/Listados/ListadoEddEvalProyEmp/ListadoEddEvalProyEmp";
+import ListadoEddEvalProyResp from "./Edd/pages/Listados/ListadoEddEvalProyResp/ListadoEddEvalProyResp";
+import ListadoEDDEvaluacion from "./Edd/pages/Listados/ListadoEddEvaluacion/ListadoEddEvaluacion";
 
 
 function App() {
@@ -106,6 +109,12 @@ function App() {
             <Route element={<ListadoEmpTipoPerfil />} path="/listadoEmpTipoPerfil/:params"></Route>
             <Route element={<ListadoEDDEvalPregunta />} path="/listadoEddEvalPregunta/:params"></Route>
             <Route element={<ListadoEDDEvalRespPreg />} path="/listadoEddEvalRespPreg/:params"></Route>
+            <Route element={<ListadoEddEvalProyEmp />} path="/listadoEddEvalProyEmp/:params"></Route>
+            <Route element={<ListadoEddEvalProyResp />} path="/listadoEddEvalProyResp/:params"></Route>
+            <Route element={<ListadoEDDEvaluacion />} path="/listadoEddEvaluacion/:params"></Route>
+
+
+
 
 
             {/* ------------------------------------------------------------------------------------------ */}
