@@ -78,7 +78,7 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
               >
                 <option hidden value="">
                   Desplegar lista
-                </option>{" "}
+                </option>
                 {listCurso.map((valor) => (
                   <option value={valor.idCurso}>{valor.nomCurso}</option>
                 ))}
@@ -94,7 +94,7 @@ const InsertarReqCurso = ({ isActiveReqCurso, cambiarEstado, reqCurso }) => {
               >
                 <option hidden value="">
                   Desplegar lista
-                </option>{" "}
+                </option>
                 {listCurso.map((valor) => (
                   <option value={valor.idCurso}>{valor.nomCurso}</option>
                 ))}

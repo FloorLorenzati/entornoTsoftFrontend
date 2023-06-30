@@ -11,7 +11,7 @@ import { BsFillKeyFill,BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
 // import InsertarEddEvalProyEmp from "../../../templates/forms/Insertar/InsertarEddEvalProyEmp";
-// import EditarEddEvalProyEmp from "../../../templates/forms/Editar/EditarEddEvalProyEmp";
+import EditarEddEvalProyEmp from "../../templates/form/Editar/EditarEddEvalProyEmp";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -49,10 +49,10 @@ export default function ListadoEddEvalProyEmp() {
 //   function insertarEddEvalProyEmp() {
 //     setIsActiveInsertEddEvalProyEmp(!isActiveInsertEddEvalProyEmp);
 //   }
-//   function editarEddEvalProyEmp(ID) {
-//     setIsActiveEditEddEvalProyEmp(!isActiveEditEddEvalProyEmp);
-//     setidEddEvalProyEmp(ID);
-//   }
+  function editarEddEvalProyEmp(ID) {
+    setIsActiveEditEddEvalProyEmp(!isActiveEditEddEvalProyEmp);
+    setidEddEvalProyEmp(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -167,7 +167,7 @@ export default function ListadoEddEvalProyEmp() {
             isActiveEddEvalProyEmp={isActiveInsertEddEvalProyEmp}
             cambiarEstado={setIsActiveInsertEddEvalProyEmp}
             EddEvalProyEmp={EddEvalProyEmp}
-          ></InsertarEddEvalProyEmp>
+          ></InsertarEddEvalProyEmp>*/}
 
           <EditarEddEvalProyEmp
             isActiveEditEddEvalProyEmp={isActiveEditEddEvalProyEmp}
@@ -176,7 +176,7 @@ export default function ListadoEddEvalProyEmp() {
             setEddEvalProyEmp={setEddEvalProyEmp}
             EddEvalProyEmp={EddEvalProyEmp}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalProyEmp> */}
+          ></EditarEddEvalProyEmp> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -193,7 +193,7 @@ export default function ListadoEddEvalProyEmp() {
             <tbody>
               {EddEvalProyEmp.map((EddEvalProyEmp) => (
                 <tr key={EddEvalProyEmp.idEDDEvalProyEmp}>
-                  <td>{EddEvalProyEmp.idEddEvalProyEmp}</td>
+                  <td>{EddEvalProyEmp.idEDDEvalProyEmp}</td>
                   <td>{EddEvalProyEmp.nomEvaluacion}</td>
                   <td>{EddEvalProyEmp.idEDDProyEmp}</td>
                   <td>{EddEvalProyEmp.evalRespondida}</td>

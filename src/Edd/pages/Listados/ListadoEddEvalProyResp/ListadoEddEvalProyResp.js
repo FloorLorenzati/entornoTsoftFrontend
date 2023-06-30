@@ -247,8 +247,8 @@ export default function ListadoEddEvalProyResp() {
               </thead>
               <tbody>
                 {EddEvalProyResp.map((EddEvalProyResp) => (
-                  <tr key={EddEvalProyResp.idEddEvalProyResp}>
-                    <td>{EddEvalProyResp.idEddEvalProyResp}</td>
+                  <tr key={EddEvalProyResp.idEDDEvalProyResp}>
+                    <td>{EddEvalProyResp.idEDDEvalProyResp}</td>
                     <td>{EddEvalProyResp.nomEvaluacion}</td>
                     <td>{EddEvalProyResp.idEDDProyEmp}</td>
                     <td>{EddEvalProyResp.respuesta}</td>

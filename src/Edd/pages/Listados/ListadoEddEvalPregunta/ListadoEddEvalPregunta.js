@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertaridEDDEvalPregunta from "../../../templates/forms/Insertar/InsertaridEDDEvalPregunta";
-// import EditaridEDDEvalPregunta from "../../../templates/forms/Editar/EditaridEDDEvalPregunta";
+import InsertarEDDEvalPregunta from "../../templates/form/Insertar/InsertarEddEvalPregunta";
+import EditarEddEvalPregunta from "../../templates/form/Editar/EditarEddEvalPregunta";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -31,7 +31,7 @@ export default function ListadoEDDEvalPregunta() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "idEDDEvalPregunta";
+  const nombreTabla = "eddevalpregunta";
 
   const [idEDDEvalCompetencia, setidEDDEvalCompetencia] = useState(
     params.params
@@ -57,13 +57,13 @@ export default function ListadoEDDEvalPregunta() {
     );
   }
 
-  // function insertarEDDEvalPregunta() {
-  //   setIsActiveInsertEDDEvalPregunta(!isActiveInsertEDDEvalPregunta);
-  // }
-  // function editarEDDEvalPregunta(ID) {
-  //   setIsActiveEditEDDEvalPregunta(!isActiveEditEDDEvalPregunta);
-  //   setidEDDEvalPregunta(ID);
-  // }
+  function insertarEDDEvalPregunta() {
+    setIsActiveInsertEDDEvalPregunta(!isActiveInsertEDDEvalPregunta);
+  }
+  function editarEDDEvalPregunta(ID) {
+    setIsActiveEditEDDEvalPregunta(!isActiveEditEDDEvalPregunta);
+    setidEDDEvalPregunta(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -123,9 +123,9 @@ export default function ListadoEDDEvalPregunta() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertaridEDDEvalPregunta}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEDDEvalPregunta}>
+              Crear pregunta
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -206,20 +206,20 @@ export default function ListadoEDDEvalPregunta() {
             </div>
           </div>
 
-          {/* <InsertaridEDDEvalPregunta
-            isActiveidEDDEvalPregunta={isActiveInsertEDDEvalPregunta}
+          <InsertarEDDEvalPregunta
+            isActiveEDDEvalPregunta={isActiveInsertEDDEvalPregunta}
             cambiarEstado={setIsActiveInsertEDDEvalPregunta}
             EDDEvalPregunta={EDDEvalPregunta}
-          ></InsertaridEDDEvalPregunta>
+          ></InsertarEDDEvalPregunta>
 
-          <EditaridEDDEvalPregunta
-            isActiveEditidEDDEvalPregunta={isActiveEditEDDEvalPregunta}
+          <EditarEddEvalPregunta
+            isActiveEditEDDEvalPregunta={isActiveEditEDDEvalPregunta}
             cambiarEstado={setIsActiveEditEDDEvalPregunta}
-            ididEDDEvalPregunta={idEDDEvalPregunta}
+            idEDDEvalPregunta={idEDDEvalPregunta}
             setEDDEvalPregunta={setEDDEvalPregunta}
             EDDEvalPregunta={EDDEvalPregunta}
             nombreTabla={nombreTabla}
-          ></EditaridEDDEvalPregunta> */}
+          ></EditarEddEvalPregunta> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -242,10 +242,10 @@ export default function ListadoEDDEvalPregunta() {
                   <td>{idEDDEvalPregunta.nomCompetencia}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar pregunta"
                       id="OperationBtns"
                       onClick={() =>
-                        editaridEDDEvalPregunta(
+                        editarEDDEvalPregunta(
                           idEDDEvalPregunta.idEDDEvalPregunta
                         )
                       }
@@ -253,7 +253,7 @@ export default function ListadoEDDEvalPregunta() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar pregunta"
                       onClick={() =>
                         desactivar(idEDDEvalPregunta.idEDDEvalPregunta)
                       }

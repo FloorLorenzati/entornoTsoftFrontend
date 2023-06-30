@@ -11,7 +11,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
 // import InsertaridEDDEvalRespPreg from "../../../templates/forms/Insertar/InsertaridEDDEvalRespPreg";
-// import EditaridEDDEvalRespPreg from "../../../templates/forms/Editar/EditaridEDDEvalRespPreg";
+import EditarEDDEvalRespPreg from "../../templates/form/Editar/EditarEddEvalRespPreg";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -31,7 +31,7 @@ export default function ListadoEDDEvalRespPreg() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "idEDDEvalRespPreg";
+  const nombreTabla = "eddevalresppreg";
 
   const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState(params.params);
 
@@ -48,10 +48,10 @@ export default function ListadoEDDEvalRespPreg() {
   // function insertarEDDEvalRespPreg() {
   //   setIsActiveInsertEDDEvalRespPreg(!isActiveInsertEDDEvalRespPreg);
   // }
-  // function editarEDDEvalRespPreg(ID) {
-  //   setIsActiveEditEDDEvalRespPreg(!isActiveEditEDDEvalRespPreg);
-  //   setidEDDEvalRespPreg(ID);
-  // }
+  function editarEDDEvalRespPreg(ID) {
+    setIsActiveEditEDDEvalRespPreg(!isActiveEditEDDEvalRespPreg);
+    setidEDDEvalRespPreg(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -173,7 +173,7 @@ export default function ListadoEDDEvalRespPreg() {
             isActiveEDDEvalRespPreg={isActiveInsertEDDEvalRespPreg}
             cambiarEstado={setIsActiveInsertEDDEvalRespPreg}
             idEDDEvalRespPreg={idEDDEvalRespPreg}
-          ></InsertarEDDEvalRespPreg>
+          ></InsertarEDDEvalRespPreg>*/}
 
           <EditarEDDEvalRespPreg
             isActiveEditEDDEvalRespPreg={isActiveEditEDDEvalRespPreg}
@@ -182,7 +182,7 @@ export default function ListadoEDDEvalRespPreg() {
             setEDDEvalRespPreg={setEDDEvalRespPreg}
             EDDEvalRespPreg={idEDDEvalRespPreg}
             nombreTabla={nombreTabla}
-          ></EditarEDDEvalRespPreg> */}
+          ></EditarEDDEvalRespPreg> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -207,7 +207,7 @@ export default function ListadoEDDEvalRespPreg() {
                       title="Editar proyecto"
                       id="OperationBtns"
                       onClick={() =>
-                        editaridEDDEvalRespPreg(
+                        editarEDDEvalRespPreg(
                           idEDDEvalRespPreg.idEDDEvalRespPreg
                         )
                       }

@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill,BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEddEvalCompetencia from "../../../templates/forms/Insertar/InsertarEddEvalCompetencia";
-// import EditarEddEvalCompetencia from "../../../templates/forms/Editar/EditarEddEvalCompetencia";
+import InsertarEddEvalCompetencia from "../../templates/form/Insertar/InsertarEddEvalCompetencia";
+import EditarEddEvalCompetencia from "../../templates/form/Editar/EditarEddEvalCompetencia";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -29,13 +29,13 @@ export default function ListadoEddEvalCompetencia() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "eddevalcompetencia";
 
-//   function insertarEddEvalCompetencia() {
-//     setIsActiveInsertEddEvalCompetencia(!isActiveInsertEddEvalCompetencia);
-//   }
-//   function editarEddEvalCompetencia(ID) {
-//     setIsActiveEditEddEvalCompetencia(!isActiveEditEddEvalCompetencia);
-//     setidEDDEvalCompetencia(ID);
-//   }
+  function insertarEddEvalCompetencia() {
+    setIsActiveInsertEddEvalCompetencia(!isActiveInsertEddEvalCompetencia);
+  }
+  function editarEddEvalCompetencia(ID) {
+    setIsActiveEditEddEvalCompetencia(!isActiveEditEddEvalCompetencia);
+    setidEDDEvalCompetencia(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -91,9 +91,9 @@ export default function ListadoEddEvalCompetencia() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEddEvalCompetencia}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEddEvalCompetencia}>
+              Crear Competencia
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -121,7 +121,7 @@ export default function ListadoEddEvalCompetencia() {
             </div>
             </div>
         
-          {/* <InsertarEddEvalCompetencia
+           <InsertarEddEvalCompetencia
             isActiveEddEvalCompetencia={isActiveInsertEddEvalCompetencia}
             cambiarEstado={setIsActiveInsertEddEvalCompetencia}
             EddEvalCompetencia={EddEvalCompetencia}
@@ -134,7 +134,7 @@ export default function ListadoEddEvalCompetencia() {
             setEddEvalCompetencia={setEddEvalCompetencia}
             EddEvalCompetencia={EddEvalCompetencia}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalCompetencia> */}
+          ></EditarEddEvalCompetencia>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -151,7 +151,7 @@ export default function ListadoEddEvalCompetencia() {
                   <td>{EddEvalCompetencia.nomCompetencia}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar competencia"
                       id="OperationBtns"
                       onClick={() => editarEddEvalCompetencia(EddEvalCompetencia.idEDDEvalCompetencia)}
                     >
@@ -160,7 +160,7 @@ export default function ListadoEddEvalCompetencia() {
 
 
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar competencia"
                       onClick={() => desactivar(EddEvalCompetencia.idEDDEvalCompetencia)}
                       id="OperationBtns"
                     >
