@@ -139,7 +139,7 @@ export default function ListadoEddEvalProyResp() {
 
             <div id="selectPaginador">
               {/* <Button id="btn" onClick={insertarEddEvalProyResp}>
-              Crear Proyecto
+              Crear EvalProyResp
             </Button> */}
               <div className="form-group" id="btn2">
                 <label htmlFor="input_CantidadRegistros">
@@ -258,7 +258,7 @@ export default function ListadoEddEvalProyResp() {
 
                     <td>
                       <button
-                        title="Editar proyecto"
+                        title="Editar EvalProyResp"
                         id="OperationBtns"
                         onClick={() =>
                           editarEddEvalProyResp(
@@ -270,7 +270,7 @@ export default function ListadoEddEvalProyResp() {
                       </button>
 
                       <button
-                        title="Desactivar proyecto"
+                        title="Desactivar EvalProyResp"
                         onClick={() =>
                           desactivar(EddEvalProyResp.idEddEvalProyResp)
                         }

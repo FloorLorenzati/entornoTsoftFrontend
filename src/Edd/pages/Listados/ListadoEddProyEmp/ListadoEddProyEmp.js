@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill,BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEDDProyEmp from "../../../templates/forms/Insertar/InsertarEDDProyEmp";
-// import EditarEDDProyEmp from "../../../templates/forms/Editar/EditarEDDProyEmp";
+import InsertarEDDProyEmp from "../../templates/form/Insertar/InsertarEddProyEmp";
+import EditarEDDProyEmp from "../../templates/form/Editar/EditarEddProyEmp";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -53,13 +53,13 @@ export default function ListadoEDDProyEmp() {
     );
   }
 
-//   function insertarEDDProyEmp() {
-//     setIsActiveInsertEDDProyEmp(!isActiveInsertEDDProyEmp);
-//   }
-//   function editarEDDProyEmp(ID) {
-//     setIsActiveEditEDDProyEmp(!isActiveEditEDDProyEmp);
-//     setidEDDProyEmp(ID);
-//   }
+  function insertarEDDProyEmp() {
+    setIsActiveInsertEDDProyEmp(!isActiveInsertEDDProyEmp);
+  }
+  function editarEDDProyEmp(ID) {
+    setIsActiveEditEDDProyEmp(!isActiveEditEDDProyEmp);
+    setidEDDProyEmp(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -120,13 +120,13 @@ export default function ListadoEDDProyEmp() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEDDProyEmp}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEDDProyEmp}>
+              Crear EDD proy emp
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
-                Cantidad registros:{" "}
+                Cantidad registros:
               </label>
               <select
                 value={cantidadPorPagina || ""}
@@ -188,7 +188,7 @@ export default function ListadoEDDProyEmp() {
             </div>
           </div>
         
-          {/* <InsertarEDDProyEmp
+          <InsertarEDDProyEmp
             isActiveEDDProyEmp={isActiveInsertEDDProyEmp}
             cambiarEstado={setIsActiveInsertEDDProyEmp}
             EDDProyEmp={EDDProyEmp}
@@ -201,7 +201,7 @@ export default function ListadoEDDProyEmp() {
             setEDDProyEmp={setEDDProyEmp}
             EDDProyEmp={EDDProyEmp}
             nombreTabla={nombreTabla}
-          ></EditarEDDProyEmp> */}
+          ></EditarEDDProyEmp> 
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -222,7 +222,7 @@ export default function ListadoEDDProyEmp() {
                   <td>{EDDProyEmp.cargoEnProy}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar ProyEmp"
                       id="OperationBtns"
                       onClick={() => editarEDDProyEmp(EDDProyEmp.idEDDProyEmp)}
                     >
@@ -230,7 +230,7 @@ export default function ListadoEDDProyEmp() {
                     </button>
                     
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar ProyEmp"
                       onClick={() => desactivar(EDDProyEmp.idEDDProyEmp)}
                       id="OperationBtns"
                     >

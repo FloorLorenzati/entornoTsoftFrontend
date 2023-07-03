@@ -115,7 +115,7 @@ console.log(data);
                 id="input_nombreDelEDDEvalRespPreg"
                 value={nomRespPreg || ""}
                 maxLength="50"
-                onChange={({ target }) => setnomProyecto(target.value)}
+                onChange={({ target }) => setnomRespPreg(target.value)}
                 required
               />
             </div>
@@ -131,7 +131,7 @@ console.log(data);
                 id="input_Orden"
                 value={ordenRespPreg || ""}
                 maxLength="11"
-                onChange={({ target }) => setfechaIni(target.value)}
+                onChange={({ target }) => setordenRespPreg(target.value)}
                 required
               />
             </div>
@@ -144,7 +144,7 @@ console.log(data);
                 name="input_EvalPregunta"
                 id="input_EvalPregunta"
                 placeholder="Seleccione la EvalPreg"
-                onChange={({ target }) => setidServicio(target.value)}
+                onChange={({ target }) => setidEDDEvalPregunta(target.value)}
               >
                 {listEDDEvalPregunta.map((valor) => (
                   <option

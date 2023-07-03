@@ -11,8 +11,8 @@ import { BsFillTrashFill } from "react-icons/bs";
 
 
 import "../TablasStyles.css";
-// import InsertarEmpTipoPerfil from "../../../templates/forms/Insertar/InsertarEmpTipoPerfil";
-// import EditarEmpTipoPerfil from "../../../templates/forms/Editar/EditarEmpTipoPerfil";
+import InsertarEmpTipoPerfil from "../../templates/form/Insertar/InsertarEmpTipoPerfil";
+import EditarEmpTipoPerfil from "../../templates/form/Editar/EditarEmpTipoPerfil";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -54,13 +54,13 @@ export default function ListadoEmpTipoPerfil() {
     );
   }
 
-//   function insertarEmpTipoPerfil() {
-//     setIsActiveInsertEmpTipoPerfil(!isActiveInsertEmpTipoPerfil);
-//   }
-//   function editarEmpTipoPerfil(ID) {
-//     setIsActiveEditEmpTipoPerfil(!isActiveEditEmpTipoPerfil);
-//     setidEmpTipoPerfil(ID);
-//   }
+  function insertarEmpTipoPerfil() {
+    setIsActiveInsertEmpTipoPerfil(!isActiveInsertEmpTipoPerfil);
+  }
+  function editarEmpTipoPerfil(ID) {
+    setIsActiveEditEmpTipoPerfil(!isActiveEditEmpTipoPerfil);
+    setidEmpTipoPerfil(ID);
+  }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -72,8 +72,10 @@ export default function ListadoEmpTipoPerfil() {
           usuarioModificacion: userData.usuario,
           nombreTabla: nombreTabla,
         };
+        console.log(data);
         SendDataService(url, operationUrl, data).then((response) => {
           TopAlerts('successEdited');
+          console.log(response);
         });
       }
     });
@@ -120,9 +122,9 @@ export default function ListadoEmpTipoPerfil() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEmpTipoPerfil}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEmpTipoPerfil}>
+              Crear tipo perfil
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -191,7 +193,7 @@ export default function ListadoEmpTipoPerfil() {
             </div>
           </div>
         
-          {/* <InsertarEmpTipoPerfil
+          <InsertarEmpTipoPerfil
             isActiveEmpTipoPerfil={isActiveInsertEmpTipoPerfil}
             cambiarEstado={setIsActiveInsertEmpTipoPerfil}
             EmpTipoPerfil={EmpTipoPerfil}
@@ -204,7 +206,7 @@ export default function ListadoEmpTipoPerfil() {
             setEmpTipoPerfil={setEmpTipoPerfil}
             EmpTipoPerfil={EmpTipoPerfil}
             nombreTabla={nombreTabla}
-          ></EditarEmpTipoPerfil> */}
+          ></EditarEmpTipoPerfil>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -223,14 +225,14 @@ export default function ListadoEmpTipoPerfil() {
                   <td>{EmpTipoPerfil.nomTipoPerfil}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar TipoPerfil"
                       id="OperationBtns"
                       onClick={() => editarEmpTipoPerfil(EmpTipoPerfil.idEmpTipoPerfil)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar Tipo perfil"
                       onClick={() => desactivar(EmpTipoPerfil.idEmpTipoPerfil)}
                       id="OperationBtns"
                     >

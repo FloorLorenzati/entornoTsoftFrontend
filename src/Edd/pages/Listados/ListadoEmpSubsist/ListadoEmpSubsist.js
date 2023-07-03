@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEmpSubsist from "../../../templates/forms/Insertar/InsertarEmpSubsist";
-// import EditarEmpSubsist from "../../../templates/forms/Editar/EditarEmpSubsist";
+import InsertarEmpSubsist from "../../templates/form/Insertar/InsertarEmpSubsist";
+import EditarEmpSubsist from "../../templates/form/Editar/EditarEmpSubsist";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -56,13 +56,13 @@ export default function ListadoEmpSubsist() {
     );
   }
 
-  //   function insertarEmpSubsist() {
-  //     setIsActiveInsertEmpSubsist(!isActiveInsertEmpSubsist);
-  //   }
-  //   function editarEmpSubsist(ID) {
-  //     setIsActiveEditEmpSubsist(!isActiveEditEmpSubsist);
-  //     setidEmpSubsist(ID);
-  //   }
+    function insertarEmpSubsist() {
+      setIsActiveInsertEmpSubsist(!isActiveInsertEmpSubsist);
+    }
+    function editarEmpSubsist(ID) {
+      setIsActiveEditEmpSubsist(!isActiveEditEmpSubsist);
+      setidEmpSubsist(ID);
+    }
 
   function desactivar(ID) {
     ConfirmAlert().then((response) => {
@@ -76,6 +76,7 @@ export default function ListadoEmpSubsist() {
         };
         SendDataService(url, operationUrl, data).then((response) => {
           TopAlerts("successEdited");
+          console.log(response);
         });
       }
     });
@@ -124,9 +125,9 @@ export default function ListadoEmpSubsist() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEmpSubsist}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEmpSubsist}>
+              Crear Emp Subsistema
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -159,7 +160,7 @@ export default function ListadoEmpSubsist() {
                 type="text"
                 className="form-control"
                 onChange={({ target }) => {
-                  setidEmpleado(target.value);
+                  setidSubsistema(target.value);
                   setNumBoton(1);
                 }}
               >
@@ -199,7 +200,7 @@ export default function ListadoEmpSubsist() {
             
           </div>
 
-          {/* <InsertarEmpSubsist
+          <InsertarEmpSubsist
             isActiveEmpSubsist={isActiveInsertEmpSubsist}
             cambiarEstado={setIsActiveInsertEmpSubsist}
             EmpSubsist={EmpSubsist}
@@ -212,7 +213,7 @@ export default function ListadoEmpSubsist() {
             setEmpSubsist={setEmpSubsist}
             EmpSubsist={EmpSubsist}
             nombreTabla={nombreTabla}
-          ></EditarEmpSubsist> */}
+          ></EditarEmpSubsist>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -231,7 +232,7 @@ export default function ListadoEmpSubsist() {
                   <td>{EmpSubsist.nomEmpleado}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar Subsistema"
                       id="OperationBtns"
                       onClick={() => editarEmpSubsist(EmpSubsist.idEmpSubsist)}
                     >
@@ -246,7 +247,7 @@ export default function ListadoEmpSubsist() {
                       </button>
                     </Link>
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar Subsistema"
                       onClick={() => desactivar(EmpSubsist.idEmpSubsist)}
                       id="OperationBtns"
                     >

@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEDDEvaluacion from "../../../templates/forms/Insertar/InsertarEDDEvaluacion";
-// import EditarEDDEvaluacion from "../../../templates/forms/Editar/EditarEDDEvaluacion";
+import InsertarEDDEvaluacion from "../../templates/form/Insertar/InsertarEddEvaluacion";
+import EditarEDDEvaluacion from "../../templates/form/Editar/EditarEddEvaluacion";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -29,15 +29,15 @@ export default function ListadoEDDEvaluacion() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "EDDEvaluacion";
+  const nombreTabla = "eddevaluacion";
 
-    //   function insertarEDDEvaluacion() {
-    //     setIsActiveInsertEDDEvaluacion(!isActiveInsertEDDEvaluacion);
-    //   }
-    //   function editarEDDEvaluacion(ID) {
-    //     setIsActiveEditEDDEvaluacion(!isActiveEditEDDEvaluacion);
-    //     setidEDDEvaluacion(ID);
-    //   }
+      function insertarEDDEvaluacion() {
+        setIsActiveInsertEDDEvaluacion(!isActiveInsertEDDEvaluacion);
+      }
+      function editarEDDEvaluacion(ID) {
+        setIsActiveEditEDDEvaluacion(!isActiveEditEDDEvaluacion);
+        setidEDDEvaluacion(ID);
+      }
 
     function desactivar(ID) {
       ConfirmAlert().then((response) => {
@@ -95,9 +95,9 @@ export default function ListadoEDDEvaluacion() {
             <br></br>
 
             <div id="selectPaginador">
-              {/* <Button id="btn" onClick={insertarEDDEvaluacion}>
-              Crear Proyecto
-            </Button> */}
+              <Button id="btn" onClick={insertarEDDEvaluacion}>
+              Crear Evaluacion
+            </Button>
               <div className="form-group" id="btn2">
                 <label htmlFor="input_CantidadRegistros">
                   Cantidad registros:{" "}
@@ -124,7 +124,7 @@ export default function ListadoEDDEvaluacion() {
               </div>
             </div>
 
-            {/* <InsertarEDDEvaluacion
+            <InsertarEDDEvaluacion
             isActiveEDDEvaluacion={isActiveInsertEDDEvaluacion}
             cambiarEstado={setIsActiveInsertEDDEvaluacion}
             EDDEvaluacion={EDDEvaluacion}
@@ -137,7 +137,7 @@ export default function ListadoEDDEvaluacion() {
             setEDDEvaluacion={setEDDEvaluacion}
             EDDEvaluacion={EDDEvaluacion}
             nombreTabla={nombreTabla}
-          ></EditarEDDEvaluacion> */}
+          ></EditarEDDEvaluacion> 
 
             <Table id="mainTable" hover responsive>
               <thead>
@@ -160,7 +160,7 @@ export default function ListadoEDDEvaluacion() {
                     <td>{EDDEvaluacion.fechaFin}</td>
                     <td>
                       <button
-                        title="Editar proyecto"
+                        title="Editar Evaluacion"
                         id="OperationBtns"
                         onClick={() =>
                           editarEDDEvaluacion(
@@ -172,7 +172,7 @@ export default function ListadoEDDEvaluacion() {
                       </button>
 
                       <button
-                        title="Desactivar proyecto"
+                        title="Desactivar Evaluacion"
                         onClick={() =>
                           desactivar(EDDEvaluacion.idEDDEvaluacion)
                         }

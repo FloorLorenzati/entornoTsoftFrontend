@@ -10,7 +10,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertaridEDDEvalRespPreg from "../../../templates/forms/Insertar/InsertaridEDDEvalRespPreg";
+import InsertarEDDEvalRespPreg from "../../templates/form/Insertar/InsertarEddEvalRespPreg";
 import EditarEDDEvalRespPreg from "../../templates/form/Editar/EditarEddEvalRespPreg";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
@@ -45,9 +45,9 @@ export default function ListadoEDDEvalRespPreg() {
     );
   }
 
-  // function insertarEDDEvalRespPreg() {
-  //   setIsActiveInsertEDDEvalRespPreg(!isActiveInsertEDDEvalRespPreg);
-  // }
+  function insertarEDDEvalRespPreg() {
+    setIsActiveInsertEDDEvalRespPreg(!isActiveInsertEDDEvalRespPreg);
+  }
   function editarEDDEvalRespPreg(ID) {
     setIsActiveEditEDDEvalRespPreg(!isActiveEditEDDEvalRespPreg);
     setidEDDEvalRespPreg(ID);
@@ -113,9 +113,9 @@ export default function ListadoEDDEvalRespPreg() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertaridEDDEvalRespPreg}>
-              Crear Proyecto
-            </Button> */}
+            <Button id="btn" onClick={insertarEDDEvalRespPreg}>
+              Crear RespPreg
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -169,18 +169,18 @@ export default function ListadoEDDEvalRespPreg() {
             </div>
           </div>
 
-          {/* <InsertarEDDEvalRespPreg
+          <InsertarEDDEvalRespPreg
             isActiveEDDEvalRespPreg={isActiveInsertEDDEvalRespPreg}
             cambiarEstado={setIsActiveInsertEDDEvalRespPreg}
-            idEDDEvalRespPreg={idEDDEvalRespPreg}
-          ></InsertarEDDEvalRespPreg>*/}
+            EDDEvalRespPreg={EDDEvalRespPreg}
+          ></InsertarEDDEvalRespPreg>
 
           <EditarEDDEvalRespPreg
             isActiveEditEDDEvalRespPreg={isActiveEditEDDEvalRespPreg}
             cambiarEstado={setIsActiveEditEDDEvalRespPreg}
             idEDDEvalRespPreg={idEDDEvalRespPreg}
             setEDDEvalRespPreg={setEDDEvalRespPreg}
-            EDDEvalRespPreg={idEDDEvalRespPreg}
+            EDDEvalRespPreg={EDDEvalRespPreg}
             nombreTabla={nombreTabla}
           ></EditarEDDEvalRespPreg> 
 
@@ -204,7 +204,7 @@ export default function ListadoEDDEvalRespPreg() {
 
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar RespPreg"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvalRespPreg(
@@ -215,7 +215,7 @@ export default function ListadoEDDEvalRespPreg() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar proyecto"
+                      title="Desactivar RespPreg"
                       onClick={() =>
                         desactivar(idEDDEvalRespPreg.idEDDEvalRespPreg)
                       }

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate,Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useRoute } from "wouter";
 
 import getDataService from "../../../../services/GetDataService";
 import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
-import { BsFillKeyFill,BsFillTrashFill } from "react-icons/bs";
+import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
 // import InsertarEddEvalProyEmp from "../../../templates/forms/Insertar/InsertarEddEvalProyEmp";
@@ -22,8 +22,10 @@ export default function ListadoEddEvalProyEmp() {
   const [, params] = useRoute("/listadoEddEvalProyEmp/:params");
 
   const [EddEvalProyEmp, setEddEvalProyEmp] = useState([""]);
-  const [isActiveInsertEddEvalProyEmp, setIsActiveInsertEddEvalProyEmp] = useState(false);
-  const [isActiveEditEddEvalProyEmp, setIsActiveEditEddEvalProyEmp] = useState(false);
+  const [isActiveInsertEddEvalProyEmp, setIsActiveInsertEddEvalProyEmp] =
+    useState(false);
+  const [isActiveEditEddEvalProyEmp, setIsActiveEditEddEvalProyEmp] =
+    useState(false);
   const [idEddEvalProyEmp, setidEddEvalProyEmp] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -36,19 +38,17 @@ export default function ListadoEddEvalProyEmp() {
 
   const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
 
-
-
   function obtenerEvaluacion() {
     const url = "pages/auxiliares/listadoEddEvaluacion.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistEDDEvaluacion(response)
+      setlistEDDEvaluacion(response)
     );
   }
 
-//   function insertarEddEvalProyEmp() {
-//     setIsActiveInsertEddEvalProyEmp(!isActiveInsertEddEvalProyEmp);
-//   }
+  //   function insertarEddEvalProyEmp() {
+  //     setIsActiveInsertEddEvalProyEmp(!isActiveInsertEddEvalProyEmp);
+  //   }
   function editarEddEvalProyEmp(ID) {
     setIsActiveEditEddEvalProyEmp(!isActiveEditEddEvalProyEmp);
     setidEddEvalProyEmp(ID);
@@ -65,7 +65,7 @@ export default function ListadoEddEvalProyEmp() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          TopAlerts('successEdited');
+          TopAlerts("successEdited");
         });
       }
     });
@@ -76,7 +76,7 @@ export default function ListadoEddEvalProyEmp() {
       handleChangePaginador();
       obtenerEvaluacion();
     },
-    [num_boton, cantidadPorPagina,idEDDProyecto,idEDDEvaluacion]
+    [num_boton, cantidadPorPagina, idEDDProyecto, idEDDEvaluacion]
   );
 
   //PAGINADOR ---------------------
@@ -87,8 +87,8 @@ export default function ListadoEddEvalProyEmp() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idEDDProyEmp:idEDDProyecto,
-      idEDDEvaluacion:idEDDEvaluacion
+      idEDDProyEmp: idEDDProyecto,
+      idEDDEvaluacion: idEDDEvaluacion,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -107,12 +107,14 @@ export default function ListadoEddEvalProyEmp() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de EDD Eval Proy Emp</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Eval Proy Emp</h6>
+          <h6 style={{ color: "gray" }}>
+            EDD {"->"} Listado de EDD Eval Proy Emp
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
             {/* <Button id="btn" onClick={insertarEddEvalProyEmp}>
-              Crear Proyecto
+              Crear EvalProyEmp
             </Button> */}
 
             <div className="form-group" id="btn2">
@@ -153,7 +155,11 @@ export default function ListadoEddEvalProyEmp() {
                 <option value="">Todos</option>
                 {listEDDEvaluacion.map((valor) => (
                   <option
-                    selected={valor.idEDDEvaluacion === idEDDEvaluacion ? "selected" : ""}
+                    selected={
+                      valor.idEDDEvaluacion === idEDDEvaluacion
+                        ? "selected"
+                        : ""
+                    }
                     value={valor.idEDDEvaluacion}
                   >
                     {valor.nomEvaluacion}
@@ -161,8 +167,8 @@ export default function ListadoEddEvalProyEmp() {
                 ))}
               </select>
             </div>
-            </div>
-        
+          </div>
+
           {/* <InsertarEddEvalProyEmp
             isActiveEddEvalProyEmp={isActiveInsertEddEvalProyEmp}
             cambiarEstado={setIsActiveInsertEddEvalProyEmp}
@@ -176,14 +182,15 @@ export default function ListadoEddEvalProyEmp() {
             setEddEvalProyEmp={setEddEvalProyEmp}
             EddEvalProyEmp={EddEvalProyEmp}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalProyEmp> 
+          ></EditarEddEvalProyEmp>
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Evaluación</th>
-                <th>ID proyEmp</th>
+                <th>Proyeto</th> 
+                <th>Empleado</th>
                 <th>Respondida</th>
                 <th>Inicio</th>
                 <th>Fin</th>
@@ -195,24 +202,28 @@ export default function ListadoEddEvalProyEmp() {
                 <tr key={EddEvalProyEmp.idEDDEvalProyEmp}>
                   <td>{EddEvalProyEmp.idEDDEvalProyEmp}</td>
                   <td>{EddEvalProyEmp.nomEvaluacion}</td>
-                  <td>{EddEvalProyEmp.idEDDProyEmp}</td>
+                  <td>{EddEvalProyEmp.nomProyecto}</td>
+                  <td>{EddEvalProyEmp.nomEmpleado}</td>
                   <td>{EddEvalProyEmp.evalRespondida}</td>
                   <td>{EddEvalProyEmp.fechaIni}</td>
                   <td>{EddEvalProyEmp.fechaFin}</td>
 
                   <td>
                     <button
-                      title="Editar proyecto"
+                      title="Editar EvalProyEmp"
                       id="OperationBtns"
-                      onClick={() => editarEddEvalProyEmp(EddEvalProyEmp.idEddEvalProyEmp)}
+                      onClick={() =>
+                        editarEddEvalProyEmp(EddEvalProyEmp.idEddEvalProyEmp)
+                      }
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
 
-
                     <button
-                      title="Desactivar proyecto"
-                      onClick={() => desactivar(EddEvalProyEmp.idEddEvalProyEmp)}
+                      title="Desactivar EvalProyEmp"
+                      onClick={() =>
+                        desactivar(EddEvalProyEmp.idEddEvalProyEmp)
+                      }
                       id="OperationBtns"
                     >
                       <BsFillTrashFill id="icons" />
