@@ -10,7 +10,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEddEvalProyEmp from "../../../templates/forms/Insertar/InsertarEddEvalProyEmp";
+import InsertarEDDEvalProyEmp from "../../templates/form/Insertar/InsertarEddEvalProyEmp";
 import EditarEddEvalProyEmp from "../../templates/form/Editar/EditarEddEvalProyEmp";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
@@ -18,20 +18,20 @@ import Paginador from "../../../../templates/Paginador/Paginador";
 import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
-export default function ListadoEddEvalProyEmp() {
-  const [, params] = useRoute("/listadoEddEvalProyEmp/:params");
+export default function ListadoEDDEvalProyEmp() {
+  const [, params] = useRoute("/listadoEDDEvalProyEmp/:params");
 
-  const [EddEvalProyEmp, setEddEvalProyEmp] = useState([""]);
-  const [isActiveInsertEddEvalProyEmp, setIsActiveInsertEddEvalProyEmp] =
+  const [EDDEvalProyEmp, setEDDEvalProyEmp] = useState([""]);
+  const [isActiveInsertEDDEvalProyEmp, setIsActiveInsertEDDEvalProyEmp] =
     useState(false);
-  const [isActiveEditEddEvalProyEmp, setIsActiveEditEddEvalProyEmp] =
+  const [isActiveEditEDDEvalProyEmp, setIsActiveEditEDDEvalProyEmp] =
     useState(false);
-  const [idEddEvalProyEmp, setidEddEvalProyEmp] = useState(null);
+  const [idEDDEvalProyEmp, setidEDDEvalProyEmp] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "EddEvalProyEmp";
+  const nombreTabla = "eddevalproyemp";
 
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
   const [idEDDProyecto, setidEDDProyecto] = useState(params.params);
@@ -46,12 +46,12 @@ export default function ListadoEddEvalProyEmp() {
     );
   }
 
-  //   function insertarEddEvalProyEmp() {
-  //     setIsActiveInsertEddEvalProyEmp(!isActiveInsertEddEvalProyEmp);
-  //   }
-  function editarEddEvalProyEmp(ID) {
-    setIsActiveEditEddEvalProyEmp(!isActiveEditEddEvalProyEmp);
-    setidEddEvalProyEmp(ID);
+    function insertarEDDEvalProyEmp() {
+      setIsActiveInsertEDDEvalProyEmp(!isActiveInsertEDDEvalProyEmp);
+    }
+  function editarEDDEvalProyEmp(ID) {
+    setIsActiveEditEDDEvalProyEmp(!isActiveEditEDDEvalProyEmp);
+    setidEDDEvalProyEmp(ID);
   }
 
   function desactivar(ID) {
@@ -93,7 +93,7 @@ export default function ListadoEddEvalProyEmp() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEddEvalProyEmp(datos.datos);
+      setEDDEvalProyEmp(datos.datos);
     });
   }
 
@@ -113,9 +113,9 @@ export default function ListadoEddEvalProyEmp() {
           <br></br>
 
           <div id="selectPaginador">
-            {/* <Button id="btn" onClick={insertarEddEvalProyEmp}>
+            <Button id="btn" onClick={insertarEDDEvalProyEmp}>
               Crear EvalProyEmp
-            </Button> */}
+            </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -169,18 +169,18 @@ export default function ListadoEddEvalProyEmp() {
             </div>
           </div>
 
-          {/* <InsertarEddEvalProyEmp
-            isActiveEddEvalProyEmp={isActiveInsertEddEvalProyEmp}
-            cambiarEstado={setIsActiveInsertEddEvalProyEmp}
-            EddEvalProyEmp={EddEvalProyEmp}
-          ></InsertarEddEvalProyEmp>*/}
+          <InsertarEDDEvalProyEmp
+            isActiveEDDEvalProyEmp={isActiveInsertEDDEvalProyEmp}
+            cambiarEstado={setIsActiveInsertEDDEvalProyEmp}
+            EDDEvalProyEmp={EDDEvalProyEmp}
+          ></InsertarEDDEvalProyEmp>
 
           <EditarEddEvalProyEmp
-            isActiveEditEddEvalProyEmp={isActiveEditEddEvalProyEmp}
-            cambiarEstado={setIsActiveEditEddEvalProyEmp}
-            idEddEvalProyEmp={idEddEvalProyEmp}
-            setEddEvalProyEmp={setEddEvalProyEmp}
-            EddEvalProyEmp={EddEvalProyEmp}
+            isActiveEditEDDEvalProyEmp={isActiveEditEDDEvalProyEmp}
+            cambiarEstado={setIsActiveEditEDDEvalProyEmp}
+            idEDDEvalProyEmp={idEDDEvalProyEmp}
+            setEDDEvalProyEmp={setEDDEvalProyEmp}
+            EDDEvalProyEmp={EDDEvalProyEmp}
             nombreTabla={nombreTabla}
           ></EditarEddEvalProyEmp>
 
@@ -198,31 +198,33 @@ export default function ListadoEddEvalProyEmp() {
               </tr>
             </thead>
             <tbody>
-              {EddEvalProyEmp.map((EddEvalProyEmp) => (
-                <tr key={EddEvalProyEmp.idEDDEvalProyEmp}>
-                  <td>{EddEvalProyEmp.idEDDEvalProyEmp}</td>
-                  <td>{EddEvalProyEmp.nomEvaluacion}</td>
-                  <td>{EddEvalProyEmp.nomProyecto}</td>
-                  <td>{EddEvalProyEmp.nomEmpleado}</td>
-                  <td>{EddEvalProyEmp.evalRespondida}</td>
-                  <td>{EddEvalProyEmp.fechaIni}</td>
-                  <td>{EddEvalProyEmp.fechaFin}</td>
+              {EDDEvalProyEmp.map((EDDEvalProyEmp) => (
+                <tr key={EDDEvalProyEmp.idEDDEvalProyEmp}>
+                  <td>{EDDEvalProyEmp.idEDDEvalProyEmp}</td>
+                  <td>{EDDEvalProyEmp.nomEvaluacion}</td>
+                  <td>{EDDEvalProyEmp.nomProyecto}</td>
+                  <td>{EDDEvalProyEmp.nomEmpleado}</td>
+                  <td>{EDDEvalProyEmp.evalRespondida}</td>
+                  <td>{EDDEvalProyEmp.fechaIni}</td>
+                  <td>{EDDEvalProyEmp.fechaFin}</td>
 
                   <td>
-                    <button
-                      title="Editar EvalProyEmp"
-                      id="OperationBtns"
-                      onClick={() =>
-                        editarEddEvalProyEmp(EddEvalProyEmp.idEddEvalProyEmp)
-                      }
-                    >
-                      <RiEditBoxFill id="icons" />
-                    </button>
+                  <button
+                        title="Editar EvalProyEmp"
+                        id="OperationBtns"
+                        onClick={() =>
+                          editarEDDEvalProyEmp(
+                            EDDEvalProyEmp.idEDDEvalProyEmp
+                          )
+                        }
+                      >
+                        <RiEditBoxFill id="icons" />
+                      </button>
 
                     <button
                       title="Desactivar EvalProyEmp"
                       onClick={() =>
-                        desactivar(EddEvalProyEmp.idEddEvalProyEmp)
+                        desactivar(EDDEvalProyEmp.idEDDEvalProyEmp)
                       }
                       id="OperationBtns"
                     >

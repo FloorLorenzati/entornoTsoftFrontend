@@ -16,15 +16,16 @@ const EditarEddEvalProyEmp = ({
   nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
+  
   const [evalRespondida, setevalRespondida] = useState("");
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
 
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState("");
-  const [idEDDProyecto, setidEDDProyecto] = useState("");
+  const [idEDDProyEmp, setidEDDProyEmp] = useState("");
 
   const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
-  const [listEDDProyecto, setlistEDDProyecto] = useState([""]);
+  const [listEDDProyectoEmpleado, setlistEDDProyectoEmpleado] = useState([""]);
 
   const [responseID, setResponseID] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -34,23 +35,24 @@ const EditarEddEvalProyEmp = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-    setevalRespondida(responseID[0].evalRespondida);
     setfechaIni(responseID[0].fechaIni);
     setfechaFin(responseID[0].fechaFin);
     setidEDDEvaluacion(responseID[0].idEDDEvaluacion);
-    setidEDDProyecto(responseID[0].idEDDProyecto);
+    setidEDDProyEmp(responseID[0].idEDDProyEmp);
+    setevalRespondida(responseID[0].evalRespondida);
+
   };
 
   // ----------------------FUNCIONES----------------------------
-  function obtenerProyecto() {
-    const url = "pages/auxiliares/listadoServicioForms.php";
+  function obtenerProyectoEmpleado() {
+    const url = "pages/auxiliares/listadoEddProyEmp.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-      setlistEDDProyecto(response)
+    setlistEDDProyectoEmpleado(response)
     );
   }
   function obtenerEvaluacion() {
-    const url = "pages/auxiliares/listadoServicioForms.php";
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
       setlistEDDEvaluacion(response)
@@ -64,18 +66,19 @@ const EditarEddEvalProyEmp = ({
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       setResponseID(response);
-      setevalRespondida(response[0].evalRespondida);
+
       setfechaIni(response[0].fechaIni);
       setfechaFin(response[0].fechaFin);
       setidEDDEvaluacion(response[0].idEDDEvaluacion);
-      setidEDDProyecto(response[0].idEDDProyecto);
+      setidEDDProyEmp(response[0].idEDDProyEmp);
+      setevalRespondida(response[0].evalRespondida);
     });
   }, [idEDDEvalProyEmp]);
 
   function SendData(e) {
     e.preventDefault();
-    var url = "pages/editar/editarEDDEvalProyEmp.php";
-    var operationUrl = "editarEDDEvalProyEmp";
+    var url = "pages/editar/editarEddEvalProyEmp.php";
+    var operationUrl = "editarEddEvalProyEmp";
     var data = {
       usuarioModificacion: userData.usuario,
       idEDDEvalProyEmp: idEDDEvalProyEmp,
@@ -87,15 +90,15 @@ const EditarEddEvalProyEmp = ({
         idEDDEvaluacion === ""
           ? responseID[0].idEDDEvaluacion
           : idEDDEvaluacion,
-      idEDDProyecto:
-        idEDDProyecto === "" ? responseID[0].idEDDProyecto : idEDDProyecto,
+          idEDDProyEmp:
+          idEDDProyEmp === "" ? responseID[0].idEDDProyEmp : idEDDProyEmp,
 
       isActive: true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts("successEdited");
-      actualizarEDDEvalProyEmp(EDDEvalProyEmp);
+      // TopAlerts("successEdited");
+      actualizarEDDEvalProyEmp(EDDEvalProyEmp);console.log(response);
     });
 
     function actualizarEDDEvalProyEmp(EDDEvalProyEmp) {
@@ -113,7 +116,7 @@ const EditarEddEvalProyEmp = ({
       if (idEDDEvalProyEmp !== null) {
         getData();
         obtenerEvaluacion();
-        obtenerProyecto();
+        obtenerProyectoEmpleado();
       }
     },
     [idEDDEvalProyEmp]
@@ -124,32 +127,71 @@ const EditarEddEvalProyEmp = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Proyecto</Modal.Title>
+          <Modal.Title>Editar Eval proy emp</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            {/* <div>
-              <label htmlFor="input_nombreDelEDDEvalProyEmp">Nombre:</label>
+          <div className="form-group">
+              <label htmlFor="input_Evaluacion">Evaluación: </label>
+              <select
+                required
+                className="form-control"
+                name="input_Evaluacion"
+                id="input_Evaluacion"
+                placeholder="Seleccione la evaluación"
+                onChange={({ target }) => setidEDDEvaluacion(target.value)}
+              >
+                {listEDDEvaluacion.map((valor) => (
+                  <option
+                    selected={valor.idEDDEvaluacion === idEDDEvaluacion ? "selected" : ""}
+                    value={valor.idEDDEvaluacion}
+                  >
+                    {valor.nomEvaluacion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_proyemp">Proyecto Empleado: </label>
+              <select
+                required
+                className="form-control"
+                name="input_proyemp"
+                id="input_proyemp"
+                placeholder="Seleccione la Proyecto + Empleado"
+                onChange={({ target }) => setidEDDProyEmp(target.value)}
+              >
+                {listEDDProyectoEmpleado.map((valor) => (
+                  <option
+                    selected={valor.idEDDProyEmp === idEDDProyEmp ? "selected" : ""}
+                    value={valor.idEDDProyEmp}
+                  >
+                    {valor.nomProyEmp}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="input_nombreDelEDDEvalPregunta">Respondida:</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Escriba nombre Proyecto"
-                type="text"
+                type="number"
                 className="form-control"
-                name="input_nombreDelEDDEvalProyEmp"
-                id="input_nombreDelEDDEvalProyEmp"
-                value={nomProyecto || ""}
-                maxLength="50"
-                onChange={({ target }) => setnomProyecto(target.value)}
+                name="input_nombreDelEDDEvalPregunta"
+                id="input_nombreDelEDDEvalPregunta"
+                value={evalRespondida || ""}
+                maxLength="4"
+                onChange={({ target }) => setevalRespondida(target.value)}
                 required
               />
-            </div> */}
-
-            {/* <div>
+            </div>
+            <div>
               <label htmlFor="input_fechaI">Fecha inicio:</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
-                type="date"
+                type="datetime-local"
                 className="form-control"
                 name="input_fechaI"
                 id="input_fechaI"
@@ -159,40 +201,20 @@ const EditarEddEvalProyEmp = ({
               />
             </div>
             <div>
-              <label htmlFor="input_fechaF">Fecha Fin:</label>
+              <label htmlFor="input_fechaf">Fecha fin:</label>
               <input
                 style={{ textTransform: "uppercase" }}
                 placeholder="Fecha inicio"
-                type="date"
+                type="datetime-local"
                 className="form-control"
-                name="input_fechaF"
-                id="input_fechaF"
+                name="input_fechaf"
+                id="input_fechaf"
                 value={fechaFin || ""}
                 onChange={({ target }) => setfechaFin(target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="input_serv">Servicio: </label>
-              <select
-                required
-                className="form-control"
-                name="input_serv"
-                id="input_serv"
-                placeholder="Seleccione el servicio"
-                onChange={({ target }) => setidServicio(target.value)}
-              >
-                {listServicio.map((valor) => (
-                  <option
-                    selected={valor.idServicio === idServicio ? "selected" : ""}
-                    value={valor.idServicio}
-                  >
-                    {valor.nomServicio}
-                  </option>
-                ))}
-              </select>
-            </div> */}
-
+           
             <Button
               variant="secondary"
               type="submit"

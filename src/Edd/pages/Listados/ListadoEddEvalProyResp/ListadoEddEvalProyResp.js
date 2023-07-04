@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-// import InsertarEddEvalProyResp from "../../../templates/forms/Insertar/InsertarEddEvalProyResp";
-// import EditarEddEvalProyResp from "../../../templates/forms/Editar/EditarEddEvalProyResp";
+import InsertarEddEvalProyResp from "../../templates/form/Insertar/InsertarEddEvalProyResp";
+import EditarEddEvalProyResp from "../../templates/form/Editar/EditarEddEvalProyResp";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -22,16 +22,16 @@ export default function ListadoEddEvalProyResp() {
   const [, params] = useRoute("/listadoEddEvalProyResp/:params");
 
   const [EddEvalProyResp, setEddEvalProyResp] = useState([""]);
-  const [isActiveInsertEddEvalProyResp, setIsActiveInsertEddEvalProyResp] =
+  const [isActiveInsertEDDEvalProyResp, setisActiveInsertEDDEvalProyResp] =
     useState(false);
-  const [isActiveEditEddEvalProyResp, setIsActiveEditEddEvalProyResp] =
+  const [isActiveEditEDDEvalProyResp, setIsActiveEditEDDEvalProyResp] =
     useState(false);
   const [idEddEvalProyResp, setidEddEvalProyResp] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
-  const nombreTabla = "EddEvalProyResp";
+  const nombreTabla = "eddevalproyresp";
 
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
   const [idEDDProyecto, setidEDDProyecto] = useState(params.params);
@@ -66,13 +66,13 @@ export default function ListadoEddEvalProyResp() {
     setlistEDDEvalPregunta(response)
     );
   }
-    //   function insertarEddEvalProyResp() {
-    //     setIsActiveInsertEddEvalProyResp(!isActiveInsertEddEvalProyResp);
-    //   }
-    //   function editarEddEvalProyResp(ID) {
-    //     setIsActiveEditEddEvalProyResp(!isActiveEditEddEvalProyResp);
-    //     setidEddEvalProyResp(ID);
-    //   }
+      function insertarEddEvalProyResp() {
+        setisActiveInsertEDDEvalProyResp(!isActiveInsertEDDEvalProyResp);
+      }
+      function editarEddEvalProyResp(ID) {
+        setIsActiveEditEDDEvalProyResp(!isActiveEditEDDEvalProyResp);
+        setidEddEvalProyResp(ID);
+      }
 
     function desactivar(ID) {
       ConfirmAlert().then((response) => {
@@ -138,9 +138,9 @@ export default function ListadoEddEvalProyResp() {
             <br></br>
 
             <div id="selectPaginador">
-              {/* <Button id="btn" onClick={insertarEddEvalProyResp}>
+              <Button id="btn" onClick={insertarEddEvalProyResp}>
               Crear EvalProyResp
-            </Button> */}
+            </Button>
               <div className="form-group" id="btn2">
                 <label htmlFor="input_CantidadRegistros">
                   Cantidad registros:{" "}
@@ -217,29 +217,30 @@ export default function ListadoEddEvalProyResp() {
               </div>
             </div>
 
-            {/* <InsertarEddEvalProyResp
-            isActiveEddEvalProyResp={isActiveInsertEddEvalProyResp}
-            cambiarEstado={setIsActiveInsertEddEvalProyResp}
-            EddEvalProyResp={EddEvalProyResp}
+            <InsertarEddEvalProyResp
+            isActiveInsertEDDEvalProyResp={isActiveInsertEDDEvalProyResp}
+            cambiarEstado={setisActiveInsertEDDEvalProyResp}
+            EDDEvalProyResp={EddEvalProyResp}
           ></InsertarEddEvalProyResp>
 
           <EditarEddEvalProyResp
-            isActiveEditEddEvalProyResp={isActiveEditEddEvalProyResp}
-            cambiarEstado={setIsActiveEditEddEvalProyResp}
-            idEddEvalProyResp={idEddEvalProyResp}
-            setEddEvalProyResp={setEddEvalProyResp}
-            EddEvalProyResp={EddEvalProyResp}
+            isActiveEditEDDEvalProyResp={isActiveEditEDDEvalProyResp}
+            cambiarEstado={setIsActiveEditEDDEvalProyResp}
+            idEDDEvalProyResp={idEddEvalProyResp}
+            setEDDEvalProyResp={setEddEvalProyResp}
+            EDDEvalProyResp={EddEvalProyResp}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalProyResp> */}
+          ></EditarEddEvalProyResp> 
 
             <Table id="mainTable" hover responsive>
-              <thead>
+            <thead>
                 <tr>
                   <th>ID</th>
                   <th>Evaluación</th>
                   <th>ID proyEmp</th>
                   <th>Respuesta</th>
-                  <th>ID EvalProyEmp</th>
+                  <th>Proyecto</th>                  
+                  <th>Empleado</th>
                   <th>Pregunta</th>
                   <th>RespuestaPreg</th>
                   <th>Operaciones</th>
@@ -250,12 +251,12 @@ export default function ListadoEddEvalProyResp() {
                   <tr key={EddEvalProyResp.idEDDEvalProyResp}>
                     <td>{EddEvalProyResp.idEDDEvalProyResp}</td>
                     <td>{EddEvalProyResp.nomEvaluacion}</td>
-                    <td>{EddEvalProyResp.idEDDProyEmp}</td>
+                    <td>{EddEvalProyResp.nomProyecto}</td>
+                    <td>{EddEvalProyResp.nomEmpleado}</td>
                     <td>{EddEvalProyResp.respuesta}</td>
-                    <td>{EddEvalProyResp.idEDDEvalProyEmp}</td>
+                    <td>{EddEvalProyResp.idEDDEvalProyResp}</td>
                     <td>{EddEvalProyResp.nomPregunta}</td>
                     <td>{EddEvalProyResp.nomRespPreg}</td>
-
                     <td>
                       <button
                         title="Editar EvalProyResp"
