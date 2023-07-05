@@ -32,30 +32,41 @@ export default function ListadoEddEvalProyResp() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "eddevalproyresp";
+  const [idEDDEvalProyEmp, setidEDDEvalProyEmp] = useState(params.params);
 
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
-  const [idEDDProyecto, setidEDDProyecto] = useState(params.params);
-  const [idEDDEvalProyEmp, setidEDDEvalProyEmp] = useState(params.params);
   const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState(params.params);
+
   const [idEDDEvalRespPreg, setidEDDEvalRespPreg] = useState(params.params);
+  const [idEDDProyEmp, setidEDDProyEmp] = useState(params.params);
 
   const [listEDDEvalPregunta, setlistEDDEvalPregunta] = useState([""]);
   const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
   const [listEDDProyEmp, setlistEDDProyEmp] = useState([""]);
+  const [listEDDEvalRespPreg, setlistEDDEvalRespPreg] = useState([""]);
+
+  
+
+  function obtenerProyEmp() {
+    const url = "pages/auxiliares/listadoEddProyEmp.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDProyEmp(response)
+    );
+  }  
+  function obtenerRespPreg() {
+    const url = "pages/auxiliares/listadoEddEvalRespPreg.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDEvalRespPreg(response)
+    );
+  }
 
   function obtenerEvaluacion() {
     const url = "pages/auxiliares/listadoEddEvaluacion.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
       setlistEDDEvaluacion(response)
-    );
-  }
-
-  function obtenerProyecto() {
-    const url = "pages/auxiliares/listadoProyectoForms.php";
-    const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) =>
-      setlistEDDProyEmp(response)
     );
   }
 
@@ -95,10 +106,11 @@ export default function ListadoEddEvalProyResp() {
       function () {
         handleChangePaginador();
         obtenerEvaluacion();
-        obtenerProyecto();
+        obtenerProyEmp();
+        obtenerRespPreg();
         obtenerPregunta()
       },
-      [num_boton, cantidadPorPagina, idEDDProyecto, idEDDEvaluacion,idEDDEvalPregunta]
+      [num_boton, cantidadPorPagina,idEDDProyEmp,idEDDEvalRespPreg , idEDDEvaluacion,idEDDEvalPregunta]
     );
 
     //PAGINADOR ---------------------
@@ -109,7 +121,7 @@ export default function ListadoEddEvalProyResp() {
       var data = {
         num_boton: num_boton,
         cantidadPorPagina: cantidadPorPagina,
-        idEDDProyEmp: idEDDProyecto,
+        idEDDProyEmp: idEDDProyEmp,
         idEDDEvaluacion: idEDDEvaluacion,
         idEDDEvalPregunta,idEDDEvalPregunta,
         idEDDEvalProyEmp:idEDDEvalProyEmp,
@@ -192,6 +204,32 @@ export default function ListadoEddEvalProyResp() {
                 </select>
               </div>
               <div className="form-group" id="btn2">
+                <label htmlFor="input_CantidadR">Proyecto empleado: </label>
+                <select
+                  required
+                  type="text"
+                  className="form-control"
+                  onChange={({ target }) => {
+                    setidEDDProyEmp(target.value);
+                    setNumBoton(1);
+                  }}
+                >
+                  <option value="">Todos</option>
+                  {listEDDProyEmp.map((valor) => (
+                    <option
+                      selected={
+                        valor.idEDDProyEmp === idEDDProyEmp
+                          ? "selected"
+                          : ""
+                      }
+                      value={valor.idEDDProyEmp}
+                    >
+                      {valor.nomProyEmp}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group" id="btn2">
                 <label htmlFor="input_CantidadR">Pregunta: </label>
                 <select
                   required
@@ -215,6 +253,32 @@ export default function ListadoEddEvalProyResp() {
                   ))}
                 </select>
               </div>
+              <div className="form-group" id="btn2">
+                <label htmlFor="input_CantidadR">RespuestaPreg: </label>
+                <select
+                  required
+                  type="text"
+                  className="form-control"
+                  onChange={({ target }) => {
+                    setidEDDEvalRespPreg(target.value);
+                    setNumBoton(1);
+                  }}
+                >
+                  <option value="">Todos</option>
+                  {listEDDEvalRespPreg.map((valor) => (
+                    <option
+                      selected={
+                        valor.idEDDEvalRespPreg === idEDDEvalRespPreg
+                          ? "selected"
+                          : ""
+                      }
+                      value={valor.idEDDEvalRespPreg}
+                    >
+                      {valor.nomRespPreg}
+                    </option>
+                  ))}
+                </select>
+              </div> 
             </div>
 
             <InsertarEddEvalProyResp
