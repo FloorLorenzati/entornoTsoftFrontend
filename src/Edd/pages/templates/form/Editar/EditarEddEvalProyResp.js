@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useCallback } from "react";
 
-const EditarEDDEvalProyEmp = ({
+const EditarEDDEvalProyResp = ({
   isActiveEditEDDEvalProyResp,
   cambiarEstado,
   idEDDEvalProyResp,
@@ -20,7 +20,12 @@ const EditarEDDEvalProyEmp = ({
 
   const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState("");
   const [idEDDEvalRespPreg, setidEDDEvalRespPreg] = useState("");
-  const [idEDDEvalProyEmpleado, setidEDDEvalProyEmp] = useState("");
+  const [idEDDEvalProyEmp, setidEDDEvalProyEmp] = useState("");
+  const [idEDDEvaluacion, setidEDDEvaluacion] = useState("");
+  const [idEDDProyEmp, setidEDDProyEmp] = useState("");
+
+  const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
+  const [listEDDProyEmp, setlistEDDProyEmp] = useState([""]);
 
   const [listEDDEvalPregunta, setlistEDDEvalPregunta] = useState([""]);
   const [listEDDEvalRespPreg, setlistEDDEvalRespPreg] = useState([""]);
@@ -38,15 +43,31 @@ const EditarEDDEvalProyEmp = ({
 
     setidEDDEvalPregunta(responseID[0].idEDDEvalPregunta);
     setidEDDEvalRespPreg(responseID[0].idEDDEvalRespPreg);
-    setidEDDEvalProyEmp(responseID[0].idEDDEvalProyEmpleado);
+    setidEDDEvalProyEmp(responseID[0].idEDDEvalProyEmp);
+    setidEDDEvaluacion(responseID[0].idEDDEvaluacion);
+    setidEDDProyEmp(responseID[0].idEDDProyEmp);
   };
 
   // ----------------------FUNCIONES----------------------------
+  function obtenerEvaluacion() {
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistEDDEvaluacion(response)
+    );
+  }
+  function obtenerEDDProyEmp() {
+    const url = "pages/auxiliares/listadoEddProyEmp.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistEDDProyEmp(response)
+    );
+  }
   function obtenerEvalProyectoEmpleado() {
     const url = "pages/auxiliares/listadoEddEvalProyEmp.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistEDDEvalProyEmpleado(response)
+      setlistEDDEvalProyEmpleado(response)
     );
   }
 
@@ -54,54 +75,74 @@ const EditarEDDEvalProyEmp = ({
     const url = "pages/auxiliares/listadoEddEvalRespPreg.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistEDDEvalRespPreg(response)
+      setlistEDDEvalRespPreg(response)
     );
   }
   function obtenerEvalPregunta() {
     const url = "pages/auxiliares/listadoEddEvalPregunta.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistEDDEvalPregunta(response)
+      setlistEDDEvalPregunta(response)
     );
   }
 
   const getData = useCallback(() => {
     const url = "pages/seleccionar/seleccionarDatos.php";
     const operationUrl = "seleccionarDatos";
-    var data = { idRegistro:idEDDEvalProyResp, nombreTabla: nombreTabla};
+    var data = { idRegistro: idEDDEvalProyResp, nombreTabla: nombreTabla };
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       setResponseID(response);
       setrespuesta(response[0].respuesta);
       setidEDDEvalPregunta(response[0].idEDDEvalPregunta);
       setidEDDEvalRespPreg(response[0].idEDDEvalRespPreg);
-      setidEDDEvalProyEmp(response[0].idEDDEvalProyEmpleado);
-
+      setidEDDEvalProyEmp(response[0].idEDDEvalProyEmp);
+      setidEDDEvaluacion(response[0].idEDDEvaluacion);
+      setidEDDProyEmp(response[0].idEDDProyEmp);
     });
   }, [idEDDEvalProyResp]);
 
   function SendData(e) {
     e.preventDefault();
-    var url = "pages/editar/editarEDDEvalProyEmp.php";
-    var operationUrl = "editarEDDEvalProyEmp";
+    var url = "pages/editar/editarEddEvalProyResp.php";
+    var operationUrl = "editarEddEvalProyResp";
     var data = {
       usuarioModificacion: userData.usuario,
       idEDDEvalProyResp: idEDDEvalProyResp,
-      respuesta:respuesta === "" ? responseID[0].respuesta : respuesta,
-      idEDDEvalPregunta:idEDDEvalPregunta === "" ? responseID[0].idEDDEvalPregunta : idEDDEvalPregunta,
-      idEDDEvalRespPreg:idEDDEvalRespPreg === "" ? responseID[0].idEDDEvalRespPreg : idEDDEvalRespPreg,
-      idEDDEvalProyEmpleado:idEDDEvalProyEmpleado === "" ? responseID[0].idEDDEvalProyEmpleado : idEDDEvalProyEmpleado,
-      isActive:true,
+      respuesta: respuesta === "" ? responseID[0].respuesta : respuesta,
+      idEDDEvalPregunta:
+        idEDDEvalPregunta === ""
+          ? responseID[0].idEDDEvalPregunta
+          : idEDDEvalPregunta,
+      idEDDEvalRespPreg:
+        idEDDEvalRespPreg === ""
+          ? responseID[0].idEDDEvalRespPreg
+          : idEDDEvalRespPreg,
+      idEDDEvalProyEmp:
+      idEDDEvalProyEmp === ""
+          ? responseID[0].idEDDEvalProyEmp
+          : idEDDEvalProyEmp,
+      idEDDEvaluacion:
+        idEDDEvaluacion === ""
+          ? responseID[0].idEDDEvaluacion
+          : idEDDEvaluacion,
+      idEDDProyEmp:
+        idEDDProyEmp === "" ? responseID[0].idEDDProyEmp : idEDDProyEmp,
+
+      isActive: true,
     };
-console.log(data);
+
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts('successEdited');
-      actualizarEDDEvalProyResp(EDDEvalProyResp);console.log(response);
+      TopAlerts("successEdited");
+      actualizarEDDEvalProyResp(EDDEvalProyResp);
+
     });
 
     function actualizarEDDEvalProyResp(EDDEvalProyResp) {
       const nuevosEDDEvalProyResp = listEDDEvalProyResp.map((c) =>
-        c.idEDDEvalProyResp === EDDEvalProyResp.idEDDEvalProyResp ? EDDEvalProyResp : c
+        c.idEDDEvalProyResp === EDDEvalProyResp.idEDDEvalProyResp
+          ? EDDEvalProyResp
+          : c
       );
       setEDDEvalProyResp(nuevosEDDEvalProyResp);
     }
@@ -114,7 +155,8 @@ console.log(data);
         obtenerEvalProyectoEmpleado();
         obtenerEvalRespPreg();
         obtenerEvalPregunta();
-
+        obtenerEDDProyEmp();
+        obtenerEvaluacion();
       }
     },
     [idEDDEvalProyResp]
@@ -125,15 +167,61 @@ console.log(data);
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Eval proy emp</Modal.Title>
+          <Modal.Title>Editar Eval proy resp</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-          <div>
+            <div className="form-group">
+              <label htmlFor="input_Evaluacion">Evaluación:</label>
+              <select
+                required
+                className="form-control"
+                name="input_Evaluacion"
+                id="input_Evaluacion"
+                placeholder="Seleccione la Evaluación"
+                onChange={({ target }) => setidEDDEvaluacion(target.value)}
+              >
+                {listEDDEvaluacion.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDEvaluacion === idEDDEvaluacion
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvaluacion}
+                  >
+                    {valor.nomEvaluacion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_Evaluacion">Proyecto Empleado:</label>
+              <select
+                required
+                className="form-control"
+                name="input_Evaluacion"
+                id="input_Evaluacion"
+                placeholder="Seleccione el Proyecto + Empleado"
+                onChange={({ target }) => setidEDDProyEmp(target.value)}
+              >
+                {listEDDProyEmp.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDProyEmp === idEDDProyEmp ? "selected" : ""
+                    }
+                    value={valor.idEDDProyEmp}
+                  >
+                    {valor.nomProyEmp}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label htmlFor="input_nombreDelEDDEvalPregunta">Respuesta:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
+                placeholder="Escriba respuesta"
                 type="text"
                 className="form-control"
                 name="input_nombreDelEDDEvalPregunta"
@@ -144,8 +232,10 @@ console.log(data);
                 required
               />
             </div>
-          <div className="form-group">
-              <label htmlFor="input_Evaluacion">Evaluación Proyectyo Empleado: </label>
+            <div className="form-group">
+              <label htmlFor="input_Evaluacion">
+                Evaluación Proyectyo Empleado:{" "}
+              </label>
               <select
                 required
                 className="form-control"
@@ -156,8 +246,12 @@ console.log(data);
               >
                 {listEDDEvalProyEmpleado.map((valor) => (
                   <option
-                    selected={valor.idEDDEvalProyEmpleado === idEDDEvalProyEmpleado ? "selected" : ""}
-                    value={valor.idEDDEvalProyEmpleado}
+                    selected={
+                      valor.idEDDEvalProyEmp === idEDDEvalProyEmp
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvalProyEmp}
                   >
                     {valor.nomEvalProyEmp}
                   </option>
@@ -176,7 +270,11 @@ console.log(data);
               >
                 {listEDDEvalPregunta.map((valor) => (
                   <option
-                    selected={valor.idEDDEvalPregunta === idEDDEvalPregunta ? "selected" : ""}
+                    selected={
+                      valor.idEDDEvalPregunta === idEDDEvalPregunta
+                        ? "selected"
+                        : ""
+                    }
                     value={valor.idEDDEvalPregunta}
                   >
                     {valor.nomPregunta}
@@ -184,7 +282,7 @@ console.log(data);
                 ))}
               </select>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="input_proyemp">RespPregunta: </label>
               <select
@@ -197,7 +295,11 @@ console.log(data);
               >
                 {listEDDEvalRespPreg.map((valor) => (
                   <option
-                    selected={valor.idEDDEvalRespPreg === idEDDEvalRespPreg ? "selected" : ""}
+                    selected={
+                      valor.idEDDEvalRespPreg === idEDDEvalRespPreg
+                        ? "selected"
+                        : ""
+                    }
                     value={valor.idEDDEvalRespPreg}
                   >
                     {valor.nomRespPreg}
@@ -221,4 +323,4 @@ console.log(data);
   );
 };
 
-export default EditarEDDEvalProyEmp;
+export default EditarEDDEvalProyResp;

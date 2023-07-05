@@ -99,7 +99,7 @@ const InsertarEDDProyEmp = ({
                 </option>
 
                 {listProyecto.map((valor) => (
-                  <option value={valor.idProyecto}>{valor.nomProyecto}</option>
+                  <option value={valor.idEDDProyecto}>{valor.nomProyecto}</option>
                 ))}
               </select>
             </div>

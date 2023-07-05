@@ -8,23 +8,27 @@ import TopAlerts from "../../../../../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarEDDEvalProyEmp = ({
+const InsertarEDDEvalProyResp = ({
   isActiveInsertEDDEvalProyResp,
   cambiarEstado,
-  EDDEvalProyEmp,
+  EDDEvalProyResp,
 }) => {
   // ----------------------CONSTANTES----------------------------
   const [respuesta, setrespuesta] = useState("");
 
   const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState("");
   const [idEDDEvalRespPreg, setidEDDEvalRespPreg] = useState("");
-  const [idEDDEvalProyEmpleado, setidEDDEvalProyEmp] = useState("");
+  const [idEDDEvalProyEmp, setidEDDEvalProyEmp] = useState("");
+  const [idEDDEvaluacion, setidEDDEvaluacion] = useState("");
+  const [idEDDProyEmp, setidEDDProyEmp] = useState("");
 
+  const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
+  const [listEDDProyEmp, setlistEDDProyEmp] = useState([""]);
   const [listEDDEvalPregunta, setlistEDDEvalPregunta] = useState([""]);
   const [listEDDEvalRespPreg, setlistEDDEvalRespPreg] = useState([""]);
   const [listEDDEvalProyEmpleado, setlistEDDEvalProyEmpleado] = useState([""]);
 
-  const listEDDEvalProyEmp = EDDEvalProyEmp;
+  const listEDDEvalProyResp= EDDEvalProyResp;
 
   const show = isActiveInsertEDDEvalProyResp;
 
@@ -33,7 +37,19 @@ const InsertarEDDEvalProyEmp = ({
   const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
-
+  function obtenerEvaluacion() {
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDEvaluacion(response)
+    );
+  }  function obtenerEDDProyEmp() {
+    const url = "pages/auxiliares/listadoEddProyEmp.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDProyEmp(response)
+    );
+  }
   function obtenerEvalProyectoEmpleado() {
     const url = "pages/auxiliares/listadoEddEvalProyEmp.php";
     const operationUrl = "listados";
@@ -59,32 +75,36 @@ const InsertarEDDEvalProyEmp = ({
 
   function SendData(e) {
     e.preventDefault();
-    const url = "pages/insertar/insertarEDDEvalProyEmp.php";
-    const operationUrl = "insertarEDDEvalProyEmp";
+    const url = "pages/insertar/insertarEddEvalProyResp.php";
+    const operationUrl = "insertarEddEvalProyResp";
     var data = {
       usuarioCreacion: userData.usuario,
       respuesta: respuesta,
       idEDDEvalPregunta: idEDDEvalPregunta,
       idEDDEvalRespPreg: idEDDEvalRespPreg,
-      idEDDEvalProyEmpleado: idEDDEvalProyEmpleado,
+      idEDDEvalProyEmp: idEDDEvalProyEmp,
+      idEDDEvaluacion:idEDDEvaluacion,
+      idEDDProyEmp:idEDDProyEmp,
       isActive: true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts("successCreated");
-      actualizarEDDEvalProyEmp(EDDEvalProyEmp);
+      // TopAlerts("successCreated");
+      actualizarEDDEvalProyResp(EDDEvalProyResp);
       console.log(response);
     });
   }
 
-  function actualizarEDDEvalProyEmp(response) {
-    listEDDEvalProyEmp.push(response);
+  function actualizarEDDEvalProyResp(response) {
+    listEDDEvalProyResp.push(response);
   }
 
   useEffect(function () {
     obtenerEvalProyectoEmpleado();
     obtenerEvalRespPreg();
     obtenerEvalPregunta();
+    obtenerEDDProyEmp();
+    obtenerEvaluacion()
   }, []);
 
   // ----------------------RENDER----------------------------
@@ -92,10 +112,56 @@ const InsertarEDDEvalProyEmp = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Proyecto</Modal.Title>
+          <Modal.Title>Crear Eval proy resp</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
+          <div className="form-group">
+              <label htmlFor="input_Evaluacion">
+                Evaluación:
+              </label>
+              <select
+                required
+                className="form-control"
+                name="input_Evaluacion"
+                id="input_Evaluacion"
+                placeholder="Seleccione la Evaluación"
+                onChange={({ target }) => setidEDDEvaluacion(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listEDDEvaluacion.map((valor) => (
+                  <option value={valor.idEDDEvaluacion}>
+                    {valor.nomEvaluacion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_Evaluacion">
+                Proyecto Empleado:
+              </label>
+              <select
+                required
+                className="form-control"
+                name="input_Evaluacion"
+                id="input_Evaluacion"
+                placeholder="Seleccione el Proyecto + Empleado"
+                onChange={({ target }) => setidEDDProyEmp(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listEDDProyEmp.map((valor) => (
+                  <option value={valor.idEDDProyEmp}>
+                    {valor.nomProyEmp}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div>
               <label htmlFor="input_nombreDelEDDEvalPregunta">Respuesta:</label>
               <input
@@ -105,7 +171,6 @@ const InsertarEDDEvalProyEmp = ({
                 className="form-control"
                 name="input_nombreDelEDDEvalPregunta"
                 id="input_nombreDelEDDEvalPregunta"
-                value={respuesta || ""}
                 maxLength="500"
                 onChange={({ target }) => setrespuesta(target.value)}
                 required
@@ -113,14 +178,14 @@ const InsertarEDDEvalProyEmp = ({
             </div>
             <div className="form-group">
               <label htmlFor="input_Evaluacion">
-                Evaluación Proyectyo Empleado:{" "}
+                Evaluación Proyecto Empleado:
               </label>
               <select
                 required
                 className="form-control"
                 name="input_Evaluacion"
                 id="input_Evaluacion"
-                placeholder="Seleccione la Evaluación + Proyectyo + Empleado"
+                placeholder="Seleccione la Evaluación + Proyecto + Empleado"
                 onChange={({ target }) => setidEDDEvalProyEmp(target.value)}
               >
                 <option hidden value="">
@@ -128,7 +193,7 @@ const InsertarEDDEvalProyEmp = ({
                 </option>
 
                 {listEDDEvalProyEmpleado.map((valor) => (
-                  <option value={valor.idEDDEvalProyEmpleado}>
+                  <option value={valor.idEDDEvalProyEmp}>
                     {valor.nomEvalProyEmp}
                   </option>
                 ))}
@@ -191,4 +256,4 @@ const InsertarEDDEvalProyEmp = ({
     </>
   );
 };
-export default InsertarEDDEvalProyEmp;
+export default InsertarEDDEvalProyResp;

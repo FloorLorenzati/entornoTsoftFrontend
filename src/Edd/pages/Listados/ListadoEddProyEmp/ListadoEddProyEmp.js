@@ -19,7 +19,7 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoEDDProyEmp() {
-  const [, params] = useRoute("/listadoEDDProyEmp/:params");
+  const [, params] = useRoute("/listadoEddProyEmp/:params");
 
   const [EDDProyEmp, setEDDProyEmp] = useState([""]);
   const [isActiveInsertEDDProyEmp, setIsActiveInsertEDDProyEmp] = useState(false);

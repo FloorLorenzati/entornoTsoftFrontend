@@ -237,10 +237,9 @@ export default function ListadoEddEvalProyResp() {
                 <tr>
                   <th>ID</th>
                   <th>Evaluación</th>
-                  <th>ID proyEmp</th>
-                  <th>Respuesta</th>
                   <th>Proyecto</th>                  
                   <th>Empleado</th>
+                  <th>Respuesta</th>
                   <th>Pregunta</th>
                   <th>RespuestaPreg</th>
                   <th>Operaciones</th>
@@ -254,7 +253,6 @@ export default function ListadoEddEvalProyResp() {
                     <td>{EddEvalProyResp.nomProyecto}</td>
                     <td>{EddEvalProyResp.nomEmpleado}</td>
                     <td>{EddEvalProyResp.respuesta}</td>
-                    <td>{EddEvalProyResp.idEDDEvalProyResp}</td>
                     <td>{EddEvalProyResp.nomPregunta}</td>
                     <td>{EddEvalProyResp.nomRespPreg}</td>
                     <td>
@@ -263,7 +261,7 @@ export default function ListadoEddEvalProyResp() {
                         id="OperationBtns"
                         onClick={() =>
                           editarEddEvalProyResp(
-                            EddEvalProyResp.idEddEvalProyResp
+                            EddEvalProyResp.idEDDEvalProyResp
                           )
                         }
                       >
@@ -273,7 +271,7 @@ export default function ListadoEddEvalProyResp() {
                       <button
                         title="Desactivar EvalProyResp"
                         onClick={() =>
-                          desactivar(EddEvalProyResp.idEddEvalProyResp)
+                          desactivar(EddEvalProyResp.idEDDEvalProyResp)
                         }
                         id="OperationBtns"
                       >
