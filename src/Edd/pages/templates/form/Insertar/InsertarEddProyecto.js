@@ -69,15 +69,15 @@ const InsertarEDDProyecto = ({ isActiveEDDProyecto, cambiarEstado, EDDProyecto }
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Proyecto</Modal.Title>
+          <Modal.Title>Crear proyecto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_nombreDelEDDProyecto">Nombre:</label>
+              <label htmlFor="input_nombreDelEDDProyecto">Proyecto:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre proyecto"
+                placeholder="Escriba nombre del proyecto"
                 type="text"
                 className="form-control"
                 name="input_nombreDelEDDProyecto"
@@ -105,7 +105,7 @@ const InsertarEDDProyecto = ({ isActiveEDDProyecto, cambiarEstado, EDDProyecto }
               <label htmlFor="input_fechaF">Fecha Fin:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
+                placeholder="Fecha fin"
                 type="date"
                 className="form-control"
                 name="input_fechaF"
@@ -115,7 +115,7 @@ const InsertarEDDProyecto = ({ isActiveEDDProyecto, cambiarEstado, EDDProyecto }
               />
             </div>
             <div className="form-group">
-              <label htmlFor="input_serv">Servicio: </label>
+              <label htmlFor="input_serv">Servicio del cliente: </label>
               <select
                 required
                 className="form-control"

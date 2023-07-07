@@ -88,15 +88,15 @@ export default function ListadoEDDEvaluacion() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Evaluación</h1>
+          <h1 id="TitlesPages">Listado de evaluaciones</h1>
           <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de EDD Evaluación
+            EDD {"->"} Listado de evaluaciones
           </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDEvaluacion}>
-              Crear Evaluacion
+              Crear evaluación
             </Button>
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
@@ -144,9 +144,9 @@ export default function ListadoEDDEvaluacion() {
               <tr>
                 <th>ID</th>
                 <th>Evaluación</th>
-                <th>Tipo</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th>Tipo evaluación</th>
+                <th>Inicio vigencia</th>
+                <th>Fin vigencia</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -160,7 +160,7 @@ export default function ListadoEDDEvaluacion() {
                   <td>{EDDEvaluacion.fechaFin}</td>
                   <td>
                     <button
-                      title="Editar Evaluacion"
+                      title="Editar evaluación"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvaluacion(EDDEvaluacion.idEDDEvaluacion)
@@ -170,7 +170,7 @@ export default function ListadoEDDEvaluacion() {
                     </button>
 
                     <button
-                      title="Desactivar Evaluacion"
+                      title="Desactivar evaluación"
                       onClick={() => desactivar(EDDEvaluacion.idEDDEvaluacion)}
                       id="OperationBtns"
                     >

@@ -86,11 +86,11 @@ console.log(data);
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_nombreDelEddEvalCompetencia">Nombre:</label>
+              <label htmlFor="input_nombreDelEddEvalCompetencia">Competencia:</label>
               <input
               value={nomCompetencia}
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre proyecto"
+                placeholder="Escriba nombre"
                 type="text"
                 className="form-control"
                 name="input_nombreDelEddEvalCompetencia"

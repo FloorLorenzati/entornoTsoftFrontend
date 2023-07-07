@@ -106,20 +106,20 @@ export default function ListadoEDDEvalProyEmp() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Eval Proy Emp</h1>
+          <h1 id="TitlesPages">Listado de evaluaciones asociadas al proyecto-empleado</h1>
           <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de EDD Eval Proy Emp
+            EDD {"->"} Listado de evaluaciones asociadas al proyecto-empleado
           </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDEvalProyEmp}>
-              Crear EvalProyEmp
+            Asociar evaluación al proyecto - empleado
             </Button>
 
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadRegistros">
-                Cantidad registros:{" "}
+                Cantidad registros:
               </label>
               <select
                 value={cantidadPorPagina || ""}
@@ -189,11 +189,8 @@ export default function ListadoEDDEvalProyEmp() {
               <tr>
                 <th>ID</th>
                 <th>Evaluación</th>
-                <th>Proyeto</th> 
+                <th>Proyecto</th> 
                 <th>Empleado</th>
-                <th>Respondida</th>
-                <th>Inicio</th>
-                <th>Fin</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -204,13 +201,10 @@ export default function ListadoEDDEvalProyEmp() {
                   <td>{EDDEvalProyEmp.nomEvaluacion}</td>
                   <td>{EDDEvalProyEmp.nomProyecto}</td>
                   <td>{EDDEvalProyEmp.nomEmpleado}</td>
-                  <td>{EDDEvalProyEmp.evalRespondida}</td>
-                  <td>{EDDEvalProyEmp.fechaIni}</td>
-                  <td>{EDDEvalProyEmp.fechaFin}</td>
 
                   <td>
                   <button
-                        title="Editar EvalProyEmp"
+                        title="Editar evaluación de proyecto - empleado"
                         id="OperationBtns"
                         onClick={() =>
                           editarEDDEvalProyEmp(
@@ -222,7 +216,7 @@ export default function ListadoEDDEvalProyEmp() {
                       </button>
 
                     <button
-                      title="Desactivar EvalProyEmp"
+                      title="Desactivar evaluación de proyecto - empleado"
                       onClick={() =>
                         desactivar(EDDEvalProyEmp.idEDDEvalProyEmp)
                       }

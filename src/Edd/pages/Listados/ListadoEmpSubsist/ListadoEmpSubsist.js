@@ -118,15 +118,15 @@ export default function ListadoEmpSubsist() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Empleado SubSistema</h1>
+          <h1 id="TitlesPages">Listado de empleados asociados a subsistemas</h1>
           <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de Empleado SubSistema
+            EDD {"->"} Listado de empleados asociados a subsistemas
           </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEmpSubsist}>
-              Crear Emp Subsistema
+              Asociar empleado a subsistema
             </Button>
 
             <div className="form-group" id="btn2">
@@ -153,28 +153,7 @@ export default function ListadoEmpSubsist() {
                 <option value="100">100</option>
               </select>
             </div>
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Subsistema: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {
-                  setidSubsistema(target.value);
-                  setNumBoton(1);
-                }}
-              >
-                <option value="">Todos</option>
-                {listSubsistema.map((valor) => (
-                  <option
-                    selected={valor.idSubsistema === idSubsistema ? "selected" : ""}
-                    value={valor.idSubsistema}
-                  >
-                    {valor.nomSubsistema}
-                  </option>
-                ))}
-              </select>
-            </div>
+            
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Empleado: </label>
               <select
@@ -197,7 +176,28 @@ export default function ListadoEmpSubsist() {
                 ))}
               </select>
             </div>
-            
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Subsistema: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidSubsistema(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listSubsistema.map((valor) => (
+                  <option
+                    selected={valor.idSubsistema === idSubsistema ? "selected" : ""}
+                    value={valor.idSubsistema}
+                  >
+                    {valor.nomSubsistema}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <InsertarEmpSubsist
@@ -219,8 +219,9 @@ export default function ListadoEmpSubsist() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Subsistema</th>
                 <th>Empleado</th>
+                <th>Subsistema</th>
+
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -228,11 +229,12 @@ export default function ListadoEmpSubsist() {
               {EmpSubsist.map((EmpSubsist) => (
                 <tr key={EmpSubsist.idEmpSubsist}>
                   <td>{EmpSubsist.idEmpSubsist}</td>
-                  <td>{EmpSubsist.nomSubsistema}</td>
+
                   <td>{EmpSubsist.nomEmpleado}</td>
+                  <td>{EmpSubsist.nomSubsistema}</td>
                   <td>
                     <button
-                      title="Editar Subsistema"
+                      title="Editar empleado subsistema"
                       id="OperationBtns"
                       onClick={() => editarEmpSubsist(EmpSubsist.idEmpSubsist)}
                     >
@@ -247,7 +249,7 @@ export default function ListadoEmpSubsist() {
                       </button>
                     </Link>
                     <button
-                      title="Desactivar Subsistema"
+                      title="Desactivar empleado subsistema"
                       onClick={() => desactivar(EmpSubsist.idEmpSubsist)}
                       id="OperationBtns"
                     >

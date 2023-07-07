@@ -117,42 +117,11 @@ const editarEDDEvalPregunta = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Pregunta</Modal.Title>
+          <Modal.Title>Editar pregunta</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div>
-              <label htmlFor="input_nombreDelEDDEvalPregunta">Pregunta:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
-                type="text"
-                className="form-control"
-                name="input_nombreDelEDDEvalPregunta"
-                id="input_nombreDelEDDEvalPregunta"
-                value={nomPregunta || ""}
-                maxLength="50"
-                onChange={({ target }) => setnomPregunta(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_nombreDelEDDEvalPregunta">Orden:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
-                type="number"
-                className="form-control"
-                name="input_nombreDelEDDEvalPregunta"
-                id="input_nombreDelEDDEvalPregunta"
-                value={ordenPregunta || ""}
-                maxLength="11"
-                onChange={({ target }) => setordenPregunta(target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
+          <div className="form-group">
               <label htmlFor="input_eval">Evaluación: </label>
               <select
                 required
@@ -172,6 +141,38 @@ const editarEDDEvalPregunta = ({
                 ))}
               </select>
             </div>
+            <div>
+              <label htmlFor="input_nombreDelEDDEvalPregunta">Pregunta:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre"
+                type="text"
+                className="form-control"
+                name="input_nombreDelEDDEvalPregunta"
+                id="input_nombreDelEDDEvalPregunta"
+                value={nomPregunta || ""}
+                maxLength="50"
+                onChange={({ target }) => setnomPregunta(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_nombreDelEDDEvalPregunta">Orden:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Escriba número"
+                type="number"
+                className="form-control"
+                name="input_nombreDelEDDEvalPregunta"
+                id="input_nombreDelEDDEvalPregunta"
+                value={ordenPregunta || ""}
+                maxLength="11"
+                onChange={({ target }) => setordenPregunta(target.value)}
+                required
+              />
+            </div>
+
+           
             <div className="form-group">
               <label htmlFor="input_comp">Competencia: </label>
               <select

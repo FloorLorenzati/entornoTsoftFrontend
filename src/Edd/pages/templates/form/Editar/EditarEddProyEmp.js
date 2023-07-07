@@ -108,7 +108,7 @@ const EditarEDDProyEmp = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Proyecto</Modal.Title>
+        <Modal.Title>Editar proyecto - empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -119,7 +119,7 @@ const EditarEDDProyEmp = ({
                 className="form-control"
                 name="input_Empleado"
                 id="input_Empleado"
-                placeholder="Seleccione el Empleado"
+                placeholder="Seleccione el proyecto"
                 onChange={({ target }) => setidProyecto(target.value)}
               >
                 {listProyecto.map((valor) => (
@@ -139,7 +139,7 @@ const EditarEDDProyEmp = ({
                 className="form-control"
                 name="input_Empleado"
                 id="input_Empleado"
-                placeholder="Seleccione el Empleado"
+                placeholder="Seleccione el empleado"
                 onChange={({ target }) => setidEmpleado(target.value)}
               >
                 {listEmpleado.map((valor) => (
@@ -153,10 +153,10 @@ const EditarEDDProyEmp = ({
               </select>
             </div>
             <div>
-              <label htmlFor="input_nombreDelcargo">Cargo Proy:</label>
+            <label htmlFor="input_nombreDelcargo">Cargo en proyecto:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre cargo"
+                placeholder="Escriba nombre cargo en el proyecto"
                 type="text"
                 className="form-control"
                 name="input_nombreDelcargo"

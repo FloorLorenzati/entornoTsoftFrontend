@@ -53,10 +53,10 @@ const InsertarEddEvalCompetencia = ({ isActiveEddEvalCompetencia, cambiarEstado,
           <form onSubmit={SendData}>
 
           <div>
-              <label htmlFor="input_nombreDelEddEvalCompetencia">Nombre:</label>
+              <label htmlFor="input_nombreDelEddEvalCompetencia">Competencia:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre proyecto"
+                placeholder="Escriba nombre"
                 type="text"
                 className="form-control"
                 name="input_nombreDelEddEvalCompetencia"

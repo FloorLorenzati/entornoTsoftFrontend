@@ -96,16 +96,16 @@ console.log(data);
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Evaluación</Modal.Title>
+          <Modal.Title>Editar evaluación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_nombreDelEDDEvaluacion">Nombre:</label>
+              <label htmlFor="input_nombreDelEDDEvaluacion">Evaluación:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
-                type="text"
+               placeholder="Escriba nombre de la evaluación"
+               type="text"
                 className="form-control"
                 name="input_nombreDelEDDEvaluacion"
                 id="input_nombreDelEDDEvaluacion"
@@ -116,11 +116,11 @@ console.log(data);
               />
             </div>
             <div>
-              <label htmlFor="input_nombreDelEDDEvaluacion">TipEval:</label>
+              <label htmlFor="input_nombreDelEDDEvaluacion">Tipo evaluación:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
-                type="text"
+               placeholder="Escriba tipo de evaluación"
+               type="text"
                 className="form-control"
                 name="input_nombreDelEDDEvaluacion"
                 id="input_nombreDelEDDEvaluacion"
@@ -131,10 +131,10 @@ console.log(data);
               />
             </div>
             <div>
-              <label htmlFor="input_fechaI">Fecha inicio:</label>
+              <label htmlFor="input_fechaI">Fecha inicio vigencia:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
+                placeholder="Fecha inicio vigencia"
                 type="datetime-local"
                 className="form-control"
                 name="input_fechaI"
@@ -145,10 +145,10 @@ console.log(data);
               />
             </div>
             <div>
-              <label htmlFor="input_fechaF">Fecha Fin:</label>
+              <label htmlFor="input_fechaF">Fecha fin vigencia:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
+                placeholder="Fecha fin vigencia"
                 type="datetime-local"
                 className="form-control"
                 name="input_fechaF"

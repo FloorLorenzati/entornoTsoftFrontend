@@ -77,10 +77,29 @@ const InsertarEmpSubsist = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Emp Subsistema</Modal.Title>
+          <Modal.Title>Asociar empleado a subsistema</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
+          <div className="form-group">
+              <label htmlFor="input_Empleado">Empleado: </label>
+              <select
+                required
+                className="form-control"
+                name="input_Empleado"
+                id="input_Empleado"
+                placeholder="Seleccione el empleado"
+                onChange={({ target }) => setidEmpleado(target.value)}
+              >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
+                {listEmpleado.map((valor) => (
+                  <option value={valor.idEmpleado}>{valor.nomEmpleado}</option>
+                ))}
+              </select>
+            </div>
             <div className="form-group">
               <label htmlFor="input_SubSistema">SubSistema: </label>
               <select
@@ -88,7 +107,7 @@ const InsertarEmpSubsist = ({
                 className="form-control"
                 name="input_SubSistema"
                 id="input_SubSistema"
-                placeholder="Seleccione el servicio"
+                placeholder="Seleccione el subsistema"
                 onChange={({ target }) => setidSubsistema(target.value)}
               >
                 <option hidden value="">
@@ -102,25 +121,7 @@ const InsertarEmpSubsist = ({
                 ))}
               </select>
             </div>
-            <div className="form-group">
-              <label htmlFor="input_Empleado">Empleado: </label>
-              <select
-                required
-                className="form-control"
-                name="input_Empleado"
-                id="input_Empleado"
-                placeholder="Seleccione el servicio"
-                onChange={({ target }) => setidEmpleado(target.value)}
-              >
-                <option hidden value="">
-                  Desplegar lista
-                </option>
 
-                {listEmpleado.map((valor) => (
-                  <option value={valor.idEmpleado}>{valor.nomEmpleado}</option>
-                ))}
-              </select>
-            </div>
 
             <Button
               variant="secondary"

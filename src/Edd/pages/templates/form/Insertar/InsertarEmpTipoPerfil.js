@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../Insertar/Insertar.css";
 import SendDataService from "../../../../../services/SendDataService";
@@ -8,7 +8,11 @@ import TopAlerts from "../../../../../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPerfil }) => {
+const InsertarEmpTipoPerfil = ({
+  isActiveEmpTipoPerfil,
+  cambiarEstado,
+  EmpTipoPerfil,
+}) => {
   // ----------------------CONSTANTES----------------------------
   const [idTipoPerfil, setidTipoPerfil] = useState("");
   const [idEmpleado, setidEmpleado] = useState("");
@@ -37,7 +41,7 @@ const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPe
     const url = "pages/auxiliares/listadoTipoPerfilForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistTipoPerfil(response)
+      setlistTipoPerfil(response)
     );
   }
 
@@ -49,12 +53,13 @@ const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPe
       usuarioCreacion: userData.usuario,
       idTipoPerfil: idTipoPerfil,
       idEmpleado: idEmpleado,
-      isActive:true
+      isActive: true,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts('successCreated');
-      actualizarEmpTipoPerfil(EmpTipoPerfil);console.log(response);
+      TopAlerts("successCreated");
+      actualizarEmpTipoPerfil(EmpTipoPerfil);
+      console.log(response);
     });
   }
 
@@ -72,11 +77,10 @@ const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPe
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear tipo perfil</Modal.Title>
+          <Modal.Title> Asociar perfil a empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-
           <div className="form-group">
               <label htmlFor="input_Empleado">Empleado: </label>
               <select
@@ -96,9 +100,8 @@ const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPe
                 ))}
               </select>
             </div>
-
             <div className="form-group">
-              <label htmlFor="input_tipPerf">Tipo Perfil: </label>
+              <label htmlFor="input_tipPerf">Tipo perfil: </label>
               <select
                 required
                 className="form-control"
@@ -112,10 +115,13 @@ const InsertarEmpTipoPerfil = ({ isActiveEmpTipoPerfil, cambiarEstado, EmpTipoPe
                 </option>
 
                 {listTipoPerfil.map((valor) => (
-                  <option value={valor.idTipoPerfil}>{valor.nomTipoPerfil}</option>
+                  <option value={valor.idTipoPerfil}>
+                    {valor.nomTipoPerfil}
+                  </option>
                 ))}
               </select>
             </div>
+            
 
             <Button
               variant="secondary"

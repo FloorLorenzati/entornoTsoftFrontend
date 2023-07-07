@@ -100,44 +100,14 @@ console.log(data);
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar RespPreg</Modal.Title>
+        <Modal.Title>Editar respuesta de pregunta</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-          <div>
-              <label htmlFor="input_nombreDelEDDEvalRespPreg">RespPreg:</label>
-              <input
-               style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre RespPreg"
-                type="text"
-                className="form-control"
-                name="input_nombreDelEDDEvalRespPreg"
-                id="input_nombreDelEDDEvalRespPreg"
-                value={nomRespPreg || ""}
-                maxLength="50"
-                onChange={({ target }) => setnomRespPreg(target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="input_Orden">Orden:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Orden"
-                type="number"
-                className="form-control"
-                name="input_Orden"
-                id="input_Orden"
-                value={ordenRespPreg || ""}
-                maxLength="11"
-                onChange={({ target }) => setordenRespPreg(target.value)}
-                required
-              />
-            </div>
+         
             
-            <div className="form-group">
-              <label htmlFor="input_EvalPregunta">EvalPregunta: </label>
+          <div className="form-group">
+              <label htmlFor="input_EvalPregunta">Pregunta: </label>
               <select
                 required
                 className="form-control"
@@ -155,6 +125,36 @@ console.log(data);
                   </option>
                 ))}
               </select>
+            </div> 
+            <div>
+              <label htmlFor="input_Orden">Orden:</label>
+              <input
+                style={{ textTransform: "uppercase" }}
+                placeholder="Orden"
+                type="number"
+                className="form-control"
+                name="input_Orden"
+                id="input_Orden"
+                value={ordenRespPreg || ""}
+                maxLength="11"
+                onChange={({ target }) => setordenRespPreg(target.value)}
+                required
+              />
+            </div>
+<div>
+              <label htmlFor="input_nombreDelEDDEvalRespPreg">Respuesta:</label>
+              <input
+               style={{ textTransform: "uppercase" }}
+                placeholder="Escriba nombre RespPreg"
+                type="text"
+                className="form-control"
+                name="input_nombreDelEDDEvalRespPreg"
+                id="input_nombreDelEDDEvalRespPreg"
+                value={nomRespPreg || ""}
+                maxLength="50"
+                onChange={({ target }) => setnomRespPreg(target.value)}
+                required
+              />
             </div>
 
             <Button

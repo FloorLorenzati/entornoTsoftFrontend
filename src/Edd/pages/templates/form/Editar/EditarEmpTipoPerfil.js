@@ -105,7 +105,7 @@ console.log(data);
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar tipo perfil</Modal.Title>
+        <Modal.Title> Editar perfil de empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>

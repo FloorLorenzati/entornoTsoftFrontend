@@ -118,13 +118,15 @@ export default function ListadoEDDEvalPregunta() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Evaluación pregunta</h1>
-          <h6 style={{ color: "gray" }}>EDD {"->"} Listado de Eval pregunta</h6>
+          <h1 id="TitlesPages"> Listado de preguntas de evaluaciones</h1>
+          <h6 style={{ color: "gray" }}>
+            EDD {"->"} Listado de preguntas de evaluaciones
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDEvalPregunta}>
-              Crear pregunta
+              Crear pregunta 
             </Button>
 
             <div className="form-group" id="btn2">
@@ -151,9 +153,9 @@ export default function ListadoEDDEvalPregunta() {
                 <option value="100">100</option>
               </select>
             </div>
-            
+
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Evaluacion: </label>
+              <label htmlFor="input_CantidadR">Evaluación: </label>
               <select
                 required
                 type="text"
@@ -219,7 +221,7 @@ export default function ListadoEDDEvalPregunta() {
             setEDDEvalPregunta={setEDDEvalPregunta}
             EDDEvalPregunta={EDDEvalPregunta}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalPregunta> 
+          ></EditarEddEvalPregunta>
 
           <Table id="mainTable" hover responsive>
             <thead>
@@ -229,6 +231,9 @@ export default function ListadoEDDEvalPregunta() {
                 <th>Orden</th>
                 <th>Evaluación</th>
                 <th>Competencia</th>
+                <th>Tipo respuesta</th>
+                <th>Obligatorio (si o no)</th>
+
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -239,7 +244,10 @@ export default function ListadoEDDEvalPregunta() {
                   <td>{idEDDEvalPregunta.nomPregunta}</td>
                   <td>{idEDDEvalPregunta.ordenPregunta}</td>
                   <td>{idEDDEvalPregunta.nomEvaluacion}</td>
-                  <td>{idEDDEvalPregunta.nomCompetencia}</td>
+                  <td>{idEDDEvalPregunta.nomEvaluacion}</td>
+                  <td></td>
+                  <td></td>
+
                   <td>
                     <button
                       title="Editar pregunta"

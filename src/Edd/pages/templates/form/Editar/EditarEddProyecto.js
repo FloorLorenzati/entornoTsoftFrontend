@@ -108,10 +108,10 @@ console.log(data);
         <Modal.Body>
           <form onSubmit={SendData}>
           <div>
-              <label htmlFor="input_nombreDelEDDProyecto">Nombre:</label>
+              <label htmlFor="input_nombreDelEDDProyecto">Proyecto:</label>
               <input
                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
+                placeholder="Escriba nombre proyecto"
                 type="text"
                 className="form-control"
                 name="input_nombreDelEDDProyecto"
@@ -141,7 +141,7 @@ console.log(data);
               <label htmlFor="input_fechaF">Fecha Fin:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
+                placeholder="Fecha fin"
                 type="date"
                 className="form-control"
                 name="input_fechaF"
@@ -152,13 +152,13 @@ console.log(data);
               />
             </div>
             <div className="form-group">
-              <label htmlFor="input_serv">Servicio: </label>
+              <label htmlFor="input_serv">Servicio del cliente: </label>
               <select
                 required
                 className="form-control"
                 name="input_serv"
                 id="input_serv"
-                placeholder="Seleccione el servicio"
+                placeholder="Seleccione el servicio del cliente"
                 onChange={({ target }) => setidServicio(target.value)}
               >
                 {listServicio.map((valor) => (

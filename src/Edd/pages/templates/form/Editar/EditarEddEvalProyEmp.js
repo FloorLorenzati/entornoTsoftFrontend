@@ -127,7 +127,7 @@ const EditarEddEvalProyEmp = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Eval proy emp</Modal.Title>
+        <Modal.Title>Editar evaluación al <br></br>proyecto - empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -152,7 +152,7 @@ const EditarEddEvalProyEmp = ({
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="input_proyemp">Proyecto Empleado: </label>
+              <label htmlFor="input_proyemp">Proyecto - Empleado: </label>
               <select
                 required
                 className="form-control"
@@ -170,49 +170,6 @@ const EditarEddEvalProyEmp = ({
                   </option>
                 ))}
               </select>
-            </div>
-            <div>
-              <label htmlFor="input_nombreDelEDDEvalPregunta">Respondida:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre Proyecto"
-                type="number"
-                className="form-control"
-                name="input_nombreDelEDDEvalPregunta"
-                id="input_nombreDelEDDEvalPregunta"
-                value={evalRespondida || ""}
-                maxLength="4"
-                onChange={({ target }) => setevalRespondida(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_fechaI">Fecha inicio:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
-                type="datetime-local"
-                className="form-control"
-                name="input_fechaI"
-                id="input_fechaI"
-                value={fechaIni || ""}
-                onChange={({ target }) => setfechaIni(target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="input_fechaf">Fecha fin:</label>
-              <input
-                style={{ textTransform: "uppercase" }}
-                placeholder="Fecha inicio"
-                type="datetime-local"
-                className="form-control"
-                name="input_fechaf"
-                id="input_fechaf"
-                value={fechaFin || ""}
-                onChange={({ target }) => setfechaFin(target.value)}
-                required
-              />
             </div>
            
             <Button

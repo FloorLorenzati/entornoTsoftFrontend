@@ -106,15 +106,15 @@ export default function ListadoEDDEvalRespPreg() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Eval resp pregunta</h1>
+          <h1 id="TitlesPages">Listado de respuestas de preguntas de evaluaciones</h1>
           <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de Eval resp pregunta
+            EDD {"->"} Listado de respuestas de preguntas de evaluaciones
           </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDEvalRespPreg}>
-              Crear RespPreg
+              Crear respuesta de pregunta
             </Button>
 
             <div className="form-group" id="btn2">
@@ -142,7 +142,7 @@ export default function ListadoEDDEvalRespPreg() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Eval Pregunta: </label>
+              <label htmlFor="input_CantidadR">Pregunta: </label>
               <select
                 required
                 type="text"
@@ -188,9 +188,9 @@ export default function ListadoEDDEvalRespPreg() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nom Resp preg</th>
-                <th>Orden</th>
                 <th>Pregunta</th>
+                <th>Orden</th>
+                <th>Respuesta</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -198,13 +198,12 @@ export default function ListadoEDDEvalRespPreg() {
               {EDDEvalRespPreg.map((idEDDEvalRespPreg) => (
                 <tr key={idEDDEvalRespPreg.idEDDEvalRespPreg}>
                   <td>{idEDDEvalRespPreg.idEDDEvalRespPreg}</td>
-                  <td>{idEDDEvalRespPreg.nomRespPreg}</td>
-                  <td>{idEDDEvalRespPreg.ordenRespPreg}</td>
                   <td>{idEDDEvalRespPreg.nomPregunta}</td>
-
+                  <td align="right" width={10}>{idEDDEvalRespPreg.ordenRespPreg}</td>
+                  <td>{idEDDEvalRespPreg.nomRespPreg}</td>
                   <td>
                     <button
-                      title="Editar RespPreg"
+                      title="Editar respuesta de pregunta"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvalRespPreg(
@@ -215,7 +214,7 @@ export default function ListadoEDDEvalRespPreg() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar RespPreg"
+                      title="Desactivar respuesta de pregunta"
                       onClick={() =>
                         desactivar(idEDDEvalRespPreg.idEDDEvalRespPreg)
                       }

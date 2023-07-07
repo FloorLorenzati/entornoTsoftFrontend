@@ -103,13 +103,13 @@ export default function ListadoEddProyecto() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Proyecto</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de Proyecto</h6>
+          <h1 id="TitlesPages">Listado de proyectos</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de proyectos</h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDProyecto}>
-              Crear Proyecto
+              Crear proyecto
             </Button>
 
             <div className="form-group" id="btn2">
@@ -137,7 +137,7 @@ export default function ListadoEddProyecto() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Servicios: </label>
+              <label htmlFor="input_CantidadR">Servicios del cliente: </label>
               <select
                 required
                 type="text"
@@ -179,7 +179,7 @@ export default function ListadoEddProyecto() {
                 <th>Proyecto</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Servicio</th>
+                <th>Servicio del cliente</th>
                 <th>Operaciones</th>
               </tr>
             </thead>

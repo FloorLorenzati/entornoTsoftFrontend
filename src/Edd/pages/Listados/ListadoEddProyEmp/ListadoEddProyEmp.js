@@ -115,13 +115,13 @@ export default function ListadoEDDProyEmp() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Proyecto Empleado</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Proyecto Empleado</h6>
+          <h1 id="TitlesPages">Listado de proyectos - empleados</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de proyectos - empleados</h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDProyEmp}>
-              Crear EDD proy emp
+              Asociar proyecto - empleado
             </Button>
 
             <div className="form-group" id="btn2">
@@ -209,7 +209,7 @@ export default function ListadoEDDProyEmp() {
                 <th>ID</th>
                 <th>Proyecto</th>
                 <th>Empleado</th>
-                <th>Cargo Proyec</th>
+                <th>Cargo en proyecto</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -222,7 +222,7 @@ export default function ListadoEDDProyEmp() {
                   <td>{EDDProyEmp.cargoEnProy}</td>
                   <td>
                     <button
-                      title="Editar ProyEmp"
+                      title="Editar proyecto - empleado"
                       id="OperationBtns"
                       onClick={() => editarEDDProyEmp(EDDProyEmp.idEDDProyEmp)}
                     >
@@ -230,7 +230,7 @@ export default function ListadoEDDProyEmp() {
                     </button>
                     
                     <button
-                      title="Desactivar ProyEmp"
+                      title="Desactivar proyecto - empleado"
                       onClick={() => desactivar(EDDProyEmp.idEDDProyEmp)}
                       id="OperationBtns"
                     >

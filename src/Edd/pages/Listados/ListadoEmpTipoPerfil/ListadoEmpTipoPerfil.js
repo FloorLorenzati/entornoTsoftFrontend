@@ -117,13 +117,13 @@ export default function ListadoEmpTipoPerfil() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de Emp tipo perfil</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de Emp tipo perfil</h6>
+          <h1 id="TitlesPages">Listado de perfiles de empleados</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de perfiles de empleados</h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEmpTipoPerfil}>
-              Crear tipo perfil
+              Asociar perfil a empleado
             </Button>
 
             <div className="form-group" id="btn2">
@@ -150,6 +150,26 @@ export default function ListadoEmpTipoPerfil() {
                 <option value="100">100</option>
               </select>
             </div>
+           
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Tipo Perfil: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {setidTipoPerfil(target.value);setNumBoton(1);}}
+              >
+                <option value="">Todos</option>
+                {listTipoPerfil.map((valor) => (
+                  <option
+                  selected={(valor.idTipoPerfil === idTipoPerfil ? "selected" : "")}
+                  value={valor.idTipoPerfil}
+                >
+                  {valor.nomTipoPerfil}
+                </option>
+              ))}
+              </select>
+            </div>
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Empleado: </label>
               <select
@@ -170,25 +190,6 @@ export default function ListadoEmpTipoPerfil() {
                     {valor.nomEmpleado}
                   </option>
                 ))}
-              </select>
-            </div>
-            <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Tipo Perfil: </label>
-              <select
-                required
-                type="text"
-                className="form-control"
-                onChange={({ target }) => {setidTipoPerfil(target.value);setNumBoton(1);}}
-              >
-                <option value="">Todos</option>
-                {listTipoPerfil.map((valor) => (
-                  <option
-                  selected={(valor.idTipoPerfil === idTipoPerfil ? "selected" : "")}
-                  value={valor.idTipoPerfil}
-                >
-                  {valor.nomTipoPerfil}
-                </option>
-              ))}
               </select>
             </div>
           </div>
@@ -212,8 +213,9 @@ export default function ListadoEmpTipoPerfil() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Tipo Perfil</th>
+                <th>Tipo perfil</th>
+                <th>Empleado</th>
+
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -221,18 +223,19 @@ export default function ListadoEmpTipoPerfil() {
               {EmpTipoPerfil.map((EmpTipoPerfil) => (
                 <tr key={EmpTipoPerfil.idEmpTipoPerfil}>
                   <td>{EmpTipoPerfil.idEmpTipoPerfil}</td>
-                  <td>{EmpTipoPerfil.nomEmpleado}</td>
                   <td>{EmpTipoPerfil.nomTipoPerfil}</td>
+                  <td>{EmpTipoPerfil.nomEmpleado}</td>
+
                   <td>
                     <button
-                      title="Editar TipoPerfil"
+                      title="Editar perfil de empleado"
                       id="OperationBtns"
                       onClick={() => editarEmpTipoPerfil(EmpTipoPerfil.idEmpTipoPerfil)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar Tipo perfil"
+                      title="Desactivar perfil de empleado"
                       onClick={() => desactivar(EmpTipoPerfil.idEmpTipoPerfil)}
                       id="OperationBtns"
                     >

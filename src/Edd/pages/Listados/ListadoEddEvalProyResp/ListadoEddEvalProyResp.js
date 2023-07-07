@@ -10,8 +10,8 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
 
 import "../TablasStyles.css";
-import InsertarEddEvalProyResp from "../../templates/form/Insertar/InsertarEddEvalProyResp";
-import EditarEddEvalProyResp from "../../templates/form/Editar/EditarEddEvalProyResp";
+// import InsertarEddEvalProyResp from "../../templates/form/Insertar/InsertarEddEvalProyResp";
+// import EditarEddEvalProyResp from "../../templates/form/Editar/EditarEddEvalProyResp";
 import ConfirmAlert from "../../../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../../../templates/alerts/TopAlerts";
 import Paginador from "../../../../templates/Paginador/Paginador";
@@ -77,13 +77,13 @@ export default function ListadoEddEvalProyResp() {
     setlistEDDEvalPregunta(response)
     );
   }
-      function insertarEddEvalProyResp() {
-        setisActiveInsertEDDEvalProyResp(!isActiveInsertEDDEvalProyResp);
-      }
-      function editarEddEvalProyResp(ID) {
-        setIsActiveEditEDDEvalProyResp(!isActiveEditEDDEvalProyResp);
-        setidEddEvalProyResp(ID);
-      }
+      // function insertarEddEvalProyResp() {
+      //   setisActiveInsertEDDEvalProyResp(!isActiveInsertEDDEvalProyResp);
+      // }
+      // function editarEddEvalProyResp(ID) {
+      //   setIsActiveEditEDDEvalProyResp(!isActiveEditEDDEvalProyResp);
+      //   setidEddEvalProyResp(ID);
+      // }
 
     function desactivar(ID) {
       ConfirmAlert().then((response) => {
@@ -143,16 +143,16 @@ export default function ListadoEddEvalProyResp() {
         <br></br>
         <Container id="fondoTabla">
           <div id="containerTablas">
-            <h1 id="TitlesPages">Listado de EDD Eval Proy Resp</h1>
+            <h1 id="TitlesPages">Listado de resultado de evaluaciones</h1>
             <h6 style={{ color: "gray" }}>
-              EDD {"->"} Listado de EDD Eval Proy Resp
+              EDD {"->"} Listado de resultado de evaluaciones
             </h6>
             <br></br>
 
             <div id="selectPaginador">
-              <Button id="btn" onClick={insertarEddEvalProyResp}>
+              {/* <Button id="btn" onClick={insertarEddEvalProyResp}>
               Crear EvalProyResp
-            </Button>
+            </Button> */}
               <div className="form-group" id="btn2">
                 <label htmlFor="input_CantidadRegistros">
                   Cantidad registros:{" "}
@@ -254,7 +254,7 @@ export default function ListadoEddEvalProyResp() {
                 </select>
               </div>
               <div className="form-group" id="btn2">
-                <label htmlFor="input_CantidadR">RespuestaPreg: </label>
+                <label htmlFor="input_CantidadR">Respuesta usuario: </label>
                 <select
                   required
                   type="text"
@@ -281,7 +281,7 @@ export default function ListadoEddEvalProyResp() {
               </div> 
             </div>
 
-            <InsertarEddEvalProyResp
+            {/* <InsertarEddEvalProyResp
             isActiveInsertEDDEvalProyResp={isActiveInsertEDDEvalProyResp}
             cambiarEstado={setisActiveInsertEDDEvalProyResp}
             EDDEvalProyResp={EddEvalProyResp}
@@ -294,7 +294,7 @@ export default function ListadoEddEvalProyResp() {
             setEDDEvalProyResp={setEddEvalProyResp}
             EDDEvalProyResp={EddEvalProyResp}
             nombreTabla={nombreTabla}
-          ></EditarEddEvalProyResp> 
+          ></EditarEddEvalProyResp>  */}
 
             <Table id="mainTable" hover responsive>
             <thead>
@@ -303,10 +303,11 @@ export default function ListadoEddEvalProyResp() {
                   <th>Evaluación</th>
                   <th>Proyecto</th>                  
                   <th>Empleado</th>
-                  <th>Respuesta</th>
                   <th>Pregunta</th>
-                  <th>RespuestaPreg</th>
-                  <th>Operaciones</th>
+                  <th>Respuesta (T)</th>
+
+                  <th>Respuesta usuario (A)</th>
+                  {/* <th>Operaciones</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -316,11 +317,12 @@ export default function ListadoEddEvalProyResp() {
                     <td>{EddEvalProyResp.nomEvaluacion}</td>
                     <td>{EddEvalProyResp.nomProyecto}</td>
                     <td>{EddEvalProyResp.nomEmpleado}</td>
-                    <td>{EddEvalProyResp.respuesta}</td>
                     <td>{EddEvalProyResp.nomPregunta}</td>
+                    <td>{EddEvalProyResp.respuesta}</td>
+
                     <td>{EddEvalProyResp.nomRespPreg}</td>
                     <td>
-                      <button
+                      {/* <button
                         title="Editar EvalProyResp"
                         id="OperationBtns"
                         onClick={() =>
@@ -340,7 +342,7 @@ export default function ListadoEddEvalProyResp() {
                         id="OperationBtns"
                       >
                         <BsFillTrashFill id="icons" />
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}

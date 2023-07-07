@@ -60,7 +60,7 @@ const InsertarEDDProyEmp = ({
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-    //   TopAlerts("successCreated");
+      //   TopAlerts("successCreated");
       actualizarEDDProyEmp(EDDProyEmp);
       console.log(response);
     });
@@ -80,7 +80,7 @@ const InsertarEDDProyEmp = ({
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear EDD proy emp</Modal.Title>
+          <Modal.Title> Asociar proyecto - empleado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -99,7 +99,9 @@ const InsertarEDDProyEmp = ({
                 </option>
 
                 {listProyecto.map((valor) => (
-                  <option value={valor.idEDDProyecto}>{valor.nomProyecto}</option>
+                  <option value={valor.idEDDProyecto}>
+                    {valor.nomProyecto}
+                  </option>
                 ))}
               </select>
             </div>
@@ -110,7 +112,7 @@ const InsertarEDDProyEmp = ({
                 className="form-control"
                 name="input_Empleado"
                 id="input_Empleado"
-                placeholder="Seleccione el Empleado"
+                placeholder="Seleccione el empleado"
                 onChange={({ target }) => setidEmpleado(target.value)}
               >
                 <option hidden value="">
@@ -123,15 +125,14 @@ const InsertarEDDProyEmp = ({
               </select>
             </div>
             <div>
-              <label htmlFor="input_nombreDelcargo">Cargo Proy:</label>
+              <label htmlFor="input_nombreDelcargo">Cargo en proyecto:</label>
               <input
                 style={{ textTransform: "uppercase" }}
-                placeholder="Escriba nombre cargo"
+                placeholder="Escriba nombre cargo en el proyecto"
                 type="text"
                 className="form-control"
                 name="input_nombreDelcargo"
                 id="input_nombreDelcargo"
-                value={cargoEnProy || ""}
                 maxLength="15"
                 onChange={({ target }) => setcargoEnProy(target.value)}
                 required

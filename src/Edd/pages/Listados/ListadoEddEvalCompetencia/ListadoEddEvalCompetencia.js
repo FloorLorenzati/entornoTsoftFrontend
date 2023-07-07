@@ -86,8 +86,8 @@ export default function ListadoEddEvalCompetencia() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de EDD Eval Competencia</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de EDD Eval Competencia</h6>
+          <h1 id="TitlesPages">Listado de competencias de preguntas</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de competencias de preguntas</h6>
           <br></br>
 
           <div id="selectPaginador">

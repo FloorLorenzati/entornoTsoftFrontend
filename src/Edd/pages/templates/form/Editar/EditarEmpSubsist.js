@@ -106,30 +106,11 @@ console.log(data);
     <>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Proyecto</Modal.Title>
+        <Modal.Title>Editar empleado a subsistema</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div className="form-group">
-              <label htmlFor="input_SubSistema">SubSistema: </label>
-              <select
-                required
-                className="form-control"
-                name="input_SubSistema"
-                id="input_SubSistema"
-                placeholder="Seleccione el servicio"
-                onChange={({ target }) => setidSubsistema(target.value)}
-              >
-                {listSubsistema.map((valor) => (
-                  <option
-                    selected={valor.idSubsistema === idSubsistema ? "selected" : ""}
-                    value={valor.idSubsistema}
-                  >
-                    {valor.nomSubsistema}
-                  </option>
-                ))}
-              </select>
-            </div>
+
             <div className="form-group">
               <label htmlFor="input_Empleado">Empleado: </label>
               <select
@@ -137,7 +118,7 @@ console.log(data);
                 className="form-control"
                 name="input_Empleado"
                 id="input_Empleado"
-                placeholder="Seleccione el servicio"
+                placeholder="Seleccione el empleado"
                 onChange={({ target }) => setidEmpleado(target.value)}
               >
                 {listEmpleado.map((valor) => (
@@ -146,6 +127,26 @@ console.log(data);
                     value={valor.idEmpleado}
                   >
                     {valor.nomEmpleado}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_SubSistema">SubSistema: </label>
+              <select
+                required
+                className="form-control"
+                name="input_SubSistema"
+                id="input_SubSistema"
+                placeholder="Seleccione el subsistema"
+                onChange={({ target }) => setidSubsistema(target.value)}
+              >
+                {listSubsistema.map((valor) => (
+                  <option
+                    selected={valor.idSubsistema === idSubsistema ? "selected" : ""}
+                    value={valor.idSubsistema}
+                  >
+                    {valor.nomSubsistema}
                   </option>
                 ))}
               </select>
