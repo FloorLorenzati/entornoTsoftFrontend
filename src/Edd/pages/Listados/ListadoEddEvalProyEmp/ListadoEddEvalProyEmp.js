@@ -34,15 +34,23 @@ export default function ListadoEDDEvalProyEmp() {
   const nombreTabla = "eddevalproyemp";
 
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
-  const [idEDDProyecto, setidEDDProyecto] = useState(params.params);
+  const [idEDDProyEmp, setidEDDProyEmp] = useState(params.params);
 
   const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
+  const [listEDDProyEmp, setlistEDDProyEmp] = useState([""]);
 
   function obtenerEvaluacion() {
     const url = "pages/auxiliares/listadoEddEvaluacion.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
       setlistEDDEvaluacion(response)
+    );
+  }
+  function obtenerProyEmp() {
+    const url = "pages/auxiliares/listadoEddProyEmp.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDProyEmp(response)
     );
   }
 
@@ -75,8 +83,9 @@ export default function ListadoEDDEvalProyEmp() {
     function () {
       handleChangePaginador();
       obtenerEvaluacion();
+      obtenerProyEmp()
     },
-    [num_boton, cantidadPorPagina, idEDDProyecto, idEDDEvaluacion]
+    [num_boton, cantidadPorPagina, idEDDProyEmp, idEDDEvaluacion]
   );
 
   //PAGINADOR ---------------------
@@ -87,13 +96,13 @@ export default function ListadoEDDEvalProyEmp() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idEDDProyEmp: idEDDProyecto,
+      idEDDProyEmp: idEDDProyEmp,
       idEDDEvaluacion: idEDDEvaluacion,
-    };
+    };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEDDEvalProyEmp(datos.datos);
+      setEDDEvalProyEmp(datos.datos);console.log(data);
     });
   }
 
@@ -163,6 +172,32 @@ export default function ListadoEDDEvalProyEmp() {
                     value={valor.idEDDEvaluacion}
                   >
                     {valor.nomEvaluacion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Proyecto-Empleado: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEDDProyEmp(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listEDDProyEmp.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDProyEmp === idEDDProyEmp
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDProyEmp}
+                  >
+                    {valor.nomProyEmp}
                   </option>
                 ))}
               </select>

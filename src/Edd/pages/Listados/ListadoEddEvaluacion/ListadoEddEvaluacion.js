@@ -7,7 +7,8 @@ import getDataService from "../../../../services/GetDataService";
 import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
-import { BsFillKeyFill, BsFillTrashFill } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillBook } from "react-icons/ai";
 
 import "../TablasStyles.css";
 import InsertarEDDEvaluacion from "../../templates/form/Insertar/InsertarEddEvaluacion";
@@ -19,6 +20,8 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoEDDEvaluacion() {
+  const [, params] = useRoute("/listadoEddEvaluacion/:params");
+
   const [EDDEvaluacion, setEDDEvaluacion] = useState([""]);
   const [isActiveInsertEDDEvaluacion, setIsActiveInsertEDDEvaluacion] =
     useState(false);
@@ -30,6 +33,18 @@ export default function ListadoEDDEvaluacion() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "eddevaluacion";
+
+  const [idEvaluacion, setidEvaluacion] = useState(params.params);
+
+  const [listEvaluacion, setlistEvaluacion] = useState([""]);
+
+  function obtenerEvaluacion() {
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistEvaluacion(response)
+    );
+  }
 
   function insertarEDDEvaluacion() {
     setIsActiveInsertEDDEvaluacion(!isActiveInsertEDDEvaluacion);
@@ -59,8 +74,9 @@ export default function ListadoEDDEvaluacion() {
   useEffect(
     function () {
       handleChangePaginador();
+      obtenerEvaluacion()
     },
-    [num_boton, cantidadPorPagina]
+    [num_boton, cantidadPorPagina,idEvaluacion]
   );
 
   //PAGINADOR ---------------------
@@ -71,11 +87,13 @@ export default function ListadoEDDEvaluacion() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
+      idEDDEvaluacion: idEvaluacion,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setEDDEvaluacion(datos.datos);
+      setEDDEvaluacion(datos.datos);console.log(data);
     });
   }
 
@@ -120,6 +138,32 @@ export default function ListadoEDDEvaluacion() {
                 <option value="25">25</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
+              </select>
+            </div>
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Evaluación: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEvaluacion(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listEvaluacion.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDEvaluacion === idEDDEvaluacion
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvaluacion}
+                  >
+                    {valor.nomEvaluacion}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -168,7 +212,11 @@ export default function ListadoEDDEvaluacion() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-
+                    <Link to={`/listadoEddEvalPregunta/${EDDEvaluacion.idEDDEvaluacion}`}>
+                      <button title="Preguntas relacionadas" id="OperationBtns">
+                        <AiFillBook id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar evaluación"
                       onClick={() => desactivar(EDDEvaluacion.idEDDEvaluacion)}

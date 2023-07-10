@@ -8,6 +8,7 @@ import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillBook } from "react-icons/ai";
 
 import "../TablasStyles.css";
 import InsertarEDDEvalPregunta from "../../templates/form/Insertar/InsertarEddEvalPregunta";
@@ -37,6 +38,9 @@ export default function ListadoEDDEvalPregunta() {
     params.params
   );
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
+  const [idEDDEvaPregunta, setidEDDEvaPregunta] = useState(params.params);
+
+  const [listEDDEvaPregunta, setlistEDDEvaPregunta] = useState([""]);
 
   const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
   const [listEDDEvalCompetencia, setlistEDDEvalCompetencia] = useState([""]);
@@ -54,6 +58,14 @@ export default function ListadoEDDEvalPregunta() {
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
       setlistEDDEvaluacion(response)
+    );
+  }
+
+  function obtenerEDDEvalPregunta() {
+    const url = "pages/auxiliares/listadoEddEvalPregunta.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+    setlistEDDEvaPregunta(response)
     );
   }
 
@@ -87,8 +99,9 @@ export default function ListadoEDDEvalPregunta() {
       handleChangePaginador();
       obtenerEDDEvalCompetencia();
       obtenerEDDEvaluacion();
+      obtenerEDDEvalPregunta()
     },
-    [num_boton, cantidadPorPagina, idEDDEvalCompetencia, idEDDEvaluacion]
+    [num_boton, cantidadPorPagina, idEDDEvalCompetencia, idEDDEvaluacion,idEDDEvalPregunta]
   );
 
   //PAGINADOR ---------------------
@@ -101,6 +114,7 @@ export default function ListadoEDDEvalPregunta() {
       cantidadPorPagina: cantidadPorPagina,
       idEDDEvalCompetencia: idEDDEvalCompetencia,
       idEDDEvaluacion: idEDDEvaluacion,
+      idEDDEvalPregunta:idEDDEvalPregunta
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
@@ -153,7 +167,32 @@ export default function ListadoEDDEvalPregunta() {
                 <option value="100">100</option>
               </select>
             </div>
-
+            <div className="form-group" id="btn2">
+              <label htmlFor="input_CantidadR">Pregunta: </label>
+              <select
+                required
+                type="text"
+                className="form-control"
+                onChange={({ target }) => {
+                  setidEDDEvaPregunta(target.value);
+                  setNumBoton(1);
+                }}
+              >
+                <option value="">Todos</option>
+                {listEDDEvaPregunta.map((valor) => (
+                  <option
+                    selected={
+                      valor.idEDDEvalPregunta === idEDDEvalPregunta
+                        ? "selected"
+                        : ""
+                    }
+                    value={valor.idEDDEvalPregunta}
+                  >
+                    {valor.nomPregunta}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="form-group" id="btn2">
               <label htmlFor="input_CantidadR">Evaluación: </label>
               <select
@@ -260,6 +299,11 @@ export default function ListadoEDDEvalPregunta() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+                    <Link to={`/listadoEddEvalRespPreg/${idEDDEvalPregunta.idEDDEvalPregunta}`}>
+                      <button title="Respuestas relacionadas" id="OperationBtns">
+                        <AiFillBook id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar pregunta"
                       onClick={() =>
