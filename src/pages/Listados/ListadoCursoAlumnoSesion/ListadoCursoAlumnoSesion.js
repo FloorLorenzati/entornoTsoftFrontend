@@ -101,7 +101,7 @@ export default function ListadoCursoAlumnoSesion() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Cursos Alumnos Sesiones</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Cursos Alumnos Sesiones</h6>
+          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Cursos     s Sesiones</h6>
           <br></br>
 
           <div id="selectPaginador">

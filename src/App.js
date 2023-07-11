@@ -13,7 +13,7 @@ import ListadoRamos from "./pages/Listados/ListadoRamos/ListadoRamos";
 import ListadoClientes from "./pages/Listados/ListadoClientes/ListadoClientes";
 import ListadoSesiones from "./pages/Listados/ListadoSesiones/ListadoSesiones.js";
 import ListadoServicios from "./pages/Listados/ListadoServicios/ListadoServicios";
-import ListadoAlumnos from "./pages/Listados/ListadoAlumnos/ListadoAlumnos";
+// import ListadoAlumnos from "./pages/Listados/ListadoAlumnos/ListadoAlumnos";
 import ListadoCursos from "./pages/Listados/ListadoCursos/ListadoCursos";
 import ListadoContacto from "./pages/Listados/ListadoContacto/ListadoContacto";
 import ListadoCursoAlumnos from "./pages/Listados/ListadoCursoAlumno/ListadoCursoAlumno";
@@ -70,7 +70,7 @@ function App() {
               element={<ListadoServicios />}
               path="/listadoServicios/:params"
             ></Route>
-            <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route>
+            {/* <Route element={<ListadoAlumnos />} path="/listadoAlumnos"></Route> */}
             <Route
               element={<ListadoContacto />}
               path="/listadoContacto/:params"

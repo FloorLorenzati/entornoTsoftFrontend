@@ -23,8 +23,10 @@
   background: none;
 }
 #containerTablas{
-  padding-top: 1em;
+  padding-top: 1em
 }
+
+/* PAGINADOR */
 #paginador {
   display: flex;
   width: min-content;
@@ -68,7 +70,7 @@
   display: flex;
   flex-direction: row;
   
-  
+/* FIN PAGINADOR */
 }
 #btn1{
   background-color: #e10b1c;

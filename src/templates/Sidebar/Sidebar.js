@@ -97,166 +97,28 @@ export default function SideBar(props) {
           </div>
           <div class="offcanvas-body">
             <ul>
+              <h5>SUBSISTEMAS</h5>
               <div>
                 <Container id="textLeft">
-                  <li>
-                    <Link
-                      id="li_home"
-                      to={
-                        userData.nomRol === "administrador" ||
-                        userData.nomRol === "capital_humano"
-                          ? "/home"
-                          : "/homeColaboradores"
-                      }
-                    >
-                      <button id="buttonSidebar">
-                        <IoHome id="icons" />
-                        HOME
-                      </button>
-                    </Link>
-                  </li>
-                  {/* <li
-                    className={
-                      userData.nomRol !== "colaborador" ? "private" : ""
-                    }
-                  >
-                    <Link to="/MisCursos">
+                  {/* --------------------------------------------------- */}
+                  <li id="li_Academia">
+                    <Link to="/listadoClientes/0">
                       <button id="submenuSidebar">
-                        <GiBookCover id="icons" />
-                        Mis Cursos
+                        <IoIosPeople id="icons" />
+                        Clientes
                       </button>
                     </Link>
                   </li>
-                  <li
-                    className={
-                      userData.nomRol !== "colaborador" ? "private" : ""
-                    }
-                  >
-                    <Link to="/InscripcionCurso">
+                  {/* --------------------------------------------------- */}
+                  <li id="li_Academia">
+                    <Link to="/listadoEmpleados">
                       <button id="submenuSidebar">
-                        <GiArchiveRegister id="icons" />
-                        Inscribirse a un curso
+                        <ImBook id="icons" />
+                        Colaboradores
                       </button>
                     </Link>
                   </li>
-                  <li
-                    id="li_Academia"
-                    onClick={handleChangeAdmin}
-                    className={
-                      userData.nomRol === "administrador" ||
-                      userData.nomRol === "capital_humano"
-                        ? ""
-                        : "private"
-                    }
-                  >
-                    <button id="buttonSidebar">
-                      <GiPadlock id={"icons"}></GiPadlock>ADMINISTRADOR
-                    </button>
-                    <ul
-                      id="COE_Academia"
-                      className={isToggledAdmin ? "active" : ""}
-                    >
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/clientes/0">
-                          <button id="submenuSidebar">
-                            <BsFillPeopleFill id="icons" />
-                            Clientes
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/colaborador/1">
-                          <button id="submenuSidebar">
-                            <BsFillPersonLinesFill id="icons" />
-                            Colaborador
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/cursos/2">
-                          <button id="submenuSidebar">
-                            <GiBookCover id="icons" />
-                            Cursos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/EDDAnalistas/3">
-                          <button id="submenuSidebar">
-                            <SiGitbook id="icons" />
-                            EDD Analistas
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/EDDReferentes/4">
-                          <button id="submenuSidebar">
-                            <SiBookstack id="icons" />
-                            EDD Referentes
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/empleados/5">
-                          <button id="submenuSidebar">
-                            <MdEmojiPeople id="icons" />
-                            Empleados
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/equipos/6">
-                          <button id="submenuSidebar">
-                            <FaPeopleCarry id="icons" />
-                            Equipos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/proyectos/7">
-                          <button id="submenuSidebar">
-                            <GiNetworkBars id="icons" />
-                            Proyectos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/ramos/8">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Ramos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/Administrador/relator/9">
-                          <button id="submenuSidebar">
-                            <ImAddressBook id="icons" />
-                            Relator
-                          </button>
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li
-                    id="li_Academia"
-                    onClick={handleChangeTsoft}
-                    className={
-                      userData.nomRol === "administrador" ||
-                      userData.nomRol === "capital_humano"
-                        ? ""
-                        : "private"
-                    }
-                  >
-                    <button id="buttonSidebar">
-                      <FlechaTsoft id={"icons"}></FlechaTsoft>ENTORNO TSOFT
-                    </button>
-                    <ul
-                      id="COE_Academia"
-                      className={isToggledTsoft ? "active" : ""}
-                    ></ul>
-                  </li>*/}
+                  {/* --------------------------------------------------- */}
 
                   <li
                     id="li_Academia"
@@ -270,36 +132,12 @@ export default function SideBar(props) {
                   >
                     <button id="buttonSidebar">
                       <FaBook id="icons" />
-                      FACTORY DEVOPS
+                      Academia formación
                     </button>
                     <ul
                       id="COE_Academia"
                       className={isToggledAcademia ? "active" : ""}
                     >
-                      <li id="textLeftSelect">
-                        <Link to="/listadoAlumnos">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Alumnos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoClientes/0">
-                          <button id="submenuSidebar">
-                            <IoIosPeople id="icons" />
-                            Clientes
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoContacto/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Contacto
-                          </button>
-                        </Link>
-                      </li>
                       <li id="textLeftSelect">
                         <Link to="/listadoCursos/0">
                           <button id="submenuSidebar">
@@ -308,131 +146,38 @@ export default function SideBar(props) {
                           </button>
                         </Link>
                       </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoCursoAlumnos/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Curso Alumnos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoCursoAlumnoSesion/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Curso Alumnos Sesion
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEmpleados">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Colaboradores
-                          </button>
-                        </Link>
-                      </li>
-
-                      {/* <li id="textLeftSelect">
-                        <Link to="/listadoEquipos">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Equipos
-                          </button>
-                        </Link>
-                      </li> */}
-                      {/* <li id="textLeftSelect">
-                        <Link to="/ListadoAsistencias">
-                          <button id="submenuSidebar">
-                            <TiThList id="icons" />
-                            Listado de Asistencias
-                          </button>
-                        </Link>
-                      </li>
-
-                      <li id="textLeftSelect">
-                        <Link to="/listadoColaboradores">
-                          <button id="submenuSidebar">
-                            <IoMdListBox id="icons" />
-                            Listado de Colaboradores
-                          </button>
-                        </Link>
-                      </li> */}
-                      {/* <li id="textLeftSelect">
-                        <Link to="/Prerequisitos">
-                          <button id="submenuSidebar">
-                            <GoTasklist id="icons" />
-                            Prerequisitos
-                          </button>
-                        </Link>
-                      </li> */}
-
-                      {/* <li id="textLeftSelect">
-                        <Link to="/listadoProyectos">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Proyectos
-                          </button>
-                        </Link>
-                      </li> */}
-                      <li id="textLeftSelect">
-                        <Link to="/listadoNotaExamen/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Nota Examen
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoRamos/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Ramos
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoRamoExamen/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Ramo Examen
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoRelatorRamo/0">
-                          <button id="submenuSidebar">
-                            <IoBookmarks id="icons" />
-                            Relator Ramo
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoReqCurso/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Requerimiento Curso
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoServicios/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Servicios
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoSesiones/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Sesiones
-                          </button>
-                        </Link>
-                      </li>
                     </ul>
                   </li>
+                  {/* --------------------------------------------------- */}
+
+                  <li id="li_Academia">
+                    <Link to="/listadoRamoExamen/0">
+                      <button id="submenuSidebar">
+                        <IoBookmarks id="icons" />
+                        Exámenes ramos
+                      </button>
+                    </Link>
+                  </li>
+                  {/* --------------------------------------------------- */}
+                  <li id="li_Academia">
+                    <Link to="/listadoCursoAlumnos/0">
+                      <button id="submenuSidebar">
+                        <IoBookmarks id="icons" />
+                        Cursos - alumnos
+                      </button>
+                    </Link>
+                  </li>
+                  {/* --------------------------------------------------- */}
+                  <li id="li_Academia">
+                    <Link to="/listadoNotaExamen/0">
+                      <button id="submenuSidebar">
+                        <IoBookmarks id="icons" />
+                        Notas exámenes
+                      </button>
+                    </Link>
+                  </li>
+                  {/* --------------------------------------------------- */}
+
                   <li
                     id="li_Academia"
                     onClick={handleChangeEvaluaciones}
@@ -445,188 +190,58 @@ export default function SideBar(props) {
                   >
                     <button id="buttonSidebar">
                       <FaBook id="icons" />
-                      EDD
+                      Eval desempeño
                     </button>
                     <ul
                       id="COE_Academia"
                       className={isToggledEvaluaciones ? "active" : ""}
                     >
-                    
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalCompetencia">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Edd Eval Competencia
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalPregunta/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Eval pregunta
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalProyEmp/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Eval Proy Emp
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalProyResp/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Eval Proy Resp
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvalRespPreg/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Eval resp pregunta
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddEvaluacion/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            Evaluación
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/listadoEddProyecto/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            EddProyecto
-                          </button>
-                        </Link>
-                      </li>
                       <li id="textLeftSelect">
                         <Link to="/listadoEddProyEmp/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
-                            EddProyEmp
+                            Proyecto colaboradores
                           </button>
                         </Link>
                       </li>
+                      {/* --------------------------------------------------- */}
                       <li id="textLeftSelect">
-                        <Link to="/listadoEmpSubsist/0">
+                        <Link to="/listadoEddEvaluacion/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
-                            EmpSubsist
+                            Evaluaciones
                           </button>
                         </Link>
                       </li>
+                      {/* --------------------------------------------------- */}
                       <li id="textLeftSelect">
-                        <Link to="/listadoEmpTipoPerfil/0">
-                          <button id="submenuSidebar">
-                            <ImBook id="icons" />
-                            EmpTipoPerfil
-                          </button>
-                        </Link>
+                        {/* <Link to="/listadoEddEvaluacion/0"> */}
+                        <button id="submenuSidebar">
+                          <ImBook id="icons" />
+                          Eval asiganada(Responder User)
+                        </button>
+                        {/* </Link> */}
+                      </li>
+                      {/* --------------------------------------------------- */}
+                      <li id="textLeftSelect">
+                        {/* <Link to="/listadoEddEvaluacion/0"> */}
+                        <button id="submenuSidebar">
+                          <ImBook id="icons" />
+                          PPT
+                        </button>
+                        {/* </Link> */}
                       </li>
                     </ul>
                   </li>
-                  {/* <li
-                    id="li_Academia"
-                    onClick={handleChangeEvaluaciones}
-                    className={
-                      userData.nomRol === "administrador" ||
-                      userData.nomRol === "capital_humano"
-                        ? ""
-                        : "private"
-                    }
-                  >
-                    <button id="buttonSidebar">
-                      <GiStarFormation id="icons" />
-                      EVAL. DE DESEMPEÑO
-                    </button>
-                    <ul
-                      id="COE_Academia"
-                      className={isToggledEvaluaciones ? "active" : ""}
-                    >
-                      <li id="textLeftSelect">
-                        <Link to="/FormularioAnEDD">
-                          <button id="submenuSidebar">
-                            <GiStarFormation id="icons" />
-                            Form. An./Automat.
-                          </button>
-                        </Link>
-                      </li>
-                      <li id="textLeftSelect">
-                        <Link to="/FormularioRefEDD">
-                          <button id="submenuSidebar">
-                            <GiStarFormation id="icons" />
-                            Form. Ref.
-                          </button>
-                        </Link>
-                      </li>
-                      <li
-                        id="textLeftSelect"
-                        className={
-                          userData.nomRol === "administrador" ||
-                          userData.nomRol === "capital_humano"
-                            ? ""
-                            : "private"
-                        }
-                      >
-                        <Link to="/EDD/ListadoAnalistas">
-                          <button id="submenuSidebar">
-                            <GiStarFormation id="icons" />
-                            List. An./Automat.
-                          </button>
-                        </Link>
-                      </li>
-                      <li
-                        id="textLeftSelect"
-                        className={
-                          userData.nomRol === "administrador" ||
-                          userData.nomRol === "capital_humano"
-                            ? ""
-                            : "private"
-                        }
-                      >
-                        <Link to="/EDD/ListadoReferentes">
-                          <button id="submenuSidebar">
-                            <GiStarFormation id="icons" />
-                            List. Ref.
-                          </button>
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <Link id="li_calendario" to="/Calendario">
-                      <button id="buttonSidebar">
-                        <BsCalendarDayFill id="icons" />
-                        CALENDARIO
+                  {/* --------------------------------------------------- */}
+                  <li id="li_Academia">
+                    {/* <Link to="/listadoEmpleados"> */}
+                      <button id="submenuSidebar">
+                        <ImBook id="icons" />
+                        Perfil (CambiarPass)
                       </button>
-                    </Link>
+                    {/* </Link> */}
                   </li>
-
-                  <li
-                    id="li_Colaboradores"
-                    onClick={handleChangeColaboradores}
-                    className={
-                      userData.nomRol !== "colaborador" ? "private" : ""
-                    }
-                  >
-                    <button id="buttonSidebar">
-                      <MdSwitchAccount id="icons" />
-                      MI PERFIL
-                    </button>
-                    <ul
-                      id="Colaboradores"
-                      className={isToggledColaboradores ? "active" : ""}
-                    ></ul>
-                  </li> */}
                 </Container>
               </div>
               <Logout></Logout>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useRoute } from "wouter";
 
 import getDataService from "../../../services/GetDataService";
@@ -8,7 +8,8 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+import { ImBook } from "react-icons/im";
+
 import "../TablasStyles.css";
 import InsertarCursoAlumno from "../../../templates/forms/Insertar/InsertarCursoAlumno";
 import EditarCursoAlumno from "../../../templates/forms/Editar/EditarCursoAlumno";
@@ -32,18 +33,18 @@ export default function ListadoCursoAlumno() {
 
   const nombreTabla= "cursoalumno"
 
-  const [idAlumno, setidAlumno] = useState(params.params);
+  const [idEmpleado, setidEmpleado] = useState(params.params);
   const [idCurso, setidCurso] = useState(params.params);
 
-  const [listAlumno, setlistAlumno] = useState([""]);
+  const [listEmpleado, setlistEmpleado] = useState([""]);
   const [listCurso, setlistCurso] = useState([""]);
 
 
-  function obtenerAlumno() {
-    const url = "pages/auxiliares/listadoAlumnoForms.php";
+  function obtenerEmpleado() {
+    const url = "pages/auxiliares/listadoEmpleadoForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-    setlistAlumno(response)
+    setlistEmpleado(response)
     );
   }
 
@@ -83,9 +84,10 @@ export default function ListadoCursoAlumno() {
     function () {
       handleChangePaginador();
       obtenerCurso();
-      obtenerAlumno()
+      obtenerEmpleado()
+
     },
-    [num_boton,cantidadPorPagina, idAlumno, idCurso]
+    [num_boton,cantidadPorPagina, idEmpleado, idCurso]
   );
 
   //PAGINADOR ---------------------
@@ -95,7 +97,7 @@ export default function ListadoCursoAlumno() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idAlumno:idAlumno,
+      idEmpleado:idEmpleado,
       idCurso:idCurso
     };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
@@ -162,20 +164,20 @@ export default function ListadoCursoAlumno() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Alumnos: </label>
+              <label htmlFor="input_CantidadR">Empleados: </label>
               <select
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidAlumno(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {setidEmpleado(target.value);setNumBoton(1);}}
               >
                 <option value="">Todos</option>
-                {listAlumno.map((valor) => (
+                {listEmpleado.map((valor) => (
                   <option
-                  selected={(valor.idAlumno === idAlumno ? "selected" : "")}
-                  value={valor.idAlumno}
+                  selected={(valor.idEmpleado === idEmpleado ? "selected" : "")}
+                  value={valor.idEmpleado}
                 >
-                  {valor.nomAlumno}
+                  {valor.nomEmpleado}
                 </option>
                 ))}
               </select>
@@ -219,18 +221,18 @@ export default function ListadoCursoAlumno() {
               {CursoAlumno.map((CursoAlumno) => (
                 <tr key={CursoAlumno.idCursoAlumno}>
                   <td>{CursoAlumno.idCursoAlumno}</td>
-                  <td>{CursoAlumno.nomAlumno}</td>
+                  <td>{CursoAlumno.nomEmpleado}</td>
                   <td>{CursoAlumno.nomCurso}</td>
                   <td>{CursoAlumno.fechaIni}</td>
                   <td>{CursoAlumno.fechaFin}</td>
                   <td>{CursoAlumno.horaIni}</td>
                   <td>{CursoAlumno.horaFin}</td>
-                  <td align="right" width={90}>{CursoAlumno.porcAsistencia}</td>
-                  <td align="right" width={90}>{CursoAlumno.porcParticipacion}</td>
-                  <td align="right" width={90}>{CursoAlumno.porcAprobacion}</td>
+                  <td align="right">{CursoAlumno.porcAsistencia}</td>
+                  <td align="right">{CursoAlumno.porcParticipacion}</td>
+                  <td align="right">{CursoAlumno.porcAprobacion}</td>
                   <td>{CursoAlumno.claseAprobada}</td>
                   <td>{CursoAlumno.estadoCurso}</td>
-                  <td>
+                  <td align="center">
                     <button
                       title="Editar CursoAlumno"
                       id="OperationBtns"
@@ -238,7 +240,11 @@ export default function ListadoCursoAlumno() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-
+                    <Link to={`/listadoCursoAlumnoSesion/${CursoAlumno.idCursoAlumno}`} >
+                      <button title="Curso-Alum-Sesion relacionado" id="OperationBtns">
+                        <ImBook id="icons" />
+                      </button>
+                    </Link>
                     <button
                       title="Desactivar CursoAlumno"
                       onClick={() => desactivar(CursoAlumno.idCursoAlumno)}
