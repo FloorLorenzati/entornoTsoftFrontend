@@ -85,7 +85,7 @@ export default function ListadoEDDEvalProyEmp() {
       obtenerEvaluacion();
       obtenerProyEmp()
     },
-    [num_boton, cantidadPorPagina, idEDDProyEmp, idEDDEvaluacion]
+    [num_boton, cantidadPorPagina, idEDDEvaluacion,idEDDProyEmp]
   );
 
   //PAGINADOR ---------------------

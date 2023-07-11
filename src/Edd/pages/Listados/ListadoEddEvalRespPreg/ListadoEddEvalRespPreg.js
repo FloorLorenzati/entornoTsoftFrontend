@@ -33,8 +33,10 @@ export default function ListadoEDDEvalRespPreg() {
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
   const nombreTabla = "eddevalresppreg";
 
+  const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
   const [idEDDEvalPregunta, setidEDDEvalPregunta] = useState(params.params);
 
+  const [listEDDEvaluacion, setlistEDDEvaluacion] = useState([""]);
   const [listEDDEvalPregunta, setlistEDDEvalPregunta] = useState([""]);
 
   function obtenerEDDEvalPregunta() {
@@ -44,7 +46,13 @@ export default function ListadoEDDEvalRespPreg() {
     setlistEDDEvalPregunta(response)
     );
   }
-
+  function obtenerEvaluacion() {
+    const url = "pages/auxiliares/listadoEddEvaluacion.php";
+    const operationUrl = "listados";
+    getDataService(url, operationUrl).then((response) =>
+      setlistEDDEvaluacion(response)
+    );
+  }
   function insertarEDDEvalRespPreg() {
     setIsActiveInsertEDDEvalRespPreg(!isActiveInsertEDDEvalRespPreg);
   }
@@ -74,8 +82,9 @@ export default function ListadoEDDEvalRespPreg() {
     function () {
       handleChangePaginador();
       obtenerEDDEvalPregunta();
+      obtenerEvaluacion()
     },
-    [num_boton, cantidadPorPagina,idEDDEvalPregunta]
+    [num_boton, cantidadPorPagina,idEDDEvalPregunta,idEDDEvaluacion]
     
   );
 
@@ -88,6 +97,7 @@ export default function ListadoEDDEvalRespPreg() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
       idEDDEvalPregunta: idEDDEvalPregunta,
+      idEvaluacion:idEDDEvaluacion
 
     };
     SendDataService(url, operationUrl, data).then((data) => {
@@ -167,6 +177,32 @@ export default function ListadoEDDEvalRespPreg() {
                 ))}
               </select>
             </div>
+            <div className="form-group" id="btn2">
+                <label htmlFor="input_CantidadR">Evaluación: </label>
+                <select
+                  required
+                  type="text"
+                  className="form-control"
+                  onChange={({ target }) => {
+                    setidEDDEvaluacion(target.value);
+                    setNumBoton(1);
+                  }}
+                >
+                  <option value="">Todos</option>
+                  {listEDDEvaluacion.map((valor) => (
+                    <option
+                      selected={
+                        valor.idEDDEvaluacion === idEDDEvaluacion
+                          ? "selected"
+                          : ""
+                      }
+                      value={valor.idEDDEvaluacion}
+                    >
+                      {valor.nomEvaluacion}
+                    </option>
+                  ))}
+                </select>
+              </div>
           </div>
 
           <InsertarEDDEvalRespPreg
@@ -191,6 +227,7 @@ export default function ListadoEDDEvalRespPreg() {
                 <th>Pregunta</th>
                 <th>Orden</th>
                 <th>Respuesta</th>
+                <th>Evaluación</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -201,6 +238,8 @@ export default function ListadoEDDEvalRespPreg() {
                   <td>{idEDDEvalRespPreg.nomPregunta}</td>
                   <td align="right" width={10}>{idEDDEvalRespPreg.ordenRespPreg}</td>
                   <td>{idEDDEvalRespPreg.nomRespPreg}</td>
+                  <td>{idEDDEvalRespPreg.nomEvaluacion}</td>
+
                   <td>
                     <button
                       title="Editar respuesta de pregunta"
