@@ -116,7 +116,7 @@ const InsertarEDDEvalPregunta = ({
                 className="form-control"
                 name="input_nombreDelEDDEvalPregunta"
                 id="input_nombreDelEDDEvalPregunta"
-                maxLength="50"
+                maxLength="300"
                 onChange={({ target }) => setnomPregunta(target.value)}
                 required
               />

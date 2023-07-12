@@ -100,6 +100,23 @@ export default function SideBar(props) {
               <h5>SUBSISTEMAS</h5>
               <div>
                 <Container id="textLeft">
+                  <li>
+                    <Link
+                      id="li_home"
+                      to={
+                        userData.nomRol === "administrador" ||
+                        userData.nomRol === "capital_humano"
+                          ? "/home"
+                          : "/homeColaboradores"
+                      }
+                    >
+                      <button id="buttonSidebar">
+                        <IoHome id="icons" />
+                        HOME
+                      </button>
+                    </Link>
+                  </li>
+
                   {/* --------------------------------------------------- */}
                   <li id="li_Academia">
                     <Link to="/listadoClientes/0">
@@ -110,6 +127,7 @@ export default function SideBar(props) {
                     </Link>
                   </li>
                   {/* --------------------------------------------------- */}
+
                   <li id="li_Academia">
                     <Link to="/listadoEmpleados">
                       <button id="submenuSidebar">
@@ -146,36 +164,28 @@ export default function SideBar(props) {
                           </button>
                         </Link>
                       </li>
+                      {/* --------------------------------------------------- */}
+
+                      <li id="textLeftSelect">
+                        <Link to="/listadoRamoExamen/0">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Exámenes ramos
+                          </button>
+                        </Link>
+                      </li>
+                      {/* --------------------------------------------------- */}
+                      <li id="textLeftSelect">
+                        <Link to="/listadoCursoAlumnos/0">
+                          <button id="submenuSidebar">
+                            <IoBookmarks id="icons" />
+                            Cursos - alumnos
+                          </button>
+                        </Link>
+                      </li>
                     </ul>
                   </li>
-                  {/* --------------------------------------------------- */}
 
-                  <li id="li_Academia">
-                    <Link to="/listadoRamoExamen/0">
-                      <button id="submenuSidebar">
-                        <IoBookmarks id="icons" />
-                        Exámenes ramos
-                      </button>
-                    </Link>
-                  </li>
-                  {/* --------------------------------------------------- */}
-                  <li id="li_Academia">
-                    <Link to="/listadoCursoAlumnos/0">
-                      <button id="submenuSidebar">
-                        <IoBookmarks id="icons" />
-                        Cursos - alumnos
-                      </button>
-                    </Link>
-                  </li>
-                  {/* --------------------------------------------------- */}
-                  <li id="li_Academia">
-                    <Link to="/listadoNotaExamen/0">
-                      <button id="submenuSidebar">
-                        <IoBookmarks id="icons" />
-                        Notas exámenes
-                      </button>
-                    </Link>
-                  </li>
                   {/* --------------------------------------------------- */}
 
                   <li
@@ -196,11 +206,13 @@ export default function SideBar(props) {
                       id="COE_Academia"
                       className={isToggledEvaluaciones ? "active" : ""}
                     >
+                      {/* --------------------------------------------------- */}
+
                       <li id="textLeftSelect">
-                        <Link to="/listadoEddProyEmp/0">
+                        <Link to="/listadoEddProyecto/0">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
-                            Proyecto colaboradores
+                            Proyecto
                           </button>
                         </Link>
                       </li>
@@ -236,10 +248,10 @@ export default function SideBar(props) {
                   {/* --------------------------------------------------- */}
                   <li id="li_Academia">
                     {/* <Link to="/listadoEmpleados"> */}
-                      <button id="submenuSidebar">
-                        <ImBook id="icons" />
-                        Perfil (CambiarPass)
-                      </button>
+                    <button id="submenuSidebar">
+                      <ImBook id="icons" />
+                      Perfil (CambiarPass)
+                    </button>
                     {/* </Link> */}
                   </li>
                 </Container>

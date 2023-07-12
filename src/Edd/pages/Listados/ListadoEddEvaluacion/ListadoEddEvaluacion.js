@@ -204,7 +204,7 @@ export default function ListadoEDDEvaluacion() {
                   <td>{EDDEvaluacion.fechaFin}</td>
                   <td>
                     <button
-                      title="Editar evaluación"
+                      data-title="Editar evaluación"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvaluacion(EDDEvaluacion.idEDDEvaluacion)
@@ -213,12 +213,12 @@ export default function ListadoEDDEvaluacion() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoEddEvalPregunta/${EDDEvaluacion.idEDDEvaluacion}`}>
-                      <button title="Preguntas relacionadas" id="OperationBtns">
+                      <button data-title="Preguntas relacionadas" id="OperationBtns">
                         <AiFillBook id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar evaluación"
+                      data-title="Desactivar evaluación"
                       onClick={() => desactivar(EDDEvaluacion.idEDDEvaluacion)}
                       id="OperationBtns"
                     >

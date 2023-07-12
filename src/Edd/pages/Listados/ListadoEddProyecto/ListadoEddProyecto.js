@@ -193,19 +193,19 @@ export default function ListadoEddProyecto() {
                   <td>{EDDProyecto.nomServicio}</td>
                   <td>
                     <button
-                      title="Editar proyecto"
+                      data-title="Editar proyecto"
                       id="OperationBtns"
                       onClick={() => editarEDDProyecto(EDDProyecto.idEDDProyecto)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoEDDProyEmp/${EDDProyecto.idEDDProyecto}`} >
-                      <button title="Proyc. Empleados relacionados" id="OperationBtns">
+                      <button data-title="Proy. colaborador relacionados" id="OperationBtns">
                         <RiEditBoxFill id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar proyecto"
+                      data-title="Desactivar proyecto"
                       onClick={() => desactivar(EDDProyecto.idEDDProyecto)}
                       id="OperationBtns"
                     >

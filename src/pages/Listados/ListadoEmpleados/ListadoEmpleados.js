@@ -9,6 +9,10 @@ import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { BsBookmarksFill } from "react-icons/bs";
+import { AiFillProject } from "react-icons/ai";
+import { FaFlipboard } from "react-icons/fa";
+
+
 import "../TablasStyles.css";
 import InsertarEmpleado from "../../../templates/forms/Insertar/InsertarEmpleado";
 import EditarEmpleados from "../../../templates/forms/Editar/EditarEmpleados";
@@ -257,29 +261,29 @@ export default function ListadoEmpleados() {
                   {/* <td>{empleado.usuario}</td> */}
                   <td align="right" width={235}>
                     <button
-                      title="Editar cliente"
+                      data-title="Editar cliente"
                       id="OperationBtns"
                       onClick={() => editarEmpleado(empleado.idEmpleado)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoRelatorRamo/${empleado.idEmpleado}`} >
-                      <button title="Ramos relacionados" id="OperationBtns">
+                      <button data-title="Relator Ramo relacionados" id="OperationBtns">
                         <BsBookmarksFill id="icons" />
                       </button>
                     </Link>
                     <Link to={`/listadoEDDProyEmp/${empleado.idEmpleado}`} >
-                      <button title="Proyc. Empleados relacionados" id="OperationBtns">
-                        <BsBookmarksFill id="icons" />
+                      <button data-title="Proy. Colaboradores relacionados" id="OperationBtns">
+                        <AiFillProject id="icons" />
                       </button>
                     </Link>
                     <Link to={`/listadoEmpSubsist/${empleado.idEmpleado}`} >
-                      <button title="Subsistemas relacionados" id="OperationBtns">
-                        <BsBookmarksFill id="icons" />
+                      <button data-title="Subsistemas relacionados" id="OperationBtns">
+                        <FaFlipboard id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar cliente"
+                      data-title="Desactivar cliente"
                       onClick={() => desactivar(empleado.idEmpleado)}
                       id="OperationBtns"
                     >

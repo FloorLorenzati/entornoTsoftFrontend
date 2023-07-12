@@ -69,7 +69,7 @@ export default function ListadoSesion() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          TopAlerts('successEdited');
+          TopAlerts("successEdited");
         });
       }
     });
@@ -220,27 +220,18 @@ export default function ListadoSesion() {
             <tbody>
               {Sesion.map((Sesion) => (
                 <tr key={Sesion.idSesion}>
-                  <td align="right" width={1}>
-                    {Sesion.idSesion}
-                  </td>
-                  <td align="right" width={1}>
-                    {Sesion.nroSesion}
-                  </td>
-                  <td align="left">
-                    {Sesion.nomSesion}
-                  </td>
+                  <td >{Sesion.idSesion}</td>
+                  <td >{Sesion.nroSesion}</td>
+                  <td >{Sesion.nomSesion}</td>
                   <td>{Sesion.tipoSesion}</td>
                   <td>{Sesion.tipoSesionHH}</td>
-                  <td align="right" width={30}>
-                    {Sesion.duracionSesionHH}
-                  </td>
-
+                  <td >{Sesion.duracionSesionHH}</td>
                   <td>{Sesion.nomCurso}</td>
                   <td>{Sesion.nomRamo}</td>
 
                   <td>
                     <button
-                      title="Editar Sesion"
+                      data-title="Editar Sesion"
                       id="OperationBtns"
                       onClick={() => editarSesion(Sesion.idSesion)}
                     >
@@ -248,14 +239,14 @@ export default function ListadoSesion() {
                     </button>
                     <Link to={`/listadoCursoAlumnoSesion/${Sesion.idSesion}`}>
                       <button
-                        title="Asistencia relacionadas"
+                        data-title="Asistencia relacionadas"
                         id="OperationBtns"
                       >
                         <BsPersonCheckFill id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar Sesion"
+                      data-title="Desactivar Sesion"
                       onClick={() => desactivar(Sesion.idSesion)}
                       id="OperationBtns"
                     >

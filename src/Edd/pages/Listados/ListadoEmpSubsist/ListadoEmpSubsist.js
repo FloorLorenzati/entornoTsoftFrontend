@@ -221,7 +221,6 @@ export default function ListadoEmpSubsist() {
                 <th>ID</th>
                 <th>Empleado</th>
                 <th>Subsistema</th>
-
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -234,7 +233,7 @@ export default function ListadoEmpSubsist() {
                   <td>{EmpSubsist.nomSubsistema}</td>
                   <td>
                     <button
-                      title="Editar empleado subsistema"
+                      data-title="Editar colaborador subsistema"
                       id="OperationBtns"
                       onClick={() => editarEmpSubsist(EmpSubsist.idEmpSubsist)}
                     >
@@ -242,14 +241,14 @@ export default function ListadoEmpSubsist() {
                     </button>
                     <Link to={`/listadoEDDProyEmp/${EmpSubsist.idEmpSubsist}`}>
                       <button
-                        title="Proyc. Empleados relacionados"
+                        data-title="Proy. colaborador relacionados"
                         id="OperationBtns"
                       >
                         <RiEditBoxFill id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar empleado subsistema"
+                      data-title="Desactivar colaborador subsistema"
                       onClick={() => desactivar(EmpSubsist.idEmpSubsist)}
                       id="OperationBtns"
                     >

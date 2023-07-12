@@ -151,7 +151,7 @@ export default function ListadoEddEvalCompetencia() {
                   <td>{EddEvalCompetencia.nomCompetencia}</td>
                   <td>
                     <button
-                      title="Editar competencia"
+                      data-title="Editar competencia"
                       id="OperationBtns"
                       onClick={() => editarEddEvalCompetencia(EddEvalCompetencia.idEDDEvalCompetencia)}
                     >
@@ -160,7 +160,7 @@ export default function ListadoEddEvalCompetencia() {
 
 
                     <button
-                      title="Desactivar competencia"
+                      data-title="Desactivar competencia"
                       onClick={() => desactivar(EddEvalCompetencia.idEDDEvalCompetencia)}
                       id="OperationBtns"
                     >

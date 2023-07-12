@@ -41,7 +41,9 @@ export default function ListadoCursoAlumnoSesion() {
   function obtenerSesion() {
     const url = "pages/auxiliares/listadoSesionForms.php";
     const operationUrl = "listados";
-    getDataService(url, operationUrl).then((response) => setlistSesion(response));
+    getDataService(url, operationUrl).then((response) =>
+      setlistSesion(response)
+    );
   }
 
   function insertarCursoAlumnoSesion() {
@@ -63,7 +65,7 @@ export default function ListadoCursoAlumnoSesion() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          TopAlerts('successEdited');
+          TopAlerts("successEdited");
         });
       }
     });
@@ -73,7 +75,7 @@ export default function ListadoCursoAlumnoSesion() {
       handleChangePaginador();
       obtenerSesion();
     },
-    [num_boton, cantidadPorPagina,idSesion]
+    [num_boton, cantidadPorPagina, idSesion]
   );
 
   //PAGINADOR ---------------------
@@ -83,13 +85,14 @@ export default function ListadoCursoAlumnoSesion() {
     var data = {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
-      idSesion:idSesion,
+      idSesion: idSesion,
     };
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setCursoAlumnoSesion(datos.datos);console.log(data);;
-});
+      setCursoAlumnoSesion(datos.datos);
+      console.log(data);
+    });
   }
   //PAGINADOR ---------------------
 
@@ -101,7 +104,9 @@ export default function ListadoCursoAlumnoSesion() {
       <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de Cursos Alumnos Sesiones</h1>
-          <h6 style={{color:'gray'}}>Factory Devops {'->'} Listado de Cursos     s Sesiones</h6>
+          <h6 style={{ color: "gray" }}>
+            Factory Devops {"->"} Listado de Cursos s Sesiones
+          </h6>
           <br></br>
 
           <div id="selectPaginador">
@@ -137,17 +142,19 @@ export default function ListadoCursoAlumnoSesion() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidSesion(target.value);setNumBoton(1);}}
+                onChange={({ target }) => {
+                  setidSesion(target.value);
+                  setNumBoton(1);
+                }}
               >
-
                 <option value="">Todos</option>
                 {listSesion.map((valor) => (
                   <option
-                  selected={(valor.idSesion === idSesion ? "selected" : "")}
-                  value={valor.idSesion}
-                >
-                  {valor.nomSesion}
-                </option>
+                    selected={valor.idSesion === idSesion ? "selected" : ""}
+                    value={valor.idSesion}
+                  >
+                    {valor.nomSesion}
+                  </option>
                 ))}
               </select>
             </div>
@@ -163,43 +170,50 @@ export default function ListadoCursoAlumnoSesion() {
             cambiarEstado={setIsActiveEditCursoAlumnoSesion}
             idCursoAlumnoSesion={idCursoAlumnoSesion}
             setCursoAlumnoSesion={setCursoAlumnoSesion}
-            cursoAlumnoSesion={cursoAlumnoSesion} 
+            cursoAlumnoSesion={cursoAlumnoSesion}
             nombreTabla={nombreTabla}
-          ></EditarCursoAlumnoSesion> 
+          ></EditarCursoAlumnoSesion>
 
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>ID</th> 
+                <th>Sesión</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
                 <th>Hora inicio</th>
                 <th>Hora fin</th>
-                <th>%Asistencia</th>
-                <th>%Participación</th>
-                <th>Sesión</th>
-                <th>ID Curso Alumno</th>
+                <th>%Asist</th>
+                <th>%Partic</th>
+                {/* <th>ID Curso Alumno</th> */}
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
               {cursoAlumnoSesion.map((cursoAlumnoSesion) => (
                 <tr key={cursoAlumnoSesion.idCursoAlumnoSesion}>
-                  <td align="right" width={30}>{cursoAlumnoSesion.idCursoAlumnoSesion}</td>
+                  <td align="right" width={30}>
+                    {cursoAlumnoSesion.idCursoAlumnoSesion}
+                  </td>
+                  <td>{cursoAlumnoSesion.nomSesion}</td>
                   <td>{cursoAlumnoSesion.fechaIni}</td>
                   <td>{cursoAlumnoSesion.fechaFin}</td>
                   <td>{cursoAlumnoSesion.horaIni}</td>
                   <td>{cursoAlumnoSesion.horaFin}</td>
-                  <td align="right" width={30}>{cursoAlumnoSesion.asistencia}</td>
-                  <td align="right" width={30}>{cursoAlumnoSesion.participacion}</td>
-                  <td>{cursoAlumnoSesion.nomSesion}</td>
-                  <td align="right" width={90}>{cursoAlumnoSesion.idCursoAlumno}</td>
+                  <td align="right" width={30}>
+                    {cursoAlumnoSesion.asistencia}
+                  </td>
+                  <td align="right" width={30}>
+                    {cursoAlumnoSesion.participacion}
+                  </td>
+
+                  {/* <td align="right" width={90}>{cursoAlumnoSesion.idCursoAlumno}</td> */}
 
                   {/* <td align="right" width={90}>{cursoAlumnoSesion.porcAprobacion}</td> */}
 
                   <td>
                     <button
-                      title="Editar cursoAlumnoSesion"
+                      data-title="Editar cursoAlumnoSesion"
                       id="OperationBtns"
                       onClick={() =>
                         editarCursoAlumnoSesion(
@@ -209,11 +223,11 @@ export default function ListadoCursoAlumnoSesion() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar cursoAlumnoSesion" id="OperationBtns">
+                    {/* <button data-title="Examinar cursoAlumnoSesion" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar cursoAlumnoSesion"
+                      data-title="Desactivar cursoAlumnoSesion"
                       onClick={() =>
                         desactivar(cursoAlumnoSesion.idCursoAlumnoSesion)
                       }

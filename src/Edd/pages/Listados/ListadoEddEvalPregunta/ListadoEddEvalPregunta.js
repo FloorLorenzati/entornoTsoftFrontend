@@ -101,7 +101,9 @@ export default function ListadoEDDEvalPregunta() {
       obtenerEDDEvaluacion();
       obtenerEDDEvalPregunta()
     },
-    [num_boton, cantidadPorPagina, idEDDEvalCompetencia, idEDDEvaluacion,idEDDEvalPregunta]
+    [num_boton, cantidadPorPagina, , idEDDEvaluacion,idEDDEvalPregunta,idEDDEvalCompetencia]
+
+    
   );
 
   //PAGINADOR ---------------------
@@ -167,7 +169,7 @@ export default function ListadoEDDEvalPregunta() {
                 <option value="100">100</option>
               </select>
             </div>
-            <div className="form-group" id="btn2">
+            <div className="form-group" id="btn2" style={{width:200}}>
               <label htmlFor="input_CantidadR">Pregunta: </label>
               <select
                 required
@@ -283,13 +285,13 @@ export default function ListadoEDDEvalPregunta() {
                   <td>{idEDDEvalPregunta.nomPregunta}</td>
                   <td>{idEDDEvalPregunta.ordenPregunta}</td>
                   <td>{idEDDEvalPregunta.nomEvaluacion}</td>
-                  <td>{idEDDEvalPregunta.nomEvaluacion}</td>
+                  <td>{idEDDEvalPregunta.nomCompetencia}</td>
                   <td></td>
                   <td></td>
 
-                  <td>
+                  <td align="center">
                     <button
-                      title="Editar pregunta"
+                      data-title="Editar pregunta"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvalPregunta(
@@ -300,12 +302,12 @@ export default function ListadoEDDEvalPregunta() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoEddEvalRespPreg/${idEDDEvalPregunta.idEDDEvalPregunta}`}>
-                      <button title="Respuestas relacionadas" id="OperationBtns">
+                      <button data-title="Respuestas relacionadas" id="OperationBtns">
                         <AiFillBook id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar pregunta"
+                      data-title="Desactivar pregunta"
                       onClick={() =>
                         desactivar(idEDDEvalPregunta.idEDDEvalPregunta)
                       }

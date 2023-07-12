@@ -151,7 +151,7 @@ export default function ListadoEDDEvalRespPreg() {
                 <option value="100">100</option>
               </select>
             </div>
-            <div className="form-group" id="btn2">
+            <div className="form-group" id="btn2" style={{width:200}}>
               <label htmlFor="input_CantidadR">Pregunta: </label>
               <select
                 required
@@ -242,7 +242,7 @@ export default function ListadoEDDEvalRespPreg() {
 
                   <td>
                     <button
-                      title="Editar respuesta de pregunta"
+                      data-title="Editar respuesta de pregunta"
                       id="OperationBtns"
                       onClick={() =>
                         editarEDDEvalRespPreg(
@@ -253,7 +253,7 @@ export default function ListadoEDDEvalRespPreg() {
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar respuesta de pregunta"
+                      data-title="Desactivar respuesta de pregunta"
                       onClick={() =>
                         desactivar(idEDDEvalRespPreg.idEDDEvalRespPreg)
                       }

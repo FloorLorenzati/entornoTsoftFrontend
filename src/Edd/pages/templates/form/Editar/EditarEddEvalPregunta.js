@@ -151,7 +151,7 @@ const editarEDDEvalPregunta = ({
                 name="input_nombreDelEDDEvalPregunta"
                 id="input_nombreDelEDDEvalPregunta"
                 value={nomPregunta || ""}
-                maxLength="50"
+                maxLength="300"
                 onChange={({ target }) => setnomPregunta(target.value)}
                 required
               />

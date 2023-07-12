@@ -175,33 +175,32 @@ export default function ListadoNotaExamen() {
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>ID</th> <th>Alumno Curso</th>
+                <th>Examen</th>
                 <th>Nota examen</th>
                 <th>Aprueba examen</th>
-                <th>Examen</th>
-                <th>Curso alumno</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
             <tbody>
               {notaExamen.map((notaExamen) => (
                 <tr key={notaExamen.idNotaExamen}>
+
+                  <td>{notaExamen.idCursoAlumno}</td>
+                  <td>{notaExamen.nomExamen}</td>
                   <td>{notaExamen.idNotaExamen}</td>
                   <td>{notaExamen.notaExamen}</td>
                   <td>{notaExamen.apruebaExamen}</td>
-                  <td>{notaExamen.nomExamen}</td>
-                  <td>{notaExamen.idCursoAlumno}</td>
-
                   <td>
                     <button
-                      title="Editar notaExamen"
+                      data-title="Editar notaExamen"
                       id="OperationBtns"
                       onClick={() => editarNotaExamen(notaExamen.idNotaExamen)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar notaExamen"
+                      data-title="Desactivar notaExamen"
                       onClick={() => desactivar(notaExamen.idNotaExamen)}
                       id="OperationBtns"
                     >

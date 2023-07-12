@@ -221,17 +221,17 @@ export default function ListadoContacto() {
 
                   <td>
                     <button
-                      title="Editar contacto"
+                      data-title="Editar contacto"
                       id="OperationBtns"
                       onClick={() => editarContacto(contacto.idContacto)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar contacto" id="OperationBtns">
+                    {/* <button data-title="Examinar contacto" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar contacto"
+                      data-title="Desactivar contacto"
                       onClick={() => desactivar(contacto.idContacto)}
                       id="OperationBtns"
                     >

@@ -153,7 +153,7 @@ export default function ListadoClientes() {
                   <td>{cliente.nomPais}</td>
                   <td>
                     <button
-                      title="Editar cliente"
+                      data-title="Editar cliente"
                       id="OperationBtns"
                       onClick={() => editarCliente(cliente.idCliente)}
                     >
@@ -161,13 +161,13 @@ export default function ListadoClientes() {
                     </button>
 
                     <Link to={`/listadoServicios/${cliente.idCliente}`} > 
-                      <button title="Servicios relacionados" id="OperationBtns">
+                      <button data-title="Servicios relacionados" id="OperationBtns">
                         <BsFillKeyFill id="icons" />
                       </button>
                     </Link>
 
                     <button
-                      title="Desactivar cliente"
+                      data-title="Desactivar cliente"
                       onClick={() => desactivar(cliente.idCliente)}
                       id="OperationBtns"
                     >

@@ -183,19 +183,19 @@ export default function ListadoRamoExamen() {
                   <td>{ramoExamen.nomRamo}</td>
                   <td>
                     <button
-                      title="Editar ramoExamen"
+                      data-title="Editar ramoExamen"
                       id="OperationBtns"
                       onClick={() => editarRamoExamen(ramoExamen.idRamoExamen)}
                     >
                       <RiEditBoxFill id="icons" /></button>
 
                     <Link to={`/listadoNotaExamen/${ramoExamen.idRamoExamen}`} >
-                      <button title="Notas relacionadas" id="OperationBtns">
+                      <button data-title="Notas relacionadas" id="OperationBtns">
                         <ImSortNumbericDesc id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar ramoExamen"
+                      data-title="Desactivar ramoExamen"
                       onClick={() => desactivar(ramoExamen.idRamoExamen)}
                       id="OperationBtns"
                     >

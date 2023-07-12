@@ -163,7 +163,7 @@ export default function ListadoCursos() {
                   </td>
                   <td>
                     <button
-                      title="Editar curso"
+                      data-title="Editar curso"
                       id="OperationBtns"
                       onClick={() => editarCurso(curso.idCurso)}
                     >
@@ -172,21 +172,21 @@ export default function ListadoCursos() {
 
 
                     <Link to={`/listadoRamos/${curso.idCurso}`} >
-                      <button title="Ramo relacionado" id="OperationBtns">
+                      <button data-title="Ramo relacionado" id="OperationBtns">
                         <BsBookmarksFill id="icons" />
                       </button>
                     </Link>
 
                     
                     <Link to={`/listadoReqCurso/${curso.idCurso}`} >
-                      <button title="Requerimiento relacionado" id="OperationBtns">
+                      <button data-title="Requisito relacionado" id="OperationBtns">
                         <AiTwotoneEdit id="icons" />
                       </button>
                     </Link>
 
                     
                     <button
-                      title="Desactivar curso"
+                      data-title="Desactivar curso"
                       onClick={() => desactivar(curso.idCurso)}
                       id="OperationBtns"
                     >

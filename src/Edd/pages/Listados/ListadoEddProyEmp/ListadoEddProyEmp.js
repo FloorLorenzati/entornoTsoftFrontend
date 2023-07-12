@@ -115,13 +115,13 @@ export default function ListadoEDDProyEmp() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de proyectos - empleados</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de proyectos - empleados</h6>
+          <h1 id="TitlesPages">Listado de proyectos - colaboradores</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de proyectos - colaboradores</h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEDDProyEmp}>
-              Asociar proyecto - empleado
+              Asociar proyecto - colaboradores
             </Button>
 
             <div className="form-group" id="btn2">
@@ -168,7 +168,7 @@ export default function ListadoEDDProyEmp() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Empleado: </label>
+              <label htmlFor="input_CantidadR">Colaborador: </label>
               <select
                 required
                 type="text"
@@ -208,7 +208,7 @@ export default function ListadoEDDProyEmp() {
               <tr>
                 <th>ID</th>
                 <th>Proyecto</th>
-                <th>Empleado</th>
+                <th>Colaborador</th>
                 <th>Cargo en proyecto</th>
                 <th>Operaciones</th>
               </tr>
@@ -222,7 +222,7 @@ export default function ListadoEDDProyEmp() {
                   <td>{EDDProyEmp.cargoEnProy}</td>
                   <td>
                     <button
-                      title="Editar proyecto - empleado"
+                      data-title="Editar proyecto - empleado"
                       id="OperationBtns"
                       onClick={() => editarEDDProyEmp(EDDProyEmp.idEDDProyEmp)}
                     >
@@ -230,7 +230,7 @@ export default function ListadoEDDProyEmp() {
                     </button>
                     
                     <button
-                      title="Desactivar proyecto - empleado"
+                      data-title="Desactivar proyecto - empleado"
                       onClick={() => desactivar(EDDProyEmp.idEDDProyEmp)}
                       id="OperationBtns"
                     >

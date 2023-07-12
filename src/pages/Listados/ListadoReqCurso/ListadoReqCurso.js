@@ -184,14 +184,14 @@ export default function ListadoReqCurso() {
                   <td>{reqCurso.requisitoCurso}</td>
                   <td>
                     <button
-                      title="Editar ReqCurso"
+                      data-title="Editar ReqCurso"
                       id="OperationBtns"
                       onClick={() => editarReqCurso(reqCurso.idReqCurso)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar ReqCurso"
+                      data-title="Desactivar ReqCurso"
                       onClick={() => desactivar(reqCurso.idReqCurso)}
                       id="OperationBtns"
                     >

@@ -239,7 +239,7 @@ export default function ListadoEDDEvalProyEmp() {
 
                   <td>
                   <button
-                        title="Editar evaluación de proyecto - empleado"
+                        data-title="Editar evaluación de proyecto - empleado"
                         id="OperationBtns"
                         onClick={() =>
                           editarEDDEvalProyEmp(
@@ -251,7 +251,7 @@ export default function ListadoEDDEvalProyEmp() {
                       </button>
 
                     <button
-                      title="Desactivar evaluación de proyecto - empleado"
+                      data-title="Desactivar evaluación de proyecto - empleado"
                       onClick={() =>
                         desactivar(EDDEvalProyEmp.idEDDEvalProyEmp)
                       }

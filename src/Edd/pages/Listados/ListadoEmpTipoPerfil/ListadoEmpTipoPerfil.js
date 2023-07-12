@@ -228,14 +228,14 @@ export default function ListadoEmpTipoPerfil() {
 
                   <td>
                     <button
-                      title="Editar perfil de empleado"
+                      data-title="Editar perfil de empleado"
                       id="OperationBtns"
                       onClick={() => editarEmpTipoPerfil(EmpTipoPerfil.idEmpTipoPerfil)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      title="Desactivar perfil de empleado"
+                      data-title="Desactivar perfil de empleado"
                       onClick={() => desactivar(EmpTipoPerfil.idEmpTipoPerfil)}
                       id="OperationBtns"
                     >

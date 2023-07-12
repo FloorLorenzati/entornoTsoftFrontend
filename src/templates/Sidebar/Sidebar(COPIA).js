@@ -276,14 +276,14 @@ export default function SideBar(props) {
                       id="COE_Academia"
                       className={isToggledAcademia ? "active" : ""}
                     >
-                      <li id="textLeftSelect">
+                      {/* <li id="textLeftSelect">
                         <Link to="/listadoAlumnos">
                           <button id="submenuSidebar">
                             <ImBook id="icons" />
                             Alumnos
                           </button>
                         </Link>
-                      </li>
+                      </li> */}
                       <li id="textLeftSelect">
                         <Link to="/listadoClientes/0">
                           <button id="submenuSidebar">

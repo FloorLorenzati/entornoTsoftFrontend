@@ -323,7 +323,7 @@ export default function ListadoEddEvalProyResp() {
                     <td>{EddEvalProyResp.nomRespPreg}</td>
                     <td>
                       {/* <button
-                        title="Editar EvalProyResp"
+                        data-title="Editar EvalProyResp"
                         id="OperationBtns"
                         onClick={() =>
                           editarEddEvalProyResp(
@@ -335,7 +335,7 @@ export default function ListadoEddEvalProyResp() {
                       </button>
 
                       <button
-                        title="Desactivar EvalProyResp"
+                        data-title="Desactivar EvalProyResp"
                         onClick={() =>
                           desactivar(EddEvalProyResp.idEDDEvalProyResp)
                         }

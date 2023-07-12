@@ -8,7 +8,8 @@ import SendDataService from "../../../services/SendDataService";
 import Header from "../../../templates/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
-import { HiEye } from "react-icons/hi";
+
+
 import "../TablasStyles.css";
 import InsertarRelatorRamo from "../../../templates/forms/Insertar/InsertarRelatorRamo";
 import EditarRelatorRamo from "../../../templates/forms/Editar/EditarRelatorRamo";
@@ -94,7 +95,7 @@ export default function ListadoRelatorRamo() {
       cantidadPorPagina: cantidadPorPagina,
       idEmpleado:idEmpleado,
       idRamo:idRamo
-    };
+    };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
@@ -217,7 +218,7 @@ export default function ListadoRelatorRamo() {
                   <td>{relatorRamo.fechaFin}</td>
                   <td>
                     <button
-                      title="Editar relatorRamo"
+                      data-title="Editar relatorRamo"
                       id="OperationBtns"
                       onClick={() =>
                         editarRelatorRamo(relatorRamo.idRelatorRamo)
@@ -225,11 +226,11 @@ export default function ListadoRelatorRamo() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    {/* <button title="Examinar relatorRamo" id="OperationBtns">
+                    {/* <button data-title="Examinar relatorRamo" id="OperationBtns">
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Desactivar relatorRamo"
+                      data-title="Desactivar relatorRamo"
                       onClick={() => desactivar(relatorRamo.idRelatorRamo)}
                       id="OperationBtns"
                     >

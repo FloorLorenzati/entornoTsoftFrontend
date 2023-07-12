@@ -205,15 +205,15 @@ export default function ListadoCursoAlumno() {
                 <th>ID</th>
                 <th>Alumno</th>
                 <th>Curso</th>
-                <th>Fecha incio</th>
+                <th>Fecha inicio</th>
                 <th>Fecha fin</th>
-                <th>Hora inicio</th>
-                <th>Hora fin</th>
-                <th>%Asistencia</th>
-                <th>%Participación</th>
-                <th>%Aprobación</th>
-                <th>Clase aprobada</th>
-                <th>Estado curso</th>
+                {/* <th>Hora inicio clase</th>
+                <th>Hora fin clase</th> */}
+                <th>%Asist</th>
+                <th>%Partic</th>
+                <th>%Aprob</th>
+                <th>Aprobada</th>
+                <th>Estado</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -223,30 +223,30 @@ export default function ListadoCursoAlumno() {
                   <td>{CursoAlumno.idCursoAlumno}</td>
                   <td>{CursoAlumno.nomEmpleado}</td>
                   <td>{CursoAlumno.nomCurso}</td>
-                  <td>{CursoAlumno.fechaIni}</td>
+                  <td width={120}>{CursoAlumno.fechaIni}</td>
                   <td>{CursoAlumno.fechaFin}</td>
-                  <td>{CursoAlumno.horaIni}</td>
-                  <td>{CursoAlumno.horaFin}</td>
+                  {/* <td width={100}>{CursoAlumno.horaIni}</td>
+                  <td width={100}>{CursoAlumno.horaFin}</td> */}
                   <td align="right">{CursoAlumno.porcAsistencia}</td>
                   <td align="right">{CursoAlumno.porcParticipacion}</td>
                   <td align="right">{CursoAlumno.porcAprobacion}</td>
                   <td>{CursoAlumno.claseAprobada}</td>
                   <td>{CursoAlumno.estadoCurso}</td>
-                  <td align="center">
+                  <td>
                     <button
-                      title="Editar CursoAlumno"
+                      data-title="Editar CursoAlumno"
                       id="OperationBtns"
                       onClick={() => editarCursoAlumno(CursoAlumno.idCursoAlumno)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link to={`/listadoCursoAlumnoSesion/${CursoAlumno.idCursoAlumno}`} >
-                      <button title="Curso-Alum-Sesion relacionado" id="OperationBtns">
+                      <button data-title="Curso-Alum-Sesion relacionado" id="OperationBtns">
                         <ImBook id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar CursoAlumno"
+                      data-title="Desactivar CursoAlumno"
                       onClick={() => desactivar(CursoAlumno.idCursoAlumno)}
                       id="OperationBtns"
                     >

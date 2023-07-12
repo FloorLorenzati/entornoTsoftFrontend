@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Table } from "react-bootstrap";
 import { Navigate, Link } from "react-router-dom";
 import { RiEditBoxFill } from "react-icons/ri";
-import { SiSessionize } from "react-icons/si";
+import { IoIosMegaphone } from "react-icons/io";
 import { BsPenFill } from "react-icons/bs";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { BsFillTrashFill  } from "react-icons/bs";
-
+import { BsFillTrashFill } from "react-icons/bs";
 
 import { useRoute } from "wouter";
 
@@ -66,7 +65,7 @@ export default function ListadoRamos() {
           nombreTabla: nombreTabla,
         };
         SendDataService(url, operationUrl, data).then((response) => {
-          TopAlerts('successEdited');
+          TopAlerts("successEdited");
         });
       }
     });
@@ -92,7 +91,8 @@ export default function ListadoRamos() {
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setRamos(datos.datos);console.log(data);
+      setRamos(datos.datos);
+      console.log(data);
     });
   }
   //PAGINADOR ---------------------
@@ -143,12 +143,15 @@ export default function ListadoRamos() {
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => {setidCurso(target.value);setNumBoton(1); }}
+                onChange={({ target }) => {
+                  setidCurso(target.value);
+                  setNumBoton(1);
+                }}
               >
                 <option value="">Todos</option>
                 {listCurso.map((valor) => (
                   <option
-                    selected={(valor.idCurso === idCurso ? "selected" : "")}
+                    selected={valor.idCurso === idCurso ? "selected" : ""}
                     value={valor.idCurso}
                   >
                     {valor.nomCurso}
@@ -204,33 +207,33 @@ export default function ListadoRamos() {
                   <td>{ramos.nomCurso}</td>
                   <td>
                     <button
-                      title="Editar ramo"
+                      data-title="Editar ramo"
                       id="OperationBtns"
                       onClick={() => editarRamo(ramos.idRamo)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
+
                     <Link to={`/listadoSesiones/${ramos.idRamo}`}>
-                      <button title="Sesiones relacionadas" id="OperationBtns">
-                        <SiSessionize id="icons" />
+                      <button data-title="Sesiones relacionados" id="OperationBtns">
+                        <IoIosMegaphone id="icons" />
                       </button>
                     </Link>
 
                     <Link to={`/listadoRamoExamen/${ramos.idRamo}`}>
-                      <button title="Examen relacionados" id="OperationBtns">
+                      <button data-title="Examen relacionados" id="OperationBtns">
                         <BsPenFill id="icons" />
                       </button>
                     </Link>
 
-                    
                     <Link to={`/listadoRelatorRamo/${ramos.idRamo}`}>
-                      <button title="Relator relacionados" id="OperationBtns">
+                      <button data-title="Relatores relacionados" id="OperationBtns">
                         <BsFillPersonLinesFill id="icons" />
                       </button>
                     </Link>
 
                     <button
-                      title="Desactivar curso"
+                      data-title="Desactivar curso"
                       id="OperationBtns"
                       onClick={() => desactivar(ramos.idRamo)}
                     >

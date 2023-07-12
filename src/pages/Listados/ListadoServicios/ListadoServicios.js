@@ -190,7 +190,7 @@ export default function ListadoServicio() {
                   <td>{Servicio.nomServicio}</td>
                   <td>
                     <button
-                      title="Editar Servicio"
+                      data-title="Editar Servicio"
                       id="OperationBtns"
                       onClick={() => editarServicio(Servicio.idServicio)}
                     >
@@ -198,17 +198,17 @@ export default function ListadoServicio() {
                     </button>
 
                     <Link to={`/listadoContacto/${Servicio.idServicio}`}>
-                      <button title="Contactos relacionados" id="OperationBtns">
+                      <button data-title="Contactos relacionados" id="OperationBtns">
                         <MdContactMail id="icons" />
                       </button>
                     </Link>
                     <Link to={`/listadoEddProyecto/${Servicio.idServicio}`} > 
-                      <button title="Proyectos relacionados" id="OperationBtns">
+                      <button data-title="Proyectos relacionados" id="OperationBtns">
                         <RiEditBoxFill id="icons" />
                       </button>
                     </Link>
                     <button
-                      title="Desactivar Servicio"
+                      data-title="Desactivar Servicio"
                       onClick={() => desactivar(Servicio.idServicio)}
                       id="OperationBtns"
                     >
