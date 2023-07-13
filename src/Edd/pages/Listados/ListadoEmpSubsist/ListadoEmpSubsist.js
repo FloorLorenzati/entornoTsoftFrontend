@@ -8,6 +8,7 @@ import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillProject } from "react-icons/ai";
 
 import "../TablasStyles.css";
 import InsertarEmpSubsist from "../../templates/form/Insertar/InsertarEmpSubsist";
@@ -20,7 +21,6 @@ import "../BtnInsertar.css";
 
 export default function ListadoEmpSubsist() {
   const [, params] = useRoute("/listadoEmpSubsist/:params");
-
   const [EmpSubsist, setEmpSubsist] = useState([""]);
   const [isActiveInsertEmpSubsist, setIsActiveInsertEmpSubsist] =
     useState(false);
@@ -33,7 +33,7 @@ export default function ListadoEmpSubsist() {
   const nombreTabla = "empsubsist";
 
   const [idEmpleado, setidEmpleado] = useState(params.params);
-  const [idSubsistema, setidSubsistema] = useState(params.params);
+  const [idSubsistema, setidSubsistema] = useState(null);
 
   const [listEmpleado, setlistEmpleado] = useState([""]);
   const [listSubsistema, setlistSubsistema] = useState([""]);
@@ -118,15 +118,15 @@ export default function ListadoEmpSubsist() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de empleados asociados a subsistemas</h1>
+          <h1 id="TitlesPages">Listado de colaborador asociados a subsistemas</h1>
           <h6 style={{ color: "gray" }}>
-            EDD {"->"} Listado de empleados asociados a subsistemas
+            EDD {"->"} Listado de colaborador asociados a subsistemas
           </h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEmpSubsist}>
-              Asociar empleado a subsistema
+              Asociar colaborador a subsistema
             </Button>
 
             <div className="form-group" id="btn2">
@@ -155,7 +155,7 @@ export default function ListadoEmpSubsist() {
             </div>
             
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Empleado: </label>
+              <label htmlFor="input_CantidadR">Colaborador: </label>
               <select
                 required
                 type="text"
@@ -219,7 +219,7 @@ export default function ListadoEmpSubsist() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Empleado</th>
+                <th>Colaborador</th>
                 <th>Subsistema</th>
                 <th>Operaciones</th>
               </tr>
@@ -239,14 +239,7 @@ export default function ListadoEmpSubsist() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link to={`/listadoEDDProyEmp/${EmpSubsist.idEmpSubsist}`}>
-                      <button
-                        data-title="Proy. colaborador relacionados"
-                        id="OperationBtns"
-                      >
-                        <RiEditBoxFill id="icons" />
-                      </button>
-                    </Link>
+
                     <button
                       data-title="Desactivar colaborador subsistema"
                       onClick={() => desactivar(EmpSubsist.idEmpSubsist)}

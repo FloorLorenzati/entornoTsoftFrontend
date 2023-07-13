@@ -117,13 +117,13 @@ export default function ListadoEmpTipoPerfil() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de perfiles de empleados</h1>
-          <h6 style={{color:'gray'}}>EDD {'->'} Listado de perfiles de empleados</h6>
+          <h1 id="TitlesPages">Listado de perfiles de colaborador</h1>
+          <h6 style={{color:'gray'}}>EDD {'->'} Listado de perfiles de colaborador</h6>
           <br></br>
 
           <div id="selectPaginador">
             <Button id="btn" onClick={insertarEmpTipoPerfil}>
-              Asociar perfil a empleado
+              Asociar perfil a colaborador
             </Button>
 
             <div className="form-group" id="btn2">
@@ -171,7 +171,7 @@ export default function ListadoEmpTipoPerfil() {
               </select>
             </div>
             <div className="form-group" id="btn2">
-              <label htmlFor="input_CantidadR">Empleado: </label>
+              <label htmlFor="input_CantidadR">Colaborador: </label>
               <select
                 required
                 type="text"
@@ -214,7 +214,7 @@ export default function ListadoEmpTipoPerfil() {
               <tr>
                 <th>ID</th>
                 <th>Tipo perfil</th>
-                <th>Empleado</th>
+                <th>Colaborador</th>
 
                 <th>Operaciones</th>
               </tr>
@@ -228,14 +228,14 @@ export default function ListadoEmpTipoPerfil() {
 
                   <td>
                     <button
-                      data-title="Editar perfil de empleado"
+                      data-title="Editar perfil de colaborador"
                       id="OperationBtns"
                       onClick={() => editarEmpTipoPerfil(EmpTipoPerfil.idEmpTipoPerfil)}
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <button
-                      data-title="Desactivar perfil de empleado"
+                      data-title="Desactivar perfil de colaborador"
                       onClick={() => desactivar(EmpTipoPerfil.idEmpTipoPerfil)}
                       id="OperationBtns"
                     >

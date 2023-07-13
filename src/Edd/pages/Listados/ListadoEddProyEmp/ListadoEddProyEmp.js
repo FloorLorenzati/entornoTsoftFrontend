@@ -222,7 +222,7 @@ export default function ListadoEDDProyEmp() {
                   <td>{EDDProyEmp.cargoEnProy}</td>
                   <td>
                     <button
-                      data-title="Editar proyecto - empleado"
+                      data-title="Editar proyecto - colaborador"
                       id="OperationBtns"
                       onClick={() => editarEDDProyEmp(EDDProyEmp.idEDDProyEmp)}
                     >
@@ -230,7 +230,7 @@ export default function ListadoEDDProyEmp() {
                     </button>
                     
                     <button
-                      data-title="Desactivar proyecto - empleado"
+                      data-title="Desactivar proyecto - colaborador"
                       onClick={() => desactivar(EDDProyEmp.idEDDProyEmp)}
                       id="OperationBtns"
                     >

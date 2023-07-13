@@ -34,7 +34,6 @@ import ListadoEddEvalProyEmp from "./Edd/pages/Listados/ListadoEddEvalProyEmp/Li
 import ListadoEddEvalProyResp from "./Edd/pages/Listados/ListadoEddEvalProyResp/ListadoEddEvalProyResp";
 import ListadoEDDEvaluacion from "./Edd/pages/Listados/ListadoEddEvaluacion/ListadoEddEvaluacion";
 
-
 function App() {
   return (
     <AuthState>
@@ -93,7 +92,11 @@ function App() {
             ></Route>
             <Route
               element={<ListadoRelatorRamo />}
-              path="/listadoRelatorRamo/:params"
+              path="/listadoRelatorRamo/:paramsEmpleado"
+            ></Route>
+            <Route
+              element={<ListadoRelatorRamo />}
+              path="/listadoRelatorRamo/:paramsRamo"
             ></Route>
             <Route
               element={<ListadoReqCurso />}
@@ -102,20 +105,46 @@ function App() {
             {/* ------------------------------------------------------------------------------------------ */}
 
             {/* EDD */}
-            <Route element={<ListadoEddProyecto />} path="/listadoEddProyecto/:params"></Route>
-            <Route element={<ListadoEddEvalCompetencia />} path="/listadoEddEvalCompetencia"></Route>
-            <Route element={<ListadoEDDProyEmp />} path="/listadoEddProyEmp/:params"></Route>
-            <Route element={<ListadoEmpSubsist />} path="/listadoEmpSubsist/:params"></Route>
-            <Route element={<ListadoEmpTipoPerfil />} path="/listadoEmpTipoPerfil/:params"></Route>
-            <Route element={<ListadoEDDEvalPregunta />} path="/listadoEddEvalPregunta/:params"></Route>
-            <Route element={<ListadoEDDEvalRespPreg />} path="/listadoEddEvalRespPreg/:params"></Route>
-            <Route element={<ListadoEddEvalProyEmp />} path="/listadoEddEvalProyEmp/:params"></Route>
-            <Route element={<ListadoEddEvalProyResp />} path="/listadoEddEvalProyResp/:params"></Route>
-            <Route element={<ListadoEDDEvaluacion />} path="/listadoEddEvaluacion/:params"></Route>
-
-
-
-
+            <Route
+              element={<ListadoEddProyecto />}
+              path="/listadoEddProyecto/:params"
+            ></Route>
+            <Route
+              element={<ListadoEddEvalCompetencia />}
+              path="/listadoEddEvalCompetencia"
+            ></Route>
+            <Route
+              element={<ListadoEDDProyEmp />}
+              path="/listadoEddProyEmp/:params"
+            ></Route>
+            <Route
+              element={<ListadoEmpSubsist />}
+              path="/listadoEmpSubsist/:params"
+            ></Route>
+            <Route
+              element={<ListadoEmpTipoPerfil />}
+              path="/listadoEmpTipoPerfil/:params"
+            ></Route>
+            <Route
+              element={<ListadoEDDEvalPregunta />}
+              path="/listadoEddEvalPregunta/:params"
+            ></Route>
+            <Route
+              element={<ListadoEDDEvalRespPreg />}
+              path="/listadoEddEvalRespPreg/:params"
+            ></Route>
+            <Route
+              element={<ListadoEddEvalProyEmp />}
+              path="/listadoEddEvalProyEmp/:params"
+            ></Route>
+            <Route
+              element={<ListadoEddEvalProyResp />}
+              path="/listadoEddEvalProyResp/:params"
+            ></Route>
+            <Route
+              element={<ListadoEDDEvaluacion />}
+              path="/listadoEddEvaluacion/:params"
+            ></Route>
 
             {/* ------------------------------------------------------------------------------------------ */}
           </Route>

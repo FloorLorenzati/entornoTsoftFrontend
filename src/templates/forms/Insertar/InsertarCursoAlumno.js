@@ -14,7 +14,7 @@ const InsertarCursoAlumno = ({
   CursoAlumno,
 }) => {
   // ----------------------CONSTANTES----------------------------
-  const [idAlumno, setidAlumno] = useState("");
+  const [idEmpleado, setidEmpleado] = useState("");
   const [idCurso, setidCurso] = useState("");
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
@@ -31,7 +31,7 @@ const InsertarCursoAlumno = ({
   const show = isActiveCursoAlumno;
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
-  const [listAlumnos, setlistAlumnos] = useState([]);
+  const [listEmpleados, setlistEmpleados] = useState([]);
   const [listCursos, setlistCursos] = useState([]);
 
   const handleClose = () => cambiarEstado(false);
@@ -44,7 +44,7 @@ const InsertarCursoAlumno = ({
     const operationUrl = "insertarCursoAlumno";
     var data = {
       usuarioCreacion: userData.usuario,
-      idAlumno: idAlumno,
+      idEmpleado: idEmpleado,
       idCurso: idCurso,
       fechaIni: fechaIni,
       fechaFin: fechaFin,
@@ -60,19 +60,18 @@ const InsertarCursoAlumno = ({
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts('successCreated');
-      actualizarCursoAlumno(cursoAlumno);console.log(response);;
+      actualizarCursoAlumno(CursoAlumno);console.log(response);;
     });
   }
 
   function actualizarCursoAlumno(response) {
     listCursoAlumno.push(response);
   }
-  
-  function obtenerAlumnos() {
-    const url = "pages/auxiliares/listadoAlumnoForms.php";
+  function obtenerEmpleado() {
+    const url = "pages/auxiliares/listadoEmpleadoForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-      setlistAlumnos(response)
+    setlistEmpleados(response)
     );
   }
   function obtenerCursos() {
@@ -84,7 +83,7 @@ const InsertarCursoAlumno = ({
   }
 
   useEffect(function () {
-    obtenerAlumnos();
+    obtenerEmpleado();
     obtenerCursos();
   }, []);
   // ----------------------RENDER----------------------------
@@ -103,14 +102,14 @@ const InsertarCursoAlumno = ({
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidAlumno(target.value)}
+                onChange={({ target }) => setidEmpleado(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
 
-                {listAlumnos.map((valor) => (
-                  <option value={valor.idAlumno}>{valor.nomAlumno}</option>
+                {listEmpleados.map((valor) => (
+                  <option value={valor.idEmpleado}>{valor.nomEmpleado}</option>
                 ))}
               </select>
             </div>
@@ -243,7 +242,7 @@ const InsertarCursoAlumno = ({
                 <option hidden value="">
                   Desplegar lista
                 </option>
-                <option value="1">Activo</option>
+                <option value="1">Activado</option>
                 <option value="0">Desactivado</option>
               </select>
             </div>

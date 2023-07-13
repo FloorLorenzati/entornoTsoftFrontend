@@ -190,7 +190,7 @@ const EditarNotaExamen = ({
                     selected={valor.idCursoAlumno === idCursoAlumno ? "selected" : ""}
                     value={valor.idCursoAlumno}
                   >
-                    {valor.idCursoAlumno}
+                    {valor.nomCursoAlumno}
                   </option>
                 ))}
               </select>

@@ -35,7 +35,7 @@ export default function ListadoEDDEvalPregunta() {
   const nombreTabla = "eddevalpregunta";
 
   const [idEDDEvalCompetencia, setidEDDEvalCompetencia] = useState(
-    params.params
+    null
   );
   const [idEDDEvaluacion, setidEDDEvaluacion] = useState(params.params);
   const [idEDDEvaPregunta, setidEDDEvaPregunta] = useState(params.params);
@@ -174,6 +174,7 @@ export default function ListadoEDDEvalPregunta() {
               <select
                 required
                 type="text"
+                                
                 className="form-control"
                 onChange={({ target }) => {
                   setidEDDEvaPregunta(target.value);

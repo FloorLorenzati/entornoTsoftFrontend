@@ -16,7 +16,7 @@ const EditarCursoAlumno = ({
   nombreTabla,
 }) => {
   // ----------------------CONSTANTES----------------------------
-  const [idAlumno, setidAlumno] = useState("");
+  const [idEmpleado, setidEmpleado] = useState("");
   const [idCurso, setidCurso] = useState("");
   const [fechaIni, setfechaIni] = useState("");
   const [fechaFin, setfechaFin] = useState("");
@@ -31,13 +31,13 @@ const EditarCursoAlumno = ({
   const [responseID, setResponseID] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const listCursoAlumno = CursoAlumno;
-  const [listAlumnos, setlistAlumnos] = useState([""]);
+  const [listEmpleados, setlistEmpleados] = useState([]);
   const [listCursos, setlistCursos] = useState([""]);
   const show = isActiveEditCursoAlumno;
 
   const handleClose = () => {
     cambiarEstado(false);
-    setidAlumno(responseID[0].idAlumno);
+    setidEmpleado(responseID[0].idEmpleado);
     setidCurso(responseID[0].idCurso);
     setfechaIni(responseID[0].fechaIni);
     setfechaFin(responseID[0].fechaFin);
@@ -58,7 +58,7 @@ const EditarCursoAlumno = ({
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       setResponseID(response);
-      setidAlumno(response[0].idAlumno);
+      setidEmpleado(response[0].idEmpleado);
       setidCurso(response[0].idCurso);
       setfechaIni(response[0].fechaIni);
       setfechaFin(response[0].fechaFin);
@@ -72,11 +72,11 @@ const EditarCursoAlumno = ({
     });
   }, [idCursoAlumno]);
 
-  function obtenerAlumnos() {
-    const url = "pages/auxiliares/listadoAlumnoForms.php";
+  function obtenerEmpleado() {
+    const url = "pages/auxiliares/listadoEmpleadoForms.php";
     const operationUrl = "listados";
     getDataService(url, operationUrl).then((response) =>
-      setlistAlumnos(response)
+    setlistEmpleados(response)
     );
   }
   function obtenerCursos() {
@@ -94,7 +94,7 @@ const EditarCursoAlumno = ({
     var data = {
       usuarioModificacion: userData.usuario,
       idCursoAlumno: idCursoAlumno,
-      idAlumno: idAlumno === "" ? responseID[0].idAlumno : idAlumno,
+      idEmpleado: idEmpleado === "" ? responseID[0].idEmpleado : idEmpleado,
       idCurso: idCurso === "" ? responseID[0].idCurso : idCurso,
       fechaIni: fechaIni === "" ? responseID[0].fechaIni : fechaIni,
       fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
@@ -116,7 +116,7 @@ const EditarCursoAlumno = ({
 
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts('successEdited');
-      actualizarCursoAlumno(cursoAlumno);
+      actualizarCursoAlumno(CursoAlumno);
     });
 
     function actualizarCursoAlumno(cursoAlumno) {
@@ -131,7 +131,7 @@ const EditarCursoAlumno = ({
     function () {
       if (idCursoAlumno !== null) {
         getData();
-        obtenerAlumnos();
+        obtenerEmpleado();
         obtenerCursos();
       }
     },
@@ -154,16 +154,16 @@ const EditarCursoAlumno = ({
                 required
                 type="text"
                 className="form-control"
-                onChange={({ target }) => setidAlumno(target.value)}
+                onChange={({ target }) => setidEmpleado(target.value)}
               >
-                {listAlumnos.map((valor) => (
+                {listEmpleados.map((valor) => (
                   <option
                     selected={
-                      valor.idAlumno === idAlumno ? "selected" : ""
+                      valor.idEmpleado === idEmpleado ? "selected" : ""
                     }
-                    value={valor.idAlumno}
+                    value={valor.idEmpleado}
                   >
-                    {valor.nomAlumno}
+                    {valor.nomEmpleado}
                   </option>
                 ))}
               </select>
@@ -293,18 +293,22 @@ const EditarCursoAlumno = ({
             </div>
             <div>
               <label htmlFor="input_EstC">Estado Curso:</label>
-              <input
+              <select
                 style={{ textTransform: "uppercase" }}
-                placeholder="Estado curso"
-                value={estadoCurso || ""}
+                placeholder="Clase aprobada "
                 type="text"
                 className="form-control"
                 name="input_EstC"
                 id="input_EstC"
                 maxLength="15"
+                value={estadoCurso || ''}
                 onChange={({ target }) => setestadoCurso(target.value)}
                 
-              />
+              >
+
+                <option value="1">Activado</option>
+                <option value="0">Desactivado</option>
+              </select>
             </div>
             <div>
               <label htmlFor="input_ClaseA">Clase Aprobada:</label>

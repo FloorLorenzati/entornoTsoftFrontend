@@ -20,7 +20,8 @@ import Button from "react-bootstrap/Button";
 import "../BtnInsertar.css";
 
 export default function ListadoRelatorRamo() {
-  const [, params] = useRoute("/listadoRelatorRamo/:params");
+  const [, paramsRamo] = useRoute("/listadoRelatorRamo/:paramsRamo");
+  const [, paramsEmpleado] = useRoute("/listadoRelatorRamo/:paramsEmpleado");
   const [relatorRamo, setRelatorRamo] = useState([""]);
   const [isActiveInsertRelatorRamo, setIsActiveInsertRelatorRamo] =
     useState(false);
@@ -31,8 +32,8 @@ export default function ListadoRelatorRamo() {
   const [cantidadPorPagina, setcantidadPorPagina] = useState(10);
   const [cantidadPaginas, setCantidadPaginas] = useState([]);
 
-  const [idEmpleado, setidEmpleado] = useState(params.params);
-  const [idRamo, setidRamo] = useState(params.params);
+  const [idEmpleado, setidEmpleado] = useState(paramsEmpleado.paramsEmpleado);
+  const [idRamo, setidRamo] = useState(paramsRamo.paramsRamo);
 
 
   const [listEmpleado, setlistEmpleado] = useState([""]);

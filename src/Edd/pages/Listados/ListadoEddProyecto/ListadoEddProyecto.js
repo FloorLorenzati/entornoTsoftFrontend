@@ -8,6 +8,7 @@ import SendDataService from "../../../../services/SendDataService";
 import Header from "../../../../templates/Header/Header";
 import { RiEditBoxFill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillProject } from "react-icons/ai";
 
 
 import "../TablasStyles.css";
@@ -201,7 +202,7 @@ export default function ListadoEddProyecto() {
                     </button>
                     <Link to={`/listadoEDDProyEmp/${EDDProyecto.idEDDProyecto}`} >
                       <button data-title="Proy. colaborador relacionados" id="OperationBtns">
-                        <RiEditBoxFill id="icons" />
+                        <AiFillProject id="icons" />
                       </button>
                     </Link>
                     <button

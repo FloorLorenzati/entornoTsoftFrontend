@@ -150,7 +150,7 @@ const InsertarNotaExamen = ({
                   Desplegar lista
                 </option>
                 {listCursoAlumno.map((valor) => (
-                  <option value={valor.idCursoAlumno}>{valor.idCursoAlumno}</option>
+                  <option value={valor.idCursoAlumno}>{valor.nomCursoAlumno}</option>
                 ))}
               </select>
             </div>

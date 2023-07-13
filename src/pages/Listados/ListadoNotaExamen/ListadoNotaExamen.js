@@ -83,11 +83,11 @@ export default function ListadoNotaExamen() {
       num_boton: num_boton,
       cantidadPorPagina: cantidadPorPagina,
       idRamoExamen: idRamoExamen,
-    };
+    };console.log(data);
     SendDataService(url, operationUrl, data).then((data) => {
       const { paginador, ...datos } = data;
       setCantidadPaginas(paginador.cantPaginas);
-      setNotaExamen(datos.datos);
+      setNotaExamen(datos.datos);console.log(data);
     });
   }
   //PAGINADOR ---------------------
@@ -175,7 +175,9 @@ export default function ListadoNotaExamen() {
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
-                <th>ID</th> <th>Alumno Curso</th>
+                <th>ID</th> 
+                <th>Alumno</th>
+                <th>Curso</th>
                 <th>Examen</th>
                 <th>Nota examen</th>
                 <th>Aprueba examen</th>
@@ -185,10 +187,10 @@ export default function ListadoNotaExamen() {
             <tbody>
               {notaExamen.map((notaExamen) => (
                 <tr key={notaExamen.idNotaExamen}>
-
-                  <td>{notaExamen.idCursoAlumno}</td>
-                  <td>{notaExamen.nomExamen}</td>
                   <td>{notaExamen.idNotaExamen}</td>
+                  <td>{notaExamen.nomEmpleado}</td>
+                  <td>{notaExamen.nomCurso}</td>
+                  <td>{notaExamen.nomExamen}</td>
                   <td>{notaExamen.notaExamen}</td>
                   <td>{notaExamen.apruebaExamen}</td>
                   <td>

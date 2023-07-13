@@ -204,7 +204,7 @@ export default function ListadoEddEvalProyResp() {
                 </select>
               </div>
               <div className="form-group" id="btn2">
-                <label htmlFor="input_CantidadR">Proyecto empleado: </label>
+                <label htmlFor="input_CantidadR">Proyecto colaborador: </label>
                 <select
                   required
                   type="text"
@@ -302,7 +302,7 @@ export default function ListadoEddEvalProyResp() {
                   <th>ID</th>
                   <th>Evaluación</th>
                   <th>Proyecto</th>                  
-                  <th>Empleado</th>
+                  <th>Colaborador</th>
                   <th>Pregunta</th>
                   <th>Respuesta (T)</th>
 

@@ -30,10 +30,8 @@ const EditarEmpSubsist = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-    setnomProyecto(responseID[0].nomProyecto);
-    setfechaIni(responseID[0].fechaIni);
-    setfechaFin(responseID[0].fechaFin);
-    setidServicio(responseID[0].idServicio);
+    setidEmpleado(responseID[0].idEmpleado);
+    setidSubsistema(responseID[0].idSubsistema);
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -79,7 +77,7 @@ const EditarEmpSubsist = ({
 console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts('successEdited');
-      actualizarEmpSubsist(EmpSubsist);
+      actualizarEmpSubsist(EmpSubsist);console.log(response);
     });
 
     function actualizarEmpSubsist(EmpSubsist) {
